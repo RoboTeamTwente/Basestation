@@ -17,7 +17,7 @@
 
 #define MAX_BUF_LENGTH 128
 #define AUTO_TX_TIME 120 // (us)
-#define RECEIVEPKTLEN 13 //amount of bytes for a packet sent to the robot
+#define RECEIVEPKTLEN 8 //amount of bytes for a packet sent to the robot
 
 SX1280 SX1280_struct;
 SX1280 * SX; // pointer to the datastruct

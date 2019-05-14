@@ -591,8 +591,8 @@ void printBasestation(uint8_t input[13]) {
 	cam_rotation |= input[12]; //s
 
 	char msg[100];
-	sprintf(msg, "\tRoboID: %i \n\r", id);
-	TextOut(msg);
+	//sprintf(msg, "\tRoboID: %i \n\r", id);
+	//TextOut(msg);
 	sprintf(msg, "\tDebug info: %i \n\r", debug_info);
 	TextOut(msg);
 	sprintf(msg, "\tRho: %i \n\r\tTheta: %i \n\r", rho, theta);
@@ -611,7 +611,7 @@ void printBasestation(uint8_t input[13]) {
 	TextOut(msg);
 	sprintf(msg, "\tAngular velocity: %i \n\r", velocity_angular);
 	TextOut(msg);
-	sprintf(msg, "\tCAMERA \n\r\t use cam info: %i \n\r\t position x: %i \n\r\t position y: %i \n\r\t rotation: %i \n\r\n\r", use_cam_info, cam_position_x, cam_position_y, cam_rotation);
+	sprintf(msg, "\tCAMERA \n\r\t use cam info: %i \n\r\t rotation: %i \n\r\n\r", use_cam_info, cam_rotation);
 	TextOut(msg);
 
 }
@@ -641,7 +641,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim){
 //				if (((msgBuff[sendToId].msg[5]>>2)&1) == 1) { // print only if kick=1
 //					printBasestation(msgBuff[sendToId].msg);
 //				}
-			SendPacket(SX, msgBuff[sendToId].msg, 13);
+			SendPacket(SX, msgBuff[sendToId].msg, RECEIVEPKTLEN);
 		}
 		// increment id
 		if (sendToId < 15) {

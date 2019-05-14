@@ -304,14 +304,14 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 	  // store the latest data in usbData and usbLength
 
 	  // if the length is correct, store the data in the buffer
-	  if (* Len == 13) {
+	  if (* Len == 10) {
 		  // determine the robot id
-		  uint8_t usbDataRobotId = Buf[0] >> 3;
+		  uint8_t usbDataRobotId = Buf[0];
 
 		  // check if the usb data robot id is legal
 		  if (usbDataRobotId < 16 && !msgBuff[usbDataRobotId].isNew) {
 			  // put the message in the buffer
-			  memcpy(msgBuff[usbDataRobotId].msg, Buf, 13);
+			  memcpy(msgBuff[usbDataRobotId].msg, Buf+2, 8);
 			  msgBuff[usbDataRobotId].isNew = true;
 			  return (USBD_OK);
 		  }
