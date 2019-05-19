@@ -16,7 +16,7 @@ struct msgsBufferStatus {
 	bool isNew;
 };
 
-struct msgsBufferStatus msgBuff[16];
+struct msgsBufferStatus msgBuff[17];
 
 uint8_t BS_DEBUG;
 

@@ -21,13 +21,26 @@ typedef struct GPIO_Pin{
 } GPIO_Pin;
 
 /////////////////////////////////// LIST OF KNOWN GPIO PINS
-extern GPIO_Pin SX_IRQ;
-extern GPIO_Pin SX_RST;
-extern GPIO_Pin SX_BUSY;
-extern GPIO_Pin SPI3_CS;
-extern GPIO_Pin LD_3;
-extern GPIO_Pin LD_2;
+extern GPIO_Pin SX_TX_IRQ;
+extern GPIO_Pin SX_TX_RST;
+extern GPIO_Pin SX_TX_BUSY;
+extern GPIO_Pin SX_TX_CS;
 
+extern GPIO_Pin SX_RX_IRQ;
+extern GPIO_Pin SX_RX_RST;
+extern GPIO_Pin SX_RX_BUSY;
+extern GPIO_Pin SX_RX_CS;
+
+extern GPIO_Pin LD_3; // stm32 nucleo on-board LED2
+extern GPIO_Pin LD_2; // stm32 nucleo on-board LED2
+
+extern GPIO_Pin LD_TX; // basestation TX LED
+extern GPIO_Pin LD_RX;
+extern GPIO_Pin LD_ACTIVE; // basestation ACTIVE LED
+extern GPIO_Pin LD_USB; // basestation USB LED
+extern GPIO_Pin LD_LED1; // basestation LED1
+extern GPIO_Pin LD_LED2; // basestation LED2 // MATCHES WITH stm32 nucleo on-board LED1
+extern GPIO_Pin LD_LED3; // basestation LED3
 /////////////////////////////////////////////// GPIO UTILITY FUNCTIONS
 
 // Set a GPIO Pin

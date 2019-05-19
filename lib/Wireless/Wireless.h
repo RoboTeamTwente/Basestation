@@ -19,13 +19,15 @@
 #define AUTO_TX_TIME 120 // (us)
 #define RECEIVEPKTLEN 8 //amount of bytes for a packet sent to the robot
 
-SX1280 SX1280_struct;
-SX1280 * SX; // pointer to the datastruct
+SX1280 SX1280_TX_struct;
+SX1280 SX1280_RX_struct;
+SX1280 * SX_TX; // pointer to the datastruct for SX TX module
+SX1280 * SX_RX; // pointer to the datastruct for SX RX module
 uint8_t * Bot_to_PC; // pointer to feedback data struct
 uint8_t * PC_to_Bot; // pointer to received data struct
 
 // Public Functions
-SX1280 * Wireless_Init(float channel, SPI_HandleTypeDef * WirelessSpi);
+SX1280 * Wireless_Init(float channel, SPI_HandleTypeDef * WirelessSpi, uint8_t mode); // mode=0 -> TX, mode=1 -> RX
 void SendPacket(SX1280* SX, uint8_t * data, uint8_t Nbytes);
 void ReceivePacket(SX1280* SX);
 void Wireless_IRQ_Handler(SX1280* SX, uint8_t * data, uint8_t Nbytes);
