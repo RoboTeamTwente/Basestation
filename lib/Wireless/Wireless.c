@@ -18,6 +18,8 @@
 uint8_t TX_buffer[MAX_BUF_LENGTH] __attribute__((aligned(4)));
 uint8_t RX_buffer[MAX_BUF_LENGTH] __attribute__((aligned(4)));
 
+bool isReceiving = false;
+
 // init structs
 SX1280_Settings set = {
         .frequency = 2400000000,
@@ -114,6 +116,13 @@ void Wireless_IRQ_Handler(SX1280* SX, uint8_t * data, uint8_t Nbytes){
     if(irq & RX_DONE){
 //    	TextOut("SX_IRQ RX_DONE\n\r");
     	toggle_pin(LD_RX);
+    	// if signal is strong, then receive packet; otherwise wait for packets
+    	if (SX->Packet_status->RSSISync < 160) {
+    		ReceivePacket(SX);
+    	}else{
+    		// not necessary to force setRX() here when configured in Rx Continuous mode
+    		//setRX(SX, SX->SX_settings->periodBase, WIRELESS_RX_COUNT);
+    	}
     }
 
     if(irq & SYNCWORD_VALID) {
@@ -145,5 +154,7 @@ void Wireless_DMA_Handler(SX1280* SX, uint8_t* output){
     if(SX->expect_packet){ // expecting incoming packet in the buffer
     	SX->expect_packet = false;
     	// reset RX if not in continuous RX mode!
+    	memcpy(Bot_to_PC, SX->RXbuf+3, RECEIVEPKTLEN);
+    	isReceiving = true;
     }
 }

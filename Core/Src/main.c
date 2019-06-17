@@ -99,6 +99,7 @@ static void MX_SPI2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+char msg[24];
 
 /* USER CODE END 0 */
 
@@ -149,7 +150,7 @@ int main(void)
   SX_TX = Wireless_Init(20, &hspi1, 0); // mode 0 for tx
 
   // init SX RX module
-  SX_RX = Wireless_Init(20, &hspi2, 1); // mode 1 for rx
+  SX_RX = Wireless_Init(40, &hspi2, 1); // mode 1 for rx
   SX_RX->SX_settings->syncWords[0] = robot_syncWord[16]; // syncword[16]=0x82108610 for basestation to receive
   setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
   setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);
@@ -162,10 +163,23 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	 // alternating led to see if the code is still running
-	  HAL_Delay(1000);
-	  if (SX_TX != NULL && SX_RX != NULL) toggle_pin(LD_ACTIVE);
-	  else toggle_pin(LD_LED2);
+	// alternating led every second to see if the code is still running
+	static int printTime = 0;
+	if (HAL_GetTick() >  printTime + 1000) {
+		printTime = HAL_GetTick();
+		if (SX_TX != NULL && SX_RX != NULL) toggle_pin(LD_ACTIVE);
+		else toggle_pin(LD_LED2);
+	}
+
+	if (isReceiving) {
+		for (int i=0; i<8; i++) {
+			sprintf (&msg[i*3],"%02X ", Bot_to_PC[i]);
+		}
+//		TextOut("received from robot:");
+		HexOut(Bot_to_PC, 8);
+//		TextOut("\n\r");
+		isReceiving = false;
+	}
   }
     /* USER CODE END WHILE */
 
@@ -573,6 +587,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 	}
 	if (GPIO_Pin == SX_RX_IRQ.PIN) {
 		Wireless_IRQ_Handler(SX_RX, 0, 0);
+		toggle_pin(LD_LED1);
 	}
 }
 

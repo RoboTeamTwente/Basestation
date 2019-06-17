@@ -23,8 +23,10 @@ SX1280 SX1280_TX_struct;
 SX1280 SX1280_RX_struct;
 SX1280 * SX_TX; // pointer to the datastruct for SX TX module
 SX1280 * SX_RX; // pointer to the datastruct for SX RX module
-uint8_t * Bot_to_PC; // pointer to feedback data struct
-uint8_t * PC_to_Bot; // pointer to received data struct
+uint8_t Bot_to_PC[RECEIVEPKTLEN]; // pointer to feedback data struct
+uint8_t PC_to_Bot[RECEIVEPKTLEN]; // pointer to received data struct
+
+bool isReceiving;
 
 // Public Functions
 SX1280 * Wireless_Init(float channel, SPI_HandleTypeDef * WirelessSpi, uint8_t mode); // mode=0 -> TX, mode=1 -> RX
