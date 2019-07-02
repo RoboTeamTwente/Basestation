@@ -147,10 +147,10 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_Delay(1000);
   // init SX TX module
-  SX_TX = Wireless_Init(20, &hspi1, 0); // mode 0 for tx
+  SX_TX = Wireless_Init(COMMAND_CHANNEL, &hspi1, 0); // mode 0 for tx
 
   // init SX RX module
-  SX_RX = Wireless_Init(40, &hspi2, 1); // mode 1 for rx
+  SX_RX = Wireless_Init(FEEDBACK_CHANNEL, &hspi2, 1); // mode 1 for rx
   SX_RX->SX_settings->syncWords[0] = robot_syncWord[16]; // syncword[16]=0x82108610 for basestation to receive
   setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
   setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);

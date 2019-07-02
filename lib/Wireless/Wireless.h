@@ -19,6 +19,9 @@
 #define AUTO_TX_TIME 120 // (us)
 #define RECEIVEPKTLEN 8 //amount of bytes for a packet sent to the robot
 
+#define FEEDBACK_CHANNEL -5	// 2.395 GHz
+#define COMMAND_CHANNEL -15 // 2.385 GHz
+
 SX1280 SX1280_TX_struct;
 SX1280 SX1280_RX_struct;
 SX1280 * SX_TX; // pointer to the datastruct for SX TX module
