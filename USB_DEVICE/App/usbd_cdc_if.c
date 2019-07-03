@@ -53,6 +53,8 @@
 /* USER CODE BEGIN INCLUDE */
 #include "msg_buff.h"
 #include "gpio_util.h"
+#include "../lib/FT812Q/FT812Q.h"
+
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -309,12 +311,14 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 		  toggle_pin (LD_USB);
 		  // determine the robot id
 		  uint8_t usbDataRobotId = Buf[0];
+		  test2->USBstatus = true;
 		  // check if the usb data robot id is legal
 		  // id=16 is the rx basestation
 		  if (usbDataRobotId <= 16 && !msgBuff[usbDataRobotId].isNew) {
 			  // put the message in the buffer
 			  memcpy(msgBuff[usbDataRobotId].msg, Buf+2, 8);
 			  msgBuff[usbDataRobotId].isNew = true;
+			  msgBuff[usbDataRobotId].timeStamp = HAL_GetTick();
 			  return (USBD_OK);
 		  }
 	  }

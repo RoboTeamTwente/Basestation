@@ -14,11 +14,12 @@ bool isTransmitting;
 struct msgsBufferStatus {
 	uint8_t msg[13]; // packet size in bytes
 	bool isNew;
+	uint32_t timeStamp;
+
 };
 
 struct msgsBufferStatus msgBuff[17];
 
 uint8_t BS_DEBUG;
-
 
 #endif // __MSG_BUFF_STATUS_H

@@ -49,8 +49,11 @@
 
 #include "TextOut/TextOut.h"
 #include "msg_buff.h"
-
+#include "limits.h"
 #include "gpio_util.h"
+
+// Screen
+#include "../lib/FT812Q/FT812Q.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,6 +72,9 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+
+QSPI_HandleTypeDef hqspi;
+DMA_HandleTypeDef hdma_quadspi;
 
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
@@ -93,6 +99,8 @@ static void MX_USART3_UART_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_SPI2_Init(void);
+static void MX_GFXSIMULATOR_Init(void);
+static void MX_QUADSPI_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -110,6 +118,11 @@ char msg[24];
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+
+	// Screen
+	uint16_t* touchPoint;
+	uint8_t result;
+	state = INIT;
 
   /* USER CODE END 1 */
 
@@ -143,7 +156,8 @@ int main(void)
   MX_TIM1_Init();
   MX_SPI1_Init();
   MX_SPI2_Init();
-
+  MX_GFXSIMULATOR_Init();
+  MX_QUADSPI_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(1000);
   // init SX TX module
@@ -163,13 +177,73 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	// alternating led every second to see if the code is still running
-	static int printTime = 0;
-	if (HAL_GetTick() >  printTime + 1000) {
-		printTime = HAL_GetTick();
-		if (SX_TX != NULL && SX_RX != NULL) toggle_pin(LD_ACTIVE);
-		else toggle_pin(LD_LED2);
-	}
+	 // alternating led to see if the code is still running
+	  static uint printTime = 0;
+	  if (HAL_GetTick() > printTime + 1000){
+		  printTime = HAL_GetTick();
+		  if (SX_TX != NULL && SX_RX != NULL) toggle_pin(LD_ACTIVE);
+		  else toggle_pin(LD_LED2);
+
+		  for (int i = 0; i < 16; i++){
+			  if (abs(HAL_GetTick() + UINT_MAX + 1 - msgBuff[i].timeStamp) < 30){
+				  robots[i].robotStatus = true;
+			  } else {
+				  robots[i].robotStatus = false;
+			  }
+		  }
+
+		  if (state == READ_TOUCH_ID){
+			  drawBasestation(1);
+			  test2->USBstatus = false;
+		  } else if (state == READ_TOUCH_RETURN){
+			  drawRobotInfo(test2->robotID, 1);
+			  test2->USBstatus = false;
+		  }
+
+		  for (int i = 0; i < 16; i++){
+			  robots[i].TX_Packets = 1;
+		  }
+	  }
+
+//	  Screen
+	  switch(state){
+	  case INIT:
+		  display_Init();
+		  state = MAIN;
+		  break;
+	  case MAIN:
+		  drawBasestation(test2->USBstatus);
+		  state = READ_TOUCH_ID;
+		  break;
+	  case READ_TOUCH_ID:
+		  touchPoint = readTouch();
+		  result = isInArea(touchPoint);
+		  if (result < ROBOT_ID_MAX + 1){
+			  test2->robotID = result; // TODO: not call test2
+			  state = ROBOT;
+			  break;
+		  } else {
+			  state = READ_TOUCH_ID;
+			  break;
+		  }
+	  case ROBOT:
+		  drawRobotInfo(test2->robotID, 1);
+		  state = READ_TOUCH_RETURN;
+		  break;
+	  case READ_TOUCH_RETURN:
+		  drawRobotInfo(test2->robotID, 1);
+		  touchPoint = readTouch();
+		  result = isInArea(touchPoint);
+		  if (result == RETURN_VALUE){
+			  state = MAIN;
+			  break;
+		  } else {
+			  state = READ_TOUCH_RETURN;
+			  break;
+		  }
+	  default:
+		  state = MAIN;
+	  }
 
 	if (isReceiving) {
 		for (int i=0; i<8; i++) {
@@ -244,6 +318,62 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief GFXSIMULATOR Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GFXSIMULATOR_Init(void)
+{
+
+  /* USER CODE BEGIN GFXSIMULATOR_Init 0 */
+
+  /* USER CODE END GFXSIMULATOR_Init 0 */
+
+  /* USER CODE BEGIN GFXSIMULATOR_Init 1 */
+
+  /* USER CODE END GFXSIMULATOR_Init 1 */
+  /* USER CODE BEGIN GFXSIMULATOR_Init 2 */
+
+  /* USER CODE END GFXSIMULATOR_Init 2 */
+
+}
+
+/**
+  * @brief QUADSPI Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_QUADSPI_Init(void)
+{
+
+  /* USER CODE BEGIN QUADSPI_Init 0 */
+
+  /* USER CODE END QUADSPI_Init 0 */
+
+  /* USER CODE BEGIN QUADSPI_Init 1 */
+
+  /* USER CODE END QUADSPI_Init 1 */
+  /* QUADSPI parameter configuration*/
+  hqspi.Instance = QUADSPI;
+  hqspi.Init.ClockPrescaler = 9;
+  hqspi.Init.FifoThreshold = 1;
+  hqspi.Init.SampleShifting = QSPI_SAMPLE_SHIFTING_NONE;
+  hqspi.Init.FlashSize = 31;
+  hqspi.Init.ChipSelectHighTime = QSPI_CS_HIGH_TIME_1_CYCLE;
+  hqspi.Init.ClockMode = QSPI_CLOCK_MODE_0;
+  hqspi.Init.FlashID = QSPI_FLASH_ID_1;
+  hqspi.Init.DualFlash = QSPI_DUALFLASH_DISABLE;
+  if (HAL_QSPI_Init(&hqspi) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN QUADSPI_Init 2 */
+
+  /* USER CODE END QUADSPI_Init 2 */
+
 }
 
 /**
@@ -427,6 +557,9 @@ static void MX_DMA_Init(void)
   /* DMA2_Stream0_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+  /* DMA2_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
   /* DMA2_Stream3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
@@ -443,11 +576,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
