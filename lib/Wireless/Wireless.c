@@ -37,7 +37,7 @@ SX1280_Settings set = {
         .RXoffset = 0x00,
         .ModParam = {FLRC_BR_1_300_BW_1_2, FLRC_CR_3_4, BT_0_5},
         .PacketParam = {PREAMBLE_LENGTH_24_BITS, FLRC_SYNC_WORD_LEN_P32S, RX_MATCH_SYNC_WORD_1, PACKET_FIXED_LENGTH, RECEIVEPKTLEN, CRC_2_BYTE, NO_WHITENING},
-        .DIOIRQ = {(TX_DONE|RX_DONE|RXTX_TIMEOUT), (TX_DONE|RX_DONE|RXTX_TIMEOUT), NONE, NONE}
+        .DIOIRQ = {(TX_DONE|RX_DONE|CRC_ERROR|RXTX_TIMEOUT), (TX_DONE|RX_DONE|RXTX_TIMEOUT), NONE, NONE}
 };
 SX1280_Packet_Status PacketStat;
 
@@ -106,6 +106,11 @@ void Wireless_IRQ_Handler(SX1280* SX, uint8_t * data, uint8_t Nbytes){
 //	TextOut(msg);
     clearIRQ(SX,ALL);
 
+    if(irq & CRC_ERROR) {
+//    	TextOut("SX_IRQ CRC_ERROR\n\r");
+    	return;
+    }
+
     // process interrupts
     if(irq & TX_DONE){
 //    	TextOut("SX_IRQ TX_DONE\n\r");
@@ -131,10 +136,6 @@ void Wireless_IRQ_Handler(SX1280* SX, uint8_t * data, uint8_t Nbytes){
 
     if(irq & SYNCWORD_ERROR) {
 //    	TextOut("SX_IRQ SYNCWORD_ERROR\n\r");
-    }
-
-    if(irq & CRC_ERROR) {
-//    	TextOut("SX_IRQ CRC_ERROR\n\r");
     }
 
     if(irq & RXTX_TIMEOUT) {

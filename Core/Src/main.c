@@ -172,9 +172,9 @@ int main(void)
 	}
 
 	if (isReceiving) {
-		for (int i=0; i<8; i++) {
-			sprintf (&msg[i*3],"%02X ", Bot_to_PC[i]);
-		}
+//		for (int i=0; i<8; i++) {
+//			sprintf (&msg[i*3],"%02X ", Bot_to_PC[i]);
+//		}
 //		TextOut("received from robot:");
 		HexOut(Bot_to_PC, 8);
 //		TextOut("\n\r");
