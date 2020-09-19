@@ -44,16 +44,16 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "Wireless/Wireless.h"
-#include "Wireless/SX1280/SX1280.h"
+#include "Wireless.h"
+#include "SX1280/SX1280.h"
 
-#include "TextOut/TextOut.h"
+#include "TextOut.h"
 #include "msg_buff.h"
 #include "limits.h"
 #include "gpio_util.h"
 
 // Screen
-#include "../lib/FT812Q/FT812Q.h"
+#include "FT812Q.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -175,85 +175,89 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	 // alternating led to see if the code is still running
-	  static uint printTime = 0;
-	  if (HAL_GetTick() > printTime + 1000){
-		  printTime = HAL_GetTick();
-		  if (SX_TX != NULL && SX_RX != NULL) toggle_pin(LD_ACTIVE);
-		  else toggle_pin(LD_LED2);
+  display_Init();
 
-		  for (int i = 0; i < 16; i++){
-			  if (abs(HAL_GetTick() + UINT_MAX + 1 - msgBuff[i].timeStamp) < 30){
-				  robots[i].robotStatus = true;
-			  } else {
-				  robots[i].robotStatus = false;
-			  }
-		  }
+  while (1){
+    HAL_Delay(100);
+    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
 
-		  if (state == READ_TOUCH_ID){
-			  drawBasestation(1);
-			  test2->USBstatus = false;
-		  } else if (state == READ_TOUCH_RETURN){
-			  drawRobotInfo(test2->robotID, 1);
-			  test2->USBstatus = false;
-		  }
+	//  // alternating led to see if the code is still running
+	//   static uint printTime = 0;
+	//   if (HAL_GetTick() > printTime + 1000){
+	// 	  printTime = HAL_GetTick();
+	// 	  if (SX_TX != NULL && SX_RX != NULL) toggle_pin(LD_ACTIVE);
+	// 	  else toggle_pin(LD_LED2);
 
-		  for (int i = 0; i < 16; i++){
-			  robots[i].TX_Packets = 1;
-		  }
-	  }
+	// 	  for (int i = 0; i < 16; i++){
+	// 		  if (abs(HAL_GetTick() + UINT_MAX + 1 - msgBuff[i].timeStamp) < 30){
+	// 			  robots[i].robotStatus = true;
+	// 		  } else {
+	// 			  robots[i].robotStatus = false;
+	// 		  }
+	// 	  }
+
+	// 	  if (state == READ_TOUCH_ID){
+	// 		  drawBasestation(1);
+	// 		  test2->USBstatus = false;
+	// 	  } else if (state == READ_TOUCH_RETURN){
+	// 		  drawRobotInfo(test2->robotID, 1);
+	// 		  test2->USBstatus = false;
+	// 	  }
+
+	// 	  for (int i = 0; i < 16; i++){
+	// 		  robots[i].TX_Packets = 1;
+	// 	  }
+	//   }
 
 //	  Screen
-	  switch(state){
-	  case INIT:
-		  display_Init();
-		  state = MAIN;
-		  break;
-	  case MAIN:
-		  drawBasestation(test2->USBstatus);
-		  state = READ_TOUCH_ID;
-		  break;
-	  case READ_TOUCH_ID:
-		  touchPoint = readTouch();
-		  result = isInArea(touchPoint);
-		  if (result < ROBOT_ID_MAX + 1){
-			  test2->robotID = result; // TODO: not call test2
-			  state = ROBOT;
-			  break;
-		  } else {
-			  state = READ_TOUCH_ID;
-			  break;
-		  }
-	  case ROBOT:
-		  drawRobotInfo(test2->robotID, 1);
-		  state = READ_TOUCH_RETURN;
-		  break;
-	  case READ_TOUCH_RETURN:
-		  drawRobotInfo(test2->robotID, 1);
-		  touchPoint = readTouch();
-		  result = isInArea(touchPoint);
-		  if (result == RETURN_VALUE){
-			  state = MAIN;
-			  break;
-		  } else {
-			  state = READ_TOUCH_RETURN;
-			  break;
-		  }
-	  default:
-		  state = MAIN;
-	  }
+	  // switch(state){
+	  // case INIT:
+		//   display_Init();
+		//   state = MAIN;
+		//   break;
+	  // case MAIN:
+		//   drawBasestation(test2->USBstatus);
+		//   state = READ_TOUCH_ID;
+		//   break;
+	  // case READ_TOUCH_ID:
+		//   touchPoint = readTouch();
+		//   result = isInArea(touchPoint);
+		//   if (result < ROBOT_ID_MAX + 1){
+		// 	  test2->robotID = result; // TODO: not call test2
+		// 	  state = ROBOT;
+		// 	  break;
+		//   } else {
+		// 	  state = READ_TOUCH_ID;
+		// 	  break;
+		//   }
+	  // case ROBOT:
+		//   drawRobotInfo(test2->robotID, 1);
+		//   state = READ_TOUCH_RETURN;
+		//   break;
+	  // case READ_TOUCH_RETURN:
+		//   drawRobotInfo(test2->robotID, 1);
+		//   touchPoint = readTouch();
+		//   result = isInArea(touchPoint);
+		//   if (result == RETURN_VALUE){
+		// 	  state = MAIN;
+		// 	  break;
+		//   } else {
+		// 	  state = READ_TOUCH_RETURN;
+		// 	  break;
+		//   }
+	  // default:
+		//   state = MAIN;
+	  // }
 
-	if (isReceiving) {
-		for (int i=0; i<8; i++) {
-			sprintf (&msg[i*3],"%02X ", Bot_to_PC[i]);
-		}
-//		TextOut("received from robot:");
-		HexOut(Bot_to_PC, 8);
-//		TextOut("\n\r");
-		isReceiving = false;
-	}
+// 	if (isReceiving) {
+// 		for (int i=0; i<8; i++) {
+// 			sprintf (&msg[i*3],"%02X ", Bot_to_PC[i]);
+// 		}
+// //		TextOut("received from robot:");
+// 		HexOut(Bot_to_PC, 8);
+// //		TextOut("\n\r");
+// 		isReceiving = false;
+// 	}
   }
     /* USER CODE END WHILE */
 
