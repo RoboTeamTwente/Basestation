@@ -7,6 +7,8 @@ if "Core" in directories:
 	directories.remove("Core")
 if "Drivers" in directories:
 	directories.remove("Drivers")
+if "python_utils" in directories:
+	directories.remove("python_utils")
 
 print("Directories to merge:", ", ".join(directories))
 # Copy all directories to both Core/Inc and Core/Src
