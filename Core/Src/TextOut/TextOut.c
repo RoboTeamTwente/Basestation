@@ -15,7 +15,7 @@
 #include "BaseTypes.h"
 
 uint8_t TxBuffer[1024];
-extern USBD_HandleTypeDef hUsbDeviceFS;
+extern USBD_HandleTypeDef hUsbDeviceHS;
 
 /**
  * @brief Sends a log message over USB using the PACKET_TYPE_BASESTATION_LOG header.
@@ -51,12 +51,12 @@ void TextOut(char *str){
 }
 
 void HexOut(uint8_t data[], uint8_t length){
-	USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
-	if (hUsbDeviceFS.dev_state == 3 || hUsbDeviceFS.dev_state == 4) {
+	USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceHS.pClassData;
+	if (hUsbDeviceHS.dev_state == 3 || hUsbDeviceHS.dev_state == 4) {
 		while(hcdc->TxState != 0);
 		// TODO unneccesary memcpy? How about CDC_Transmit_FS(data, length);? 
 		// 	 if CDC_Transmit_FS is blocking, no fear to have 'data' go out of scope.
 		memcpy(TxBuffer, data, length);
-		CDC_Transmit_FS(TxBuffer, length);
+		CDC_Transmit_HS(TxBuffer, length);
 	}
 }

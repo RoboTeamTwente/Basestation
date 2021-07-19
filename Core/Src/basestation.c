@@ -18,7 +18,7 @@ volatile int handled_RobotBuzzer = 0;
 volatile int handled_RobotStateInfo = 0;
 
 /* Import hardware handles from main.c */
-extern SPI_HandleTypeDef hspi1;
+extern SPI_HandleTypeDef hspi4;
 extern SPI_HandleTypeDef hspi2;
 extern TIM_HandleTypeDef htim1;
 
@@ -51,10 +51,10 @@ void init(){
     HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
     
     LOG("[init] Initializing SX_TX\n");
-    SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi1, 0);
+    SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
     
     LOG("[init] Initializing SX_RX\n");
-    SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi2, 1);
+    SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi4, 1);
 
     // Set SX_RX syncword to basestation syncword
     SX_RX->SX_settings->syncWords[0] = robot_syncWord[16];

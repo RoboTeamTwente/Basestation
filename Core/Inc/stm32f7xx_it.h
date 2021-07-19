@@ -56,18 +56,16 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
-void EXTI2_IRQHandler(void);
-void DMA1_Stream1_IRQHandler(void);
-void DMA1_Stream4_IRQHandler(void);
-void EXTI9_5_IRQHandler(void);
+void EXTI3_IRQHandler(void);
+void EXTI4_IRQHandler(void);
 void TIM1_UP_TIM10_IRQHandler(void);
-void SPI1_IRQHandler(void);
 void SPI2_IRQHandler(void);
 void EXTI15_10_IRQHandler(void);
-void DMA2_Stream0_IRQHandler(void);
+void SDMMC1_IRQHandler(void);
 void DMA2_Stream2_IRQHandler(void);
 void DMA2_Stream3_IRQHandler(void);
-void OTG_FS_IRQHandler(void);
+void OTG_HS_IRQHandler(void);
+void SPI4_IRQHandler(void);
 void QUADSPI_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
