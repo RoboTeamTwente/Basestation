@@ -51,16 +51,16 @@ void init(){
     HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
     
     LOG("[init] Initializing SX_TX\n");
-    SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
+    // SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
     
     LOG("[init] Initializing SX_RX\n");
-    SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi4, 1);
+    // SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi4, 1);
 
     // Set SX_RX syncword to basestation syncword
-    SX_RX->SX_settings->syncWords[0] = robot_syncWord[16];
-    setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
-    // Start listening on the SX_RX for packets from the robots
-    setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);
+    // SX_RX->SX_settings->syncWords[0] = robot_syncWord[16];
+    // setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
+    // // Start listening on the SX_RX for packets from the robots
+    // setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);
 
     // Start the timer that is responsible for sending packets to the robots
     // With 16 robots at 60Hz each, this timer runs at approximately 960Hz
@@ -82,24 +82,27 @@ void loop(){
   /* Nothing should be sent to the PC while in an interrupt. Therefore, while in an interrupt, text can be placed in the logBuffer */
   /* Here, in the main loop, text can be safely sent to the PC */
   if(0 < strlen(logBuffer)){
-    LOG(logBuffer);        // Send any text in the buffer over USB to the PC
+    // LOG(logBuffer);        // Send any text in the buffer over USB to the PC
     logBuffer[0] = '\0';   // 'Empty' the buffer by setting the first byte to \0
   }
 
+  handled_RobotStateInfo++;
   /* Heartbeat every second */
-  if(heartbeat_1000ms + 1000 < HAL_GetTick()){
-    heartbeat_1000ms += 1000;
-    sprintf(logBuffer, "Tick | RC %d RF %d RB %d RSI %d\n",
-    handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer, handled_RobotStateInfo);
+  if(heartbeat_1000ms + 200 < HAL_GetTick()){
+    heartbeat_1000ms += 200;
+    sprintf(logBuffer, "hallo");// "Tick |  RSI %d\n",
+    // handled_RobotStateInfo);
     LOG(logBuffer);
     logBuffer[0] = '\0';
+    toggle_pin(LD_ACTIVE);
   }
+  // RC %d RF %d RB %d handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer,
 
   // TODO put multiple of these messages into a single USB packet, instead of sending every packet separately
   /* Send any new RobotFeedback packets */
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_RobotFeedback[id].isNewPacket){
-      HexOut(buffer_RobotFeedback[id].packet.payload, PACKET_SIZE_ROBOT_FEEDBACK);
+      // HexOut(buffer_RobotFeedback[id].packet.payload, PACKET_SIZE_ROBOT_FEEDBACK);
       buffer_RobotFeedback[id].isNewPacket = false;
     }
   }
@@ -108,7 +111,7 @@ void loop(){
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_RobotStateInfo[id].isNewPacket){
       handled_RobotBuzzer++;
-      HexOut(buffer_RobotStateInfo[id].packet.payload, PACKET_SIZE_ROBOT_STATE_INFO);
+      // HexOut(buffer_RobotStateInfo[id].packet.payload, PACKET_SIZE_ROBOT_STATE_INFO);
       buffer_RobotStateInfo[id].isNewPacket = false;
     }
   }
@@ -127,7 +130,7 @@ void loop(){
   /* Ensures that the CPU doesn't get overloaded with display stuff */
   // TODO switch to HAL_GetTick instead of counter
   if(screenCounter++ < 80000){
-    LOG("Tick\n");
+    // LOG("Tick\n");
     return;
   }
     

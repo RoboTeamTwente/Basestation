@@ -30,19 +30,19 @@ extern USBD_HandleTypeDef hUsbDeviceHS;
 // TODO Don't use malloc; Simply copy straight into the TxBuffer
 void LOG(char *message){
   // Add +1 to the length of the string to account for the extra header bytes
-	int length = strlen(message) + 1;
+	int length = strlen(message);
   // Free up space for header + message
-  uint8_t* buffer = malloc(length);
+  // uint8_t* buffer = malloc(length + 1);
   // Set the header
-  buffer[0] = PACKET_TYPE_BASESTATION_LOG;
+  message[0] = PACKET_TYPE_BASESTATION_LOG;
   // Enforce newline
-  buffer[length] = '\n';
+  message[length-1] = '\n';
   // Copy the message into the buffer, next to the header
-  memcpy(buffer+1, message, length-1);
+  // memcpy(buffer+1, message, length);
   // Send the message over USB
-	HexOut(buffer, length);
+	HexOut(message, length);
   // Free up the memory
-  free(buffer);
+  // free(buffer);
 }
 
 void TextOut(char *str){
@@ -52,7 +52,7 @@ void TextOut(char *str){
 
 void HexOut(uint8_t data[], uint8_t length){
 	USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceHS.pClassData;
-	if (hUsbDeviceHS.dev_state == 3 || hUsbDeviceHS.dev_state == 4) {
+	if (hcdc != NULL && (hUsbDeviceHS.dev_state == 3 || hUsbDeviceHS.dev_state == 4)) {
 		while(hcdc->TxState != 0);
 		// TODO unneccesary memcpy? How about CDC_Transmit_FS(data, length);? 
 		// 	 if CDC_Transmit_FS is blocking, no fear to have 'data' go out of scope.
