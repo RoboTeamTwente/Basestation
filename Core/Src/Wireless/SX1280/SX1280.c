@@ -186,7 +186,7 @@ void setPacketType(SX1280* SX, uint8_t type){
 }
 
 /* 11.7.3 SetRfFrequency, page 87 */
-void setRFFrequency(SX1280* SX, uint32_t frequency){
+void setRFFrequency(SX1280* SX, float frequency){
     uint8_t* ptr = SX->TXbuf;
     // wait till send complete
     while(SX->SPI_used){}
@@ -194,17 +194,17 @@ void setRFFrequency(SX1280* SX, uint32_t frequency){
     // make command
     *ptr++ = SET_RF_F;
     // set frequency
-    frequency = (uint32_t)((double)frequency*PLL_STEP);
+    uint32_t bin = (uint32_t)(((double)frequency)*PLL_STEP);
     //frequency =  0xB89D89; // hardcoded value for 2.4ghz
-    *ptr++ = (frequency >> 16) & 0xFF;
-    *ptr++ = (frequency >> 8 ) & 0xFF;
-    *ptr++ = (frequency      ) & 0xFF;
+    *ptr++ = (bin >> 16) & 0xFF;
+    *ptr++ = (bin >> 8 ) & 0xFF;
+    *ptr++ = (bin      ) & 0xFF;
     SendData(SX,4);
 }
 
 void setChannel(SX1280* SX, float channel) {
 	SX->SX_settings->channel = channel;
-	uint32_t frequency = (channel + 2400)*1000000;
+	float frequency = (channel + 2400)*1000000;
 	setRFFrequency(SX, frequency);
 }
 
@@ -427,7 +427,13 @@ bool SendData(SX1280* SX, uint8_t Nbytes){
     while(SX->SPI->State != HAL_SPI_STATE_READY){}
     // send/receive data
     set_pin(SX->CS_pin, LOW);
+    for(int i=0; i<200; i++){
+        asm("NOP");
+    }
     HAL_SPI_TransmitReceive(SX->SPI, SX->TXbuf, SX->RXbuf, Nbytes, 100);
+    for(int i=0; i<200; i++){
+        asm("NOP");
+    }
     set_pin(SX->CS_pin, HIGH);
     // wait for SX to process command
     while(read_pin(SX->BUSY_pin)) {}

@@ -91,7 +91,7 @@ void getRXBufferStatus(SX1280* SX);
 
 ////////////////////////////////////// private functions
 // private init functions
-void setRFFrequency(SX1280* SX, uint32_t frequency);
+void setRFFrequency(SX1280* SX, float frequency);
 void setModulationParam(SX1280* SX);
 void setBufferBase(SX1280* SX, uint8_t tx_address, uint8_t rx_address);
 void setPacketType(SX1280* SX, uint8_t type);

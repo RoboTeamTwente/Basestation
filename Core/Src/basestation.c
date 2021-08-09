@@ -48,19 +48,19 @@ uint32_t heartbeat_1000ms = 0;
 
 
 void init(){
-    HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
+    HAL_Delay(100); // TODO Why do we have this again? To allow for USB to start up iirc?
     
     LOG("[init] Initializing SX_TX\n");
-    // SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
+    SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
     
     LOG("[init] Initializing SX_RX\n");
-    // SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi4, 1);
+    SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi4, 1);
 
     // Set SX_RX syncword to basestation syncword
-    // SX_RX->SX_settings->syncWords[0] = robot_syncWord[16];
-    // setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
-    // // Start listening on the SX_RX for packets from the robots
-    // setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);
+    SX_RX->SX_settings->syncWords[0] = robot_syncWord[16];
+    setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
+    // Start listening on the SX_RX for packets from the robots
+    setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);
 
     // Start the timer that is responsible for sending packets to the robots
     // With 16 robots at 60Hz each, this timer runs at approximately 960Hz
@@ -359,11 +359,11 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
 /* External interrupt. Triggers when one of the SX1280 antennas has information available */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {  
   // SX that sends packets wants to tell us something
-  if (GPIO_Pin == SX_TX_IRQ.PIN) {
+  if (GPIO_Pin == SX_TX_IRQ.PIN && SX_TX != NULL) {
     Wireless_IRQ_Handler(SX_TX, 0, 0);
   }
   // SX that receives packets wants to tell us something
-  if (GPIO_Pin == SX_RX_IRQ.PIN) {
+  if (GPIO_Pin == SX_RX_IRQ.PIN && SX_RX != NULL) {
     Wireless_IRQ_Handler(SX_RX, 0, 0);
     toggle_pin(LD_LED1);
   } 
