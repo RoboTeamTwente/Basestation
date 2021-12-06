@@ -4,6 +4,7 @@
 #include "TextOut.h"
 #include "packet_buffers.h"
 #include "FT812Q_Drawing.h"
+#include "iwdg.h"
 
 #include "BaseTypes.h"
 #include "BasestationStatistics.h"
@@ -21,6 +22,9 @@ volatile int handled_RobotStateInfo = 0;
 extern SPI_HandleTypeDef hspi4;
 extern SPI_HandleTypeDef hspi2;
 extern TIM_HandleTypeDef htim1;
+
+/* Watchdog timer handler */
+IWDG_Handle* iwdg;
 
 /* Screen variables */
 DISPLAY_STATES displayState = DISPLAY_STATE_DEINITIALIZED;
@@ -48,7 +52,8 @@ uint32_t heartbeat_1000ms = 0;
 
 
 void init(){
-    HAL_Delay(100); // TODO Why do we have this again? To allow for USB to start up iirc?
+    
+    HAL_Delay(1000); // Wait for 1000ms to allow for USB to start up
     
     LOG("[init] Initializing SX_TX\n");
     SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
@@ -71,12 +76,14 @@ void init(){
     // displayState = DISPLAY_STATE_INITIALIZED;
     // drawBasestation(true);
 
+    IWDG_Init(iwdg);
     LOG("[init] Initializion complete\n");
 }
 
 
 
 void loop(){
+  IWDG_Refresh(iwdg);
   
   /* Send logs to PC, if there is anything in the buffer */
   /* Nothing should be sent to the PC while in an interrupt. Therefore, while in an interrupt, text can be placed in the logBuffer */
@@ -90,13 +97,14 @@ void loop(){
   /* Heartbeat every second */
   if(heartbeat_1000ms + 200 < HAL_GetTick()){
     heartbeat_1000ms += 200;
-    sprintf(logBuffer, "hallo");// "Tick |  RSI %d\n",
+    sprintf(logBuffer, "hallo\n");// "Tick |  RSI %d\n",
     // handled_RobotStateInfo);
     LOG(logBuffer);
     logBuffer[0] = '\0';
     toggle_pin(LD_ACTIVE);
   }
   // RC %d RF %d RB %d handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer,
+  return;
 
   // TODO put multiple of these messages into a single USB packet, instead of sending every packet separately
   /* Send any new RobotFeedback packets */

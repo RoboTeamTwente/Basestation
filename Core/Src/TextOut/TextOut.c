@@ -29,6 +29,7 @@ extern USBD_HandleTypeDef hUsbDeviceHS;
  */
 // TODO Don't use malloc; Simply copy straight into the TxBuffer
 void LOG(char *message){
+  toggle_pin(LD_LED2);
   // Add +1 to the length of the string to account for the extra header bytes
 	int length = strlen(message);
   // Free up space for header + message
@@ -52,7 +53,9 @@ void TextOut(char *str){
 
 void HexOut(uint8_t data[], uint8_t length){
 	USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceHS.pClassData;
-	if (hcdc != NULL && (hUsbDeviceHS.dev_state == 3 || hUsbDeviceHS.dev_state == 4)) {
+	// toggle_pin(LD_LED2);
+  if (hcdc != NULL && (hUsbDeviceHS.dev_state == 3 || hUsbDeviceHS.dev_state == 4)) {
+    
 		while(hcdc->TxState != 0);
 		// TODO unneccesary memcpy? How about CDC_Transmit_FS(data, length);? 
 		// 	 if CDC_Transmit_FS is blocking, no fear to have 'data' go out of scope.

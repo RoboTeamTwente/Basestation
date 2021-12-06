@@ -8,6 +8,8 @@
 #define MAX_NUMBER_OF_ROBOTS 16
 #define MAX_ROBOT_ID (MAX_NUMBER_OF_ROBOTS-1)
 
+
+
 void init();
 void loop();
 
