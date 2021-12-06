@@ -17,8 +17,10 @@
 
 #define MAX_BUF_LENGTH 128
 
-#define WIRELESS_FEEDBACK_CHANNEL ((float)(-43.0))	// 2.395 GHz
-#define WIRELESS_COMMAND_CHANNEL  ((float)(-10.0)) // 2.385 GHz
+// SX1280 Supports ranges between 2.4GHz and 2.5 GHz, with steps of 1 MHz
+// Page 20 Table 10-2 - Synthesizer frequency range
+#define WIRELESS_FEEDBACK_CHANNEL ((float)( 50.0 /*  +50 MHz */ ))  // 2.450 GHz
+#define WIRELESS_COMMAND_CHANNEL  ((float)(100.0 /* +100 MHz */ ))  // 2.500 GHz
 
 SX1280 SX1280_TX_struct;
 SX1280 SX1280_RX_struct;
