@@ -166,14 +166,14 @@ while True:
 
 					if test == "kicker-reflect":
 						cmd.doKick = True
-						cmd.kickChipPower = 0.2
+						cmd.kickChipPower = 2
 
 					if test == "kicker" or test == "chipper":
 						if period == 0:
 							if test == "kicker"  : cmd.doKick = True
 							if test == "chipper" : cmd.doChip = True
 							cmd.doForce = True
-							cmd.kickChipPower = 0.2
+							cmd.kickChipPower = 2
 
 					if test == "dribbler":
 						cmd.dribbler = math.floor(8 * periodFraction)

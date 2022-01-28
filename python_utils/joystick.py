@@ -64,13 +64,13 @@ class JoystickWrapper:
 		self.command.doChip = False
 
 		if self.controller.button_a._value and not self.A:
-			self.command.kickChipPower = .3
+			self.command.kickChipPower = 2
 			self.command.doChip = True
 			self.command.doForce = True
 		self.A = self.controller.button_a._value
 
 		if self.controller.button_b._value and not self.B:
-			self.command.kickChipPower = .3
+			self.command.kickChipPower = 2
 			self.command.doKick = True
 			self.command.doForce = True
 		self.B = self.controller.button_b._value
