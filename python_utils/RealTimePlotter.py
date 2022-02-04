@@ -14,8 +14,9 @@ class RealTimePlotter:
     def __init__(self):
         self.n = int(WINDOW_SIZE / TIME_DIFF)  # number of points to show
         self.time = 0   # current time [sec]
-        var_names = ["cmd_w", "bot_w", "cmd_yaw", "bot_yaw"]
-        self.ydata = {k: [np.nan for _ in range(self.n)] for k in var_names}
+        var_names = ["time", "cmd_w", "bot_w", "cmd_yaw", "bot_yaw"]
+        self.data = {k: [np.nan for _ in range(self.n)] for k in var_names}
+        self.start_time = None
 
         # Open new process to do the plotting (at a lower frequency)
         self.queue = Queue()
@@ -23,16 +24,18 @@ class RealTimePlotter:
         p.start()
 
     def update(self, command, feedback, state_info):
+        if self.start_time is None:
+            self.start_time = time.time()
+
         # Update variables
-        self.ydata["cmd_w"] = self.ydata["cmd_w"][1:] + [command.angle if command.angularControl == 0 else np.nan]
-        self.ydata["bot_w"] = self.ydata["bot_w"][1:] + [state_info.rateOfTurn]
-        self.ydata["cmd_yaw"] = self.ydata["cmd_yaw"][1:] + [command.angle if command.angularControl == 1 else np.nan]
-        self.ydata["bot_yaw"] = self.ydata["bot_yaw"][1:] + [state_info.xsensYaw]
-        self.ydata["time"] = self.time
-        self.time += TIME_DIFF
+        self.data["cmd_w"] = self.data["cmd_w"][1:] + [command.angle if command.angularControl == 0 else np.nan]
+        self.data["bot_w"] = self.data["bot_w"][1:] + [state_info.rateOfTurn]
+        self.data["cmd_yaw"] = self.data["cmd_yaw"][1:] + [command.angle if command.angularControl == 1 else np.nan]
+        self.data["bot_yaw"] = self.data["bot_yaw"][1:] + [state_info.xsensYaw]
+        self.data["time"] = self.data["time"][1:] + [time.time() - self.start_time]
 
         if self.queue.empty():
-            self.queue.put(self.ydata)
+            self.queue.put(self.data)
 
 
 class Plotter:
@@ -46,6 +49,8 @@ class Plotter:
                           "bot_yaw": "Yaw feedback"}
         self.figs, self.axs, self.lines = self.init_figs()
         self.var_keys = [k for k in self.lines]
+        self.start_time = None
+        self.data = {}
         plt.ion()
 
     def init_figs(self):
@@ -81,14 +86,17 @@ class Plotter:
         return figs, axs, lines
 
     def update_plots(self):
-        ydata = self.queue.get()
+        if not self.queue.empty():
+            self.data = self.queue.get()
+            if self.start_time is None:
+                self.start_time = time.time()
         # Update plots
-        t = np.linspace(ydata["time"] - WINDOW_SIZE, ydata["time"], self.n)
         for k in self.lines:
             ln, = self.lines[k]
-            ln.set_xdata([] if k not in ydata else t)
-            ln.set_ydata([] if k not in ydata else ydata[k])
-            self.axs[k].set_xlim([ydata["time"] - WINDOW_SIZE, ydata["time"]])
+            ln.set_xdata([] if k not in self.data else self.data["time"])
+            ln.set_ydata([] if k not in self.data else self.data[k])
+            now = 0 if self.start_time is None else time.time() - self.start_time
+            self.axs[k].set_xlim([now - WINDOW_SIZE, now])
         plt.pause(0.01)
 
 
@@ -108,12 +116,16 @@ def run_demo():
     from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
 
     amp = 1
-    t = 0
+    t = -1
     rc, rf, rsi = RobotCommand(), RobotFeedback(), RobotStateInfo()
     rtp = RealTimePlotter()
     while True:
         st = time.perf_counter()
         t += 1
+
+        if t % 700 == 0:
+            time.sleep(5)
+
         freq = 10 + np.sin(t / 100)
         amp += (np.random.rand() - 0.5) * 0.1
         amp = min(max(-np.pi, amp), np.pi)
@@ -124,7 +136,6 @@ def run_demo():
         rtp.update(rc, rf, rsi)
         time.sleep(0.01)
         # print("tick: {:.3f} ms".format((time.perf_counter() - st) * 1000))
-
 
 if __name__ == "__main__":
     run_demo()
