@@ -14,7 +14,7 @@ import roboteam_embedded_messages.python.BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.RobotCommand import RobotCommand
 from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
 from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
-
+from RealTimePlotter import RealTimePlotter
 
 
 # robotStateInfoFile = open(f"robotStateInfo_{int(time.time())}.csv", "w")
@@ -29,6 +29,14 @@ try:
 except:
 	print("Warning! Could not import cv2. Can't visualize.")
 	cv2_available = False
+
+try:
+	import matplotlib
+	mpl_available = True
+except:
+	print("Warning! Could not import matplotlib. Can't plot in real time.")
+	mpl_available = False
+
 
 def printPacket(rc):
 	maxLength = max([len(k) for k, v in getmembers(rc)])
@@ -94,6 +102,7 @@ basestation = None
 robotCommand = RobotCommand()
 robotFeedback = RobotFeedback()
 robotStateInfo = RobotStateInfo()
+plotter = None if not mpl_available else RealTimePlotter()
 
 feedbackTimestamp = 0
 stateInfoTimestamp = 0
@@ -205,6 +214,7 @@ while True:
 						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
 
 				# Logging
+				robotCommand = cmd
 				bar = drawProgressBar(periodFraction)
 				if not robotConnected:
 					print(" Receiving no feedback!", end="")
@@ -269,6 +279,10 @@ while True:
 				# lastBasestationLog = logmessage[:-1] + " "*20
 			else:
 				print(f"Error : Unhandled packet with type {packetType}")
+
+			# Plot packets data in real-time
+			if mpl_available:
+				plotter.update(robotCommand, robotFeedback, robotStateInfo)
 
 			# Break if cv2 is not imported
 			if not cv2_available:
