@@ -6,14 +6,11 @@ import sys
 import PySimpleGUI as sg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, FigureCanvasAgg
 from matplotlib.figure import Figure
-import matplotlib
 import inspect
 
 from roboteam_embedded_messages.python.RobotCommand import RobotCommand
 from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
 from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
-
-matplotlib.use('qt5agg')
 
 MIN_WINDOW_SIZE = 5.  # minimum time window to show in plots [sec]
 MAX_WINDOW_SIZE = 60.  # maximum time window to show in plots [sec]
