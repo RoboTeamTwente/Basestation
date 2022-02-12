@@ -30,6 +30,8 @@ class Data:
                         if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
         self.rsi_keys = [tup[0] for tup in inspect.getmembers(rsi)
                          if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
+        # Add local velocity that can be calculated from state info wheel speeds
+        self.rsi_keys += ["velocity1", "velocity2"]
         self.dct = {"rc": {k: np.nan * np.zeros(self.n) for k in self.rc_keys},
                     "rf": {k: np.nan * np.zeros(self.n) for k in self.rf_keys},
                     "rsi": {k: np.nan * np.zeros(self.n) for k in self.rsi_keys},
@@ -45,14 +47,35 @@ class Data:
 
         for packet, k1 in zip([rc, rf, rsi], ["rc", "rf", "rsi"]):
             for k2 in self.dct[k1]:
-                self.dct[k1][k2][:-1] = self.dct[k1][k2][1:]
-                self.dct[k1][k2][-1] = getattr(packet, k2)
+                if hasattr(packet, k2):
+                    self.dct[k1][k2][:-1] = self.dct[k1][k2][1:]
+                    self.dct[k1][k2][-1] = getattr(packet, k2)
+        # Add x- and y-velocities to rsi packet
+        self.dct["rsi"]["velocity1"], self.dct["rsi"]["velocity2"] = self.compute_rsi_velocities()
 
     def get_var(self, key):
         if key == 'time':
             return self.dct["time"]
         k1, k2 = key.split('-')
         return self.dct[k1][k2]
+
+    def compute_rsi_velocities(self):
+        # wheels2Body
+        rad_wheel, front_angle, back_angle = 0.028, 30. / 180. * np.pi, 60. / 180. * np.pi
+        denominatorA = rad_wheel / (2 * np.cos(front_angle) ** 2 + np.cos(back_angle) ** 2)
+        denominatorB = rad_wheel / (2 * (np.sin(front_angle) + np.sin(back_angle)))
+
+        RF, RB = self.get_var("rsi-wheelSpeed1"), self.get_var("rsi-wheelSpeed2")
+        LB, LF = self.get_var("rsi-wheelSpeed3"), self.get_var("rsi-wheelSpeed4")
+        vx = (np.cos(front_angle) * RF + np.cos(back_angle) * RB - np.cos(back_angle) * LB - np.cos(
+            front_angle) * LF) * denominatorA
+        vy = (RF - RB - LB + LF) * denominatorB
+
+        # local2Global TODO: check if this corresponds with global x/y definitions
+        yaw = self.get_var("rsi-xsensYaw")
+        vx_g = np.cos(yaw) * vx - np.sin(yaw) * vy
+        vy_g = np.sin(yaw) * vx + np.cos(yaw) * vy
+        return vx_g, vy_g
 
 
 class RealTimePlotter:
@@ -204,7 +227,8 @@ def run_demo():
     while True:
         for obj, keys in zip([rc, rf, rsi], [rtp.data.rc_keys, rtp.data.rf_keys, rtp.data.rsi_keys]):
             for k in keys:
-                setattr(obj, k, getattr(obj, k) + np.random.randn())
+                if hasattr(obj, k):
+                    setattr(obj, k, getattr(obj, k) + np.random.randn())
         rtp.update(rc, rf, rsi)
         time.sleep(0.01)
 
