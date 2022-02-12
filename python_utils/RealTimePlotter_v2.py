@@ -14,8 +14,15 @@ from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
 
 MIN_WINDOW_SIZE = 5.  # minimum time window to show in plots [sec]
 MAX_WINDOW_SIZE = 60.  # maximum time window to show in plots [sec]
-DEFAULT_WINDOW_SIZE = 60.  # default time window to show in plots [sec]
+DEFAULT_WINDOW_SIZE = 30.  # default time window to show in plots [sec]
 TIME_DIFF = 1. / 60  # time difference between sample points [sec]
+
+""" POSSIBLE IMPROVEMENTS 
+        -> Record button to save data that is received (in Elias' format)
+        -> Option to switch between 'auto' and 'manual' y-limits
+        -> Option to open new window
+        -> Use blit for higher frequency plotting
+"""
 
 
 class Data:
@@ -113,7 +120,7 @@ class PlotterGUI:
             [sg.Canvas(size=(640, 480), key='-CANVAS-')],
             [sg.Text('Time window', pad=((0, 10), (10, 10))),
              sg.Slider(range=(MIN_WINDOW_SIZE, MAX_WINDOW_SIZE), default_value=DEFAULT_WINDOW_SIZE,
-                       size=(40, 10), orientation='h', key='-SLIDER-DATAPOINTS-')],
+                       size=(30, 10), orientation='h', key='-SLIDER-DATAPOINTS-')],
         ]
         # create the form and show it without the plot
         window = sg.Window('Real-Time Plotter', layout, resizable=True, finalize=True)
@@ -147,12 +154,12 @@ class PlotterGUI:
             if self.start_time is None:
                 self.start_time = time.time()
         # Update plots
-        s_keys = shown_keys(self.handles["menu"].MenuDefinition)
-        cm = plt.get_cmap('Dark2', len(s_keys))
-        colors = {k: cm(i) for i, k in enumerate(s_keys)}
+        shown_keys = get_shown_keys(self.handles["menu"].MenuDefinition)
+        cm = plt.get_cmap('Dark2', len(shown_keys))
+        colors = {k: cm(i) for i, k in enumerate(shown_keys)}
         for k in self.data.all_keys:
             ln, = self.handles["lines"][k]
-            if k in s_keys:
+            if k in shown_keys:
                 ln.set_xdata(self.data.get_var("time"))
                 ln.set_ydata(self.data.get_var(k))
                 ln.set_color(colors[k])
@@ -164,7 +171,7 @@ class PlotterGUI:
         win_size = int(values['-SLIDER-DATAPOINTS-'])
         self.ax.set_xlim([now - win_size, now])
         self.ax.set_ylim(self.compute_limits(now - win_size))
-        handles = [ln for ln, in [self.handles["lines"][k] for k in shown_keys(self.handles["menu"].MenuDefinition)]]
+        handles = [ln for ln, in [self.handles["lines"][k] for k in get_shown_keys(self.handles["menu"].MenuDefinition)]]
         self.ax.legend(handles=handles, ncol=-(len(handles) // -2), loc='lower left', bbox_to_anchor=(0, 1.01))
         self.handles["fig"].draw()
 
@@ -191,14 +198,14 @@ class PlotterGUI:
         lim = 0.
         menu_def = self.handles["menu"].MenuDefinition
         t_arr = self.data.get_var("time")
-        for k in shown_keys(menu_def):
+        for k in get_shown_keys(menu_def):
             arr = [abs(val) for val, t in zip(self.data.get_var(k), t_arr) if t > min_time and not np.isnan(val)]
             lim = lim if len(arr) == 0 else max(lim, max(arr))
         lim = default if lim == 0. else lim
         return [-1.1 * lim, 1.1 * lim]
 
 
-def shown_keys(menu_def):
+def get_shown_keys(menu_def):
     return ["rc-" + k[:k.index('::')] for k in menu_def[1][1][1]] \
                  + ["rf-" + k[:k.index('::')] for k in menu_def[1][1][3]] \
                  + ["rsi-" + k[:k.index('::')] for k in menu_def[1][1][5]]
