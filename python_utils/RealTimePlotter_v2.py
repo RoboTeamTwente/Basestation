@@ -37,8 +37,9 @@ class Data:
                         if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
         self.rsi_keys = [tup[0] for tup in inspect.getmembers(rsi)
                          if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
-        # Add local velocity that can be calculated from state info wheel speeds
-        self.rsi_keys += ["velocity1", "velocity2"]
+        self.rsi_keys += ["vel_x", "vel_y"]     # velocities calculated from wheel speeds
+        self.rc_keys += ["vel_x", "vel_y"]      # velocities calculated from rho and theta
+        self.rf_keys += ["vel_x", "vel_y"]  # velocities calculated from rho and theta
         self.dct = {"rc": {k: np.nan * np.zeros(self.n) for k in self.rc_keys},
                     "rf": {k: np.nan * np.zeros(self.n) for k in self.rf_keys},
                     "rsi": {k: np.nan * np.zeros(self.n) for k in self.rsi_keys},
@@ -58,7 +59,9 @@ class Data:
                     self.dct[k1][k2][:-1] = self.dct[k1][k2][1:]
                     self.dct[k1][k2][-1] = getattr(packet, k2)
         # Add x- and y-velocities to rsi packet
-        self.dct["rsi"]["velocity1"], self.dct["rsi"]["velocity2"] = self.compute_rsi_velocities()
+        self.dct["rsi"]["vel_x"], self.dct["rsi"]["vel_y"] = self.compute_rsi_velocities()
+        self.dct["rc"]["vel_x"], self.dct["rc"]["vel_y"] = self.compute_rc_velocities()
+        self.dct["rf"]["vel_x"], self.dct["rf"]["vel_y"] = self.compute_rf_velocities()
 
     def get_var(self, key):
         if key == 'time':
@@ -83,6 +86,17 @@ class Data:
         vx_g = np.cos(yaw) * vx - np.sin(yaw) * vy
         vy_g = np.sin(yaw) * vx + np.cos(yaw) * vy
         return vx_g, vy_g
+
+    def compute_rc_velocities(self):
+        rho, theta = self.get_var("rc-rho"), self.get_var("rc-theta")
+        vx, vy = rho * np.cos(theta), rho * np.sin(theta)
+        return vx, vy
+
+    def compute_rf_velocities(self):
+        rho, theta, yaw = self.get_var("rf-rho"), self.get_var("rf-theta"), self.get_var("rsi-xsensYaw")
+        theta = theta + yaw  # local to global frame of reference TODO: check whether it should be + or -
+        vx, vy = rho * np.cos(theta), rho * np.sin(theta)
+        return vx, vy
 
 
 class RealTimePlotter:
@@ -235,7 +249,7 @@ def run_demo():
         for obj, keys in zip([rc, rf, rsi], [rtp.data.rc_keys, rtp.data.rf_keys, rtp.data.rsi_keys]):
             for k in keys:
                 if hasattr(obj, k):
-                    setattr(obj, k, getattr(obj, k) + np.random.randn())
+                    setattr(obj, k, getattr(obj, k) + 0.01*np.random.randn())
         rtp.update(rc, rf, rsi)
         time.sleep(0.01)
 
