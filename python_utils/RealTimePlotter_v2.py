@@ -19,7 +19,6 @@ TIME_DIFF = 1. / 60  # time difference between sample points [sec]
 
 """ POSSIBLE IMPROVEMENTS 
         -> Record button to save data that is received (in Elias' format)
-        -> Option to switch between 'auto' and 'manual' y-limits
         -> Option to open new window
         -> Use blit for higher frequency plotting
 """
@@ -124,17 +123,22 @@ class PlotterGUI:
                                   'RobotFeedback', [k + "::add-rf" for k in self.data.rf_keys],
                                   'RobotStateInfo', [k + "::add-rsi" for k in self.data.rsi_keys]]],
                          ['Remove', ['RobotCommand', [], 'RobotFeedback', [], 'RobotStateInfo', [], 'All::remove-all']]]
+        self.use_auto_ylim = True
         self.fig, self.ax, self.handles, self.window = self.init_figs()
 
     def init_figs(self):
         sg.theme('Dark')
         # define the form layout
+        lim_values = [np.round(val, 2) for val in np.arange(0.1, 100, 0.1)]
         layout = [
             [sg.Menu(self.menu_def)],
             [sg.Canvas(size=(640, 480), key='-CANVAS-')],
-            [sg.Text('Time window', pad=((0, 10), (10, 10))),
+            [sg.Text('Time window: ', pad=((0, 10), (10, 10))),
              sg.Slider(range=(MIN_WINDOW_SIZE, MAX_WINDOW_SIZE), default_value=DEFAULT_WINDOW_SIZE,
-                       size=(30, 10), orientation='h', key='-SLIDER-DATAPOINTS-')],
+                       size=(30, 10), orientation='h', key='-SLIDER-DATAPOINTS-'),
+             sg.Text('\tY-Limits: '),
+             sg.Button('Auto', size=(5, 1), button_color=('white', 'green'), key='-YLIM_BUTTON-'),
+             sg.Spin(lim_values, 1.0, enable_events=True, disabled=True, key='-YLIM_SPIN-')],
         ]
         # create the form and show it without the plot
         window = sg.Window('Real-Time Plotter', layout, resizable=True, finalize=True)
@@ -151,22 +155,29 @@ class PlotterGUI:
         fig_agg = draw_figure(canvas, fig)
 
         lines = {k: ax.plot([], [], '-', lw=1, label=k) for k in self.data.all_keys}
-        handles = {"fig": fig_agg, "lines": lines, "menu": layout[0][0]}
+        handles = {"fig": fig_agg, "lines": lines, "menu": layout[0][0], "window": window}
         return fig, ax, handles, window
 
     def update_plots(self):
-        # make a bunch of random data points
         event, values = self.window.read(timeout=10)
         if event in ('Exit', None):
             exit(69)
 
+        # Handle GUI events
         if "::add" in event or "::remove" in event:
             self.update_menu(event)
+        elif event == '-YLIM_BUTTON-':
+            self.use_auto_ylim = not self.use_auto_ylim
+            bc = ('white', ('red', 'green')[self.use_auto_ylim])
+            self.handles["window"].Element('-YLIM_BUTTON-').Update(('Manual', 'Auto')[self.use_auto_ylim], button_color=bc)
+            self.handles["window"].Element('-YLIM_SPIN-').Update(disabled=self.use_auto_ylim)
 
+        # Get data form other process
         if not self.queue.empty():
             self.data = self.queue.get()
             if self.start_time is None:
                 self.start_time = time.time()
+
         # Update plots
         shown_keys = get_shown_keys(self.handles["menu"].MenuDefinition)
         cm = plt.get_cmap('Dark2', len(shown_keys))
@@ -184,7 +195,8 @@ class PlotterGUI:
         now = 0 if self.start_time is None else time.time() - self.start_time
         win_size = int(values['-SLIDER-DATAPOINTS-'])
         self.ax.set_xlim([now - win_size, now])
-        self.ax.set_ylim(self.compute_limits(now - win_size))
+        manual_lims = None if type(values["-YLIM_SPIN-"]) != np.float64 else (-values["-YLIM_SPIN-"], values["-YLIM_SPIN-"])
+        self.ax.set_ylim(self.compute_limits(now - win_size) if self.use_auto_ylim else manual_lims)
         handles = [ln for ln, in [self.handles["lines"][k] for k in get_shown_keys(self.handles["menu"].MenuDefinition)]]
         self.ax.legend(handles=handles, ncol=-(len(handles) // -2), loc='lower left', bbox_to_anchor=(0, 1.01))
         self.handles["fig"].draw()
