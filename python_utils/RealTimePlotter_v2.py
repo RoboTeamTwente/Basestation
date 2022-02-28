@@ -20,6 +20,7 @@ TIME_DIFF = 1. / 60  # time difference between sample points [sec]
 
 """ POSSIBLE IMPROVEMENTS 
         -> Record button to save data that is received (in Elias' format)
+        -> Get data keys from generator/packets.py; this contains all of them
         -> Option to open new window
         -> Use blit for higher frequency plotting
 """
