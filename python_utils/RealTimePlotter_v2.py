@@ -145,7 +145,8 @@ class PlotterGUI:
              sg.Button('Auto', size=(5, 1), button_color=('white', 'green'), key='-YLIM_BUTTON-'),
              sg.Spin(lim_values, 1.0, enable_events=True, disabled=True, key='-YLIM_SPIN-'),
              sg.Text('\t'),
-             sg.Button('Record', size=(5, 1), button_color=('red', 'white'), key='-REC_BUTTON-')],
+             # sg.Button('Record', size=(5, 1), button_color=('red', 'white'), key='-REC_BUTTON-')
+             ],
         ]
         # create the form and show it without the plot
         window = sg.Window('Real-Time Plotter', layout, resizable=True, finalize=True)
