@@ -126,6 +126,9 @@ class PlotterGUI:
                                   'RobotStateInfo', [k + "::add-rsi" for k in self.data.rsi_keys]]],
                          ['Remove', ['RobotCommand', [], 'RobotFeedback', [], 'RobotStateInfo', [], 'All::remove-all']]]
         self.use_auto_ylim = True
+        self.is_recording = False
+        self.rec_queue = Queue()
+        self.rec_process = Process(target=do_recording, args=(self.rec_queue,))
         self.fig, self.ax, self.handles, self.window = self.init_figs()
 
     def init_figs(self):
@@ -140,7 +143,9 @@ class PlotterGUI:
                        size=(30, 10), orientation='h', key='-SLIDER-DATAPOINTS-'),
              sg.Text('\tY-Limits: '),
              sg.Button('Auto', size=(5, 1), button_color=('white', 'green'), key='-YLIM_BUTTON-'),
-             sg.Spin(lim_values, 1.0, enable_events=True, disabled=True, key='-YLIM_SPIN-')],
+             sg.Spin(lim_values, 1.0, enable_events=True, disabled=True, key='-YLIM_SPIN-'),
+             sg.Text('\t'),
+             sg.Button('Record', size=(5, 1), button_color=('red', 'white'), key='-REC_BUTTON-')],
         ]
         # create the form and show it without the plot
         window = sg.Window('Real-Time Plotter', layout, resizable=True, finalize=True)
@@ -173,12 +178,23 @@ class PlotterGUI:
             bc = ('white', ('red', 'green')[self.use_auto_ylim])
             self.handles["window"].Element('-YLIM_BUTTON-').Update(('Manual', 'Auto')[self.use_auto_ylim], button_color=bc)
             self.handles["window"].Element('-YLIM_SPIN-').Update(disabled=self.use_auto_ylim)
+        elif event == '-REC_BUTTON-':
+            self.is_recording = not self.is_recording
+            bc = (('red', 'white')[self.is_recording], ('white', 'red')[self.is_recording])
+            self.handles["window"].Element('-REC_BUTTON-').Update(('Record', 'Stop')[self.is_recording],
+                                                                   button_color=bc)
+            if self.is_recording:
+                self.rec_process.start()
+            else:
+                self.rec_queue.put(None)
 
         # Get data form other process
         if not self.queue.empty():
             self.data = self.queue.get()
             if self.start_time is None:
                 self.start_time = time.time()
+            if self.is_recording:
+                self.rec_queue.put(self.data)
 
         # Update plots
         shown_keys = get_shown_keys(self.handles["menu"].MenuDefinition)
@@ -250,19 +266,24 @@ def do_plotting(queue):
 
 
 def do_recording(queue):
-    now = datetime.datetime.ctime()
-    filename = 'RobotStateInfo_' + now + '.csv'
+    now = datetime.datetime.now()
+    now_str = "{:d}{:d}{:d}{:d}{:d}{:d}".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
+    filename = 'RobotStateInfo_' + now_str + '.csv'
     times = []
     lines = []
     while True:
         data = queue.get()
         if not data:
             break
-        for i in range(len(data["time"])):
-            if data["time"][i] not in times:
-                times.append(data['time'][i])
+        for i in range(len(data.dct["time"])):
+            if data.dct["time"][i] not in times:
+                times.append(data.dct['time'][i])
                 keys = ["xsensAcc1", "xsensAcc2", "xsensYaw", "rateOfTurn", "wheelSpeed1", "wheelSpeed2", "wheelSpeed3", "wheelSpeed4"]
-                lines.append([data["time"][i]] + [data["rsi"][k][i] for k in keys])
+                lines.append([data.dct["time"][i]] + [data.dct["rsi"][k][i] for k in keys])
+    txt = "\n".join([",".join(row) for row in lines])
+    with open(filename, 'w') as f:
+        f.writelines(txt)
+    print("Succesfully saved {:.1f} seconds of data in {:s}!".format(max(times)-min(times), filename))
 
 
 def draw_figure(canvas, figure, loc=(0, 0)):
