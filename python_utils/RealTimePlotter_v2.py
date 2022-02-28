@@ -7,6 +7,7 @@ import PySimpleGUI as sg
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, FigureCanvasAgg
 from matplotlib.figure import Figure
 import inspect
+import datetime
 
 from roboteam_embedded_messages.python.RobotCommand import RobotCommand
 from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
@@ -245,6 +246,22 @@ def do_plotting(queue):
     except KeyboardInterrupt:
         print("\nExiting by user request.\n")
         sys.exit(69)
+
+
+def do_recording(queue):
+    now = datetime.datetime.ctime()
+    filename = 'RobotStateInfo_' + now + '.csv'
+    times = []
+    lines = []
+    while True:
+        data = queue.get()
+        if not data:
+            break
+        for i in range(len(data["time"])):
+            if data["time"][i] not in times:
+                times.append(data['time'][i])
+                keys = ["xsensAcc1", "xsensAcc2", "xsensYaw", "rateOfTurn", "wheelSpeed1", "wheelSpeed2", "wheelSpeed3", "wheelSpeed4"]
+                lines.append([data["time"][i]] + [data["rsi"][k][i] for k in keys])
 
 
 def draw_figure(canvas, figure, loc=(0, 0)):
