@@ -8,6 +8,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, FigureCanvasAgg
 from matplotlib.figure import Figure
 import inspect
 import datetime
+import os
 
 from roboteam_embedded_messages.python.RobotCommand import RobotCommand
 from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
@@ -128,7 +129,7 @@ class PlotterGUI:
         self.use_auto_ylim = True
         self.is_recording = False
         self.rec_queue = Queue()
-        self.rec_process = Process(target=do_recording, args=(self.rec_queue,))
+        self.rec_process = None
         self.fig, self.ax, self.handles, self.window = self.init_figs()
 
     def init_figs(self):
@@ -140,12 +141,12 @@ class PlotterGUI:
             [sg.Canvas(size=(640, 480), key='-CANVAS-')],
             [sg.Text('Time window: ', pad=((0, 10), (10, 10))),
              sg.Slider(range=(MIN_WINDOW_SIZE, MAX_WINDOW_SIZE), default_value=DEFAULT_WINDOW_SIZE,
-                       size=(30, 10), orientation='h', key='-SLIDER-DATAPOINTS-'),
-             sg.Text('\tY-Limits: '),
+                       size=(20, 10), orientation='h', key='-SLIDER-DATAPOINTS-'),
+             sg.Text('  Y-Limits: '),
              sg.Button('Auto', size=(5, 1), button_color=('white', 'green'), key='-YLIM_BUTTON-'),
              sg.Spin(lim_values, 1.0, enable_events=True, disabled=True, key='-YLIM_SPIN-'),
-             sg.Text('\t'),
-             # sg.Button('Record', size=(5, 1), button_color=('red', 'white'), key='-REC_BUTTON-')
+             sg.Text('  '),
+             sg.Button('Record', size=(7, 1), button_color=('red', 'white'), key='-REC_BUTTON-')
              ],
         ]
         # create the form and show it without the plot
@@ -169,7 +170,7 @@ class PlotterGUI:
     def update_plots(self):
         event, values = self.window.read(timeout=10)
         if event in ('Exit', None):
-            exit(69)
+            return 0
 
         # Handle GUI events
         if "::add" in event or "::remove" in event:
@@ -185,9 +186,16 @@ class PlotterGUI:
             self.handles["window"].Element('-REC_BUTTON-').Update(('Record', 'Stop')[self.is_recording],
                                                                    button_color=bc)
             if self.is_recording:
+                self.rec_process = Process(target=do_recording, args=(self.rec_queue,))
                 self.rec_process.start()
             else:
                 self.rec_queue.put(None)
+                self.handles["window"].Element('-REC_BUTTON-').Update('Saving..', button_color=('white', 'blue'))
+                self.handles["fig"].draw()
+                while self.rec_process.is_alive():
+                    pass
+                self.handles["window"].Element('-REC_BUTTON-').Update('Record', button_color=('red', 'white'))
+                self.rec_process.terminate()
 
         # Get data form other process
         if not self.queue.empty():
@@ -219,6 +227,7 @@ class PlotterGUI:
         handles = [ln for ln, in [self.handles["lines"][k] for k in get_shown_keys(self.handles["menu"].MenuDefinition)]]
         self.ax.legend(handles=handles, ncol=-(len(handles) // -2), loc='lower left', bbox_to_anchor=(0, 1.01))
         self.handles["fig"].draw()
+        return 1
 
     def update_menu(self, event):
         menu_def = self.handles["menu"].MenuDefinition
@@ -258,33 +267,42 @@ def get_shown_keys(menu_def):
 
 def do_plotting(queue):
     pltr = PlotterGUI(queue)
-    try:
-        while True:
-            pltr.update_plots()
-    except KeyboardInterrupt:
-        print("\nExiting by user request.\n")
-        sys.exit(69)
+    while pltr.update_plots():
+        pass
 
 
 def do_recording(queue):
-    now = datetime.datetime.now()
-    now_str = "{:d}{:d}{:d}{:d}{:d}{:d}".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
-    filename = 'RobotStateInfo_' + now_str + '.csv'
     times = []
-    lines = []
+    rsi_lines, rf_lines, rc_lines = [], [], []
+    rsi_keys = ["xsensAcc1", "xsensAcc2", "xsensYaw", "rateOfTurn", "wheelSpeed1", "wheelSpeed2", "wheelSpeed3", "wheelSpeed4"]
+    rf_keys = ["angle", "rho", "theta"]
+    rc_keys = ["angle", "rho", "theta"]
     while True:
         data = queue.get()
         if not data:
             break
+        if len(times) == 0:
+            times = [data.dct["time"][-1]]
         for i in range(len(data.dct["time"])):
-            if data.dct["time"][i] not in times:
+            if data.dct["time"][i] > times[-1]:
                 times.append(data.dct['time'][i])
-                keys = ["xsensAcc1", "xsensAcc2", "xsensYaw", "rateOfTurn", "wheelSpeed1", "wheelSpeed2", "wheelSpeed3", "wheelSpeed4"]
-                lines.append([data.dct["time"][i]] + [data.dct["rsi"][k][i] for k in keys])
-    txt = "\n".join([",".join(row) for row in lines])
-    with open(filename, 'w') as f:
-        f.writelines(txt)
-    print("Succesfully saved {:.1f} seconds of data in {:s}!".format(max(times)-min(times), filename))
+                rsi_lines.append([data.dct["time"][i]] + [data.dct["rsi"][k][i] for k in rsi_keys])
+                rf_lines.append([data.dct["time"][i]] + [data.dct["rf"][k][i] for k in rf_keys])
+                rc_lines.append([data.dct["time"][i]] + [data.dct["rc"][k][i] for k in rc_keys])
+    rsi_txt = "\n".join([",".join([str(v) for v in row]) for row in rsi_lines])
+    rf_txt = "\n".join([",".join([str(v) for v in row]) for row in rf_lines])
+    rc_txt = "\n".join([",".join([str(v) for v in row]) for row in rc_lines])
+    now = datetime.datetime.now()
+    now_str = "{:04d}{:02d}{:02d}{:02d}{:02d}{:02d}".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
+    if not os.path.exists('RTP_recordings'):
+        os.mkdir('RTP_recordings')
+    with open('RTP_recordings/RobotStateInfo_' + now_str + '.csv', 'w') as f:
+        f.writelines(rsi_txt)
+    with open('RTP_recordings/RobotFeedback_' + now_str + '.csv', 'w') as f:
+        f.writelines(rf_txt)
+    with open('RTP_recordings/RobotCommand_' + now_str + '.csv', 'w') as f:
+        f.writelines(rc_txt)
+    print("Succesfully saved {:.1f} seconds of data!".format(times[-1]-times[1]))
 
 
 def draw_figure(canvas, figure, loc=(0, 0)):
