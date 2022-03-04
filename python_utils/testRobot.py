@@ -10,15 +10,17 @@ import sys
 import shutil
 import multiprocessing
 
-import roboteam_embedded_messages.python.BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.RobotCommand import RobotCommand
-from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
-from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
+import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
+from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
+from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
+from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
+from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
 
 
-
-# robotStateInfoFile = open(f"robotStateInfo_{int(time.time())}.csv", "w")
-# robotFeedbackFile = open(f"robotFeedback_{int(time.time())}.csv", "w")
+robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
+robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
+robotFeedbackFile = open(f"PIDfiles/robotFeedback_{int(time.time())}.csv", "w")
+robotPIDFile = open(f"PIDfiles/robotPID_{int(time.time())}.csv", "w")
 
 
 
@@ -66,7 +68,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "angular-velocity"]
 
 # Parse input arguments 
 try:
@@ -94,6 +96,7 @@ basestation = None
 robotCommand = RobotCommand()
 robotFeedback = RobotFeedback()
 robotStateInfo = RobotStateInfo()
+pidConfiguration = PIDConfiguration()
 
 feedbackTimestamp = 0
 stateInfoTimestamp = 0
@@ -151,9 +154,15 @@ while True:
 
 				# Create new empty robot command
 				cmd = RobotCommand()
-				cmd.header = BaseTypes.PACKET_TYPE_ROBOT_COMMAND
+				cmd.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
 				cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
 				cmd.id = robotId
+				
+				# Create new empty robot command
+				PID = PIDConfiguration()
+				PID.header = BaseTypes.PACKET_TYPE_P_I_D_CONFIGURATION
+				PID.remVersion = BaseTypes.LOCAL_REM_VERSION
+				PID.id = robotId
 
 				# All tests
 				log = ""
@@ -180,13 +189,24 @@ while True:
 						log = "speed = %d" % cmd.dribbler
 
 					if test == "rotate":
+						cmd.angularControl = 1
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
 						log = "angle = %+.3f" % cmd.angle
 
 					if test == "forward" or test == "sideways":
-						cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
-						if 0.5 < periodFraction : cmd.theta = -math.pi
-						log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
+						#cmd.angularControl = 0
+						#cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
+						#if 0.5 < periodFraction : cmd.theta = -math.pi
+						#log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
+						PID.PbodyX = 10.0
+						PID.IbodyX = 10.0
+						PID.DbodyX = 5.0
+						PID.PbodyY = 0.4
+						PID.PbodyW = 1.0
+						PID.IbodyW = 1.0
+						PID.PbodyYaw = 20.0
+						PID.IbodyYaw = 5.0
+						log = PID.IbodyYaw
 
 					if test == "sideways":
 						cmd.angle = math.pi / 2
@@ -203,6 +223,13 @@ while True:
 						if 0.5 < periodFraction : cmd.theta = -math.pi
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
 						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+						
+					if test == "angular-velocity":
+						PID.PbodyW = 1.0
+						PID.IbodyW = 1.0
+						cmd.angularControl = 0
+						cmd.angularVelocity = 2 * math.pi
+						log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
 
 				# Logging
 				bar = drawProgressBar(periodFraction)
@@ -215,6 +242,7 @@ while True:
 				# Send command
 				if test != "nothing":
 					basestation.write( cmd.encode() )
+					basestation.write( PID.encode() )
 					totalCommandsSent += 1
 
 
@@ -237,9 +265,9 @@ while True:
 			packetType = packet_type[0]
 
 			# Parse packet based on packet type
-			if packetType == BaseTypes.PACKET_TYPE_ROBOT_FEEDBACK:
+			if packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_FEEDBACK:
 				feedbackTimestamp = time.time()
-				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_FEEDBACK - 1)
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_FEEDBACK - 1)
 
 				if RobotFeedback.get_id(packet) == robotId:
 					robotFeedback.decode(packet)
@@ -247,23 +275,27 @@ while True:
 				else:
 					print("Error : Received feedback from robot %d ???" % RobotFeedback.get_id(packet))
 	
-			elif packetType == BaseTypes.PACKET_TYPE_ROBOT_STATE_INFO:
+			elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_STATE_INFO:
 				stateInfoTimestamp = time.time()
-				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_STATE_INFO - 1)
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_STATE_INFO - 1)
 
 				if RobotStateInfo.get_id(packet) == robotId:
 					robotStateInfo.decode(packet)
-					# robotStateInfoFile.write(f"{stateInfoTimestamp} {robotStateInfo.xsensYaw} {robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4}\n")
-					# robotStateInfoFile.flush()
+					robotStateInfoFile.write(f"{stateInfoTimestamp} {robotStateInfo.xsensAcc1} {robotStateInfo.xsensAcc2} {robotStateInfo.xsensYaw} {robotStateInfo.rateOfTurn} {robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4} {robotStateInfo.bodyXIntegral} {robotStateInfo.bodyYIntegral} {robotStateInfo.bodyWIntegral} {robotStateInfo.bodyYawIntegral} {robotStateInfo.wheel1Integral} {robotStateInfo.wheel2Integral} {robotStateInfo.wheel3Integral} {robotStateInfo.wheel4Integral} \n")
+					robotCommandFile.write(f"{stateInfoTimestamp} {cmd.angle} {cmd.angularVelocity} {cmd.rho} {cmd.theta} \n")
+					robotFeedbackFile.write(f"{stateInfoTimestamp} {robotFeedback.rho} {robotFeedback.theta} \n")
+					#robotPIDFile.write(f"{stateInfoTimestamp} {robotPIDFile.PbodyX} {robotPIDFile.IbodyX} {robotPIDFile.DbodyX} {robotPIDFile.PbodyY} {robotPIDFile.IbodyY} {robotPIDFile.DbodyY} {robotPIDFile.PbodyW} {robotPIDFile.IbodyW} {robotPIDFile.DbodyW} {robotPIDFile.PbodyYaw} {robotPIDFile.IbodyYaw} {robotPIDFile.DbodyYaw} {robotPIDFile.Pwheels} {robotPIDFile.Iwheels} {robotPIDFile.Dwheels}  \n")
+					robotStateInfoFile.flush()
 
 				else:
 					print("Error : Received StateInfo from robot %d ???" % RobotFeedback.get_id(packet))
+			
 
-			elif packetType == BaseTypes.PACKET_TYPE_BASESTATION_LOG:
+			elif packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
 				logmessage = basestation.readline().decode()
 				lastBasestationLog = logmessage[:-1] + " "*20
 
-			elif packetType == BaseTypes.PACKET_TYPE_ROBOT_LOG:
+			elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_LOG:
 				logmessage = basestation.readline().decode()
 				print("[BOT]", logmessage)
 				# lastBasestationLog = logmessage[:-1] + " "*20
