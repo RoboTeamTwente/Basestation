@@ -9,10 +9,10 @@ import argparse
 import sys 
 import shutil
 
-import roboteam_embedded_messages.python.BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.RobotCommand import RobotCommand
-from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
-from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
+import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
+from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
+from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
+from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
 from RealTimePlotter_v2 import RealTimePlotter
 
 

@@ -10,9 +10,9 @@ import inspect
 import datetime
 import os
 
-from roboteam_embedded_messages.python.RobotCommand import RobotCommand
-from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
-from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
+from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
+from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
+from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
 
 MIN_WINDOW_SIZE = 5.  # minimum time window to show in plots [sec]
 MAX_WINDOW_SIZE = 60.  # maximum time window to show in plots [sec]
