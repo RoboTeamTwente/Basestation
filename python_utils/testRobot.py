@@ -9,18 +9,21 @@ import argparse
 import sys 
 import shutil
 import multiprocessing
+import traceback
+import random
 
 import roboteam_embedded_messages.python.BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.RobotCommand import RobotCommand
 from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
 from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
+from roboteam_embedded_messages.python.RobotLog import RobotLog
+from roboteam_embedded_messages.python.RobotAssuredPacket import RobotAssuredPacket
+from roboteam_embedded_messages.python.RobotAssuredAck import RobotAssuredAck
 
-
-
-# robotStateInfoFile = open(f"robotStateInfo_{int(time.time())}.csv", "w")
-# robotFeedbackFile = open(f"robotFeedback_{int(time.time())}.csv", "w")
-
-
+# Map all PACKET_TYPES_ in BaseTypes. int => string
+PACKET_TYPES = dir(BaseTypes)
+PACKET_TYPES = [ p for p in PACKET_TYPES if p.startswith("PACKET_TYPE") ]
+PACKET_TYPES = { getattr(BaseTypes, p) : p for p in PACKET_TYPES }
 
 
 try:
@@ -94,6 +97,8 @@ basestation = None
 robotCommand = RobotCommand()
 robotFeedback = RobotFeedback()
 robotStateInfo = RobotStateInfo()
+robotLog = RobotLog()
+robotAssuredPacket = RobotAssuredPacket()
 
 feedbackTimestamp = 0
 stateInfoTimestamp = 0
@@ -111,8 +116,10 @@ totalFeedbackReceived = 0
 robotConnected = True
 
 lastBasestationLog = ""
+lastRobotLog = ""
 
 doFullTest = test == "full"
+doNoTest   = test == "nothing"
 testIndex = 2
 
 # stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0674FF525750877267181714-if02"
@@ -121,7 +128,7 @@ stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF54485
 while True:
 	# Open basestation with the basestation
 	if basestation is None or not basestation.isOpen():
-		basestation = utils.openContinuous(timeout=0.001)
+		basestation = utils.openContinuous(timeout=0.01)
 
 	try:
 		# Continuously read and print messages from the basestation
@@ -176,7 +183,7 @@ while True:
 							cmd.kickChipPower = 0.2
 
 					if test == "dribbler":
-						cmd.dribbler = math.floor(8 * periodFraction)
+						cmd.dribbler = periodFraction#math.floor(8 * periodFraction)
 						log = "speed = %d" % cmd.dribbler
 
 					if test == "rotate":
@@ -210,10 +217,10 @@ while True:
 					print(" Receiving no feedback!", end="")
 				tcs, tfr = totalCommandsSent, totalFeedbackReceived
 				print(f" {robotId} - {test} {bar} {log} | "
-					f"{lastBasestationLog}", end="\r")
+					f"{lastBasestationLog} | {lastRobotLog}", end="                             \r")
 
 				# Send command
-				if test != "nothing":
+				if not doNoTest:
 					basestation.write( cmd.encode() )
 					totalCommandsSent += 1
 
@@ -253,9 +260,6 @@ while True:
 
 				if RobotStateInfo.get_id(packet) == robotId:
 					robotStateInfo.decode(packet)
-					# robotStateInfoFile.write(f"{stateInfoTimestamp} {robotStateInfo.xsensYaw} {robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4}\n")
-					# robotStateInfoFile.flush()
-
 				else:
 					print("Error : Received StateInfo from robot %d ???" % RobotFeedback.get_id(packet))
 
@@ -264,11 +268,35 @@ while True:
 				lastBasestationLog = logmessage[:-1] + " "*20
 
 			elif packetType == BaseTypes.PACKET_TYPE_ROBOT_LOG:
-				logmessage = basestation.readline().decode()
-				print("[BOT]", logmessage)
-				# lastBasestationLog = logmessage[:-1] + " "*20
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_LOG - 1)
+				robotLog.decode(packet)
+				message = basestation.read(robotLog.message_length).decode()
+				lastRobotLog = message[:-1] # Remove last \n character
+				if robotLog.message_length != len(message):
+					print(f"\r\n[robotLog] Warning : length={robotLog.message_length} msg_length={len(message)}\n")
+				# print(f"\n{lastRobotLog}\n")
+
+			elif packetType == BaseTypes.PACKET_TYPE_ROBOT_ASSURED_PACKET:
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_ASSURED_PACKET - 1)
+				robotAssuredPacket.decode(packet)
+				basestation.read(robotAssuredPacket.messageLength).decode()
+				# print(f"[ROBOT_ASSURED_PACKET] seq={robotAssuredPacket.sequenceNumber} len={robotAssuredPacket.messageLength}")
+				# print(f"{basestation.read(robotAssuredPacket.messageLength).decode()}")
+
+				if .5 < random.random():
+					raa = RobotAssuredAck()
+					raa.header = BaseTypes.PACKET_TYPE_ROBOT_ASSURED_ACK
+					raa.remVersion = BaseTypes.LOCAL_REM_VERSION
+					raa.id = robotId
+					raa.sequenceNumber = robotAssuredPacket.sequenceNumber
+					basestation.write( raa.encode() )
+
+
 			else:
-				print(f"Error : Unhandled packet with type {packetType}")
+				print(f"Error : Unhandled packet with type {packetType} ({chr(packetType)})")
+				if packetType in PACKET_TYPES:
+					print(f"Error : PACKET_TYPE_ : {PACKET_TYPES[packetType]}")
+				print(f"Error : Leftover = '{basestation.readline().decode()}'")
 
 			# Break if cv2 is not imported
 			if not cv2_available:
@@ -363,3 +391,4 @@ while True:
 		print("[Error] KeyError", e, "{0:b}".format(int(str(e))))
 	except Exception as e:
 		print("[Error]", e)
+		traceback.print_exc()
