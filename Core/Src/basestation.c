@@ -485,6 +485,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
       total_packet_length += PACKET_SIZE_REM_ROBOT_COMMAND;
     }
 
+    /* Add RobotPID to the transmission */
+    if(buffer_PIDCommand[idCounter].isNewPacket
+    && total_packet_length + PACKET_SIZE_P_I_D_CONFIGURATION < MAX_PACKET_SIZE){
+      buffer_PIDCommand[idCounter].isNewPacket = false;
+      memcpy(sendBuffer + total_packet_length, buffer_PIDCommand[idCounter].packet.payload, PACKET_SIZE_P_I_D_CONFIGURATION);
+      total_packet_length += PACKET_SIZE_P_I_D_CONFIGURATION;
+    }
+
     /* Add RobotBuzzer to the transmission */
     if(buffer_RobotBuzzer[idCounter].isNewPacket
     && total_packet_length + PACKET_SIZE_REM_ROBOT_BUZZER < MAX_PACKET_SIZE){
