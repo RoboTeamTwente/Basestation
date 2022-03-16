@@ -7,9 +7,9 @@ import utils
 import serial 
 import numpy as np
 
-import roboteam_embedded_messages.python.BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.RobotCommand import RobotCommand
-from roboteam_embedded_messages.python.RobotBuzzer import RobotBuzzer
+import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
+from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
+from roboteam_embedded_messages.python.REM_RobotBuzzer import REM_RobotBuzzer as RobotBuzzer
 
 robotCommand = RobotCommand()
 robotBuzzer = RobotBuzzer()
@@ -20,6 +20,8 @@ basestation = None
 
 robot_id = 15
 absolute_angle = 0
+
+KICK_SPEED = 3
 
 class JoystickWrapper:
 	def __init__(self, controller):
@@ -64,13 +66,13 @@ class JoystickWrapper:
 		self.command.doChip = False
 
 		if self.controller.button_a._value and not self.A:
-			self.command.kickChipPower = .3
+			self.command.kickChipPower = KICK_SPEED
 			self.command.doChip = True
 			self.command.doForce = True
 		self.A = self.controller.button_a._value
 
 		if self.controller.button_b._value and not self.B:
-			self.command.kickChipPower = .3
+			self.command.kickChipPower = KICK_SPEED
 			self.command.doKick = True
 			self.command.doForce = True
 		self.B = self.controller.button_b._value
@@ -95,7 +97,7 @@ class JoystickWrapper:
 		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
 		theta = math.atan2(-velocity_x, -velocity_y);
 
-		self.command.header = BaseTypes.PACKET_TYPE_ROBOT_COMMAND
+		self.command.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
 		self.command.remVersion = BaseTypes.LOCAL_REM_VERSION
 		self.command.id = self.robot_id
 
@@ -107,13 +109,14 @@ class JoystickWrapper:
 		buzzer_value = self.controller.trigger_l._value
 		if 0.3 < buzzer_value:
 			buzzer_command = RobotBuzzer()
-			buzzer_command.header = BaseTypes.PACKET_TYPE_ROBOT_BUZZER
+			buzzer_command.header = BaseTypes.PACKET_TYPE_REM_ROBOT_BUZZER
 			buzzer_command.remVersion = BaseTypes.LOCAL_REM_VERSION
 			buzzer_command.id = self.robot_id
 			buzzer_command.period = int(buzzer_value * 1000)
 			buzzer_command.duration = 0.1
 
-			message = np.concatenate( (self.command.encode(), buzzer_command.encode()) )
+			message = self.command.encode()
+			#message = np.concatenate( (self.command.encode(), buzzer_command.encode()) )
 			print(message)
 			return message
 
@@ -146,7 +149,7 @@ while True:
 
 				packetType = packet_type[0]
 				
-				if packetType == BaseTypes.PACKET_TYPE_BASESTATION_LOG:
+				if packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
 					logmessage = basestation.readline().decode()
 					print(logmessage)
 
