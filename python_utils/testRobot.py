@@ -8,6 +8,7 @@ import re
 import argparse
 import sys 
 import shutil
+import multiprocessing
 
 import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
@@ -45,62 +46,61 @@ def main():
 		lines += [ "└" + ("─"*(maxLength*2+5)) + "┘"]
 		print("\n".join(lines))
 
-	def drawProgressBar(progress):
-		cols = min(40, shutil.get_terminal_size((80, 20)).columns)
-		filled = int(cols*progress)
-		string = "["
-		string += "*" * filled
-		string += " " * (cols - filled)
-		string += "]"
-		return string
+def drawProgressBar(progress):
+	cols = min(40, shutil.get_terminal_size((80, 20)).columns)
+	filled = int(cols*progress)
+	string = "["
+	string += "*" * filled
+	string += " " * (cols - filled)
+	string += "]"
+	return string
 
-	def rotate(origin, point, angle):
-		ox, oy = origin
-		px, py = point
+def rotate(origin, point, angle):
+	ox, oy = origin
+	px, py = point
 
-		qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
-		qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
-		return qx, qy
+	qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
+	qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
+	return qx, qy
 
-	def normalize_angle(angle):
-		pi2 = 2*math.pi
-		# reduce the angle
-		angle = angle % (pi2)
-		# force it to be the positive remainder, so that 0 <= angle < 360
-		angle = (angle + pi2) % pi2
-		# force into the minimum absolute value residue class, so that -180 < angle <= 180
-		if (angle > math.pi): angle -= pi2
-		return angle
+def normalize_angle(angle):
+	pi2 = 2*math.pi
+	# reduce the angle  
+	angle = angle % (pi2)
+	# force it to be the positive remainder, so that 0 <= angle < 360  
+	angle = (angle + pi2) % pi2
+	# force into the minimum absolute value residue class, so that -180 < angle <= 180  
+	if (angle > math.pi): angle -= pi2
+	return angle
 
-	testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
 
-	# Parse input arguments
-	try:
-		if len(sys.argv) != 3:
-			raise Exception("Error : Invalid number of arguments. Expected id and test")
+# Parse input arguments 
+try:
+	if len(sys.argv) != 3:
+		raise Exception("Error : Invalid number of arguments. Expected id and test")
+	
+	robotId = int(sys.argv[1])
+	if robotId < 0 or 15 < robotId:
+		raise Exception("Error : Invalid robot id %d. Robot id should be between 0 and 15" % robotId)
+	
+	test = sys.argv[2]
+	if test not in testsAvailable:
+		raise Exception("Error : Unknown test %s. Choose a test : %s" % (test, ", ".join(testsAvailable)))
+except Exception as e:
+	print(e)
+	print("Error : Run script with \"python testRobot.py id test\"")
+	exit()
 
-		robotId = int(sys.argv[1])
-		if robotId < 0 or 15 < robotId:
-			raise Exception("Error : Invalid robot id %d. Robot id should be between 0 and 15" % robotId)
 
-		test = sys.argv[2]
-		if test not in testsAvailable:
-			raise Exception("Error : Unknown test %s. Choose a test : %s" % (test, ", ".join(testsAvailable)))
-	except Exception as e:
-		print(e)
-		print("Error : Run script with \"python testRobot.py id test\"")
-		exit()
+### Needed for visualizing RobotStateInfo
+img = np.zeros((500, 500, 3), dtype=np.float)
 
+basestation = None
 
-	### Needed for visualizing RobotStateInfo
-	img = np.zeros((500, 500, 3), dtype=np.float)
-
-	basestation = None
-
-	robotCommand = RobotCommand()
-	robotFeedback = RobotFeedback()
-	robotStateInfo = RobotStateInfo()
-	plotter = None if not mpl_available else RealTimePlotter()
+robotCommand = RobotCommand()
+robotFeedback = RobotFeedback()
+robotStateInfo = RobotStateInfo()
 
 	feedbackTimestamp = 0
 	stateInfoTimestamp = 0
@@ -161,7 +161,7 @@ def main():
 
 					# Create new empty robot command
 					cmd = RobotCommand()
-					cmd.header = BaseTypes.PACKET_TYPE_ROBOT_COMMAND
+					cmd.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
 					cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
 					cmd.id = robotId
 
@@ -185,6 +185,9 @@ def main():
 								cmd.doForce = True
 								cmd.kickChipPower = 0.2
 
+						if test == "dribbler":
+							cmd.dribbler = periodFraction
+							log = "speed = %d" % cmd.dribbler
 						if test == "dribbler":
 							cmd.dribbler = math.floor(8 * periodFraction)
 							log = "speed = %d" % cmd.dribbler
@@ -248,9 +251,9 @@ def main():
 				packetType = packet_type[0]
 
 				# Parse packet based on packet type
-				if packetType == BaseTypes.PACKET_TYPE_ROBOT_FEEDBACK:
+				if packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_FEEDBACK:
 					feedbackTimestamp = time.time()
-					packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_FEEDBACK - 1)
+					packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_FEEDBACK - 1)
 
 					if RobotFeedback.get_id(packet) == robotId:
 						robotFeedback.decode(packet)
@@ -258,9 +261,9 @@ def main():
 					else:
 						print("Error : Received feedback from robot %d ???" % RobotFeedback.get_id(packet))
 
-				elif packetType == BaseTypes.PACKET_TYPE_ROBOT_STATE_INFO:
+				elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_STATE_INFO:
 					stateInfoTimestamp = time.time()
-					packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_STATE_INFO - 1)
+					packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_STATE_INFO - 1)
 
 					if RobotStateInfo.get_id(packet) == robotId:
 						robotStateInfo.decode(packet)
