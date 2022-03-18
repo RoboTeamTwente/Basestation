@@ -105,6 +105,7 @@ lastWritten = time.time()
 tickCounter = 0
 periodLength = 300
 packetHz = 60
+sweep_freq = 0
 
 totalCommandsSent = 0
 totalFeedbackReceived = 0
@@ -203,6 +204,14 @@ while True:
 						if 0.5 < periodFraction : cmd.theta = -math.pi
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
 						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+
+					if test == "forward-sinesweep":
+						f1, f2, df = 0.1, 2, 0.1
+						amp = 1
+						vx = amp * np.sin(2*np.pi*sweep_freq * periodFraction)
+						cmd.theta = 0 if vx > 0 else -math.pi
+						cmd.rho = abs(vx)
+						sweep_freq = f1 if sweep_freq > f2 else sweep_freq + df/packetHz
 
 				# Logging
 				bar = drawProgressBar(periodFraction)
