@@ -22,6 +22,9 @@ robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
 robotFeedbackFile = open(f"PIDfiles/robotFeedback_{int(time.time())}.csv", "w")
 robotPIDFile = open(f"PIDfiles/robotPID_{int(time.time())}.csv", "w")
 
+velxCommandFile = open("PIDfiles/velxCommand.csv", "w")
+velxMeasuredFile = open("PIDfiles/velxMeasured.csv", "w")
+
 
 
 
@@ -224,6 +227,7 @@ while True:
 						cmd.rho = abs(vx)
 						sweep_time += 1./packetHz
 						sweep_time = sweep_time % T
+						velxCommandFile.write(str(time.time()) + ", " + str(vx) + "\n")
 
 				# Logging
 				bar = drawProgressBar(periodFraction)
@@ -264,6 +268,8 @@ while True:
 
 				if RobotFeedback.get_id(packet) == robotId:
 					robotFeedback.decode(packet)
+					vx = robotFeedback.rho * np.cos(robotFeedback.theta)
+					velxMeasuredFile.write(str(time.time()) + ", " + str(vx) + "\n")
 					totalFeedbackReceived += 1
 				else:
 					print("Error : Received feedback from robot %d ???" % RobotFeedback.get_id(packet))

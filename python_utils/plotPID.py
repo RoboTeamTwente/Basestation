@@ -125,6 +125,24 @@ firstTimeVal = Feedbacktimestamps[0]
 for i in range(len(Feedbacktimestamps)):
 	Feedbacktimestamps[i] -= firstTimeVal
 
+if plotID == "bode":
+	linesC = open('PIDfiles/velxCommand.csv', 'r').readlines()
+	linesM = open('PIDfiles/velxMeasured.csv', 'r').readlines()
+	tcom = [float(ln.replace('\n','').split(', ')[0]) for ln in linesC]
+	vcom = [float(ln.replace('\n','').split(', ')[1]) for ln in linesC]
+	tmeas = [float(ln.replace('\n','').split(', ')[0]) for ln in linesM]
+	vmeas = [float(ln.replace('\n','').split(', ')[1]) for ln in linesM]
+
+	fig, ax = plt.subplots()
+	ax.plot(tcom, vcom)
+	ax.plot(tmeas, vmeas)
+	ax.set_title("Velocity in x-direction", fontsize = "xx-large")
+	ax.legend(["Commanded", "Estimated"])
+	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+	ax.set_xlabel("Time [s]", fontsize = "x-large")
+	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
+	plt.show()
+
 if plotID == "x":
 	fig, ax = plt.subplots()
 	
