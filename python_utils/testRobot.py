@@ -66,7 +66,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "forward-sinesweep"]
 
 # Parse input arguments 
 try:
@@ -106,6 +106,7 @@ tickCounter = 0
 periodLength = 300
 packetHz = 60
 sweep_freq = 0
+sweep_time = 0
 
 totalCommandsSent = 0
 totalFeedbackReceived = 0
@@ -206,12 +207,14 @@ while True:
 						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
 
 					if test == "forward-sinesweep":
-						f1, f2, df = 0.1, 2, 0.1
+						f0, f1, T = 0.1, 2, 30
 						amp = 1
-						vx = amp * np.sin(2*np.pi*sweep_freq * periodFraction)
+						t = sweep_time
+						vx = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
 						cmd.theta = 0 if vx > 0 else -math.pi
 						cmd.rho = abs(vx)
-						sweep_freq = f1 if sweep_freq > f2 else sweep_freq + df/packetHz
+						sweep_time += 1./packetHz
+						sweep_time = sweep_time % T
 
 				# Logging
 				bar = drawProgressBar(periodFraction)
