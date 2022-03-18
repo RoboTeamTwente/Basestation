@@ -14,6 +14,7 @@ import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
+from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
 
 
 robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
@@ -281,7 +282,6 @@ while True:
 
 				else:
 					print("Error : Received StateInfo from robot %d ???" % RobotFeedback.get_id(packet))
-
 
 			elif packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
 				logmessage = basestation.readline().decode()
