@@ -16,9 +16,10 @@ from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedbac
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
 
 
-
-# robotStateInfoFile = open(f"robotStateInfo_{int(time.time())}.csv", "w")
-# robotFeedbackFile = open(f"robotFeedback_{int(time.time())}.csv", "w")
+robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
+robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
+robotFeedbackFile = open(f"PIDfiles/robotFeedback_{int(time.time())}.csv", "w")
+robotPIDFile = open(f"PIDfiles/robotPID_{int(time.time())}.csv", "w")
 
 
 
@@ -157,6 +158,12 @@ while True:
 				cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
 				cmd.id = robotId
 
+				# Create new empty robot command
+				PID = PIDConfiguration()
+				PID.header = BaseTypes.PACKET_TYPE_P_I_D_CONFIGURATION
+				PID.remVersion = BaseTypes.LOCAL_REM_VERSION
+				PID.id = robotId
+
 				# All tests
 				log = ""
 
@@ -182,6 +189,7 @@ while True:
 						log = "speed = %d" % cmd.dribbler
 
 					if test == "rotate":
+						cmd.angularControl = 1
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
 						log = "angle = %+.3f" % cmd.angle
 
@@ -265,11 +273,15 @@ while True:
 
 				if RobotStateInfo.get_id(packet) == robotId:
 					robotStateInfo.decode(packet)
-					# robotStateInfoFile.write(f"{stateInfoTimestamp} {robotStateInfo.xsensYaw} {robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4}\n")
-					# robotStateInfoFile.flush()
+					robotStateInfoFile.write(f"{stateInfoTimestamp} {robotStateInfo.xsensAcc1} {robotStateInfo.xsensAcc2} {robotStateInfo.xsensYaw} {robotStateInfo.rateOfTurn} {robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4} {robotStateInfo.bodyXIntegral} {robotStateInfo.bodyYIntegral} {robotStateInfo.bodyWIntegral} {robotStateInfo.bodyYawIntegral} {robotStateInfo.wheel1Integral} {robotStateInfo.wheel2Integral} {robotStateInfo.wheel3Integral} {robotStateInfo.wheel4Integral} \n")
+					robotCommandFile.write(f"{stateInfoTimestamp} {cmd.angle} {cmd.angularVelocity} {cmd.rho} {cmd.theta} \n")
+					robotFeedbackFile.write(f"{stateInfoTimestamp} {robotFeedback.rho} {robotFeedback.theta} \n")
+					#robotPIDFile.write(f"{stateInfoTimestamp} {robotPIDFile.PbodyX} {robotPIDFile.IbodyX} {robotPIDFile.DbodyX} {robotPIDFile.PbodyY} {robotPIDFile.IbodyY} {robotPIDFile.DbodyY} {robotPIDFile.PbodyW} {robotPIDFile.IbodyW} {robotPIDFile.DbodyW} {robotPIDFile.PbodyYaw} {robotPIDFile.IbodyYaw} {robotPIDFile.DbodyYaw} {robotPIDFile.Pwheels} {robotPIDFile.Iwheels} {robotPIDFile.Dwheels}  \n")
+					robotStateInfoFile.flush()
 
 				else:
 					print("Error : Received StateInfo from robot %d ???" % RobotFeedback.get_id(packet))
+
 
 			elif packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
 				logmessage = basestation.readline().decode()

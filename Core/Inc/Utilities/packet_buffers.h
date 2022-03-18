@@ -10,6 +10,7 @@
 #include "REM_RobotFeedback.h"
 #include "REM_RobotBuzzer.h"
 #include "REM_RobotStateInfo.h"
+#include "PIDConfiguration.h"
 
 bool isTransmitting;
 
@@ -19,6 +20,13 @@ struct _buffer_RobotCommand {
 	uint32_t counter;
 };
 struct _buffer_RobotCommand buffer_RobotCommand[MAX_NUMBER_OF_ROBOTS];
+
+struct _buffer_PIDCommand {
+	PIDConfigurationPayload packet;
+	bool isNewPacket;
+	uint32_t counter;
+};
+struct _buffer_PIDCommand buffer_PIDCommand[MAX_NUMBER_OF_ROBOTS];
 
 
 struct _buffer_RobotFeedback {
