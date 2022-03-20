@@ -46,61 +46,62 @@ def main():
 		lines += [ "└" + ("─"*(maxLength*2+5)) + "┘"]
 		print("\n".join(lines))
 
-def drawProgressBar(progress):
-	cols = min(40, shutil.get_terminal_size((80, 20)).columns)
-	filled = int(cols*progress)
-	string = "["
-	string += "*" * filled
-	string += " " * (cols - filled)
-	string += "]"
-	return string
+	def drawProgressBar(progress):
+		cols = min(40, shutil.get_terminal_size((80, 20)).columns)
+		filled = int(cols*progress)
+		string = "["
+		string += "*" * filled
+		string += " " * (cols - filled)
+		string += "]"
+		return string
 
-def rotate(origin, point, angle):
-	ox, oy = origin
-	px, py = point
+	def rotate(origin, point, angle):
+		ox, oy = origin
+		px, py = point
 
-	qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
-	qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
-	return qx, qy
+		qx = ox + math.cos(angle) * (px - ox) - math.sin(angle) * (py - oy)
+		qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
+		return qx, qy
 
-def normalize_angle(angle):
-	pi2 = 2*math.pi
-	# reduce the angle  
-	angle = angle % (pi2)
-	# force it to be the positive remainder, so that 0 <= angle < 360  
-	angle = (angle + pi2) % pi2
-	# force into the minimum absolute value residue class, so that -180 < angle <= 180  
-	if (angle > math.pi): angle -= pi2
-	return angle
+	def normalize_angle(angle):
+		pi2 = 2*math.pi
+		# reduce the angle
+		angle = angle % (pi2)
+		# force it to be the positive remainder, so that 0 <= angle < 360
+		angle = (angle + pi2) % pi2
+		# force into the minimum absolute value residue class, so that -180 < angle <= 180
+		if (angle > math.pi): angle -= pi2
+		return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
+	testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
 
-# Parse input arguments 
-try:
-	if len(sys.argv) != 3:
-		raise Exception("Error : Invalid number of arguments. Expected id and test")
-	
-	robotId = int(sys.argv[1])
-	if robotId < 0 or 15 < robotId:
-		raise Exception("Error : Invalid robot id %d. Robot id should be between 0 and 15" % robotId)
-	
-	test = sys.argv[2]
-	if test not in testsAvailable:
-		raise Exception("Error : Unknown test %s. Choose a test : %s" % (test, ", ".join(testsAvailable)))
-except Exception as e:
-	print(e)
-	print("Error : Run script with \"python testRobot.py id test\"")
-	exit()
+	# Parse input arguments
+	try:
+		if len(sys.argv) != 3:
+			raise Exception("Error : Invalid number of arguments. Expected id and test")
+
+		robotId = int(sys.argv[1])
+		if robotId < 0 or 15 < robotId:
+			raise Exception("Error : Invalid robot id %d. Robot id should be between 0 and 15" % robotId)
+
+		test = sys.argv[2]
+		if test not in testsAvailable:
+			raise Exception("Error : Unknown test %s. Choose a test : %s" % (test, ", ".join(testsAvailable)))
+	except Exception as e:
+		print(e)
+		print("Error : Run script with \"python testRobot.py id test\"")
+		exit()
 
 
-### Needed for visualizing RobotStateInfo
-img = np.zeros((500, 500, 3), dtype=np.float)
+	### Needed for visualizing RobotStateInfo
+	img = np.zeros((500, 500, 3), dtype=np.float)
 
-basestation = None
+	basestation = None
 
-robotCommand = RobotCommand()
-robotFeedback = RobotFeedback()
-robotStateInfo = RobotStateInfo()
+	robotCommand = RobotCommand()
+	robotFeedback = RobotFeedback()
+	robotStateInfo = RobotStateInfo()
+	plotter = RealTimePlotter()
 
 	feedbackTimestamp = 0
 	stateInfoTimestamp = 0
@@ -273,11 +274,11 @@ robotStateInfo = RobotStateInfo()
 					else:
 						print("Error : Received StateInfo from robot %d ???" % RobotFeedback.get_id(packet))
 
-				elif packetType == BaseTypes.PACKET_TYPE_BASESTATION_LOG:
+				elif packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
 					logmessage = basestation.readline().decode()
 					lastBasestationLog = logmessage[:-1] + " "*20
 
-				elif packetType == BaseTypes.PACKET_TYPE_ROBOT_LOG:
+				elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_LOG:
 					logmessage = basestation.readline().decode()
 					print("[BOT]", logmessage)
 					# lastBasestationLog = logmessage[:-1] + " "*20
