@@ -2,17 +2,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from multiprocessing import Process, Queue
 import time
-import sys
 import PySimpleGUI as sg
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, FigureCanvasAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-import inspect
 import datetime
 import os
 
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
+from roboteam_embedded_messages.generator.packets import packets
 
 MIN_WINDOW_SIZE = 5.  # minimum time window to show in plots [sec]
 MAX_WINDOW_SIZE = 60.  # maximum time window to show in plots [sec]
@@ -21,9 +20,9 @@ TIME_DIFF = 1. / 60  # time difference between sample points [sec]
 
 """ POSSIBLE IMPROVEMENTS 
         -> Record button to save data that is received (in Elias' format)
-        -> Get data keys from generator/packets.py; this contains all of them
         -> Option to open new window
         -> Use blit for higher frequency plotting
+        -> Close all processes when testRobot is terminated
 """
 
 
@@ -32,44 +31,39 @@ class Data:
         self.n = int(MAX_WINDOW_SIZE / TIME_DIFF)  # number of points to show
         self.time = 0  # current time [sec]
         self.start_time = None
-        rc, rf, rsi = RobotCommand(), RobotFeedback(), RobotStateInfo()
-        self.rc_keys = [tup[0] for tup in inspect.getmembers(rc)
-                        if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
-        self.rf_keys = [tup[0] for tup in inspect.getmembers(rf)
-                        if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
-        self.rsi_keys = [tup[0] for tup in inspect.getmembers(rsi)
-                         if tup[0][0] != '_' and not inspect.isfunction(tup[1]) and not inspect.ismethod(tup[1])]
-        self.rsi_keys += ["vel_x", "vel_y"]     # velocities calculated from wheel speeds
-        self.rc_keys += ["vel_x", "vel_y"]      # velocities calculated from rho and theta
-        self.rf_keys += ["vel_x", "vel_y"]  # velocities calculated from rho and theta
-        self.dct = {"rc": {k: np.nan * np.zeros(self.n) for k in self.rc_keys},
-                    "rf": {k: np.nan * np.zeros(self.n) for k in self.rf_keys},
-                    "rsi": {k: np.nan * np.zeros(self.n) for k in self.rsi_keys},
-                    "time": np.nan * np.zeros(self.n)}
-        self.all_keys = ["rc-" + k for k in self.rc_keys] + ["rf-" + k for k in self.rf_keys] + ["rsi-" + k for k in
-                                                                                                 self.rsi_keys]
 
-    def update(self, rc, rf, rsi):
+        self.dct = {p: {k[0]: np.nan * np.zeros(self.n) for k in packets[p]} for p in packets}
+        self.dct["Extra"] = {k: np.nan * np.zeros(self.n) for k in ["xvel (command)", "yvel (command)",
+                                                                    "xvel (feedback)", "yvel (feedback)"]}
+        self.time = np.nan * np.zeros(self.n)
+
+        self.all_keys = []
+        for p in self.dct:
+            self.all_keys += [p+"-"+k for k in self.dct[p]]
+
+    def update(self, pckts: list):
         if self.start_time is None:
             self.start_time = time.time()
-        self.dct["time"][:-1] = self.dct["time"][1:]
-        self.dct["time"][-1] = time.time() - self.start_time
+        self.time[:-1] = self.time[1:]
+        self.time[-1] = time.time() - self.start_time
 
-        for packet, k1 in zip([rc, rf, rsi], ["rc", "rf", "rsi"]):
-            for k2 in self.dct[k1]:
-                if hasattr(packet, k2):
-                    self.dct[k1][k2][:-1] = self.dct[k1][k2][1:]
-                    self.dct[k1][k2][-1] = getattr(packet, k2)
-        # Add x- and y-velocities to rsi packet
-        self.dct["rsi"]["vel_x"], self.dct["rsi"]["vel_y"] = self.compute_rsi_velocities()
-        self.dct["rc"]["vel_x"], self.dct["rc"]["vel_y"] = self.compute_rc_velocities()
-        self.dct["rf"]["vel_x"], self.dct["rf"]["vel_y"] = self.compute_rf_velocities()
+        for p in pckts:
+            tp = str(type(p))
+            p_type = tp.split('.')[-1].split('\'')[0]
+            for k in self.dct[p_type]:
+                if hasattr(p, k):
+                    self.dct[p_type][k][:-1] = self.dct[p_type][k][1:]
+                    self.dct[p_type][k][-1] = getattr(p, k)
 
-    def get_var(self, key):
+        # add extra's
+        self.dct["Extra"]["xvel (command)"], self.dct["Extra"]["yvel (command)"] = self.compute_rc_velocities()
+        self.dct["Extra"]["xvel (feedback)"], self.dct["Extra"]["yvel (feedback)"] = self.compute_rf_velocities()
+
+    def get_var(self, key, i=None):
         if key == 'time':
-            return self.dct["time"]
+            return self.time
         k1, k2 = key.split('-')
-        return self.dct[k1][k2]
+        return self.dct[k1][k2] if i is None else self.dct[k1][k2][i]
 
     def compute_rsi_velocities(self):
         # wheels2Body
@@ -77,25 +71,25 @@ class Data:
         denominatorA = rad_wheel / (2 * np.cos(front_angle) ** 2 + np.cos(back_angle) ** 2)
         denominatorB = rad_wheel / (2 * (np.sin(front_angle) + np.sin(back_angle)))
 
-        RF, RB = self.get_var("rsi-wheelSpeed1"), self.get_var("rsi-wheelSpeed2")
-        LB, LF = self.get_var("rsi-wheelSpeed3"), self.get_var("rsi-wheelSpeed4")
+        RF, RB = self.get_var("REM_RobotStateInfo-wheelSpeed1"), self.get_var("REM_RobotStateInfo-wheelSpeed2")
+        LB, LF = self.get_var("REM_RobotStateInfo-wheelSpeed3"), self.get_var("REM_RobotStateInfo-wheelSpeed4")
         vx = (np.cos(front_angle) * RF + np.cos(back_angle) * RB - np.cos(back_angle) * LB - np.cos(
             front_angle) * LF) * denominatorA
         vy = (RF - RB - LB + LF) * denominatorB
 
         # local2Global TODO: check if this corresponds with global x/y definitions
-        yaw = self.get_var("rsi-xsensYaw")
+        yaw = self.get_var("REM_RobotStateInfo-xsensYaw")
         vx_g = np.cos(yaw) * vx - np.sin(yaw) * vy
         vy_g = np.sin(yaw) * vx + np.cos(yaw) * vy
         return vx_g, vy_g
 
     def compute_rc_velocities(self):
-        rho, theta = self.get_var("rc-rho"), self.get_var("rc-theta")
+        rho, theta = self.get_var("REM_RobotCommand-rho"), self.get_var("REM_RobotCommand-theta")
         vx, vy = rho * np.cos(theta), rho * np.sin(theta)
         return vx, vy
 
     def compute_rf_velocities(self):
-        rho, theta, yaw = self.get_var("rf-rho"), self.get_var("rf-theta"), self.get_var("rsi-xsensYaw")
+        rho, theta, yaw = self.get_var("REM_RobotCommand-rho"), self.get_var("REM_RobotCommand-theta"), self.get_var("REM_RobotStateInfo-xsensYaw")
         theta = theta + yaw  # local to global frame of reference TODO: check whether it should be + or -
         vx, vy = rho * np.cos(theta), rho * np.sin(theta)
         return vx, vy
@@ -110,8 +104,8 @@ class RealTimePlotter:
         p = Process(target=do_plotting, args=(self.queue,))
         p.start()
 
-    def update(self, command, feedback, state_info):
-        self.data.update(command, feedback, state_info)
+    def update(self, pckts):
+        self.data.update(pckts)
         if self.queue.empty():
             self.queue.put(self.data)
 
@@ -122,10 +116,14 @@ class PlotterGUI:
         self.n = int(MAX_WINDOW_SIZE / TIME_DIFF)  # number of points to show
         self.start_time = None
         self.data = Data()
-        self.menu_def = [['Add', ['RobotCommand', [k + "::add-rc" for k in self.data.rc_keys],
-                                  'RobotFeedback', [k + "::add-rf" for k in self.data.rf_keys],
-                                  'RobotStateInfo', [k + "::add-rsi" for k in self.data.rsi_keys]]],
-                         ['Remove', ['RobotCommand', [], 'RobotFeedback', [], 'RobotStateInfo', [], 'All::remove-all']]]
+        add_menu, remove_menu = [], []
+        for p_type in self.data.dct:
+            add_menu.append(p_type)
+            add_menu.append([k + "::add-" + p_type + "-" + k for k in self.data.dct[p_type]])
+            remove_menu.append(p_type)
+            remove_menu.append([])
+        remove_menu.append("All::remove-all")
+        self.menu_def = [['Add', add_menu], ['Remove', remove_menu]]
         self.use_auto_ylim = True
         self.is_recording = False
         self.rec_queue = Queue()
@@ -161,9 +159,18 @@ class PlotterGUI:
         ax.set_xlabel("Time [s]")
         ax.grid()
         ax.set_facecolor('lightgrey')
+        ax.plot([-100, 1e8], [0, 0], '-k', lw=1)
         fig_agg = draw_figure(canvas, fig)
 
-        lines = {k: ax.plot([], [], '-', lw=1, label=k) for k in self.data.all_keys}
+        abbrv = {"REM_RobotCommand": "(command)", "REM_RobotFeedback": "(feedback)", "REM_RobotStateInfo": "(stateInfo)",
+                 "REM_RobotBuzzer": "(buzzer)", "PIDConfiguration": "(pid)", "REM_BasestationStatistics": "(stats)",
+                 "REM_BasestationGetStatistics": "(getStats)", "REM_BasestationLog": "(BSLog)", "REM_RobotLog": "(BotLog)",
+                 "REM_BasestationGetConfiguration": "(BSGetConfig)", "REM_BasestationConfiguration": "(BSConfig)",
+                 "REM_BasestationSetConfiguration": "(BSSetConfig)", "Extra": ""}
+        labels = []
+        for p in self.data.dct:
+            labels += [(p+"-"+k, k + " {:s}".format(abbrv[p])) for k in self.data.dct[p]]
+        lines = {k: ax.plot([], [], '-', lw=1, label=lb) for k, lb in labels}
         handles = {"fig": fig_agg, "lines": lines, "menu": layout[0][0], "window": window}
         return fig, ax, handles, window
 
@@ -231,13 +238,13 @@ class PlotterGUI:
 
     def update_menu(self, event):
         menu_def = self.handles["menu"].MenuDefinition
-        packet_name = event[event.index('-')+1:]
-        packet_idx = {"rc": 1, "rf": 3, "rsi": 5, "all": 6}[packet_name]
+        packet_name = event.split('-')[1]
+        packet_idx = -1 if packet_name == 'all' else menu_def[0][1].index(packet_name) + 1
         if "add" in event:
             menu_def[0][1][packet_idx].remove(event)
             menu_def[1][1][packet_idx].append(event.replace("add", "remove"))
         elif event == "All::remove-all":
-            for i in [1, 3, 5]:
+            for i in range(1, len(menu_def[1][1]), 2):
                 elems = [s for s in menu_def[1][1][i]]
                 for elem in elems:
                     menu_def[1][1][i].remove(elem)
@@ -260,9 +267,10 @@ class PlotterGUI:
 
 
 def get_shown_keys(menu_def):
-    return ["rc-" + k[:k.index('::')] for k in menu_def[1][1][1]] \
-                 + ["rf-" + k[:k.index('::')] for k in menu_def[1][1][3]] \
-                 + ["rsi-" + k[:k.index('::')] for k in menu_def[1][1][5]]
+    sk = []
+    for i in range(1, len(menu_def[1][1]), 2):
+        sk += ["-".join(k.split("-")[-2:]) for k in menu_def[1][1][i]]
+    return sk
 
 
 def do_plotting(queue):
@@ -272,36 +280,26 @@ def do_plotting(queue):
 
 
 def do_recording(queue):
-    times = []
-    rsi_lines, rf_lines, rc_lines = [], [], []
-    rsi_keys = ["xsensAcc1", "xsensAcc2", "xsensYaw", "rateOfTurn", "wheelSpeed1", "wheelSpeed2", "wheelSpeed3", "wheelSpeed4"]
-    rf_keys = ["angle", "rho", "theta"]
-    rc_keys = ["angle", "rho", "theta"]
+    times, lines, all_keys = [], [], None
     while True:
         data = queue.get()
         if not data:
             break
+        all_keys = data.all_keys
         if len(times) == 0:
-            times = [data.dct["time"][-1]]
-        for i in range(len(data.dct["time"])):
-            if data.dct["time"][i] > times[-1]:
-                times.append(data.dct['time'][i])
-                rsi_lines.append([data.dct["time"][i]] + [data.dct["rsi"][k][i] for k in rsi_keys])
-                rf_lines.append([data.dct["time"][i]] + [data.dct["rf"][k][i] for k in rf_keys])
-                rc_lines.append([data.dct["time"][i]] + [data.dct["rc"][k][i] for k in rc_keys])
-    rsi_txt = "\n".join([",".join([str(v) for v in row]) for row in rsi_lines])
-    rf_txt = "\n".join([",".join([str(v) for v in row]) for row in rf_lines])
-    rc_txt = "\n".join([",".join([str(v) for v in row]) for row in rc_lines])
+            times = [data.time[-1]]
+        for i in range(len(data.time)):
+            if data.time[i] > times[-1]:
+                times.append(data.time[i])
+                lines.append([data.time[i]] + [data.get_var(k, i) for k in data.all_keys])
+    txt = "" if not all_keys else ",".join(all_keys) + "\n"
+    txt += "\n".join([",".join([str(v) for v in row]) for row in lines])
     now = datetime.datetime.now()
     now_str = "{:04d}{:02d}{:02d}{:02d}{:02d}{:02d}".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
     if not os.path.exists('RTP_recordings'):
         os.mkdir('RTP_recordings')
-    with open('RTP_recordings/RobotStateInfo_' + now_str + '.csv', 'w') as f:
-        f.writelines(rsi_txt)
-    with open('RTP_recordings/RobotFeedback_' + now_str + '.csv', 'w') as f:
-        f.writelines(rf_txt)
-    with open('RTP_recordings/RobotCommand_' + now_str + '.csv', 'w') as f:
-        f.writelines(rc_txt)
+    with open('RTP_recordings/RTPREC' + now_str + '.csv', 'w') as f:
+        f.writelines(txt)
     print("Succesfully saved {:.1f} seconds of data!".format(times[-1]-times[1]))
 
 
@@ -314,13 +312,16 @@ def draw_figure(canvas, figure, loc=(0, 0)):
 
 def run_demo():
     rc, rf, rsi = RobotCommand(), RobotFeedback(), RobotStateInfo()
+    rc_keys = [elem[0] for elem in packets["REM_RobotCommand"]]
+    rf_keys = [elem[0] for elem in packets["REM_RobotFeedback"]]
+    rsi_keys = [elem[0] for elem in packets["REM_RobotStateInfo"]]
     rtp = RealTimePlotter()
     while True:
-        for obj, keys in zip([rc, rf, rsi], [rtp.data.rc_keys, rtp.data.rf_keys, rtp.data.rsi_keys]):
+        for obj, keys in zip([rc, rf, rsi], [rc_keys, rf_keys, rsi_keys]):
             for k in keys:
                 if hasattr(obj, k):
                     setattr(obj, k, getattr(obj, k) + 0.01*np.random.randn())
-        rtp.update(rc, rf, rsi)
+        rtp.update([rc, rf, rsi])
         time.sleep(0.01)
 
 

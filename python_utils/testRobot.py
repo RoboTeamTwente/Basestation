@@ -31,10 +31,11 @@ def main():
 
 	try:
 		import matplotlib
-		mpl_available = True
+		import PySimpleGUI
+		rtp_available = True
 	except:
-		print("Warning! Could not import matplotlib. Can't plot in real time.")
-		mpl_available = False
+		print("Warning! Could not import matplotlib and/or PySimpleGUI. Can't plot in real time.")
+		rtp_available = False
 
 
 	def printPacket(rc):
@@ -138,8 +139,8 @@ def main():
 				# Run at 60fps
 				if 1./packetHz <= time.time() - lastWritten:
 					# Plot packets data in real-time
-					if mpl_available:
-						plotter.update(robotCommand, robotFeedback, robotStateInfo)
+					if rtp_available:
+						plotter.update([robotCommand, robotFeedback, robotStateInfo])
 
 					# Timing stuff
 					lastWritten += 1./packetHz
