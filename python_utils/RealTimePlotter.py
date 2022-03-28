@@ -285,7 +285,7 @@ def do_recording(queue):
         data = queue.get()
         if not data:
             break
-        all_keys = data.all_keys
+        all_keys = ["time"] + data.all_keys
         if len(times) == 0:
             times = [data.time[-1]]
         for i in range(len(data.time)):
