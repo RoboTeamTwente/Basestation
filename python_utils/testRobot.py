@@ -14,7 +14,7 @@ import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
-from RealTimePlotter_v2 import RealTimePlotter
+from RealTimePlotter import RealTimePlotter
 
 
 # robotStateInfoFile = open(f"robotStateInfo_{int(time.time())}.csv", "w")
