@@ -87,7 +87,7 @@ class Data:
         return vx, vy
 
     def compute_rf_velocities(self):
-        rho, theta, yaw = self.get_var("REM_RobotCommand-rho"), self.get_var("REM_RobotCommand-theta"), self.get_var("REM_RobotStateInfo-xsensYaw")
+        rho, theta, yaw = self.get_var("REM_RobotFeedback-rho"), self.get_var("REM_RobotFeedback-theta"), self.get_var("REM_RobotStateInfo-xsensYaw")
         theta = theta + yaw  # local to global frame of reference TODO: check whether it should be + or -
         vx, vy = rho * np.cos(theta), rho * np.sin(theta)
         return vx, vy
