@@ -19,10 +19,8 @@ DEFAULT_WINDOW_SIZE = 30.  # default time window to show in plots [sec]
 TIME_DIFF = 1. / 60  # time difference between sample points [sec]
 
 """ POSSIBLE IMPROVEMENTS 
-        -> Record button to save data that is received (in Elias' format)
         -> Option to open new window
         -> Use blit for higher frequency plotting
-        -> Close all processes when testRobot is terminated
 """
 
 
@@ -101,8 +99,8 @@ class RealTimePlotter:
 
         # Open new process to do the plotting (at a lower frequency)
         self.queue = Queue()
-        p = Process(target=do_plotting, args=(self.queue,))
-        p.start()
+        self.p = Process(target=do_plotting, args=(self.queue,))
+        self.p.start()
 
     def update(self, pckts):
         self.data.update(pckts)
@@ -326,4 +324,7 @@ def run_demo():
 
 
 if __name__ == "__main__":
-    run_demo()
+    try:
+        run_demo()
+    except KeyboardInterrupt:
+        print("Quitting demo...")
