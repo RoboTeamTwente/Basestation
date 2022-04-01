@@ -7,11 +7,16 @@ from matplotlib.offsetbox import AnchoredText
 
 files = [file for file in os.listdir("PIDfiles") if file.startswith("robotStateInfo") and file.endswith(".csv")]
 latest_file = re.findall('[0-9]+', max(files)) #find the time of the newest robotStateInfo file
+hardcoded_file = str(1648472795)
 
 #ConfigLines = open("robotConfig_1643811941.csv", "r").read().strip().split("\n")
 StateInfoLines = open("PIDfiles/robotStateInfo_" + latest_file[0] + ".csv", "r").read().strip().split("\n")
 CommandedLines = open("PIDfiles/robotCommand_" + latest_file[0] +  ".csv", "r").read().strip().split("\n")
 robotFeedbackLines = open("PIDfiles/robotFeedback_" + latest_file[0] + ".csv", "r").read().strip().split("\n")
+
+#StateInfoLines = open("PIDfiles/robotStateInfo_" + hardcoded_file + ".csv", "r").read().strip().split("\n")
+#CommandedLines = open("PIDfiles/robotCommand_" + hardcoded_file + ".csv", "r").read().strip().split("\n")
+#robotFeedbackLines = open("PIDfiles/robotFeedback_" + hardcoded_file + ".csv", "r").read().strip().split("\n")
 
 Configtimestamps = []
 XP, XI, XD, YP, YI, YD, WP, WI, WD, YawP, YawI, YawD, WheelsP, WheelsI, WheelsD = [], [], [], [], [], [], [], [], [], [], [], [], [], [], [] #PID gains

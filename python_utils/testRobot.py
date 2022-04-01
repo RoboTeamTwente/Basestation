@@ -13,9 +13,9 @@ import multiprocessing
 import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
-from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
+from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo	
+#from roboteam_embedded_messages.python.PIDConfiguration import REM_PIDConfiguration as PIDConfiguration
 from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
-
 
 robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
 robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
@@ -86,6 +86,7 @@ except Exception as e:
 	print(e)
 	print("Error : Run script with \"python testRobot.py id test\"")
 	exit()
+
 
 
 ### Needed for visualizing RobotStateInfo
@@ -163,6 +164,8 @@ while True:
 				PID.header = BaseTypes.PACKET_TYPE_P_I_D_CONFIGURATION
 				PID.remVersion = BaseTypes.LOCAL_REM_VERSION
 				PID.id = robotId
+				
+				
 
 				# All tests
 				log = ""
@@ -190,6 +193,7 @@ while True:
 
 					if test == "rotate":
 						cmd.angularControl = 1
+						PID.PbodyYaw = 20.0
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
 						log = "angle = %+.3f" % cmd.angle
 
@@ -226,9 +230,9 @@ while True:
 						
 					if test == "angular-velocity":
 						PID.PbodyW = 1.0
-						PID.IbodyW = 1.0
+						PID.IbodyW = 0.2
 						cmd.angularControl = 0
-						cmd.angularVelocity = 2 * math.pi
+						cmd.angularVelocity = 2 * math.pi * math.cos(periodFraction)
 						log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
 
 				# Logging
@@ -241,8 +245,8 @@ while True:
 
 				# Send command
 				if test != "nothing":
-					basestation.write( cmd.encode() )
-					basestation.write( PID.encode() )
+					basestation.write( np.hstack( (cmd.encode() , PID.encode())))
+					
 					totalCommandsSent += 1
 
 
