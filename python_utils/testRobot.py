@@ -17,7 +17,7 @@ from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateI
 from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
 
 
-robotStateInfoFile = o	pen(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
+robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
 robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
 robotFeedbackFile = open(f"PIDfiles/robotFeedback_{int(time.time())}.csv", "w")
 robotPIDFile = open(f"PIDfiles/robotPID_{int(time.time())}.csv", "w")
@@ -71,7 +71,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "angular-velocity", "forward-sinesweep"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "angular-velocity", "forward-sinesweep", "sideways-sinesweep"]
 
 # Parse input arguments 
 try:
@@ -235,6 +235,17 @@ while True:
 						sweep_time += 1./packetHz
 						sweep_time = sweep_time % T
 						velxCommandFile.write(str(time.time()) + ", " + str(vx) + "\n")
+						
+					if test == "sideways-sinesweep":
+						f0, f1, T = 0.1, 2, 30
+						amp = 1
+						t = sweep_time
+						vy = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
+						cmd.theta = math.pi/2 if vy > 0 else -math.pi/2
+						cmd.rho = abs(vy)
+						sweep_time += 1./packetHz
+						sweep_time = sweep_time % T
+						velxCommandFile.write(str(time.time()) + ", " + str(vy) + "\n")
 
 				# Logging
 				bar = drawProgressBar(periodFraction)
@@ -387,7 +398,7 @@ while True:
 				cv2.line(img, (170, 170), (int(rx), int(ry)), (1, 1, 1), 4)
 			
 
-			cv2.imshow("img", img)
+			cv2.imshow("press esc to quit", img)
 			if cv2.waitKey(1) == 27: exit()
 
 
