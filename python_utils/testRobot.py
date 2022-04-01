@@ -17,7 +17,7 @@ from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateI
 from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
 
 
-robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
+robotStateInfoFile = o	pen(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
 robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
 robotFeedbackFile = open(f"PIDfiles/robotFeedback_{int(time.time())}.csv", "w")
 robotPIDFile = open(f"PIDfiles/robotPID_{int(time.time())}.csv", "w")
@@ -71,7 +71,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "forward-sinesweep"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "angular-velocity", "forward-sinesweep"]
 
 # Parse input arguments 
 try:
@@ -217,6 +217,13 @@ while True:
 						if 0.5 < periodFraction : cmd.theta = -math.pi
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
 						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+					
+					if test == "angular-velocity":
+						PID.PbodyW = 1.0
+						PID.IbodyW = 0.2
+						cmd.angularControl = 0
+						cmd.angularVelocity = 2 * math.pi
+						log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
 
 					if test == "forward-sinesweep":
 						f0, f1, T = 0.1, 2, 30
@@ -239,7 +246,7 @@ while True:
 
 				# Send command
 				if test != "nothing":
-					basestation.write( cmd.encode() )
+					basestation.write( np.hstack( (cmd.encode() , PID.encode())))
 					totalCommandsSent += 1
 
 
