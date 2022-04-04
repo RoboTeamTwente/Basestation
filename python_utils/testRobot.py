@@ -112,6 +112,7 @@ periodLength = 300
 packetHz = 60
 sweep_freq = 0
 sweep_time = 0
+sweep_ctr = 0
 
 totalCommandsSent = 0
 totalFeedbackReceived = 0
@@ -226,26 +227,34 @@ while True:
 						log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
 
 					if test == "forward-sinesweep":
-						f0, f1, T = 0.1, 2, 30
+						f0, f1, T = 0.01, 2, 50
 						amp = 1
 						t = sweep_time
 						vx = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
 						cmd.theta = 0 if vx > 0 else -math.pi
 						cmd.rho = abs(vx)
 						sweep_time += 1./packetHz
+						#if sweep_time >= T:
+						#	sweep_ctr += 1
 						sweep_time = sweep_time % T
 						velxCommandFile.write(str(time.time()) + ", " + str(vx) + "\n")
+						#if sweep_ctr == 10:
+						#	exit()
 						
 					if test == "sideways-sinesweep":
-						f0, f1, T = 0.1, 2, 30
-						amp = 1
+						f0, f1, T = 0.01, 2, 50
+						amp = 2
 						t = sweep_time
 						vy = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
 						cmd.theta = math.pi/2 if vy > 0 else -math.pi/2
 						cmd.rho = abs(vy)
 						sweep_time += 1./packetHz
+						#if sweep_time >= T:
+						#	sweep_ctr += 1
 						sweep_time = sweep_time % T
 						velxCommandFile.write(str(time.time()) + ", " + str(vy) + "\n")
+						#if sweep_ctr == 1:
+						#	exit()
 
 				# Logging
 				bar = drawProgressBar(periodFraction)

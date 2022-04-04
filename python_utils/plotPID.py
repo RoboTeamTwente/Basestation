@@ -3,15 +3,8 @@ import os
 import numpy as np
 import sys
 import re
+import heapq
 from matplotlib.offsetbox import AnchoredText
-
-files = [file for file in os.listdir("PIDfiles") if file.startswith("robotStateInfo") and file.endswith(".csv")]
-latest_file = re.findall('[0-9]+', max(files)) #find the time of the newest robotStateInfo file
-
-#ConfigLines = open("robotConfig_1643811941.csv", "r").read().strip().split("\n")
-StateInfoLines = open("PIDfiles/robotStateInfo_" + latest_file[0] + ".csv", "r").read().strip().split("\n")
-CommandedLines = open("PIDfiles/robotCommand_" + latest_file[0] +  ".csv", "r").read().strip().split("\n")
-robotFeedbackLines = open("PIDfiles/robotFeedback_" + latest_file[0] + ".csv", "r").read().strip().split("\n")
 
 Configtimestamps = []
 XP, XI, XD, YP, YI, YD, WP, WI, WD, YawP, YawI, YawD, WheelsP, WheelsI, WheelsD = [], [], [], [], [], [], [], [], [], [], [], [], [], [], [] #PID gains
@@ -33,10 +26,9 @@ Vx, Vy = [], [] #commanded x- and y velocities calculated from rho and theta
 Wc1, Wc2, Wc3, Wc4 = [], [], [], [] #commanded wheel speeds calculated from Vx and Vy
 
 plotsAvailable = ["x", "y", "w", "yaw", "wheels", "integral", "integral-wheels"]
-
 # Parse input arguments 
 try:
-	if len(sys.argv) != 2:
+	if len(sys.argv) not in [2,3]:
 		raise Exception("Error : Invalid number of arguments. Expected PID-index")
 	plotID = sys.argv[1]
 	if plotID not in plotsAvailable:
@@ -46,6 +38,15 @@ except Exception as e:
 	print("Error : Run script with \"python plotPID.py PID-index\"")
 	exit()
 
+lastfile = 0
+if len(sys.argv) == 3: lastfile = int(sys.argv[2])
+files = [file for file in os.listdir("PIDfiles") if file.startswith("robotStateInfo") and file.endswith(".csv")]
+filenr = heapq.nlargest(lastfile+1, files)
+filenr = re.findall('[0-9]+', str(filenr)) #find the time of the newest robotStateInfo file
+#ConfigLines = open("robotConfig_1643811941.csv", "r").read().strip().split("\n")
+StateInfoLines = open("PIDfiles/robotStateInfo_" + filenr[lastfile] + ".csv", "r").read().strip().split("\n")
+CommandedLines = open("PIDfiles/robotCommand_" + filenr[lastfile] +  ".csv", "r").read().strip().split("\n")
+robotFeedbackLines = open("PIDfiles/robotFeedback_" + filenr[lastfile] + ".csv", "r").read().strip().split("\n")
 
 #for line in ConfigLines[100:500]:
 #	ts, xp, xi, xd, yp, yi, yd, wp, wi, wd, yawp, yawi, yawd, wheelsp, wheelsi, wheelsd = line.split(" ")
