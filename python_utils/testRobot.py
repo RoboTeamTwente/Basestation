@@ -104,6 +104,7 @@ def main():
 	robotCommand = RobotCommand()
 	robotFeedback = RobotFeedback()
 	robotStateInfo = RobotStateInfo()
+	pidConfiguration = PIDConfiguration()
 	plotter = RealTimePlotter()
 
 	feedbackTimestamp = 0
@@ -145,7 +146,7 @@ def main():
 				if 1./packetHz <= time.time() - lastWritten:
 					# Plot packets data in real-time
 					if rtp_available:
-						if not plotter.update([robotCommand, robotFeedback, robotStateInfo]):
+						if not plotter.update([robotCommand, robotFeedback, robotStateInfo, pidConfiguration]):
 							exit()
 
 					# Timing stuff
@@ -211,20 +212,20 @@ def main():
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
 						log = "angle = %+.3f" % cmd.angle
 
-						if test == "forward" or test == "sideways":
-							cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
-							if 0.5 < periodFraction : cmd.theta = -math.pi
-							log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
+					if test == "forward" or test == "sideways":
+						cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
+						if 0.5 < periodFraction : cmd.theta = -math.pi
+						log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
-						if test == "sideways":
-							cmd.angle = math.pi / 2
+					if test == "sideways":
+						cmd.angle = math.pi / 2
 
-						if test == "rotate-discrete":
-							if periodFraction <=  1.: cmd.angle = math.pi/2
-							if periodFraction <= .75: cmd.angle = -math.pi
-							if periodFraction <= .50: cmd.angle = -math.pi/2
-							if periodFraction <= .25: cmd.angle = 0
-							log = "angle = %+.3f" % cmd.angle
+					if test == "rotate-discrete":
+						if periodFraction <=  1.: cmd.angle = math.pi/2
+						if periodFraction <= .75: cmd.angle = -math.pi
+						if periodFraction <= .50: cmd.angle = -math.pi/2
+						if periodFraction <= .25: cmd.angle = 0
+						log = "angle = %+.3f" % cmd.angle
 
 					if test == "forward-rotate":
 						cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
@@ -269,6 +270,8 @@ def main():
 						sweep_time = sweep_time % T
 
 					# Logging
+					robotCommand = cmd
+					pidConfiguration = PID
 					bar = drawProgressBar(periodFraction)
 					if not robotConnected:
 						print(" Receiving no feedback!", end="")
