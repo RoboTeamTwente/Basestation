@@ -132,7 +132,9 @@ class PlotterGUI:
             remove_menu.append(p_type)
             remove_menu.append([])
         remove_menu.append("All::remove-all")
-        self.menu_def = [['Add', add_menu], ['Remove', remove_menu]]
+        quick_add_menu = ['x-velocity', 'y-velocity', 'angular velocity', 'yaw', 'wheel speeds']
+        quick_add_menu = [s + "::quick-add" for s in quick_add_menu]
+        self.menu_def = [['Add', add_menu], ['Remove', remove_menu], ['Quick add', quick_add_menu]]
         self.use_auto_ylim = True
         self.is_recording = False
         self.rec_queue = Queue()
@@ -192,6 +194,8 @@ class PlotterGUI:
         # Handle GUI events
         if "::add" in event or "::remove" in event:
             self.update_menu(event)
+        elif "::quick-add" in event:
+            self.handle_quickadd(event)
         elif event == '-YLIM_BUTTON-':
             self.use_auto_ylim = not self.use_auto_ylim
             bc = ('white', ('red', 'green')[self.use_auto_ylim])
@@ -269,13 +273,25 @@ class PlotterGUI:
     def compute_limits(self, min_time, default=1.):
         """ Compute plot limits for a given dataset """
         lim = 0.
-        menu_def = self.handles["menu"].MenuDefinition
         t_arr = self.data.get_var("time")
-        for k in get_shown_keys(menu_def):
+        for k in get_shown_keys(self.handles["menu"].MenuDefinition):
             arr = [abs(val) for val, t in zip(self.data.get_var(k), t_arr) if t > min_time and not np.isnan(val)]
             lim = lim if len(arr) == 0 else max(lim, max(arr))
         lim = default if lim == 0. else lim
         return [-1.1 * lim, 1.1 * lim]
+
+    def handle_quickadd(self, event):
+        sk = get_shown_keys(self.handles["menu"].MenuDefinition)
+        event_keys = {"x-velocity::quick-add": ['xvel (command)::add-Extra-xvel (command)', 'xvel (feedback)::add-Extra-xvel (feedback)'],
+                      "y-velocity::quick-add": ['yvel (command)::add-Extra-yvel (command)', 'yvel (feedback)::add-Extra-yvel (feedback)'],
+                      "angular velocity::quick-add": ['angularVelocity::add-REM_RobotCommand-angularVelocity', 'rateOfTurn::add-REM_RobotStateInfo-rateOfTurn'],
+                      "yaw::quick-add": ['angle::add-REM_RobotCommand-angle', 'angle::add-REM_RobotFeedback-angle'],
+                      "wheel speeds::quick-add": ['wheelSpeed{:d}::add-REM_RobotStateInfo-wheelSpeed{:d}'.format(i, i) for i in range(1,5)]}
+        print(event)
+        if event in event_keys:
+            self.update_menu("All::remove-all")
+            for k in [k for k in event_keys[event] if k not in sk]:
+                self.update_menu(k)
 
 
 def get_shown_keys(menu_def):
