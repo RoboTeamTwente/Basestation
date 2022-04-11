@@ -259,6 +259,15 @@ def main():
 						sweep_time += 1./packetHz
 						sweep_time = sweep_time % T
 
+					if test == "rotate-sinesweep":
+						f0, f1, T = 0.01, 2, 50
+						amp = 2*np.pi
+						t = sweep_time
+						w = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
+						cmd.angularVelocity = w
+						sweep_time += 1./packetHz
+						sweep_time = sweep_time % T
+
 					# Logging
 					bar = drawProgressBar(periodFraction)
 					if not robotConnected:
