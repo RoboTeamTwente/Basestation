@@ -140,7 +140,8 @@ def main():
 				if 1./packetHz <= time.time() - lastWritten:
 					# Plot packets data in real-time
 					if rtp_available:
-						plotter.update([robotCommand, robotFeedback, robotStateInfo])
+						if not plotter.update([robotCommand, robotFeedback, robotStateInfo]):
+							exit()
 
 					# Timing stuff
 					lastWritten += 1./packetHz

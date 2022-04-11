@@ -96,21 +96,32 @@ class Data:
 class RealTimePlotter:
     def __init__(self):
         self.data = Data()
+        self.still_running = True
 
         # Open new process to do the plotting (at a lower frequency)
-        self.queue = Queue()
-        self.p = Process(target=do_plotting, args=(self.queue,))
+        self.queue, self.quit_queue = Queue(), Queue()
+        self.p = Process(target=do_plotting, args=(self.queue, self.quit_queue))
         self.p.start()
 
-    def update(self, pckts):
+    def update(self, pckts) -> bool:
         self.data.update(pckts)
         if self.queue.empty():
             self.queue.put(self.data)
+        if not self.quit_queue.empty():
+            self.quit()
+        return self.still_running
+
+    def quit(self):
+        self.p.terminate()
+        while not self.queue.empty():
+            self.queue.get()
+        self.still_running = False
 
 
 class PlotterGUI:
-    def __init__(self, queue):
+    def __init__(self, queue, quit_queue):
         self.queue = queue
+        self.quit_queue = quit_queue
         self.n = int(MAX_WINDOW_SIZE / TIME_DIFF)  # number of points to show
         self.start_time = None
         self.data = Data()
@@ -146,7 +157,8 @@ class PlotterGUI:
              ],
         ]
         # create the form and show it without the plot
-        window = sg.Window('Real-Time Plotter', layout, resizable=True, finalize=True)
+        window = sg.Window('Real-Time Plotter -- press ESC to terminate', layout, resizable=True, finalize=True,
+                           return_keyboard_events=True)
 
         canvas_elem = window['-CANVAS-']
         canvas = canvas_elem.TKCanvas
@@ -201,6 +213,8 @@ class PlotterGUI:
                     pass
                 self.handles["window"].Element('-REC_BUTTON-').Update('Record', button_color=('red', 'white'))
                 self.rec_process.terminate()
+        elif event == "Escape:27":
+            self.quit_queue.put('quit')
 
         # Get data form other process
         if not self.queue.empty():
@@ -271,8 +285,8 @@ def get_shown_keys(menu_def):
     return sk
 
 
-def do_plotting(queue):
-    pltr = PlotterGUI(queue)
+def do_plotting(*args):
+    pltr = PlotterGUI(*args)
     while pltr.update_plots():
         pass
 
@@ -319,7 +333,8 @@ def run_demo():
             for k in keys:
                 if hasattr(obj, k):
                     setattr(obj, k, getattr(obj, k) + 0.01*np.random.randn())
-        rtp.update([rc, rf, rsi])
+        if not rtp.update([rc, rf, rsi]):
+            break
         time.sleep(0.01)
 
 
