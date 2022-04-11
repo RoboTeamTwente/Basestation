@@ -287,7 +287,6 @@ class PlotterGUI:
                       "angular velocity::quick-add": ['angularVelocity::add-REM_RobotCommand-angularVelocity', 'rateOfTurn::add-REM_RobotStateInfo-rateOfTurn'],
                       "yaw::quick-add": ['angle::add-REM_RobotCommand-angle', 'angle::add-REM_RobotFeedback-angle'],
                       "wheel speeds::quick-add": ['wheelSpeed{:d}::add-REM_RobotStateInfo-wheelSpeed{:d}'.format(i, i) for i in range(1,5)]}
-        print(event)
         if event in event_keys:
             self.update_menu("All::remove-all")
             for k in [k for k in event_keys[event] if k not in sk]:
