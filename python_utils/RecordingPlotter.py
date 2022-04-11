@@ -7,6 +7,7 @@ from matplotlib.figure import Figure
 import sys
 import os
 import glob
+from multiprocessing import Process
 
 COLORMAP = 'tab10'
 
@@ -86,18 +87,9 @@ class PlotterGUI:
             self.handles["window"].Element('-YLIM_BUTTON-').Update(('Manual', 'Auto')[self.use_auto_ylim], button_color=bc)
             self.handles["window"].Element('-YLIM_SPIN-').Update(disabled=self.use_auto_ylim)
         elif event == '-OPEN_BUTTON-':
-            plt.figure()
-            plt.xlabel('Time [s]', fontsize=14)
-            plt.grid()
-            plt.plot(self.df.time, np.zeros(self.df.time.size), '-k', label=None)
             shown_keys = get_shown_keys(self.handles["menu"].MenuDefinition)
-            cm = plt.get_cmap(COLORMAP, 10)
-            colors = {k: cm(i) for i, k in enumerate(shown_keys)}
-            for k in shown_keys:
-                plt.plot(self.df.time, self.df[k], color=colors[k], label=k.split('-')[1], lw=1.5)
-            plt.legend()
-            plt.title(self.filename)
-            plt.xlim([self.df.time.min(), self.df.time.max()])
+            p = Process(target=show_in_pyplot, args=(self.df, shown_keys))
+            p.start()
 
         # Update plots
         shown_keys = get_shown_keys(self.handles["menu"].MenuDefinition)
@@ -165,8 +157,21 @@ def draw_figure(canvas, figure, loc=(0, 0)):
     return figure_canvas_agg
 
 
+def show_in_pyplot(df, shown_keys):
+    plt.figure()
+    plt.plot(df.time, np.zeros(df.time.size), '-k', label=None)
+    cm = plt.get_cmap(COLORMAP, 10)
+    colors = {k: cm(i) for i, k in enumerate(shown_keys)}
+    for k in shown_keys:
+        plt.plot(df.time, df[k], color=colors[k], label=k.split('-')[1], lw=1.5)
+    plt.xlabel('Time [s]', fontsize=14)
+    plt.grid()
+    plt.legend()
+    plt.xlim([df.time.min(), df.time.max()])
+    plt.show()
+
+
 def make_plot(filepath):
-    plt.ion()
     df = pd.read_csv(filepath)
     gui = PlotterGUI(df, filepath)
     while gui.update_plots():
