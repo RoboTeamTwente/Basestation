@@ -14,6 +14,8 @@ import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo
+from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
+
 from RealTimePlotter import RealTimePlotter
 
 
@@ -74,7 +76,7 @@ def main():
 		if (angle > math.pi): angle -= pi2
 		return angle
 
-	testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
+	testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "angular-velocity", "forward-sinesweep", "sideways-sinesweep"]
 
 	# Parse input arguments
 	try:
@@ -114,6 +116,9 @@ def main():
 	tickCounter = 0
 	periodLength = 300
 	packetHz = 60
+	sweep_freq = 0
+	sweep_time = 0
+	sweep_ctr = 0
 
 	totalCommandsSent = 0
 	totalFeedbackReceived = 0
@@ -168,6 +173,12 @@ def main():
 					cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
 					cmd.id = robotId
 
+					# Create new empty robot command
+					PID = PIDConfiguration()
+					PID.header = BaseTypes.PACKET_TYPE_P_I_D_CONFIGURATION
+					PID.remVersion = BaseTypes.LOCAL_REM_VERSION
+					PID.id = robotId
+
 					# All tests
 					log = ""
 
@@ -195,9 +206,10 @@ def main():
 							cmd.dribbler = math.floor(8 * periodFraction)
 							log = "speed = %d" % cmd.dribbler
 
-						if test == "rotate":
-							cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
-							log = "angle = %+.3f" % cmd.angle
+					if test == "rotate":
+						cmd.angularControl = 1
+						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
+						log = "angle = %+.3f" % cmd.angle
 
 						if test == "forward" or test == "sideways":
 							cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
@@ -214,14 +226,40 @@ def main():
 							if periodFraction <= .25: cmd.angle = 0
 							log = "angle = %+.3f" % cmd.angle
 
-						if test == "forward-rotate":
-							cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
-							if 0.5 < periodFraction : cmd.theta = -math.pi
-							cmd.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
-							log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+					if test == "forward-rotate":
+						cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * periodFraction )
+						if 0.5 < periodFraction : cmd.theta = -math.pi
+						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
+						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+
+					if test == "angular-velocity":
+						PID.PbodyW = 1.0
+						PID.IbodyW = 0.2
+						cmd.angularControl = 0
+						cmd.angularVelocity = 2 * math.pi
+						log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
+
+					if test == "forward-sinesweep":
+						f0, f1, T = 0.01, 2, 50
+						amp = 1
+						t = sweep_time
+						vx = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
+						cmd.theta = 0 if vx > 0 else -math.pi
+						cmd.rho = abs(vx)
+						sweep_time += 1./packetHz
+						sweep_time = sweep_time % T
+
+					if test == "sideways-sinesweep":
+						f0, f1, T = 0.01, 2, 50
+						amp = 2
+						t = sweep_time
+						vy = amp * np.sin(2*np.pi*(f0 * t + (f1-f0)/(2*T) * t**2))
+						cmd.theta = math.pi/2 if vy > 0 else -math.pi/2
+						cmd.rho = abs(vy)
+						sweep_time += 1./packetHz
+						sweep_time = sweep_time % T
 
 					# Logging
-					robotCommand = cmd
 					bar = drawProgressBar(periodFraction)
 					if not robotConnected:
 						print(" Receiving no feedback!", end="")
@@ -231,7 +269,7 @@ def main():
 
 					# Send command
 					if test != "nothing":
-						basestation.write( cmd.encode() )
+						basestation.write( np.hstack( (cmd.encode() , PID.encode())))
 						totalCommandsSent += 1
 
 
@@ -367,7 +405,7 @@ def main():
 					cv2.line(img, (170, 170), (int(rx), int(ry)), (1, 1, 1), 4)
 
 
-				cv2.imshow("img", img)
+				cv2.imshow("press esc to quit", img)
 				if cv2.waitKey(1) == 27: exit()
 
 		except serial.SerialException as se:
