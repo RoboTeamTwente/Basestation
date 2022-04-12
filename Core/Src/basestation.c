@@ -12,12 +12,16 @@
 #include "REM_RobotCommand.h"
 #include "REM_RobotFeedback.h"
 #include "REM_RobotStateInfo.h"
+#include "REM_getPIDGains.h"
+#include "REM_PIDGains.h"
 
 /* Counters, tracking the number of packets handled */ 
 volatile int handled_RobotCommand = 0;
 volatile int handled_RobotFeedback = 0;
 volatile int handled_RobotBuzzer = 0;
 volatile int handled_RobotStateInfo = 0;
+volatile int handled_RobotGetPIDGains = 0;
+volatile int handled_RobotPIDGains = 0;
 
 /* Import hardware handles from main.c */
 extern SPI_HandleTypeDef hspi1;
@@ -116,6 +120,14 @@ void loop(){
     }
   }
 
+  /* Send PID Gains of robots to the basestation */
+  for(int id = 0; id <= MAX_ROBOT_ID; id++){
+    if(buffer_RobotPIDGains[id].isNewPacket){
+      handled_RobotPIDGains++;
+      HexOut(buffer_RobotPIDGains[id].packet.payload, PACKET_SIZE_REM_P_I_D_GAINS);
+      buffer_RobotPIDGains[id].isNewPacket = false;
+    }
+  }
   // TODO needs to be updated to the latest roboteam_embedded_messages version. Disabled for now.
   if(flagHandleStatistics){
     // handleStatistics();
@@ -334,6 +346,32 @@ void handleStatistics(){
   return;
 }
 
+void handleGetPIDGains(uint8_t* packet_buffer){
+  handled_RobotGetPIDGains++;
+
+  // Store the message in the RobotBuzzer buffer. Set flag to be sent to the robot
+  uint8_t robot_id = REM_GetPIDGains_get_id((REM_GetPIDGainsPayload*) packet_buffer);
+  memcpy(buffer_RobotGetPIDGains[robot_id].packet.payload, packet_buffer, PACKET_SIZE_REM_GET_P_I_D_GAINS);
+  buffer_RobotGetPIDGains[robot_id].isNewPacket = true;
+  buffer_RobotGetPIDGains[robot_id].counter++;
+}
+
+void handlePIDGains(uint8_t* packet_buffer){
+  handled_RobotPIDGains++;
+  
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_PIDGains_get_remVersion((REM_PIDGainsPayload*) packet_buffer);
+  if(packet_rem_version != LOCAL_REM_VERSION){
+    sprintf(logBuffer, "[handleRobotPIDGains] Error! packet_rem_version %u != %u LOCAL_REM_VERSION.", packet_rem_version, LOCAL_REM_VERSION);
+    return;
+  }
+
+  // Store the message in the RobotFeedback buffer. Set flag indicating packet needs to be sent to the robot
+  uint8_t robot_id = REM_PIDGains_get_id((REM_PIDGainsPayload*) packet_buffer);
+  memcpy(buffer_RobotPIDGains[robot_id].packet.payload, packet_buffer, PACKET_SIZE_REM_P_I_D_GAINS);
+  buffer_RobotPIDGains[robot_id].isNewPacket = true;
+  buffer_RobotPIDGains[robot_id].counter++;
+}
 
 
 /**
@@ -393,6 +431,16 @@ bool handlePacket(uint8_t* packet_buffer, uint32_t packet_length){
       case PACKET_TYPE_REM_BASESTATION_GET_CONFIGURATION:
         bytes_processed += PACKET_SIZE_REM_BASESTATION_GET_CONFIGURATION;
         flagHandleConfiguration = true;
+        break;
+
+      case PACKET_TYPE_REM_GET_P_I_D_GAINS:
+        handleGetPIDGains(packet_buffer + bytes_processed);
+        bytes_processed += PACKET_SIZE_REM_GET_P_I_D_GAINS;
+        break;
+
+      case PACKET_TYPE_REM_P_I_D_GAINS:
+        handlePIDGains(packet_buffer + bytes_processed);
+        bytes_processed += PACKET_SIZE_REM_P_I_D_GAINS;
         break;
 
       default:
@@ -467,6 +515,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
       buffer_RobotBuzzer[idCounter].isNewPacket = false;
       memcpy(sendBuffer + total_packet_length, buffer_RobotBuzzer[idCounter].packet.payload, PACKET_SIZE_REM_ROBOT_BUZZER);
       total_packet_length += PACKET_SIZE_REM_ROBOT_BUZZER;
+    }
+
+    /* Add RobotGetPIDGains to the transmission */
+    if(buffer_RobotGetPIDGains[idCounter].isNewPacket && total_packet_length + PACKET_SIZE_REM_GET_P_I_D_GAINS < MAX_PACKET_SIZE){
+      buffer_RobotGetPIDGains[idCounter].isNewPacket = false;
+      memcpy(sendBuffer + total_packet_length, buffer_RobotGetPIDGains[idCounter].packet.payload, PACKET_SIZE_REM_GET_P_I_D_GAINS);
+      total_packet_length += PACKET_SIZE_REM_GET_P_I_D_GAINS;
     }
     
     /* Send new command if available for this robot ID */

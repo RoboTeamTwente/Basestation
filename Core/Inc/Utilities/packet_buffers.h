@@ -10,6 +10,8 @@
 #include "REM_RobotFeedback.h"
 #include "REM_RobotBuzzer.h"
 #include "REM_RobotStateInfo.h"
+#include "REM_GetPIDGains.h"
+#include "REM_PIDGains.h"
 
 bool isTransmitting;
 
@@ -41,6 +43,20 @@ struct _buffer_RobotBuzzer {
 	uint32_t counter;
 };
 struct _buffer_RobotBuzzer buffer_RobotBuzzer[MAX_NUMBER_OF_ROBOTS];
+
+struct _buffer_RobotGetPIDGains {
+	REM_GetPIDGainsPayload packet;
+	bool isNewPacket;
+	uint32_t counter;
+};
+struct _buffer_RobotGetPIDGains buffer_RobotGetPIDGains[MAX_NUMBER_OF_ROBOTS];
+
+struct _buffer_RobotPIDGains {
+	REM_PIDGainsPayload packet;
+	bool isNewPacket;
+	uint32_t counter;
+};
+struct _buffer_RobotPIDGains buffer_RobotPIDGains[MAX_NUMBER_OF_ROBOTS];
 
 
 
