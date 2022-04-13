@@ -12,7 +12,7 @@
 #include "REM_RobotCommand.h"
 #include "REM_RobotFeedback.h"
 #include "REM_RobotStateInfo.h"
-#include "REM_getPIDGains.h"
+#include "REM_GetPIDGains.h"
 #include "REM_PIDGains.h"
 
 /* Counters, tracking the number of packets handled */ 
@@ -96,8 +96,8 @@ void loop(){
   /* Heartbeat every second */
   if(heartbeat_1000ms + 1000 < HAL_GetTick()){
     heartbeat_1000ms += 1000;
-    sprintf(logBuffer, "Tick | RC %d RF %d RB %d RSI %d\n",
-    handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer, handled_RobotStateInfo);
+    sprintf(logBuffer, "Tick | RC %d RF %d RB %d RSI %d RGPID %d RPID %d\n",
+    handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer, handled_RobotStateInfo, handled_RobotGetPIDGains, handled_RobotPIDGains);
     LOG(logBuffer);
     logBuffer[0] = '\0';
   }
@@ -114,7 +114,6 @@ void loop(){
   /* Send any new RobotStateInfo packets */
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_RobotStateInfo[id].isNewPacket){
-      handled_RobotBuzzer++;
       HexOut(buffer_RobotStateInfo[id].packet.payload, PACKET_SIZE_REM_ROBOT_STATE_INFO);
       buffer_RobotStateInfo[id].isNewPacket = false;
     }
@@ -123,7 +122,6 @@ void loop(){
   /* Send PID Gains of robots to the basestation */
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_RobotPIDGains[id].isNewPacket){
-      handled_RobotPIDGains++;
       HexOut(buffer_RobotPIDGains[id].packet.payload, PACKET_SIZE_REM_P_I_D_GAINS);
       buffer_RobotPIDGains[id].isNewPacket = false;
     }

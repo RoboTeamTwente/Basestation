@@ -10,14 +10,23 @@ import sys
 import shutil
 import multiprocessing
 
-import roboteam_embedded_messages.python.BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.RobotCommand import RobotCommand
-from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
-from roboteam_embedded_messages.python.BasestationConfiguration import BasestationConfiguration
-from roboteam_embedded_messages.python.BasestationGetConfiguration import BasestationGetConfiguration
-from roboteam_embedded_messages.python.BasestationSetConfiguration import BasestationSetConfiguration
+import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
+from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
+from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
+from roboteam_embedded_messages.python.REM_BasestationConfiguration import REM_BasestationConfiguration as BasestationConfiguration
+from roboteam_embedded_messages.python.REM_BasestationGetConfiguration import REM_BasestationGetConfiguration as BasestationGetConfiguration
+from roboteam_embedded_messages.python.REM_BasestationSetConfiguration import REM_BasestationSetConfiguration as BasestationSetConfiguration
+from roboteam_embedded_messages.python.REM_GetPIDGains import REM_GetPIDGains
+from roboteam_embedded_messages.python.REM_PIDGains import REM_PIDGains
 
 ROBOT_ID = 0
+
+GET_PID_COMMAND = REM_GetPIDGains()
+GET_PID_COMMAND.header = BaseTypes.PACKET_TYPE_REM_GET_P_I_D_GAINS
+GET_PID_COMMAND.remVersion = BaseTypes.LOCAL_REM_VERSION
+
+PID_COMMAND = REM_PIDGains()
+
 
 ROTATE_COMMAND = RobotCommand()
 ROTATE_COMMAND.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
@@ -99,10 +108,26 @@ def readBasestation():
         pass
     elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_LOG:
         packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_LOG - 1)
+        print(packet.decode())
         pass
+
+    elif packet_type == BaseTypes.PACKET_TYPE_REM_GET_P_I_D_GAINS:
+        packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_GET_P_I_D_GAINS - 1)
+        pass
+
+    elif packet_type == BaseTypes.PACKET_TYPE_REM_P_I_D_GAINS:
+        packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_P_I_D_GAINS -1)
+        print("received PID Gains")
+        
+
     else:
         #print(f"Error : Unhandled packet with type {packetType}")
         pass
+
+def sendGetPIDGains():
+    basestation.write(GET_PID_COMMAND.encode())
+    print("I want to know PID Gains")
+
 
 def sendRotateCommand():
     basestation.write(ROTATE_COMMAND.encode())
@@ -142,6 +167,11 @@ def changeFrequencyYellow():
         readBasestation()
         time.sleep(0.016)
 
+def askPIDs():
+    sendGetPIDGains()
+    readBasestation()
+    wait(2)
+
 basestation = utils.openContinuous(timeout=0.001)
 
 def wait(seconds):
@@ -149,22 +179,28 @@ def wait(seconds):
     while (time.time() - start) < seconds:
         readBasestation()
 
-
 sendGetConfig()
 wait(2)
-doTest()
-wait(2)
+askPIDs()
+# wait(5)
 
-changeFrequencyBlue()
 
-sendGetConfig()
-wait(2)
-doTest()
-wait(2)
 
-changeFrequencyYellow()
+#sendGetConfig()
+#wait(2)
+#doTest()
+#wait(2)
 
-sendGetConfig()
-wait(2)
-doTest()
-wait(2)
+#changeFrequencyBlue()
+
+#sendGetConfig()
+#wait(2)
+#doTest()
+#wait(2)
+
+#changeFrequencyYellow()
+
+#sendGetConfig()
+#wait(2)
+#doTest()
+#wait(2)
