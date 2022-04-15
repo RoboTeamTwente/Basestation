@@ -12,13 +12,15 @@ import multiprocessing
 import traceback
 import random
 
-import roboteam_embedded_messages.python.BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.RobotCommand import RobotCommand
-from roboteam_embedded_messages.python.RobotFeedback import RobotFeedback
-from roboteam_embedded_messages.python.RobotStateInfo import RobotStateInfo
-from roboteam_embedded_messages.python.RobotLog import RobotLog
-from roboteam_embedded_messages.python.RobotAssuredPacket import RobotAssuredPacket
-from roboteam_embedded_messages.python.RobotAssuredAck import RobotAssuredAck
+import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
+from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
+from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
+from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
+from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
+from roboteam_embedded_messages.python.REM_RobotGetPIDGains import REM_RobotGetPIDGains
+from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
+from roboteam_embedded_messages.python.REM_RobotAssuredPacket import REM_RobotAssuredPacket
+from roboteam_embedded_messages.python.REM_RobotAssuredAck import REM_RobotAssuredAck
 
 # Map all PACKET_TYPES_ in BaseTypes. int => string
 PACKET_TYPES = dir(BaseTypes)
@@ -69,7 +71,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid"]
 
 # Parse input arguments 
 try:
@@ -94,11 +96,11 @@ img = np.zeros((500, 500, 3), dtype=np.float)
 
 basestation = None
 
-robotCommand = RobotCommand()
-robotFeedback = RobotFeedback()
-robotStateInfo = RobotStateInfo()
-robotLog = RobotLog()
-robotAssuredPacket = RobotAssuredPacket()
+robotFeedback = REM_RobotFeedback()
+robotStateInfo = REM_RobotStateInfo()
+robotPIDGains = REM_RobotPIDGains()
+robotLog = REM_RobotLog()
+robotAssuredPacket = REM_RobotAssuredPacket()
 
 feedbackTimestamp = 0
 stateInfoTimestamp = 0
@@ -119,7 +121,7 @@ lastBasestationLog = ""
 lastRobotLog = ""
 
 doFullTest = test == "full"
-doNoTest   = test == "nothing"
+doNoTest   = test == "nothing" or test == "getpid"
 testIndex = 2
 
 # stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0674FF525750877267181714-if02"
@@ -157,8 +159,8 @@ while True:
 					test = testsAvailable[testIndex]
 
 				# Create new empty robot command
-				cmd = RobotCommand()
-				cmd.header = BaseTypes.PACKET_TYPE_ROBOT_COMMAND
+				cmd = REM_RobotCommand()
+				cmd.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
 				cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
 				cmd.id = robotId
 
@@ -183,7 +185,7 @@ while True:
 							cmd.kickChipPower = 0.2
 
 					if test == "dribbler":
-						cmd.dribbler = periodFraction#math.floor(8 * periodFraction)
+						cmd.dribbler = periodFraction
 						log = "speed = %d" % cmd.dribbler
 
 					if test == "rotate":
@@ -211,6 +213,15 @@ while True:
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
 						log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
 
+					if test == "getpid":
+						if periodFraction == 0:
+							robotGetPIDGains = REM_RobotGetPIDGains()
+							robotGetPIDGains.header = BaseTypes.PACKET_TYPE_REM_ROBOT_GET_PIDGAINS
+							robotGetPIDGains.remVersion = BaseTypes.LOCAL_REM_VERSION
+							robotGetPIDGains.id = robotId
+							basestation.write( robotGetPIDGains.encode() )
+							totalCommandsSent += 1
+
 				# Logging
 				bar = drawProgressBar(periodFraction)
 				if not robotConnected:
@@ -229,12 +240,6 @@ while True:
 
 
 
-
-
-
-
-
-
 			### Read any packets coming from the basestation
 			# Read packet type
 			packet_type = basestation.read(1)
@@ -244,28 +249,34 @@ while True:
 			packetType = packet_type[0]
 
 			# Parse packet based on packet type
-			if packetType == BaseTypes.PACKET_TYPE_ROBOT_FEEDBACK:
+			if packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_FEEDBACK:
 				feedbackTimestamp = time.time()
-				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_FEEDBACK - 1)
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_FEEDBACK - 1)
 
-				if RobotFeedback.get_id(packet) == robotId:
+				if REM_RobotFeedback.get_id(packet) == robotId:
 					robotFeedback.decode(packet)
 					totalFeedbackReceived += 1
 				else:
-					print("Error : Received feedback from robot %d ???" % RobotFeedback.get_id(packet))
+					print("Error : Received feedback from robot %d ???" % REM_RobotFeedback.get_id(packet))
 	
-			elif packetType == BaseTypes.PACKET_TYPE_ROBOT_STATE_INFO:
+			elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_STATE_INFO:
 				stateInfoTimestamp = time.time()
-				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_STATE_INFO - 1)
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_STATE_INFO - 1)
 
-				if RobotStateInfo.get_id(packet) == robotId:
+				if REM_RobotStateInfo.get_id(packet) == robotId:
 					robotStateInfo.decode(packet)
 				else:
-					print("Error : Received StateInfo from robot %d ???" % RobotFeedback.get_id(packet))
+					print("Error : Received StateInfo from robot %d ???" % REM_RobotFeedback.get_id(packet))
 
-			elif packetType == BaseTypes.PACKET_TYPE_BASESTATION_LOG:
+			elif packetType == BaseTypes.PACKET_TYPE_REM_ROBOT_PIDGAINS:
+				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_REM_ROBOT_PIDGAINS - 1)
+				if REM_RobotPIDGains.get_id(packet) == robotId:
+					robotPIDGains.decode(packet)
+
+			elif packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
 				logmessage = basestation.readline().decode()
 				lastBasestationLog = logmessage[:-1] + " "*20
+				# print(lastBasestationLog)
 
 			elif packetType == BaseTypes.PACKET_TYPE_ROBOT_LOG:
 				packet = packet_type + basestation.read(BaseTypes.PACKET_SIZE_ROBOT_LOG - 1)
@@ -290,7 +301,6 @@ while True:
 					raa.id = robotId
 					raa.sequenceNumber = robotAssuredPacket.sequenceNumber
 					basestation.write( raa.encode() )
-
 
 			else:
 				print(f"Error : Unhandled packet with type {packetType} ({chr(packetType)})")
@@ -378,7 +388,7 @@ while True:
 				cv2.line(img, (170, 170), (int(rx), int(ry)), (1, 1, 1), 4)
 			
 
-			cv2.imshow("img", img)
+			cv2.imshow("Press esc to quit", img)
 			if cv2.waitKey(1) == 27: exit()
 
 
