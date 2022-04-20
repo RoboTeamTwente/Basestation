@@ -3,20 +3,8 @@ import os
 import numpy as np
 import sys
 import re
+import heapq
 from matplotlib.offsetbox import AnchoredText
-
-files = [file for file in os.listdir("PIDfiles") if file.startswith("robotStateInfo") and file.endswith(".csv")]
-latest_file = re.findall('[0-9]+', max(files)) #find the time of the newest robotStateInfo file
-hardcoded_file = str(1648472795)
-
-#ConfigLines = open("robotConfig_1643811941.csv", "r").read().strip().split("\n")
-StateInfoLines = open("PIDfiles/robotStateInfo_" + latest_file[0] + ".csv", "r").read().strip().split("\n")
-CommandedLines = open("PIDfiles/robotCommand_" + latest_file[0] +  ".csv", "r").read().strip().split("\n")
-robotFeedbackLines = open("PIDfiles/robotFeedback_" + latest_file[0] + ".csv", "r").read().strip().split("\n")
-
-#StateInfoLines = open("PIDfiles/robotStateInfo_" + hardcoded_file + ".csv", "r").read().strip().split("\n")
-#CommandedLines = open("PIDfiles/robotCommand_" + hardcoded_file + ".csv", "r").read().strip().split("\n")
-#robotFeedbackLines = open("PIDfiles/robotFeedback_" + hardcoded_file + ".csv", "r").read().strip().split("\n")
 
 Configtimestamps = []
 XP, XI, XD, YP, YI, YD, WP, WI, WD, YawP, YawI, YawD, WheelsP, WheelsI, WheelsD = [], [], [], [], [], [], [], [], [], [], [], [], [], [], [] #PID gains
@@ -38,10 +26,9 @@ Vx, Vy = [], [] #commanded x- and y velocities calculated from rho and theta
 Wc1, Wc2, Wc3, Wc4 = [], [], [], [] #commanded wheel speeds calculated from Vx and Vy
 
 plotsAvailable = ["x", "y", "w", "yaw", "wheels", "integral", "integral-wheels"]
-
 # Parse input arguments 
 try:
-	if len(sys.argv) != 2:
+	if len(sys.argv) not in [2,3]:
 		raise Exception("Error : Invalid number of arguments. Expected PID-index")
 	plotID = sys.argv[1]
 	if plotID not in plotsAvailable:
@@ -51,6 +38,16 @@ except Exception as e:
 	print("Error : Run script with \"python plotPID.py PID-index\"")
 	exit()
 
+lastfile = 0
+if len(sys.argv) == 3: lastfile = int(sys.argv[2])
+files = [file for file in os.listdir("PIDfiles") if file.startswith("robotStateInfo") and file.endswith(".csv")]
+filenr = heapq.nlargest(lastfile+1, files)
+filenr = re.findall('[0-9]+', str(filenr)) #find the time of the newest robotStateInfo file
+#ConfigLines = open("robotConfig_1643811941.csv", "r").read().strip().split("\n")
+StateInfoLines = open("PIDfiles/robotStateInfo_" + filenr[lastfile] + ".csv", "r").read().strip().split("\n")
+CommandedLines = open("PIDfiles/robotCommand_" + filenr[lastfile] +  ".csv", "r").read().strip().split("\n")
+robotFeedbackLines = open("PIDfiles/robotFeedback_" + filenr[lastfile] + ".csv", "r").read().strip().split("\n")
+print(filenr[lastfile])
 
 #for line in ConfigLines[100:500]:
 #	ts, xp, xi, xd, yp, yi, yd, wp, wi, wd, yawp, yawi, yawd, wheelsp, wheelsi, wheelsd = line.split(" ")
@@ -129,6 +126,24 @@ for line in robotFeedbackLines:
 firstTimeVal = Feedbacktimestamps[0]
 for i in range(len(Feedbacktimestamps)):
 	Feedbacktimestamps[i] -= firstTimeVal
+
+if plotID == "bode":
+	linesC = open('PIDfiles/velxCommand.csv', 'r').readlines()
+	linesM = open('PIDfiles/velxMeasured.csv', 'r').readlines()
+	tcom = [float(ln.replace('\n','').split(', ')[0]) for ln in linesC]
+	vcom = [float(ln.replace('\n','').split(', ')[1]) for ln in linesC]
+	tmeas = [float(ln.replace('\n','').split(', ')[0]) for ln in linesM]
+	vmeas = [float(ln.replace('\n','').split(', ')[1]) for ln in linesM]
+
+	fig, ax = plt.subplots()
+	ax.plot(tcom, vcom)
+	ax.plot(tmeas, vmeas)
+	ax.set_title("Velocity in x-direction", fontsize = "xx-large")
+	ax.legend(["Commanded", "Estimated"])
+	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+	ax.set_xlabel("Time [s]", fontsize = "x-large")
+	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
+	plt.show()
 
 if plotID == "x":
 	fig, ax = plt.subplots()
