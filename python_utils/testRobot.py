@@ -14,8 +14,8 @@ import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand as RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback as RobotFeedback
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo as RobotStateInfo	
-#from roboteam_embedded_messages.python.PIDConfiguration import REM_PIDConfiguration as PIDConfiguration
-from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
+from roboteam_embedded_messages.python.REM_PIDConfiguration import REM_PIDConfiguration as PIDConfiguration
+#from roboteam_embedded_messages.python.PIDConfiguration import PIDConfiguration
 
 robotStateInfoFile = open(f"PIDfiles/robotStateInfo_{int(time.time())}.csv", "w")
 robotCommandFile = open(f"PIDfiles/robotCommand_{int(time.time())}.csv", "w")
@@ -161,7 +161,7 @@ while True:
 				
 				# Create new empty robot command
 				PID = PIDConfiguration()
-				PID.header = BaseTypes.PACKET_TYPE_P_I_D_CONFIGURATION
+				PID.header = BaseTypes.PACKET_TYPE_REM_P_I_D_CONFIGURATION
 				PID.remVersion = BaseTypes.LOCAL_REM_VERSION
 				PID.id = robotId
 				
@@ -193,7 +193,7 @@ while True:
 
 					if test == "rotate":
 						cmd.angularControl = 1
-						#PID.PbodyYaw = 20.0
+						PID.PbodyYaw = 20.0
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
 						log = "angle = %+.3f" % cmd.angle
 
