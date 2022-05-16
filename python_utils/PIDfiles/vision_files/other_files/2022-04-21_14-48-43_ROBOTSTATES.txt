@@ -1,0 +1,968 @@
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: -0.000012, xSensAcc2: -0.000012, xSensYaw: -0.000012, rateOfTurn: -0.000012, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.398944, xSensAcc2: -0.086275, xSensYaw: 0.001641, rateOfTurn: 0.002503, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -3.646838, wheelSp4: 1.099834
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.362413, xSensAcc2: -0.072003, xSensYaw: 0.001641, rateOfTurn: 0.003900, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.388932, xSensAcc2: -0.088953, xSensYaw: 0.001641, rateOfTurn: 0.006275, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.379526, xSensAcc2: -0.069838, xSensYaw: 0.001641, rateOfTurn: 0.006251, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.370073, xSensAcc2: -0.089302, xSensYaw: 0.001618, rateOfTurn: 0.005902, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.368908, xSensAcc2: -0.095379, xSensYaw: 0.001618, rateOfTurn: 0.005949, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.364741, xSensAcc2: -0.087114, xSensYaw: 0.001618, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.376638, xSensAcc2: -0.090466, xSensYaw: 0.001641, rateOfTurn: 0.006484, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:50] Id:  7, MsgId:     0, xSensAcc1: 0.368583, xSensAcc2: -0.076334, xSensYaw: 0.001618, rateOfTurn: 0.006438, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.376708, xSensAcc2: -0.084017, xSensYaw: 0.001618, rateOfTurn: 0.006275, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.366673, xSensAcc2: -0.092143, xSensYaw: 0.001641, rateOfTurn: 0.006391, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.347511, xSensAcc2: -0.087579, xSensYaw: 0.001641, rateOfTurn: 0.006740, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.385579, xSensAcc2: -0.097731, xSensYaw: -3.127719, rateOfTurn: 0.006414, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.378160, xSensAcc2: 0.686187, xSensYaw: -3.113423, rateOfTurn: 0.287814, wheelSp1: %&7f, wheelSp2: 16.265980, wheelSp3: 20.202238, wheelSp4: 11.345663
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 3.186578, xSensAcc2: 0.017707, xSensYaw: -3.065320, rateOfTurn: 0.974943, wheelSp1: %&7f, wheelSp2: 26.164495, wheelSp3: 34.615852, wheelSp4: 18.870842
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -3.025995, xSensAcc2: 5.152926, xSensYaw: -2.689182, rateOfTurn: 6.704649, wheelSp1: %&7f, wheelSp2: 45.382664, wheelSp3: 47.755997, wheelSp4: 38.609993
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -2.947182, xSensAcc2: 0.003178, xSensYaw: -2.240844, rateOfTurn: 11.966831, wheelSp1: %&7f, wheelSp2: 52.271095, wheelSp3: 54.065567, wheelSp4: 53.602493
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 6.866001, xSensAcc2: -1.952599, xSensYaw: -1.868128, rateOfTurn: 14.894816, wheelSp1: %&7f, wheelSp2: 61.995968, wheelSp3: 59.101673, wheelSp4: 57.422962
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 6.384367, xSensAcc2: -3.707327, xSensYaw: -1.674716, rateOfTurn: 16.184023, wheelSp1: %&7f, wheelSp2: 62.574829, wheelSp3: 60.664593, wheelSp4: 57.828182
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -2.584967, xSensAcc2: 4.555786, xSensYaw: -1.277064, rateOfTurn: 18.129602, wheelSp1: %&7f, wheelSp2: 56.091591, wheelSp3: 56.091591, wheelSp4: 59.912064
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.941284, xSensAcc2: -5.265034, xSensYaw: -1.074781, rateOfTurn: 18.756243, wheelSp1: %&7f, wheelSp2: 54.297119, wheelSp3: 55.860043, wheelSp4: 60.143612
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 3.774406, xSensAcc2: -1.642422, xSensYaw: -0.683672, rateOfTurn: 19.383070, wheelSp1: %&7f, wheelSp2: 54.933865, wheelSp3: 56.844101, wheelSp4: 58.233376
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 4.293246, xSensAcc2: 2.157770, xSensYaw: -0.311376, rateOfTurn: 19.268145, wheelSp1: %&7f, wheelSp2: 50.939724, wheelSp3: 50.708176, wheelSp4: 51.518589
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -8.814631, xSensAcc2: -2.073485, xSensYaw: -0.132585, rateOfTurn: 18.988911, wheelSp1: %&7f, wheelSp2: 48.682175, wheelSp3: 46.308838, wheelSp4: 49.029488
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 2.514932, xSensAcc2: -1.000648, xSensYaw: 0.189932, rateOfTurn: 17.924408, wheelSp1: %&7f, wheelSp2: 40.693897, wheelSp3: 41.041210, wheelSp4: 46.077290
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 6.255682, xSensAcc2: 4.513550, xSensYaw: 0.464206, rateOfTurn: 16.240042, wheelSp1: %&7f, wheelSp2: 41.620071, wheelSp3: 34.673733, wheelSp4: 33.052929
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -7.087446, xSensAcc2: -0.604254, xSensYaw: 0.578829, rateOfTurn: 15.183619, wheelSp1: %&7f, wheelSp2: 32.995049, wheelSp3: 26.627571, wheelSp4: 25.643513
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.853320, xSensAcc2: -9.293587, xSensYaw: 0.763719, rateOfTurn: 12.631376, wheelSp1: %&7f, wheelSp2: 19.276037, wheelSp3: 22.807100, wheelSp4: 19.333942
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.566007, xSensAcc2: 4.013430, xSensYaw: 0.877294, rateOfTurn: 9.730074, wheelSp1: %&7f, wheelSp2: 12.156053, wheelSp3: 16.671175, wheelSp4: 17.771021
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -5.529204, xSensAcc2: -2.636819, xSensYaw: 0.918645, rateOfTurn: 8.234626, wheelSp1: %&7f, wheelSp2: 11.808740, wheelSp3: 14.587271, wheelSp4: 14.008407
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 4.703400, xSensAcc2: -0.301225, xSensYaw: 0.969076, rateOfTurn: 5.554000, wheelSp1: %&7f, wheelSp2: 4.746637, wheelSp3: 3.473146, wheelSp4: 4.341442
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.037156, xSensAcc2: -0.162201, xSensYaw: 0.953150, rateOfTurn: 2.835260, wheelSp1: %&7f, wheelSp2: -5.151878, wheelSp3: -2.257561, wheelSp4: -0.520994
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 3.762252, xSensAcc2: 3.516197, xSensYaw: 0.919297, rateOfTurn: 1.420977, wheelSp1: %&7f, wheelSp2: -10.882586, wheelSp3: -5.267642, wheelSp4: -4.804565
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: -4.244864, xSensYaw: 0.835804, rateOfTurn: -1.279067, wheelSp1: %&7f, wheelSp2: -10.998372, wheelSp3: -11.750881, wheelSp4: -12.619177
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 2.154370, xSensAcc2: -1.583120, xSensYaw: 0.017125, rateOfTurn: -5.185359, wheelSp1: %&7f, wheelSp2: -13.545354, wheelSp3: -14.297862, wheelSp4: -14.818844
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.723812, xSensAcc2: 0.302715, xSensYaw: -0.115542, rateOfTurn: -4.746194, wheelSp1: %&7f, wheelSp2: -13.487472, wheelSp3: -13.950548, wheelSp4: -10.593154
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.520582, xSensAcc2: 0.897434, xSensYaw: -0.191468, rateOfTurn: -4.352082, wheelSp1: %&7f, wheelSp2: -9.666977, wheelSp3: -9.666977, wheelSp4: -11.635118
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -0.974222, xSensAcc2: 1.419487, xSensYaw: -0.223971, rateOfTurn: -4.110916, wheelSp1: %&7f, wheelSp2: -9.956409, wheelSp3: -10.419509, wheelSp4: -9.609096
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.027447, xSensAcc2: -0.991567, xSensYaw: -0.277034, rateOfTurn: -3.501878, wheelSp1: %&7f, wheelSp2: -8.682919, wheelSp3: -8.682919, wheelSp4: -8.277723
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.640715, xSensAcc2: -1.238135, xSensYaw: -0.299269, rateOfTurn: -3.178080, wheelSp1: %&7f, wheelSp2: -5.788624, wheelSp3: -6.541132, wheelSp4: -7.930409
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -0.753871, xSensAcc2: 3.784231, xSensYaw: -0.330445, rateOfTurn: -2.461171, wheelSp1: %&7f, wheelSp2: -6.309582, wheelSp3: -2.431229, wheelSp4: -4.399347
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.769222, xSensAcc2: -2.169015, xSensYaw: -0.339921, rateOfTurn: -1.643982, wheelSp1: %&7f, wheelSp2: -0.636757, wheelSp3: -4.052033, wheelSp4: -2.431229
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -0.879948, xSensAcc2: 0.398315, xSensYaw: -0.338641, rateOfTurn: -1.203769, wheelSp1: %&7f, wheelSp2: 0.810402, wheelSp3: -1.099857, wheelSp4: -1.678697
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.432502, xSensAcc2: -0.691356, xSensYaw: -0.324554, rateOfTurn: -0.334310, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 2.546969, wheelSp4: 1.852342
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -0.869611, xSensAcc2: 0.036426, xSensYaw: -0.303879, rateOfTurn: 0.349886, wheelSp1: %&7f, wheelSp2: 3.762578, wheelSp3: 1.273479, wheelSp4: 1.794461
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.289242, xSensAcc2: 1.398695, xSensYaw: -0.294286, rateOfTurn: 0.589748, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 2.315443, wheelSp4: 2.489088
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 2.286199, xSensAcc2: -1.458556, xSensYaw: -0.272959, rateOfTurn: 0.867585, wheelSp1: %&7f, wheelSp2: 1.678674, wheelSp3: 3.646815, wheelSp4: 3.010069
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.659396, xSensAcc2: -0.081805, xSensYaw: -0.254100, rateOfTurn: 0.956806, wheelSp1: %&7f, wheelSp2: 4.167797, wheelSp3: 1.968106, wheelSp4: 2.199656
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -0.167300, xSensAcc2: 0.876642, xSensYaw: -0.242202, rateOfTurn: 1.002278, wheelSp1: %&7f, wheelSp2: 3.067951, wheelSp3: 1.505029, wheelSp4: 3.125833
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 2.268224, xSensAcc2: -0.579853, xSensYaw: -0.218896, rateOfTurn: 1.061556, wheelSp1: %&7f, wheelSp2: 2.141774, wheelSp3: 4.167797, wheelSp4: 3.241620
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -1.034408, xSensAcc2: 0.660366, xSensYaw: -0.198034, rateOfTurn: 1.098693, wheelSp1: %&7f, wheelSp2: 4.109891, wheelSp3: 3.010069, wheelSp4: 2.546969
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.347674, xSensAcc2: 0.437407, xSensYaw: -0.188069, rateOfTurn: 1.079438, wheelSp1: %&7f, wheelSp2: 2.489088, wheelSp3: 2.778519, wheelSp4: 2.952188
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.470888, xSensAcc2: -0.305811, xSensYaw: -0.172120, rateOfTurn: 0.978622, wheelSp1: %&7f, wheelSp2: 2.026011, wheelSp3: 2.141774, wheelSp4: 2.894283
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 1.146912, xSensAcc2: -0.501762, xSensYaw: -0.165275, rateOfTurn: 0.919111, wheelSp1: %&7f, wheelSp2: 2.836401, wheelSp3: 2.836401, wheelSp4: 1.736579
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: 0.565394, xSensAcc2: -0.528467, xSensYaw: -0.139687, rateOfTurn: 0.705721, wheelSp1: %&7f, wheelSp2: 0.868284, wheelSp3: 1.678674, wheelSp4: 1.852342
+
+[14:48:51] Id:  7, MsgId:     0, xSensAcc1: -0.260735, xSensAcc2: 0.054867, xSensYaw: -0.133563, rateOfTurn: 0.452425, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.694615, wheelSp4: 0.636734
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.067393, xSensAcc2: 0.079430, xSensYaw: -0.139361, rateOfTurn: 0.066136, wheelSp1: %&7f, wheelSp2: -0.636757, wheelSp3: -0.520994, wheelSp4: -0.578875
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.224507, xSensAcc2: 0.045996, xSensYaw: -0.145973, rateOfTurn: -0.129140, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.463112, wheelSp4: -0.636757
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.451261, xSensAcc2: 0.016054, xSensYaw: -0.149116, rateOfTurn: -0.198104, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.875571, xSensAcc2: -0.267441, xSensYaw: -0.149396, rateOfTurn: -0.177405, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: 0.057870, wheelSp4: -0.173680
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.144180, xSensAcc2: -0.067113, xSensYaw: -0.147789, rateOfTurn: -0.075006, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: 0.115752
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.420504, xSensAcc2: 0.039756, xSensYaw: -0.145135, rateOfTurn: 0.028464, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.115752, wheelSp4: 0.289420
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.172958, xSensAcc2: 0.101433, xSensYaw: -0.144553, rateOfTurn: 0.058522, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.231538, wheelSp4: -0.000012
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.392424, xSensAcc2: 0.000617, xSensYaw: -0.144553, rateOfTurn: 0.060175, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.115775
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.461272, xSensAcc2: -0.080012, xSensYaw: -0.146066, rateOfTurn: 0.011374, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.350259, xSensAcc2: 0.087486, xSensYaw: -0.146718, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.115752
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.634568, xSensAcc2: 0.036356, xSensYaw: -3.131072, rateOfTurn: -0.025437, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: -0.115775
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.325323, xSensAcc2: 0.020617, xSensYaw: -3.130699, rateOfTurn: -0.015961, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 8.564081, xSensAcc2: -1.932064, xSensYaw: -2.964179, rateOfTurn: 2.518750, wheelSp1: %&7f, wheelSp2: 40.057152, wheelSp3: 43.935505, wheelSp4: 27.727417
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -6.588583, xSensAcc2: -4.550174, xSensYaw: -2.874166, rateOfTurn: 4.138111, wheelSp1: %&7f, wheelSp2: 39.420406, wheelSp3: 55.107533, wheelSp4: 26.627571
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -3.006880, xSensAcc2: 6.755150, xSensYaw: -2.628716, rateOfTurn: 7.470406, wheelSp1: %&7f, wheelSp2: 46.945583, wheelSp3: 53.197273, wheelSp4: 35.947224
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -11.176115, xSensAcc2: -1.303258, xSensYaw: -2.337771, rateOfTurn: 10.880397, wheelSp1: %&7f, wheelSp2: 48.624294, wheelSp3: 49.261040, wheelSp4: 54.760220
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -8.883339, xSensAcc2: 11.706131, xSensYaw: -2.173602, rateOfTurn: 12.269791, wheelSp1: %&7f, wheelSp2: 49.724117, wheelSp3: 49.724117, wheelSp4: 61.938084
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 4.512712, xSensAcc2: -4.942378, xSensYaw: -1.806405, rateOfTurn: 14.968508, wheelSp1: %&7f, wheelSp2: 65.295479, wheelSp3: 65.584915, wheelSp4: 56.323143
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 3.916479, xSensAcc2: 5.197327, xSensYaw: -1.424842, rateOfTurn: 17.117977, wheelSp1: %&7f, wheelSp2: 62.806381, wheelSp3: 55.281178, wheelSp4: 56.786217
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -6.527582, xSensAcc2: -4.086422, xSensYaw: -1.225516, rateOfTurn: 17.942221, wheelSp1: %&7f, wheelSp2: 54.181355, wheelSp3: 51.113392, wheelSp4: 60.664593
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -1.472596, xSensAcc2: -3.105134, xSensYaw: -0.839552, rateOfTurn: 18.852192, wheelSp1: %&7f, wheelSp2: 53.718254, wheelSp3: 55.860043, wheelSp4: 60.259377
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 6.965140, xSensAcc2: -0.780344, xSensYaw: -0.651355, rateOfTurn: 19.075012, wheelSp1: %&7f, wheelSp2: 55.570610, wheelSp3: 57.596630, wheelSp4: 53.139393
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 2.589531, xSensAcc2: -0.369072, xSensYaw: -0.464229, rateOfTurn: 18.989073, wheelSp1: %&7f, wheelSp2: 52.618435, wheelSp3: 54.123474, wheelSp4: 51.692257
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -7.203722, xSensAcc2: 0.835618, xSensYaw: -0.106788, rateOfTurn: 18.612354, wheelSp1: %&7f, wheelSp2: 45.787857, wheelSp3: 44.861679, wheelSp4: 51.981689
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 9.437825, xSensAcc2: 5.058304, xSensYaw: 0.371074, rateOfTurn: 17.180445, wheelSp1: %&7f, wheelSp2: 40.925446, wheelSp3: 38.552109, wheelSp4: 38.841541
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.206835, xSensAcc2: -1.178484, xSensYaw: 0.896433, rateOfTurn: -2.014183, wheelSp1: %&7f, wheelSp2: -17.076393, wheelSp3: -15.224039, wheelSp4: -13.429590
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 1.919910, xSensAcc2: -0.516290, xSensYaw: 0.836502, rateOfTurn: -3.173004, wheelSp1: %&7f, wheelSp2: -18.118357, wheelSp3: -17.713139, wheelSp4: -16.960630
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.270538, xSensAcc2: -1.506845, xSensYaw: 0.705489, rateOfTurn: -4.916207, wheelSp1: %&7f, wheelSp2: -18.581434, wheelSp3: -19.623398, wheelSp4: -19.218180
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -2.964295, xSensAcc2: 5.192880, xSensYaw: 0.565650, rateOfTurn: -5.990744, wheelSp1: %&7f, wheelSp2: -20.375906, wheelSp3: -19.218180, wheelSp4: -18.812984
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.333053, xSensAcc2: -2.291228, xSensYaw: 0.497082, rateOfTurn: -6.317731, wheelSp1: %&7f, wheelSp2: -21.012651, wheelSp3: -20.723219, wheelSp4: -18.986652
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.923860, xSensAcc2: 0.734383, xSensYaw: 0.363158, rateOfTurn: -6.623065, wheelSp1: %&7f, wheelSp2: -19.044535, wheelSp3: -20.028593, wheelSp4: -19.507610
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.174006, xSensAcc2: 0.324345, xSensYaw: 0.233611, rateOfTurn: -6.606395, wheelSp1: %&7f, wheelSp2: -18.755102, wheelSp3: -18.002571, wheelSp4: -18.176239
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.547606, xSensAcc2: 2.241891, xSensYaw: 0.171375, rateOfTurn: -6.544089, wheelSp1: %&7f, wheelSp2: -17.771044, wheelSp3: -17.192181, wheelSp4: -17.713139
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.476267, xSensAcc2: -0.330491, xSensYaw: 0.052771, rateOfTurn: -6.303878, wheelSp1: %&7f, wheelSp2: -17.655256, wheelSp3: -17.713139, wheelSp4: -16.381765
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 3.181549, xSensAcc2: 1.588196, xSensYaw: -0.056520, rateOfTurn: -5.959475, wheelSp1: %&7f, wheelSp2: -16.381765, wheelSp3: -16.555435, wheelSp4: -16.671198
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 1.682609, xSensAcc2: 0.941951, xSensYaw: -0.110234, rateOfTurn: -5.800405, wheelSp1: %&7f, wheelSp2: -13.950548, wheelSp3: -15.918690, wheelSp4: -16.092335
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -2.462149, xSensAcc2: 2.819661, xSensYaw: -0.202784, rateOfTurn: -5.306245, wheelSp1: %&7f, wheelSp2: -11.519331, wheelSp3: -11.924549, wheelSp4: -11.750881
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.385463, xSensAcc2: -0.128441, xSensYaw: -0.236498, rateOfTurn: -4.954531, wheelSp1: %&7f, wheelSp2: -12.503413, wheelSp3: -9.493332, wheelSp4: -11.345686
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -3.463088, xSensAcc2: -3.518129, xSensYaw: -0.298687, rateOfTurn: -4.143745, wheelSp1: %&7f, wheelSp2: -9.088114, wheelSp3: -9.146018, wheelSp4: -9.898527
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 5.876610, xSensAcc2: 0.485673, xSensYaw: -0.375195, rateOfTurn: -2.517493, wheelSp1: %&7f, wheelSp2: -3.010093, wheelSp3: -2.431229, wheelSp4: -3.762601
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 2.335210, xSensAcc2: 1.159881, xSensYaw: -0.378920, rateOfTurn: -2.024754, wheelSp1: %&7f, wheelSp2: -2.026034, wheelSp3: -3.588956, wheelSp4: -2.257561
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -1.151057, xSensAcc2: 0.819552, xSensYaw: -0.302482, rateOfTurn: 1.014571, wheelSp1: %&7f, wheelSp2: 3.704696, wheelSp3: 6.830541, wheelSp4: 4.341442
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 1.715089, xSensAcc2: -0.075612, xSensYaw: -0.286975, rateOfTurn: 1.202302, wheelSp1: %&7f, wheelSp2: 3.704696, wheelSp3: 6.714777, wheelSp4: 4.457205
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: 0.466651, xSensAcc2: -1.039414, xSensYaw: -0.257173, rateOfTurn: 1.383026, wheelSp1: %&7f, wheelSp2: 4.688755, wheelSp3: 3.820460, wheelSp4: 3.531028
+
+[14:48:52] Id:  7, MsgId:     0, xSensAcc1: -0.683160, xSensAcc2: -1.060532, xSensYaw: -0.188861, rateOfTurn: 1.391594, wheelSp1: %&7f, wheelSp2: 3.994128, wheelSp3: 3.762578, wheelSp4: 2.894283
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 1.060183, xSensAcc2: 0.203482, xSensYaw: -0.164274, rateOfTurn: 1.307379, wheelSp1: %&7f, wheelSp2: 3.473146, wheelSp3: 2.894283, wheelSp4: 4.399323
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 1.486752, xSensAcc2: -0.159012, xSensYaw: -0.154122, rateOfTurn: 1.242466, wheelSp1: %&7f, wheelSp2: 2.894283, wheelSp3: 3.415265, wheelSp4: 3.936246
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.254519, xSensAcc2: 0.055286, xSensYaw: -0.135310, rateOfTurn: 1.131894, wheelSp1: %&7f, wheelSp2: 2.836401, wheelSp3: 3.067951, wheelSp4: 1.794461
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -0.463740, xSensAcc2: 0.380992, xSensYaw: -0.119128, rateOfTurn: 0.981905, wheelSp1: %&7f, wheelSp2: 2.257538, wheelSp3: 2.141774, wheelSp4: 2.952188
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.579574, xSensAcc2: -0.591192, xSensYaw: -0.112283, rateOfTurn: 0.919716, wheelSp1: %&7f, wheelSp2: 1.910224, wheelSp3: 2.315443, wheelSp4: 2.836401
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.355358, xSensAcc2: -0.085810, xSensYaw: -0.099174, rateOfTurn: 0.790867, wheelSp1: %&7f, wheelSp2: 1.852342, wheelSp3: 2.026011, wheelSp4: 1.620792
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.318151, xSensAcc2: -0.141526, xSensYaw: -0.093703, rateOfTurn: 0.729191, wheelSp1: %&7f, wheelSp2: 1.447147, wheelSp3: 1.389266, wheelSp4: 1.562911
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.471959, xSensAcc2: 0.079593, xSensYaw: -0.085367, rateOfTurn: 0.603881, wheelSp1: %&7f, wheelSp2: 0.984047, wheelSp3: 1.447147, wheelSp4: 1.157715
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.286975, xSensAcc2: 0.034587, xSensYaw: -0.080618, rateOfTurn: 0.449468, wheelSp1: %&7f, wheelSp2: 0.810402, wheelSp3: 1.447147, wheelSp4: 0.694615
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.651937, xSensAcc2: 0.101223, xSensYaw: -0.080245, rateOfTurn: 0.356708, wheelSp1: %&7f, wheelSp2: 0.347302, wheelSp3: 0.463088, wheelSp4: 0.347302
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.267604, xSensAcc2: -0.207021, xSensYaw: -0.081549, rateOfTurn: 0.173540, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.057893, wheelSp4: -0.115775
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.318920, xSensAcc2: -0.341714, xSensYaw: -0.084785, rateOfTurn: 0.010885, wheelSp1: %&7f, wheelSp2: -0.289443, wheelSp3: 0.057870, wheelSp4: -0.231562
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.168814, xSensAcc2: -0.293634, xSensYaw: -0.086625, rateOfTurn: -0.046624, wheelSp1: %&7f, wheelSp2: -0.520994, wheelSp3: -0.347325, wheelSp4: -0.173680
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.213005, xSensAcc2: -0.213634, xSensYaw: -0.089465, rateOfTurn: -0.111421, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.694639, wheelSp4: 0.057870
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.116450, xSensAcc2: 0.117521, xSensYaw: -0.090792, rateOfTurn: -0.087742, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.173680
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.469678, xSensAcc2: 0.011420, xSensYaw: -0.089838, rateOfTurn: -0.028929, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.115752, wheelSp4: -0.115775
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.431167, xSensAcc2: -0.159408, xSensYaw: -0.088534, rateOfTurn: 0.023993, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.115752, wheelSp4: -0.000012
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.354263, xSensAcc2: -0.200712, xSensYaw: -0.088138, rateOfTurn: 0.035518, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.374403, xSensAcc2: 0.008231, xSensYaw: -0.088441, rateOfTurn: 0.024971, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.488351, xSensAcc2: -0.032608, xSensYaw: -3.129046, rateOfTurn: 0.000361, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.115775, wheelSp4: -0.000012
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 1.645542, xSensAcc2: -1.069030, xSensYaw: -3.109628, rateOfTurn: 0.367023, wheelSp1: %&7f, wheelSp2: 14.876702, wheelSp3: 23.212296, wheelSp4: 12.040290
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -2.561847, xSensAcc2: 1.112802, xSensYaw: -3.056542, rateOfTurn: 1.081696, wheelSp1: %&7f, wheelSp2: 20.896864, wheelSp3: 36.410324, wheelSp4: 19.044510
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 3.362412, xSensAcc2: -6.886909, xSensYaw: -2.910790, rateOfTurn: 3.452215, wheelSp1: %&7f, wheelSp2: 31.142693, wheelSp3: 56.728336, wheelSp4: 25.527750
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 3.987143, xSensAcc2: 3.464811, xSensYaw: -2.686225, rateOfTurn: 6.775383, wheelSp1: %&7f, wheelSp2: 45.845764, wheelSp3: 58.580692, wheelSp4: 37.857483
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.854802, xSensAcc2: -10.299206, xSensYaw: -2.555887, rateOfTurn: 8.380494, wheelSp1: %&7f, wheelSp2: 45.266899, wheelSp3: 59.622631, wheelSp4: 45.903645
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -8.035160, xSensAcc2: 1.658278, xSensYaw: 0.060431, rateOfTurn: 18.760155, wheelSp1: %&7f, wheelSp2: 47.003468, wheelSp3: 46.424603, wheelSp4: 47.813881
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -4.445191, xSensAcc2: -6.379548, xSensYaw: 0.220689, rateOfTurn: 18.164131, wheelSp1: %&7f, wheelSp2: 43.356663, wheelSp3: 43.472427, wheelSp4: 46.656151
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 5.157629, xSensAcc2: 3.981090, xSensYaw: 0.499899, rateOfTurn: 16.598043, wheelSp1: %&7f, wheelSp2: 23.617514, wheelSp3: 21.533609, wheelSp4: 33.689674
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -10.314130, xSensAcc2: -3.485160, xSensYaw: 0.620272, rateOfTurn: 15.460526, wheelSp1: %&7f, wheelSp2: 27.380104, wheelSp3: 18.697197, wheelSp4: 29.000908
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 4.799047, xSensAcc2: 4.749547, xSensYaw: 0.781647, rateOfTurn: 12.599223, wheelSp1: %&7f, wheelSp2: 18.002546, wheelSp3: 16.150192, wheelSp4: 22.054592
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -1.417252, xSensAcc2: -4.069100, xSensYaw: 0.886072, rateOfTurn: 9.304437, wheelSp1: %&7f, wheelSp2: 15.802879, wheelSp3: 14.008407, wheelSp4: 15.571329
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 6.744137, xSensAcc2: 5.647808, xSensYaw: 0.923139, rateOfTurn: 7.771968, wheelSp1: %&7f, wheelSp2: 14.066312, wheelSp3: 12.040290, wheelSp4: 15.860761
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -2.369250, xSensAcc2: -0.863790, xSensYaw: 0.974664, rateOfTurn: 5.200680, wheelSp1: %&7f, wheelSp2: 1.620792, wheelSp3: 3.415265, wheelSp4: 2.141774
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 3.679201, xSensAcc2: 3.720249, xSensYaw: 0.961719, rateOfTurn: 2.702081, wheelSp1: %&7f, wheelSp2: -4.457228, wheelSp3: -0.578875, wheelSp4: -0.173680
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -2.492883, xSensAcc2: 3.152562, xSensYaw: 0.927097, rateOfTurn: 1.402514, wheelSp1: %&7f, wheelSp2: -10.014291, wheelSp3: -6.020174, wheelSp4: -3.010093
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -0.963488, xSensAcc2: 2.712139, xSensYaw: 0.736082, rateOfTurn: -3.326160, wheelSp1: %&7f, wheelSp2: -13.776903, wheelSp3: -13.603235, wheelSp4: -13.950548
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 2.678588, xSensAcc2: 1.460162, xSensYaw: 0.681623, rateOfTurn: -4.030217, wheelSp1: %&7f, wheelSp2: -16.208120, wheelSp3: -15.050394, wheelSp4: -14.587294
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.477850, xSensAcc2: -3.372284, xSensYaw: 0.563718, rateOfTurn: -5.006150, wheelSp1: %&7f, wheelSp2: -17.134298, wheelSp3: -18.697220, wheelSp4: -16.613316
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -3.004039, xSensAcc2: -0.846095, xSensYaw: 0.444765, rateOfTurn: -5.518354, wheelSp1: %&7f, wheelSp2: -15.860785, wheelSp3: -17.192181, wheelSp4: -17.134298
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -0.494008, xSensAcc2: 2.500636, xSensYaw: 0.386743, rateOfTurn: -5.670136, wheelSp1: %&7f, wheelSp2: -16.613316, wheelSp3: -16.150217, wheelSp4: -16.671198
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -0.100222, xSensAcc2: 0.833126, xSensYaw: 0.276195, rateOfTurn: -5.699729, wheelSp1: %&7f, wheelSp2: -16.786961, wheelSp3: -16.092335, wheelSp4: -15.918690
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -1.549360, xSensAcc2: 0.536896, xSensYaw: 0.118010, rateOfTurn: -5.449226, wheelSp1: %&7f, wheelSp2: -15.687140, wheelSp3: -15.108275, wheelSp4: -15.397708
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 1.580862, xSensAcc2: -1.043768, xSensYaw: 0.022317, rateOfTurn: -5.190203, wheelSp1: %&7f, wheelSp2: -14.182098, wheelSp3: -14.529412, wheelSp4: -14.008430
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.376056, xSensAcc2: 1.310615, xSensYaw: -0.023947, rateOfTurn: -5.047338, wheelSp1: %&7f, wheelSp2: -13.834785, wheelSp3: -13.255921, wheelSp4: -13.661117
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -2.683967, xSensAcc2: -0.038615, xSensYaw: -0.113540, rateOfTurn: -4.765845, wheelSp1: %&7f, wheelSp2: -14.297862, wheelSp3: -13.834785, wheelSp4: -11.461450
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: -0.705000, xSensAcc2: 0.661274, xSensYaw: -0.183110, rateOfTurn: -4.303630, wheelSp1: %&7f, wheelSp2: -11.461450, wheelSp3: -9.956409, wheelSp4: -10.766823
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 0.210723, xSensAcc2: 0.229792, xSensYaw: -0.212982, rateOfTurn: -4.029076, wheelSp1: %&7f, wheelSp2: -10.303722, wheelSp3: -10.303722, wheelSp4: -9.782763
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 2.324220, xSensAcc2: 0.416499, xSensYaw: -0.308978, rateOfTurn: -2.797914, wheelSp1: %&7f, wheelSp2: -5.730742, wheelSp3: -3.241643, wheelSp4: -5.730742
+
+[14:48:53] Id:  7, MsgId:     0, xSensAcc1: 1.136505, xSensAcc2: -0.661041, xSensYaw: -0.322622, rateOfTurn: -2.474326, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -1.678697, wheelSp4: -6.309582
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -2.026942, xSensAcc2: -0.238430, xSensYaw: -0.333984, rateOfTurn: -1.699373, wheelSp1: %&7f, wheelSp2: -2.836424, wheelSp3: -5.557074, wheelSp4: -1.099857
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 2.870348, xSensAcc2: -0.101456, xSensYaw: -0.325509, rateOfTurn: -0.787491, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 3.820460, wheelSp4: -0.231562
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.730549, xSensAcc2: 3.180501, xSensYaw: -0.318221, rateOfTurn: -0.354031, wheelSp1: %&7f, wheelSp2: 0.984047, wheelSp3: 3.067951, wheelSp4: 0.578852
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.328512, xSensAcc2: 0.133936, xSensYaw: -0.265252, rateOfTurn: 0.890472, wheelSp1: %&7f, wheelSp2: 2.199656, wheelSp3: 4.920305, wheelSp4: 2.952188
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.550796, xSensAcc2: 0.146509, xSensYaw: -0.228116, rateOfTurn: 1.080672, wheelSp1: %&7f, wheelSp2: 4.283560, wheelSp3: 2.199656, wheelSp4: 3.473146
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.202947, xSensAcc2: 0.060920, xSensYaw: -0.209559, rateOfTurn: 1.098623, wheelSp1: %&7f, wheelSp2: 2.141774, wheelSp3: 4.052010, wheelSp4: 3.415265
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.110164, xSensAcc2: -0.264833, xSensYaw: -0.194518, rateOfTurn: 0.975362, wheelSp1: %&7f, wheelSp2: 1.910224, wheelSp3: 1.620792, wheelSp4: 1.736579
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.047004, xSensAcc2: 0.013283, xSensYaw: -0.179082, rateOfTurn: 0.705139, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 1.505029, wheelSp4: 2.373324
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.178686, xSensAcc2: 0.273797, xSensYaw: -0.171608, rateOfTurn: 0.544416, wheelSp1: %&7f, wheelSp2: 1.678674, wheelSp3: 1.099834, wheelSp4: 0.694615
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.491959, xSensAcc2: 0.558712, xSensYaw: -0.169210, rateOfTurn: 0.470143, wheelSp1: %&7f, wheelSp2: 1.273479, wheelSp3: 0.926165, wheelSp4: 0.347302
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.692427, xSensAcc2: -0.092888, xSensYaw: -0.166369, rateOfTurn: 0.335707, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 0.347302, wheelSp4: 1.447147
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -0.222435, xSensAcc2: 0.361039, xSensYaw: -0.162947, rateOfTurn: 0.231632, wheelSp1: %&7f, wheelSp2: 0.578852, wheelSp3: 0.752497, wheelSp4: -0.173680
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -0.222435, xSensAcc2: 0.361039, xSensYaw: -0.162947, rateOfTurn: 0.202621, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.173657, wheelSp4: 0.057870
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.622764, xSensAcc2: -0.012585, xSensYaw: -0.162574, rateOfTurn: 0.140828, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.173657, wheelSp4: 0.173657
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.544044, xSensAcc2: 0.012119, xSensYaw: -0.162923, rateOfTurn: 0.072422, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.289420, wheelSp4: -0.463112
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.039430, xSensAcc2: 0.006321, xSensYaw: -0.163924, rateOfTurn: 0.033004, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: 0.463088, wheelSp4: -0.057893
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.229815, xSensAcc2: 0.160711, xSensYaw: -0.165391, rateOfTurn: -0.017171, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.231538, wheelSp4: -0.000012
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.752311, xSensAcc2: -0.162458, xSensYaw: -0.165065, rateOfTurn: -0.021129, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.115775, wheelSp4: -0.463112
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.296382, xSensAcc2: 0.162877, xSensYaw: -0.163273, rateOfTurn: 0.008044, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.231538, wheelSp4: 0.636734
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.328070, xSensAcc2: -0.309187, xSensYaw: -0.163366, rateOfTurn: 0.034424, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: -0.347325
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.407652, xSensAcc2: 0.210700, xSensYaw: -0.163133, rateOfTurn: 0.030932, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.463112
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.691169, xSensAcc2: 0.116217, xSensYaw: -0.163761, rateOfTurn: 0.006368, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: 0.752497
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.176940, xSensAcc2: 0.025972, xSensYaw: -3.124180, rateOfTurn: 0.002480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.405207
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 4.567939, xSensAcc2: 1.330662, xSensYaw: -1.531944, rateOfTurn: 16.899931, wheelSp1: %&7f, wheelSp2: 62.401161, wheelSp3: 59.448986, wheelSp4: 59.680511
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -0.044017, xSensAcc2: -0.497035, xSensYaw: -0.719714, rateOfTurn: 19.729265, wheelSp1: %&7f, wheelSp2: 54.412884, wheelSp3: 57.538750, wheelSp4: 60.433044
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.113082, xSensAcc2: -4.141719, xSensYaw: -0.520761, rateOfTurn: 19.857718, wheelSp1: %&7f, wheelSp2: 53.660374, wheelSp3: 55.744278, wheelSp4: 58.522808
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.573799, xSensAcc2: 2.672302, xSensYaw: -0.141689, rateOfTurn: 19.675877, wheelSp1: %&7f, wheelSp2: 52.849960, wheelSp3: 50.766079, wheelSp4: 51.287037
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -5.483685, xSensAcc2: 2.124614, xSensYaw: 0.208418, rateOfTurn: 18.889004, wheelSp1: %&7f, wheelSp2: 43.819740, wheelSp3: 44.630154, wheelSp4: 48.334862
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 0.292563, xSensAcc2: -5.248643, xSensYaw: 0.367768, rateOfTurn: 18.226925, wheelSp1: %&7f, wheelSp2: 35.831459, wheelSp3: 35.136833, wheelSp4: 41.735836
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 11.623197, xSensAcc2: 5.358469, xSensYaw: 0.629027, rateOfTurn: 16.261951, wheelSp1: %&7f, wheelSp2: 20.144333, wheelSp3: 21.823042, wheelSp4: 32.010990
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -9.315403, xSensAcc2: 2.610718, xSensYaw: 0.728329, rateOfTurn: 14.927505, wheelSp1: %&7f, wheelSp2: 22.112473, wheelSp3: 21.012629, wheelSp4: 24.370022
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 12.663507, xSensAcc2: 4.414574, xSensYaw: 0.872894, rateOfTurn: 11.686736, wheelSp1: %&7f, wheelSp2: 16.613293, wheelSp3: 9.203876, wheelSp4: 22.286118
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -8.279284, xSensAcc2: -10.986475, xSensYaw: 0.967795, rateOfTurn: 8.420448, wheelSp1: %&7f, wheelSp2: 11.750857, wheelSp3: 12.098171, wheelSp4: 12.387603
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 3.364950, xSensAcc2: 6.522413, xSensYaw: 1.023419, rateOfTurn: 5.702849, wheelSp1: %&7f, wheelSp2: 2.546969, wheelSp3: 4.920305, wheelSp4: 6.367464
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -3.534870, xSensAcc2: -4.178693, xSensYaw: 1.022837, rateOfTurn: 4.319183, wheelSp1: %&7f, wheelSp2: -1.794484, wheelSp3: 0.926165, wheelSp4: 1.215597
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.079368, xSensAcc2: 4.350173, xSensYaw: 0.967772, rateOfTurn: 1.455739, wheelSp1: %&7f, wheelSp2: -10.187959, wheelSp3: -8.219841, wheelSp4: -6.714801
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -3.631518, xSensAcc2: 2.954493, xSensYaw: 0.703929, rateOfTurn: -4.317786, wheelSp1: %&7f, wheelSp2: -17.423706, wheelSp3: -17.307943, wheelSp4: -15.860785
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -0.652054, xSensAcc2: -3.707910, xSensYaw: 0.642112, rateOfTurn: -4.893274, wheelSp1: %&7f, wheelSp2: -19.102415, wheelSp3: -19.854923, wheelSp4: -17.365826
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.792505, xSensAcc2: -0.011723, xSensYaw: 0.514591, rateOfTurn: -5.682686, wheelSp1: %&7f, wheelSp2: -16.844866, wheelSp3: -16.960630, wheelSp4: -18.639315
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.197553, xSensAcc2: 2.813048, xSensYaw: 0.389141, rateOfTurn: -6.050325, wheelSp1: %&7f, wheelSp2: -18.349907, wheelSp3: -18.176239, wheelSp4: -17.134298
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -0.383856, xSensAcc2: -0.205834, xSensYaw: 0.329397, rateOfTurn: -6.114843, wheelSp1: %&7f, wheelSp2: -18.581434, wheelSp3: -18.639315, wheelSp4: -16.439648
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 2.590113, xSensAcc2: 3.554963, xSensYaw: 0.213401, rateOfTurn: -6.020151, wheelSp1: %&7f, wheelSp2: -16.555435, wheelSp3: -16.613316, wheelSp4: -17.250061
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -0.375824, xSensAcc2: -2.529903, xSensYaw: 0.101968, rateOfTurn: -5.827297, wheelSp1: %&7f, wheelSp2: -16.555435, wheelSp3: -15.745021, wheelSp4: -15.976571
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -4.676275, xSensAcc2: 0.908982, xSensYaw: 0.048510, rateOfTurn: -5.701079, wheelSp1: %&7f, wheelSp2: -15.397708, wheelSp3: -14.992513, wheelSp4: -15.513471
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: 1.377997, xSensAcc2: -3.456290, xSensYaw: -0.049046, rateOfTurn: -5.394628, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.703080, wheelSp4: -14.008430
+
+[14:48:54] Id:  7, MsgId:     0, xSensAcc1: -3.970147, xSensAcc2: 0.445021, xSensYaw: -0.182178, rateOfTurn: -4.802656, wheelSp1: %&7f, wheelSp2: -12.271863, wheelSp3: -10.535273, wheelSp4: -11.808763
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -5.231204, xSensAcc2: -1.636741, xSensYaw: -0.319781, rateOfTurn: -3.109791, wheelSp1: %&7f, wheelSp2: -7.409428, wheelSp3: -6.251701, wheelSp4: -5.151878
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 6.277941, xSensAcc2: -0.959367, xSensYaw: -0.342878, rateOfTurn: -2.296350, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: 1.215597, wheelSp4: -3.704720
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 1.570058, xSensAcc2: 0.987074, xSensYaw: -0.346277, rateOfTurn: -1.839909, wheelSp1: %&7f, wheelSp2: -2.315466, wheelSp3: 0.347302, wheelSp4: -3.010093
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -2.678705, xSensAcc2: -0.239874, xSensYaw: -0.337919, rateOfTurn: -0.861508, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: -0.057893, wheelSp4: 2.257538
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.746653, xSensAcc2: 1.428497, xSensYaw: -0.306417, rateOfTurn: 0.387372, wheelSp1: %&7f, wheelSp2: 2.546969, wheelSp3: 1.620792, wheelSp4: 2.315443
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 3.123365, xSensAcc2: -0.345625, xSensYaw: -0.254984, rateOfTurn: 1.136388, wheelSp1: %&7f, wheelSp2: 3.357383, wheelSp3: 5.151855, wheelSp4: 2.720638
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.277942, xSensAcc2: -0.296708, xSensYaw: -0.241923, rateOfTurn: 1.203071, wheelSp1: %&7f, wheelSp2: 3.646815, wheelSp3: 3.357383, wheelSp4: 2.720638
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -0.488653, xSensAcc2: 0.646978, xSensYaw: -0.214519, rateOfTurn: 1.257763, wheelSp1: %&7f, wheelSp2: 3.531028, wheelSp3: 3.125833, wheelSp4: 4.746637
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 1.566706, xSensAcc2: -0.338710, xSensYaw: -0.193866, rateOfTurn: 1.231011, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.994128, wheelSp4: 2.315443
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -0.308745, xSensAcc2: -0.328745, xSensYaw: -0.184716, rateOfTurn: 1.173245, wheelSp1: %&7f, wheelSp2: 3.183715, wheelSp3: 3.299501, wheelSp4: 1.968106
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.022736, xSensAcc2: 0.135961, xSensYaw: -0.168278, rateOfTurn: 1.005980, wheelSp1: %&7f, wheelSp2: 2.141774, wheelSp3: 2.431206, wheelSp4: 3.531028
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 1.046818, xSensAcc2: -0.352657, xSensYaw: -0.162178, rateOfTurn: 0.920298, wheelSp1: %&7f, wheelSp2: 1.910224, wheelSp3: 1.273479, wheelSp4: 2.720638
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -0.418152, xSensAcc2: 0.105251, xSensYaw: -0.151910, rateOfTurn: 0.745512, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 1.157715, wheelSp4: 0.636734
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.303576, xSensAcc2: -0.000221, xSensYaw: -0.147836, rateOfTurn: 0.524439, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.984047, wheelSp4: 1.273479
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.652845, xSensAcc2: 0.186742, xSensYaw: -0.147743, rateOfTurn: 0.406301, wheelSp1: %&7f, wheelSp2: 0.463088, wheelSp3: 0.636734, wheelSp4: 0.810402
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.623765, xSensAcc2: -0.128208, xSensYaw: -0.150048, rateOfTurn: 0.164832, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.115775, wheelSp4: -0.752520
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.502367, xSensAcc2: -0.129885, xSensYaw: -0.154984, rateOfTurn: -0.030280, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.636757, wheelSp4: -0.000012
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.579830, xSensAcc2: -0.335963, xSensYaw: -0.156940, rateOfTurn: -0.088324, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.520994, wheelSp4: -0.347325
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -0.039081, xSensAcc2: -0.183180, xSensYaw: -0.159477, rateOfTurn: -0.141386, wheelSp1: %&7f, wheelSp2: -0.289443, wheelSp3: -0.115775, wheelSp4: -0.289443
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.158709, xSensAcc2: -0.337872, xSensYaw: -0.160269, rateOfTurn: -0.108371, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.231562, wheelSp4: -0.057893
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.362692, xSensAcc2: -0.166043, xSensYaw: -0.159733, rateOfTurn: -0.050629, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.115752
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -1.033570, xSensAcc2: 4.623796, xSensYaw: -2.979615, rateOfTurn: 2.269226, wheelSp1: %&7f, wheelSp2: 29.000908, wheelSp3: 48.913727, wheelSp4: 21.591492
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 7.451384, xSensAcc2: -11.466432, xSensYaw: -2.787018, rateOfTurn: 5.411764, wheelSp1: %&7f, wheelSp2: 35.773579, wheelSp3: 60.433044, wheelSp4: 33.516029
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -13.735669, xSensAcc2: 8.028571, xSensYaw: -2.664223, rateOfTurn: 7.054664, wheelSp1: %&7f, wheelSp2: 41.214878, wheelSp3: 58.291260, wheelSp4: 43.761860
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -16.681093, xSensAcc2: 14.444057, xSensYaw: -2.037745, rateOfTurn: 13.404468, wheelSp1: %&7f, wheelSp2: 53.602493, wheelSp3: 61.938084, wheelSp4: 62.574829
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 8.315791, xSensAcc2: 0.868447, xSensYaw: -1.846475, rateOfTurn: 14.863292, wheelSp1: %&7f, wheelSp2: 58.638573, wheelSp3: 61.301338, wheelSp4: 59.796299
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -2.109597, xSensAcc2: -4.837627, xSensYaw: -1.056318, rateOfTurn: 18.772028, wheelSp1: %&7f, wheelSp2: 55.975803, wheelSp3: 56.091591, wheelSp4: 61.127670
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 3.987586, xSensAcc2: -9.816874, xSensYaw: -0.858808, rateOfTurn: 19.126583, wheelSp1: %&7f, wheelSp2: 53.949806, wheelSp3: 55.802158, wheelSp4: 60.954025
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -2.356071, xSensAcc2: 8.595817, xSensYaw: -0.479200, rateOfTurn: 19.303930, wheelSp1: %&7f, wheelSp2: 54.760220, wheelSp3: 55.802158, wheelSp4: 54.991745
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -2.274651, xSensAcc2: -3.040454, xSensYaw: -0.295148, rateOfTurn: 19.196386, wheelSp1: %&7f, wheelSp2: 51.518589, wheelSp3: 51.750137, wheelSp4: 51.808018
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 3.102270, xSensAcc2: -1.605914, xSensYaw: 0.053796, rateOfTurn: 18.493563, wheelSp1: %&7f, wheelSp2: 45.845764, wheelSp3: 44.109173, wheelSp4: 49.666233
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -1.653156, xSensAcc2: -1.563283, xSensYaw: 0.351865, rateOfTurn: 17.215881, wheelSp1: %&7f, wheelSp2: 42.256817, wheelSp3: 39.883480, wheelSp4: 39.536167
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 1.108053, xSensAcc2: -3.337010, xSensYaw: 0.484881, rateOfTurn: 16.280321, wheelSp1: %&7f, wheelSp2: 42.488369, wheelSp3: 33.921223, wheelSp4: 33.458149
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 14.080538, xSensAcc2: 0.780297, xSensYaw: 0.859366, rateOfTurn: 11.330389, wheelSp1: %&7f, wheelSp2: 18.812960, wheelSp3: 12.040290, wheelSp4: 18.639292
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 4.624215, xSensAcc2: 7.646496, xSensYaw: 0.912289, rateOfTurn: 9.976782, wheelSp1: %&7f, wheelSp2: 16.381742, wheelSp3: 2.026011, wheelSp4: 21.070509
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -2.739567, xSensAcc2: -1.438579, xSensYaw: 0.993616, rateOfTurn: 7.341884, wheelSp1: %&7f, wheelSp2: 12.387603, wheelSp3: 1.099834, wheelSp4: 13.950525
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 5.303754, xSensAcc2: -2.249272, xSensYaw: 1.044653, rateOfTurn: 4.975928, wheelSp1: %&7f, wheelSp2: 6.714777, wheelSp3: 2.141774, wheelSp4: 6.598991
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -7.663656, xSensAcc2: -0.514637, xSensYaw: 0.992592, rateOfTurn: 1.201581, wheelSp1: %&7f, wheelSp2: -5.846506, wheelSp3: -5.093997, wheelSp4: -5.383405
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 4.774926, xSensAcc2: 1.496507, xSensYaw: 0.892708, rateOfTurn: -1.620839, wheelSp1: %&7f, wheelSp2: -13.545354, wheelSp3: -13.950548, wheelSp4: -9.898527
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.892754, xSensAcc2: -1.953973, xSensYaw: 0.834058, rateOfTurn: -2.765621, wheelSp1: %&7f, wheelSp2: -14.413649, wheelSp3: -17.655256, wheelSp4: -14.760962
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: -2.265221, xSensAcc2: 2.104871, xSensYaw: 0.710937, rateOfTurn: -4.597439, wheelSp1: %&7f, wheelSp2: -16.613316, wheelSp3: -16.555435, wheelSp4: -16.497553
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.269304, xSensAcc2: 1.542934, xSensYaw: 0.647700, rateOfTurn: -5.182263, wheelSp1: %&7f, wheelSp2: -18.581434, wheelSp3: -17.597376, wheelSp4: -16.902748
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 1.181394, xSensAcc2: -2.808322, xSensYaw: 0.519294, rateOfTurn: -5.895260, wheelSp1: %&7f, wheelSp2: -18.870865, wheelSp3: -19.797043, wheelSp4: -17.886806
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.298081, xSensAcc2: 1.118460, xSensYaw: 0.392611, rateOfTurn: -6.171141, wheelSp1: %&7f, wheelSp2: -17.828924, wheelSp3: -18.002571, wheelSp4: -18.002571
+
+[14:48:55] Id:  7, MsgId:     0, xSensAcc1: 0.990869, xSensAcc2: 0.001106, xSensYaw: 0.332121, rateOfTurn: -6.210117, wheelSp1: %&7f, wheelSp2: -18.523552, wheelSp3: -17.771044, wheelSp4: -17.250061
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 1.167774, xSensAcc2: -0.586372, xSensYaw: 0.214635, rateOfTurn: -6.106275, wheelSp1: %&7f, wheelSp2: -17.655256, wheelSp3: -17.250061, wheelSp4: -18.118357
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 2.147851, xSensAcc2: 1.493411, xSensYaw: 0.051304, rateOfTurn: -5.729927, wheelSp1: %&7f, wheelSp2: -16.786961, wheelSp3: -16.381765, wheelSp4: -15.339826
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -0.157289, xSensAcc2: -1.615344, xSensYaw: -0.049325, rateOfTurn: -5.427108, wheelSp1: %&7f, wheelSp2: -15.397708, wheelSp3: -15.281944, wheelSp4: -14.471531
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -1.234200, xSensAcc2: -0.119221, xSensYaw: -0.169512, rateOfTurn: -4.664308, wheelSp1: %&7f, wheelSp2: -12.156076, wheelSp3: -10.130077, wheelSp4: -11.924549
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.507117, xSensAcc2: 1.924776, xSensYaw: -0.230770, rateOfTurn: -3.989448, wheelSp1: %&7f, wheelSp2: -9.609096, wheelSp3: -10.245841, wheelSp4: -9.666977
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 2.036721, xSensAcc2: 1.243025, xSensYaw: -0.284787, rateOfTurn: -3.334240, wheelSp1: %&7f, wheelSp2: -8.509274, wheelSp3: -9.146018, wheelSp4: -8.393487
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.904093, xSensAcc2: -0.251865, xSensYaw: -0.308861, rateOfTurn: -3.108743, wheelSp1: %&7f, wheelSp2: -8.161937, wheelSp3: -6.599014, wheelSp4: -6.541132
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -0.007951, xSensAcc2: 0.918831, xSensYaw: -0.338757, rateOfTurn: -2.435257, wheelSp1: %&7f, wheelSp2: -3.936270, wheelSp3: -4.630897, wheelSp4: -6.483251
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -1.321675, xSensAcc2: 2.123730, xSensYaw: -0.342086, rateOfTurn: -2.025452, wheelSp1: %&7f, wheelSp2: -2.720661, wheelSp3: -3.820483, wheelSp4: -3.183738
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 1.672946, xSensAcc2: -0.195566, xSensYaw: -0.335963, rateOfTurn: -1.019321, wheelSp1: %&7f, wheelSp2: -0.752520, wheelSp3: 0.810402, wheelSp4: -0.057893
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -0.406185, xSensAcc2: 0.356312, xSensYaw: -0.318454, rateOfTurn: -0.091747, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 0.463088, wheelSp4: 1.331361
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -1.255435, xSensAcc2: -0.154262, xSensYaw: -0.307581, rateOfTurn: 0.272144, wheelSp1: %&7f, wheelSp2: 1.794461, wheelSp3: -0.173680, wheelSp4: 2.257538
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 2.147013, xSensAcc2: 1.197273, xSensYaw: -0.286766, rateOfTurn: 0.704417, wheelSp1: %&7f, wheelSp2: 2.662756, wheelSp3: 4.630873, wheelSp4: 2.431206
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.198057, xSensAcc2: -1.203513, xSensYaw: -0.265043, rateOfTurn: 0.944792, wheelSp1: %&7f, wheelSp2: 2.952188, wheelSp3: 2.373324, wheelSp4: 3.067951
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 1.173851, xSensAcc2: -0.130071, xSensYaw: -0.244344, rateOfTurn: 1.010613, wheelSp1: %&7f, wheelSp2: 3.183715, wheelSp3: 4.399323, wheelSp4: 2.952188
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.358943, xSensAcc2: -0.458176, xSensYaw: -0.221853, rateOfTurn: 1.065887, wheelSp1: %&7f, wheelSp2: 2.604851, wheelSp3: 1.910224, wheelSp4: 3.357383
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.060617, xSensAcc2: -0.663882, xSensYaw: -0.210351, rateOfTurn: 1.077342, wheelSp1: %&7f, wheelSp2: 3.646815, wheelSp3: 2.141774, wheelSp4: 3.067951
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.257965, xSensAcc2: 0.629190, xSensYaw: -0.194006, rateOfTurn: 1.028727, wheelSp1: %&7f, wheelSp2: 1.794461, wheelSp3: 3.531028, wheelSp4: 2.026011
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.791822, xSensAcc2: -0.655267, xSensYaw: -0.181270, rateOfTurn: 0.879180, wheelSp1: %&7f, wheelSp2: 2.026011, wheelSp3: 0.926165, wheelSp4: 1.794461
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -0.143365, xSensAcc2: -0.462460, xSensYaw: -0.176008, rateOfTurn: 0.781275, wheelSp1: %&7f, wheelSp2: 1.678674, wheelSp3: 0.636734, wheelSp4: 1.331361
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 1.027051, xSensAcc2: 0.418408, xSensYaw: -0.169280, rateOfTurn: 0.593963, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 1.968106, wheelSp4: 1.562911
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.316382, xSensAcc2: 0.222225, xSensYaw: -0.167231, rateOfTurn: 0.503461, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: 0.578852, wheelSp4: 0.810402
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.770472, xSensAcc2: 0.093307, xSensYaw: -0.164460, rateOfTurn: 0.433007, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -0.231562, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.421761, xSensAcc2: -0.114308, xSensYaw: -0.168185, rateOfTurn: -0.060082, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.057893, wheelSp4: -0.405207
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.157405, xSensAcc2: 0.035891, xSensYaw: -0.168651, rateOfTurn: -0.049162, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: 0.115752, wheelSp4: 0.289420
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.737689, xSensAcc2: 0.026834, xSensYaw: -0.168115, rateOfTurn: -0.016007, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -0.043388, xSensAcc2: 0.099360, xSensYaw: -3.127253, rateOfTurn: -0.002852, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.260689, xSensAcc2: 0.303204, xSensYaw: -3.126299, rateOfTurn: 0.030000, wheelSp1: %&7f, wheelSp2: 8.798681, wheelSp3: 9.898503, wheelSp4: 7.351523
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 1.159369, xSensAcc2: -1.730735, xSensYaw: -3.114541, rateOfTurn: 0.262575, wheelSp1: %&7f, wheelSp2: 15.802879, wheelSp3: 23.270178, wheelSp4: 12.966467
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 3.029744, xSensAcc2: 3.416801, xSensYaw: -2.998987, rateOfTurn: 1.888059, wheelSp1: %&7f, wheelSp2: 32.416183, wheelSp3: 49.781998, wheelSp4: 20.781078
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -5.222752, xSensAcc2: 11.074065, xSensYaw: -2.821453, rateOfTurn: 4.877860, wheelSp1: %&7f, wheelSp2: 38.262676, wheelSp3: 56.149471, wheelSp4: 30.563829
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 3.650749, xSensAcc2: 6.437942, xSensYaw: -2.693746, rateOfTurn: 6.652565, wheelSp1: %&7f, wheelSp2: 47.350803, wheelSp3: 59.275318, wheelSp4: 37.568050
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 4.051125, xSensAcc2: -1.346006, xSensYaw: -2.093648, rateOfTurn: 12.856733, wheelSp1: %&7f, wheelSp2: 57.886063, wheelSp3: 63.269459, wheelSp4: 56.901981
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 12.303039, xSensAcc2: -11.439121, xSensYaw: -1.917605, rateOfTurn: 14.179165, wheelSp1: %&7f, wheelSp2: 58.928005, wheelSp3: 68.421326, wheelSp4: 59.969944
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 4.709128, xSensAcc2: 1.737999, xSensYaw: -1.521024, rateOfTurn: 16.810291, wheelSp1: %&7f, wheelSp2: 60.085732, wheelSp3: 60.375164, wheelSp4: 59.680511
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.828493, xSensAcc2: 0.166346, xSensYaw: -1.117506, rateOfTurn: 18.593494, wheelSp1: %&7f, wheelSp2: 57.249317, wheelSp3: 57.943947, wheelSp4: 59.506866
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -10.119227, xSensAcc2: 4.103885, xSensYaw: -0.912591, rateOfTurn: 19.240414, wheelSp1: %&7f, wheelSp2: 56.091591, wheelSp3: 58.407021, wheelSp4: 59.275318
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 5.602057, xSensAcc2: -2.365734, xSensYaw: -0.517850, rateOfTurn: 19.682537, wheelSp1: %&7f, wheelSp2: 53.834019, wheelSp3: 55.744278, wheelSp4: 56.844101
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -2.093485, xSensAcc2: -6.786443, xSensYaw: 0.034191, rateOfTurn: 19.144558, wheelSp1: %&7f, wheelSp2: 47.640236, wheelSp3: 46.193077, wheelSp4: 46.250957
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 10.617811, xSensAcc2: 3.030372, xSensYaw: 0.357802, rateOfTurn: 18.002430, wheelSp1: %&7f, wheelSp2: 36.699757, wheelSp3: 32.416183, wheelSp4: 48.855820
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -12.032816, xSensAcc2: -0.291003, xSensYaw: 0.498944, rateOfTurn: 17.200584, wheelSp1: %&7f, wheelSp2: 30.679617, wheelSp3: 25.585630, wheelSp4: 40.520226
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 5.272881, xSensAcc2: 2.735935, xSensYaw: 0.724418, rateOfTurn: 14.875841, wheelSp1: %&7f, wheelSp2: 19.507587, wheelSp3: 14.182076, wheelSp4: 27.611654
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 3.347907, xSensAcc2: -0.364671, xSensYaw: 0.926538, rateOfTurn: 10.178879, wheelSp1: %&7f, wheelSp2: 15.397684, wheelSp3: 12.792798, wheelSp4: 19.449705
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -3.230723, xSensAcc2: -2.075348, xSensYaw: 1.002860, rateOfTurn: 7.105979, wheelSp1: %&7f, wheelSp2: 8.972326, wheelSp3: 7.698836, wheelSp4: 13.082230
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 0.517734, xSensAcc2: -4.643051, xSensYaw: 1.035246, rateOfTurn: 4.534877, wheelSp1: %&7f, wheelSp2: 1.273479, wheelSp3: 1.273479, wheelSp4: -0.694639
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: 2.963713, xSensAcc2: 1.627405, xSensYaw: 1.020438, rateOfTurn: 3.124808, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.215620, wheelSp4: -1.331384
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -0.055286, xSensAcc2: 0.824325, xSensYaw: 0.947912, rateOfTurn: 0.323390, wheelSp1: %&7f, wheelSp2: -9.782763, wheelSp3: -11.114136, wheelSp4: -7.756741
+
+[14:48:56] Id:  7, MsgId:     0, xSensAcc1: -1.096947, xSensAcc2: 1.685007, xSensYaw: 0.845233, rateOfTurn: -2.368272, wheelSp1: %&7f, wheelSp2: -14.008430, wheelSp3: -17.076393, wheelSp4: -13.718999
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -2.306921, xSensAcc2: -3.409793, xSensYaw: 0.788050, rateOfTurn: -3.371050, wheelSp1: %&7f, wheelSp2: -15.455589, wheelSp3: -15.513471, wheelSp4: -14.992513
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.958459, xSensAcc2: 3.926398, xSensYaw: 0.662555, rateOfTurn: -4.872808, wheelSp1: %&7f, wheelSp2: -17.481611, wheelSp3: -17.828924, wheelSp4: -17.134298
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -0.691682, xSensAcc2: -2.637401, xSensYaw: 0.534917, rateOfTurn: -5.719846, wheelSp1: %&7f, wheelSp2: -18.755102, wheelSp3: -20.433788, wheelSp4: -18.118357
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -0.188628, xSensAcc2: -2.514070, xSensYaw: 0.470004, rateOfTurn: -5.983014, wheelSp1: %&7f, wheelSp2: -18.060474, wheelSp3: -18.523552, wheelSp4: -18.118357
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -3.070908, xSensAcc2: -0.377570, xSensYaw: 0.343902, rateOfTurn: -6.195286, wheelSp1: %&7f, wheelSp2: -18.639315, wheelSp3: -17.250061, wheelSp4: -19.218180
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -1.928245, xSensAcc2: 0.441039, xSensYaw: 0.285415, rateOfTurn: -6.198988, wheelSp1: %&7f, wheelSp2: -18.928747, wheelSp3: -17.655256, wheelSp4: -17.597376
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -3.089022, xSensAcc2: 1.789595, xSensYaw: 0.062084, rateOfTurn: -5.774980, wheelSp1: %&7f, wheelSp2: -16.092335, wheelSp3: -15.397708, wheelSp4: -16.381765
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -0.449375, xSensAcc2: 1.451850, xSensYaw: -0.089535, rateOfTurn: -5.327014, wheelSp1: %&7f, wheelSp2: -14.529412, wheelSp3: -14.818844, wheelSp4: -14.008430
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -4.448008, xSensAcc2: -0.752567, xSensYaw: -0.180712, rateOfTurn: -4.991575, wheelSp1: %&7f, wheelSp2: -12.213982, wheelSp3: -11.577236, wheelSp4: -12.156076
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.560179, xSensAcc2: 2.191623, xSensYaw: -0.217103, rateOfTurn: -4.719069, wheelSp1: %&7f, wheelSp2: -11.808763, wheelSp3: -10.245841, wheelSp4: -12.098194
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 2.266804, xSensAcc2: -0.688026, xSensYaw: -0.277616, rateOfTurn: -4.063581, wheelSp1: %&7f, wheelSp2: -9.203900, wheelSp3: -9.261782, wheelSp4: -10.766823
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.130288, xSensAcc2: -1.928897, xSensYaw: -0.342669, rateOfTurn: -2.911047, wheelSp1: %&7f, wheelSp2: -6.020174, wheelSp3: -2.141798, wheelSp4: -4.283583
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.458828, xSensAcc2: 1.691014, xSensYaw: -0.357989, rateOfTurn: -2.013578, wheelSp1: %&7f, wheelSp2: -1.505052, wheelSp3: -1.562934, wheelSp4: -4.920329
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.180533, xSensAcc2: -1.625402, xSensYaw: -0.341621, rateOfTurn: -0.479107, wheelSp1: %&7f, wheelSp2: 1.736579, wheelSp3: 3.936246, wheelSp4: 0.926165
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.038041, xSensAcc2: 3.109558, xSensYaw: -0.320387, rateOfTurn: 0.326836, wheelSp1: %&7f, wheelSp2: 2.141774, wheelSp3: 1.620792, wheelSp4: 0.984047
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -2.068037, xSensAcc2: -2.868695, xSensYaw: -0.305858, rateOfTurn: 0.611215, wheelSp1: %&7f, wheelSp2: 2.141774, wheelSp3: -1.215620, wheelSp4: 3.820460
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 2.314837, xSensAcc2: -1.781888, xSensYaw: -0.279967, rateOfTurn: 1.004094, wheelSp1: %&7f, wheelSp2: 4.457205, wheelSp3: 6.888422, wheelSp4: 3.762578
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -1.789059, xSensAcc2: -0.982278, xSensYaw: -0.255194, rateOfTurn: 1.189404, wheelSp1: %&7f, wheelSp2: 3.588933, wheelSp3: 6.772659, wheelSp4: 2.952188
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -0.618573, xSensAcc2: 0.874780, xSensYaw: -0.240409, rateOfTurn: 1.250615, wheelSp1: %&7f, wheelSp2: 3.531028, wheelSp3: 4.978187, wheelSp4: 3.183715
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -0.187440, xSensAcc2: -1.270522, xSensYaw: -0.209792, rateOfTurn: 1.349195, wheelSp1: %&7f, wheelSp2: 3.531028, wheelSp3: 2.546969, wheelSp4: 4.920305
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.213921, xSensAcc2: -0.885513, xSensYaw: -0.188162, rateOfTurn: 1.337647, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 2.604851, wheelSp4: 3.125833
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.213921, xSensAcc2: -0.885513, xSensYaw: -0.188162, rateOfTurn: 1.337647, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 2.604851, wheelSp4: 3.125833
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.213921, xSensAcc2: -0.885513, xSensYaw: -0.188162, rateOfTurn: 1.337647, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 2.604851, wheelSp4: 3.125833
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.213921, xSensAcc2: -0.885513, xSensYaw: -0.188162, rateOfTurn: 1.337647, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 2.604851, wheelSp4: 3.125833
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.213921, xSensAcc2: -0.885513, xSensYaw: -0.188162, rateOfTurn: 1.337647, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 2.604851, wheelSp4: 3.125833
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -0.020501, xSensAcc2: -0.047509, xSensYaw: -0.130537, rateOfTurn: 0.059314, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.115775, wheelSp4: -0.231562
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.307558, xSensAcc2: -0.274682, xSensYaw: -0.135286, rateOfTurn: -0.094983, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: 0.173657, wheelSp4: -0.405207
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.333635, xSensAcc2: -0.165857, xSensYaw: -0.138010, rateOfTurn: -0.147533, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.463112, wheelSp4: -0.231562
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.827864, xSensAcc2: -0.185345, xSensYaw: -0.139058, rateOfTurn: -0.088674, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: -0.289443
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.630098, xSensAcc2: -0.288931, xSensYaw: -0.137894, rateOfTurn: -0.005018, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.478409, xSensAcc2: -0.169629, xSensYaw: -0.137265, rateOfTurn: 0.022480, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.326184, xSensAcc2: -0.061688, xSensYaw: -0.137102, rateOfTurn: 0.026508, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.440713, xSensAcc2: -0.040012, xSensYaw: -0.137056, rateOfTurn: 0.023248, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -1.812808, xSensAcc2: 10.386424, xSensYaw: -2.870394, rateOfTurn: 4.064652, wheelSp1: %&7f, wheelSp2: 31.142693, wheelSp3: 55.860043, wheelSp4: 26.511808
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 3.845419, xSensAcc2: 3.692054, xSensYaw: -2.766529, rateOfTurn: 5.677517, wheelSp1: %&7f, wheelSp2: 43.298759, wheelSp3: 58.522808, wheelSp4: 29.464008
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -5.421124, xSensAcc2: 7.173314, xSensYaw: -2.500799, rateOfTurn: 9.022059, wheelSp1: %&7f, wheelSp2: 40.867565, wheelSp3: 57.133533, wheelSp4: 42.951443
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 5.037466, xSensAcc2: -1.525262, xSensYaw: -2.188806, rateOfTurn: 12.051349, wheelSp1: %&7f, wheelSp2: 52.213215, wheelSp3: 62.053848, wheelSp4: 54.065567
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -3.920949, xSensAcc2: -2.651417, xSensYaw: -2.007338, rateOfTurn: 13.730780, wheelSp1: %&7f, wheelSp2: 52.502647, wheelSp3: 63.674652, wheelSp4: 54.760220
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 2.629671, xSensAcc2: 4.517415, xSensYaw: -1.625752, rateOfTurn: 16.186352, wheelSp1: %&7f, wheelSp2: 57.770275, wheelSp3: 62.922142, wheelSp4: 56.438904
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -4.344888, xSensAcc2: 1.590198, xSensYaw: -1.225469, rateOfTurn: 18.173632, wheelSp1: %&7f, wheelSp2: 56.554668, wheelSp3: 55.860043, wheelSp4: 58.349140
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 1.890597, xSensAcc2: 2.190319, xSensYaw: -1.029519, rateOfTurn: 18.664299, wheelSp1: %&7f, wheelSp2: 55.686398, wheelSp3: 56.901981, wheelSp4: 58.870121
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 2.513395, xSensAcc2: -2.311927, xSensYaw: -0.644068, rateOfTurn: 19.226421, wheelSp1: %&7f, wheelSp2: 53.891922, wheelSp3: 55.744278, wheelSp4: 56.438904
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 0.943860, xSensAcc2: 0.385090, xSensYaw: -0.279548, rateOfTurn: 18.970493, wheelSp1: %&7f, wheelSp2: 50.997604, wheelSp3: 51.402824, wheelSp4: 52.849960
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -3.925094, xSensAcc2: 1.637673, xSensYaw: -0.106881, rateOfTurn: 18.654844, wheelSp1: %&7f, wheelSp2: 48.045429, wheelSp3: 49.318920, wheelSp4: 49.839901
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 5.651696, xSensAcc2: -0.282342, xSensYaw: 0.208581, rateOfTurn: 17.511274, wheelSp1: %&7f, wheelSp2: 42.430485, wheelSp3: 41.504311, wheelSp4: 45.093231
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: -6.357615, xSensAcc2: -1.373549, xSensYaw: 0.569841, rateOfTurn: 14.522986, wheelSp1: %&7f, wheelSp2: 27.901062, wheelSp3: 15.281920, wheelSp4: 28.306280
+
+[14:48:57] Id:  7, MsgId:     0, xSensAcc1: 7.997977, xSensAcc2: 3.440853, xSensYaw: 0.717596, rateOfTurn: 11.615490, wheelSp1: %&7f, wheelSp2: 19.797020, wheelSp3: 6.367464, wheelSp4: 25.354082
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -2.112065, xSensAcc2: 3.754220, xSensYaw: 0.774313, rateOfTurn: 10.102044, wheelSp1: %&7f, wheelSp2: 15.802879, wheelSp3: 3.415265, wheelSp4: 21.244179
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 3.750890, xSensAcc2: 1.493737, xSensYaw: 0.847515, rateOfTurn: 7.121952, wheelSp1: %&7f, wheelSp2: 11.982408, wheelSp3: 10.708918, wheelSp4: 14.703057
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 2.173346, xSensAcc2: -3.175030, xSensYaw: 0.894826, rateOfTurn: 4.746521, wheelSp1: %&7f, wheelSp2: 5.846482, wheelSp3: 2.431206, wheelSp4: 6.483227
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.644324, xSensAcc2: 2.709741, xSensYaw: 0.888307, rateOfTurn: 3.464322, wheelSp1: %&7f, wheelSp2: 2.431206, wheelSp3: -3.588956, wheelSp4: 1.273479
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -1.139019, xSensAcc2: -0.544230, xSensYaw: 0.831543, rateOfTurn: 1.205050, wheelSp1: %&7f, wheelSp2: -5.788624, wheelSp3: -4.630897, wheelSp4: -2.720661
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 1.277903, xSensAcc2: 2.070155, xSensYaw: 0.746676, rateOfTurn: -1.318508, wheelSp1: %&7f, wheelSp2: -9.840646, wheelSp3: -12.966490, wheelSp4: -9.724882
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -2.421776, xSensAcc2: -2.368901, xSensYaw: 0.700995, rateOfTurn: -2.267735, wheelSp1: %&7f, wheelSp2: -11.403567, wheelSp3: -15.281944, wheelSp4: -11.519331
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 5.614839, xSensAcc2: -0.046974, xSensYaw: 0.602717, rateOfTurn: -3.833312, wheelSp1: %&7f, wheelSp2: -13.429590, wheelSp3: -13.487472, wheelSp4: -12.792822
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -1.046888, xSensAcc2: 2.220820, xSensYaw: 0.497827, rateOfTurn: -4.551758, wheelSp1: %&7f, wheelSp2: -14.182098, wheelSp3: -15.802902, wheelSp4: -14.876725
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.884908, xSensAcc2: 0.308699, xSensYaw: 0.447093, rateOfTurn: -4.764844, wheelSp1: %&7f, wheelSp2: -14.934608, wheelSp3: -15.339826, wheelSp4: -13.661117
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.400690, xSensAcc2: -4.299602, xSensYaw: 0.397384, rateOfTurn: -4.968641, wheelSp1: %&7f, wheelSp2: -14.413649, wheelSp3: -14.992513, wheelSp4: -13.661117
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -2.575608, xSensAcc2: 0.214425, xSensYaw: 0.300014, rateOfTurn: -4.949339, wheelSp1: %&7f, wheelSp2: -13.313804, wheelSp3: -14.124217, wheelSp4: -15.687140
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.487908, xSensAcc2: -0.000803, xSensYaw: 0.253844, rateOfTurn: -4.884822, wheelSp1: %&7f, wheelSp2: -13.834785, wheelSp3: -14.124217, wheelSp4: -13.545354
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 1.943612, xSensAcc2: -1.735485, xSensYaw: 0.162388, rateOfTurn: -4.749804, wheelSp1: %&7f, wheelSp2: -14.008430, wheelSp3: -13.198040, wheelSp4: -12.329744
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 1.842191, xSensAcc2: 0.892661, xSensYaw: 0.119524, rateOfTurn: -4.653667, wheelSp1: %&7f, wheelSp2: -13.024371, wheelSp3: -12.213982, wheelSp4: -13.255921
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -1.503748, xSensAcc2: 1.512643, xSensYaw: 0.037358, rateOfTurn: -4.442653, wheelSp1: %&7f, wheelSp2: -11.519331, wheelSp3: -11.577236, wheelSp4: -12.677058
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 2.386339, xSensAcc2: 2.466433, xSensYaw: -0.041083, rateOfTurn: -4.191312, wheelSp1: %&7f, wheelSp2: -11.924549, wheelSp3: -11.519331, wheelSp4: -10.130077
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.981765, xSensAcc2: -3.236614, xSensYaw: -0.078103, rateOfTurn: -4.064559, wheelSp1: %&7f, wheelSp2: -10.187959, wheelSp3: -11.577236, wheelSp4: -11.403567
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.131258, xSensAcc2: 1.050893, xSensYaw: -0.143319, rateOfTurn: -3.737176, wheelSp1: %&7f, wheelSp2: -8.509274, wheelSp3: -8.798705, wheelSp4: -10.303722
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 2.223032, xSensAcc2: 1.732155, xSensYaw: -0.198593, rateOfTurn: -3.334472, wheelSp1: %&7f, wheelSp2: -8.682919, wheelSp3: -9.030231, wheelSp4: -7.409428
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 2.631766, xSensAcc2: -2.513512, xSensYaw: -0.223366, rateOfTurn: -3.107882, wheelSp1: %&7f, wheelSp2: -7.872528, wheelSp3: -7.872528, wheelSp4: -7.814623
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 2.631580, xSensAcc2: 0.863068, xSensYaw: -0.270142, rateOfTurn: -2.732861, wheelSp1: %&7f, wheelSp2: -6.251701, wheelSp3: -5.962269, wheelSp4: -7.235759
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 1.112709, xSensAcc2: -2.578518, xSensYaw: -0.319572, rateOfTurn: -2.111646, wheelSp1: %&7f, wheelSp2: -2.083916, wheelSp3: -3.646838, wheelSp4: -4.804565
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.894407, xSensAcc2: 3.272004, xSensYaw: -0.332354, rateOfTurn: -1.508428, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -1.099857, wheelSp4: 0.115752
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.635127, xSensAcc2: 2.012856, xSensYaw: -0.208232, rateOfTurn: 1.107494, wheelSp1: %&7f, wheelSp2: 2.431206, wheelSp3: 3.299501, wheelSp4: 3.646815
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.751799, xSensAcc2: -1.508964, xSensYaw: -0.187207, rateOfTurn: 1.070823, wheelSp1: %&7f, wheelSp2: 3.067951, wheelSp3: 1.678674, wheelSp4: 2.083892
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.057381, xSensAcc2: -1.194666, xSensYaw: -0.178267, rateOfTurn: 1.015922, wheelSp1: %&7f, wheelSp2: 3.936246, wheelSp3: 3.704696, wheelSp4: 1.910224
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.339013, xSensAcc2: 1.085817, xSensYaw: -0.162527, rateOfTurn: 0.953802, wheelSp1: %&7f, wheelSp2: 1.331361, wheelSp3: 1.736579, wheelSp4: 3.183715
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.857597, xSensAcc2: -0.384625, xSensYaw: -0.149163, rateOfTurn: 0.821205, wheelSp1: %&7f, wheelSp2: 2.662756, wheelSp3: 1.447147, wheelSp4: 1.447147
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.388676, xSensAcc2: -0.228442, xSensYaw: -0.145345, rateOfTurn: 0.742113, wheelSp1: %&7f, wheelSp2: 1.736579, wheelSp3: 2.257538, wheelSp4: 0.578852
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.175636, xSensAcc2: -0.208232, xSensYaw: -0.139454, rateOfTurn: 0.547746, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 1.389266, wheelSp4: 1.099834
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.651658, xSensAcc2: -0.470586, xSensYaw: -0.137638, rateOfTurn: 0.339199, wheelSp1: %&7f, wheelSp2: 0.578852, wheelSp3: 0.115752, wheelSp4: 0.405184
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.177638, xSensAcc2: 0.239059, xSensYaw: -0.139338, rateOfTurn: 0.232656, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.115775, wheelSp4: 0.057870
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.502088, xSensAcc2: -0.062736, xSensYaw: -0.144017, rateOfTurn: 0.025926, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.636757, wheelSp4: -0.405207
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.519666, xSensAcc2: 0.177918, xSensYaw: -0.146718, rateOfTurn: -0.065996, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.752520, wheelSp4: -0.636757
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.394613, xSensAcc2: 0.096264, xSensYaw: -0.151119, rateOfTurn: -0.165415, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.463112, wheelSp4: -0.520994
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.449887, xSensAcc2: -0.144157, xSensYaw: -0.153144, rateOfTurn: -0.165321, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.405207, wheelSp4: -0.636757
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.289606, xSensAcc2: 0.031188, xSensYaw: -0.153494, rateOfTurn: -0.074308, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.463112, wheelSp4: 0.231538
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.285532, xSensAcc2: -0.215427, xSensYaw: -0.151980, rateOfTurn: 0.009185, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.347302, wheelSp4: -0.231562
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.419130, xSensAcc2: -0.017753, xSensYaw: -0.151701, rateOfTurn: 0.028557, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.569073, xSensAcc2: -0.016356, xSensYaw: -0.152050, rateOfTurn: 0.015821, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.231562, wheelSp4: 0.173657
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.152236, xSensAcc2: -0.036752, xSensYaw: -3.132143, rateOfTurn: 0.009348, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: 0.057870
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.319176, xSensAcc2: -0.593706, xSensYaw: -3.131886, rateOfTurn: 0.007206, wheelSp1: %&7f, wheelSp2: 7.409404, wheelSp3: 8.972326, wheelSp4: 7.698836
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -0.436290, xSensAcc2: 3.408536, xSensYaw: -3.065600, rateOfTurn: 1.035875, wheelSp1: %&7f, wheelSp2: 24.196354, wheelSp3: 31.084812, wheelSp4: 15.687116
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 3.486976, xSensAcc2: -2.719776, xSensYaw: -3.000360, rateOfTurn: 1.906266, wheelSp1: %&7f, wheelSp2: 35.947224, wheelSp3: 47.640236, wheelSp4: 24.659454
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -2.633163, xSensAcc2: 14.660869, xSensYaw: -2.828368, rateOfTurn: 4.827080, wheelSp1: %&7f, wheelSp2: 39.999268, wheelSp3: 57.365082, wheelSp4: 29.000908
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 4.935742, xSensAcc2: -3.691705, xSensYaw: -2.704456, rateOfTurn: 6.569165, wheelSp1: %&7f, wheelSp2: 45.903645, wheelSp3: 61.706535, wheelSp4: 38.783661
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -7.805193, xSensAcc2: 6.651215, xSensYaw: -2.435327, rateOfTurn: 9.821390, wheelSp1: %&7f, wheelSp2: 45.729977, wheelSp3: 60.838242, wheelSp4: 47.524448
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 0.419014, xSensAcc2: -5.284033, xSensYaw: -2.101425, rateOfTurn: 12.925978, wheelSp1: %&7f, wheelSp2: 52.039570, wheelSp3: 67.784576, wheelSp4: 56.670456
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: -7.399719, xSensAcc2: 3.881741, xSensYaw: -1.913484, rateOfTurn: 14.325150, wheelSp1: %&7f, wheelSp2: 56.149471, wheelSp3: 69.115952, wheelSp4: 58.464928
+
+[14:48:58] Id:  7, MsgId:     0, xSensAcc1: 6.921345, xSensAcc2: -5.020865, xSensYaw: -1.519348, rateOfTurn: 16.884773, wheelSp1: %&7f, wheelSp2: 59.622631, wheelSp3: 61.764416, wheelSp4: 57.943947
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -4.286633, xSensAcc2: -0.039663, xSensYaw: -1.113431, rateOfTurn: 18.701574, wheelSp1: %&7f, wheelSp2: 57.017769, wheelSp3: 56.901981, wheelSp4: 60.433044
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -2.966810, xSensAcc2: -4.042906, xSensYaw: -0.912638, rateOfTurn: 19.243534, wheelSp1: %&7f, wheelSp2: 55.454845, wheelSp3: 57.770275, wheelSp4: 60.664593
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.351283, xSensAcc2: -2.519425, xSensYaw: -0.519876, rateOfTurn: 19.676228, wheelSp1: %&7f, wheelSp2: 54.818100, wheelSp3: 56.438904, wheelSp4: 56.381023
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -4.959887, xSensAcc2: 3.991264, xSensYaw: -0.147277, rateOfTurn: 19.392778, wheelSp1: %&7f, wheelSp2: 50.939724, wheelSp3: 50.650291, wheelSp4: 50.881844
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 6.605300, xSensAcc2: -2.741266, xSensYaw: 0.345462, rateOfTurn: 17.812441, wheelSp1: %&7f, wheelSp2: 43.703976, wheelSp3: 41.620071, wheelSp4: 40.751778
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 2.839614, xSensAcc2: 3.454077, xSensYaw: 0.481110, rateOfTurn: 16.915949, wheelSp1: %&7f, wheelSp2: 37.220737, wheelSp3: 35.831459, wheelSp4: 36.120892
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 20.741520, xSensAcc2: 10.418903, xSensYaw: 0.870170, rateOfTurn: 11.832582, wheelSp1: %&7f, wheelSp2: 14.182076, wheelSp3: 5.614932, wheelSp4: 25.469868
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -11.398492, xSensAcc2: 9.043247, xSensYaw: 0.931427, rateOfTurn: 10.462652, wheelSp1: %&7f, wheelSp2: 13.371662, wheelSp3: 7.988268, wheelSp4: 19.102392
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 8.385151, xSensAcc2: -2.779823, xSensYaw: 1.009565, rateOfTurn: 7.575180, wheelSp1: %&7f, wheelSp2: 11.982408, wheelSp3: 8.451344, wheelSp4: 7.583073
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -13.677066, xSensAcc2: -2.599962, xSensYaw: 1.041603, rateOfTurn: 4.825264, wheelSp1: %&7f, wheelSp2: 2.489088, wheelSp3: 0.636734, wheelSp4: 5.209737
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -3.963069, xSensAcc2: -0.071654, xSensYaw: 0.957714, rateOfTurn: 0.411307, wheelSp1: %&7f, wheelSp2: -7.756741, wheelSp3: -16.208120, wheelSp4: -7.756741
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 3.748515, xSensAcc2: -0.914081, xSensYaw: 0.857294, rateOfTurn: -2.256024, wheelSp1: %&7f, wheelSp2: -13.313804, wheelSp3: -10.535273, wheelSp4: -12.677058
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -3.702834, xSensAcc2: -3.516872, xSensYaw: 0.677246, rateOfTurn: -4.805264, wheelSp1: %&7f, wheelSp2: -17.886806, wheelSp3: -19.623398, wheelSp4: -17.713139
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 2.900290, xSensAcc2: -0.321388, xSensYaw: 0.547210, rateOfTurn: -5.697005, wheelSp1: %&7f, wheelSp2: -17.944689, wheelSp3: -17.886806, wheelSp4: -17.886806
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.479410, xSensAcc2: 3.561645, xSensYaw: 0.481110, rateOfTurn: -6.008928, wheelSp1: %&7f, wheelSp2: -18.234119, wheelSp3: -17.886806, wheelSp4: -18.523552
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 3.881089, xSensAcc2: 0.819901, xSensYaw: 0.357383, rateOfTurn: -6.235170, wheelSp1: %&7f, wheelSp2: -18.986652, wheelSp3: -18.928747, wheelSp4: -18.523552
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -0.067789, xSensAcc2: 0.552775, xSensYaw: 0.067649, rateOfTurn: -5.867507, wheelSp1: %&7f, wheelSp2: -15.397708, wheelSp3: -16.439648, wheelSp4: -16.671198
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.888478, xSensAcc2: -2.637564, xSensYaw: 0.016286, rateOfTurn: -5.705760, wheelSp1: %&7f, wheelSp2: -14.934608, wheelSp3: -15.745021, wheelSp4: -15.571353
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.246401, xSensAcc2: -3.134517, xSensYaw: -0.083388, rateOfTurn: -5.385641, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.645176, wheelSp4: -14.587294
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.246401, xSensAcc2: -3.134517, xSensYaw: -0.083388, rateOfTurn: -5.385641, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.645176, wheelSp4: -14.587294
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.246401, xSensAcc2: -3.134517, xSensYaw: -0.083388, rateOfTurn: -5.385641, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.645176, wheelSp4: -14.587294
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.246401, xSensAcc2: -3.134517, xSensYaw: -0.083388, rateOfTurn: -5.385641, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.645176, wheelSp4: -14.587294
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.246401, xSensAcc2: -3.134517, xSensYaw: -0.083388, rateOfTurn: -5.385641, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.645176, wheelSp4: -14.587294
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.246401, xSensAcc2: -3.134517, xSensYaw: -0.083388, rateOfTurn: -5.385641, wheelSp1: %&7f, wheelSp2: -15.629257, wheelSp3: -14.645176, wheelSp4: -14.587294
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 2.198259, xSensAcc2: 0.583159, xSensYaw: -0.343856, rateOfTurn: -0.659598, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 3.936246, wheelSp4: 0.810402
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.583136, xSensAcc2: -0.712939, xSensYaw: -0.322342, rateOfTurn: 0.200456, wheelSp1: %&7f, wheelSp2: 2.373324, wheelSp3: 0.694615, wheelSp4: 2.083892
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -3.390026, xSensAcc2: -0.677875, xSensYaw: -0.309676, rateOfTurn: 0.524253, wheelSp1: %&7f, wheelSp2: 2.315443, wheelSp3: -0.057893, wheelSp4: 2.836401
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 3.657991, xSensAcc2: 0.580878, xSensYaw: -0.286906, rateOfTurn: 0.912521, wheelSp1: %&7f, wheelSp2: 2.894283, wheelSp3: 6.020151, wheelSp4: 3.183715
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.608980, xSensAcc2: -0.743417, xSensYaw: -0.261946, rateOfTurn: 1.104374, wheelSp1: %&7f, wheelSp2: 3.125833, wheelSp3: 1.852342, wheelSp4: 3.357383
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -1.415901, xSensAcc2: 0.122620, xSensYaw: -0.248512, rateOfTurn: 1.145073, wheelSp1: %&7f, wheelSp2: 3.299501, wheelSp3: 1.157715, wheelSp4: 3.646815
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 1.141534, xSensAcc2: -1.171173, xSensYaw: -0.206346, rateOfTurn: 1.122721, wheelSp1: %&7f, wheelSp2: 2.373324, wheelSp3: 1.620792, wheelSp4: 3.588933
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -0.226020, xSensAcc2: -0.906584, xSensYaw: -0.195985, rateOfTurn: 1.085771, wheelSp1: %&7f, wheelSp2: 3.473146, wheelSp3: 2.026011, wheelSp4: 3.357383
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 1.083815, xSensAcc2: 1.143559, xSensYaw: -0.180455, rateOfTurn: 1.005444, wheelSp1: %&7f, wheelSp2: 2.546969, wheelSp3: 4.167797, wheelSp4: 2.199656
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.540016, xSensAcc2: -0.740809, xSensYaw: -0.164367, rateOfTurn: 0.893080, wheelSp1: %&7f, wheelSp2: 2.662756, wheelSp3: 1.794461, wheelSp4: 1.910224
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: -0.408746, xSensAcc2: 0.214658, xSensYaw: -0.158686, rateOfTurn: 0.818365, wheelSp1: %&7f, wheelSp2: 2.257538, wheelSp3: 0.926165, wheelSp4: 2.199656
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.443764, xSensAcc2: 0.029721, xSensYaw: -0.151608, rateOfTurn: 0.661530, wheelSp1: %&7f, wheelSp2: 1.389266, wheelSp3: 1.968106, wheelSp4: 1.678674
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 1.050008, xSensAcc2: -0.397686, xSensYaw: -0.145694, rateOfTurn: 0.477687, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.810402, wheelSp4: 0.810402
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.368955, xSensAcc2: -0.439573, xSensYaw: -0.143552, rateOfTurn: 0.393542, wheelSp1: %&7f, wheelSp2: 1.099834, wheelSp3: 0.289420, wheelSp4: 0.115752
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.237895, xSensAcc2: -0.042014, xSensYaw: -0.143016, rateOfTurn: 0.245136, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.057870, wheelSp4: 0.636734
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.801159, xSensAcc2: 0.162644, xSensYaw: -0.144017, rateOfTurn: 0.172562, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.057893, wheelSp4: 0.868284
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.693148, xSensAcc2: 0.082713, xSensYaw: -0.145508, rateOfTurn: 0.040804, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.000012, wheelSp4: -0.520994
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.485394, xSensAcc2: 0.159664, xSensYaw: -0.147743, rateOfTurn: -0.037963, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.347325
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.089651, xSensAcc2: -0.176334, xSensYaw: -0.148721, rateOfTurn: -0.058801, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.057893, wheelSp4: -0.289443
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.068184, xSensAcc2: -0.121456, xSensYaw: -0.150071, rateOfTurn: -0.073842, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: -0.000012
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.609772, xSensAcc2: -0.204856, xSensYaw: -0.150327, rateOfTurn: -0.052073, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.173680
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.313867, xSensAcc2: -0.082154, xSensYaw: -0.150024, rateOfTurn: -0.034331, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: -0.231562
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.423717, xSensAcc2: -0.153563, xSensYaw: -0.149605, rateOfTurn: -0.001595, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.057893
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.444159, xSensAcc2: -0.120245, xSensYaw: -0.149326, rateOfTurn: 0.014820, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 0.312866, xSensAcc2: -0.060129, xSensYaw: -0.149279, rateOfTurn: 0.016845, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[14:48:59] Id:  7, MsgId:     0, xSensAcc1: 2.241007, xSensAcc2: -0.159943, xSensYaw: -3.088114, rateOfTurn: 0.681926, wheelSp1: %&7f, wheelSp2: 16.092312, wheelSp3: 21.707254, wheelSp4: 13.371662
+

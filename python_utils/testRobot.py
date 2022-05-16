@@ -193,7 +193,7 @@ while True:
 
 					if test == "rotate":
 						cmd.angularControl = 1
-						PID.PbodyYaw = 20.0
+						#PID.PbodyYaw = 20.0
 						cmd.angle = -math.pi + 2 * math.pi * ((periodFraction*4 + 0.5) % 1)
 						log = "angle = %+.3f" % cmd.angle
 
@@ -246,6 +246,7 @@ while True:
 				# Send command
 				if test != "nothing":
 					basestation.write( np.hstack( (cmd.encode() , PID.encode())))
+					#basestation.write(cmd.encode())
 					
 					totalCommandsSent += 1
 

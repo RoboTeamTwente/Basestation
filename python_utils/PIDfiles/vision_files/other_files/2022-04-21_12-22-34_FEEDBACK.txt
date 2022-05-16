@@ -1,0 +1,936 @@
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.48408, y = 0 }, angle: 0.013854, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.1088, y = 1.3041 }, angle: 0.323915, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.02405, y = 0.553597 }, angle: 0.311738, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79673, y = 0.529671 }, angle: 0.373482, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.76998, y = 0.99501 }, angle: 0.655451, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.95885, y = 1.03017 }, angle: 0.539346, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.86921, y = 1.07204 }, angle: 0.37166, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.89864, y = 1.00758 }, angle: 0.286619, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.87448, y = 1.08583 }, angle: 0.317395, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.92559, y = 1.08656 }, angle: 0.490066, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.9903, y = 0.958633 }, angle: 0.476836, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.05099, y = 1.21047 }, angle: 0.188059, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.11321, y = 1.36074 }, angle: -0.0884449, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.05291, y = 1.20778 }, angle: -0.796484, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.00401, y = 1.25649 }, angle: -1.46387, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.08886, y = 1.25002 }, angle: -1.60145, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:53] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.04438, y = 1.36696 }, angle: -1.77, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.08627, y = 1.28933 }, angle: -1.52926, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.08551, y = 1.26467 }, angle: -1.39868, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.0739, y = 1.2372 }, angle: -0.861871, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.94265, y = 1.24135 }, angle: -0.439253, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.95013, y = 1.21413 }, angle: -0.121426, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.03019, y = 1.29824 }, angle: 0.366196, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.0019, y = 1.29104 }, angle: 0.69639, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.06748, y = 1.32009 }, angle: 0.712593, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.10506, y = 1.40395 }, angle: 0.753915, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.00516, y = 1.23622 }, angle: 0.827356, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.04064, y = 1.36953 }, angle: 0.780089, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.10746, y = 1.4374 }, angle: 0.536758, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.08052, y = 1.30874 }, angle: 0.0995665, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.08704, y = 1.36977 }, angle: -0.0263178, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.12088, y = 1.4894 }, angle: -0.0290023, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.98119, y = 1.24367 }, angle: 0.100333, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.0346, y = 1.42116 }, angle: 0.305219, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.02146, y = 1.38491 }, angle: 0.534457, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.07956, y = 1.4446 }, angle: 0.496586, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.13977, y = 1.4584 }, angle: 0.398601, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.11091, y = 1.38869 }, angle: 0.263034, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.11388, y = 1.45095 }, angle: 0.173295, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.13632, y = 1.46804 }, angle: 0.117687, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.1158, y = 1.40322 }, angle: -0.00493758, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.08809, y = 1.43789 }, angle: -0.0779945, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.05626, y = 1.46023 }, angle: -0.359484, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.11273, y = 1.42238 }, angle: -0.65478, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.0973, y = 1.43374 }, angle: -0.780281, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.04227, y = 1.51406 }, angle: -0.969826, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.08215, y = 1.43508 }, angle: -1.12169, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09423, y = 1.42092 }, angle: -1.16723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.14025, y = 1.49392 }, angle: -0.263034, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.08196, y = 1.50478 }, angle: -0.0162509, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.0368, y = 1.48232 }, angle: 0.128808, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.01897, y = 1.50246 }, angle: 0.138779, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.94505, y = 1.54751 }, angle: 0.151723, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.9136, y = 1.58877 }, angle: 0.129096, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.9438, y = 1.49807 }, angle: 0.14319, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.00861, y = 1.41799 }, angle: 0.290838, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.97007, y = 1.46133 }, angle: 0.395438, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.88896, y = 1.55837 }, angle: 0.507228, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.85914, y = 1.50588 }, angle: 0.430144, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.8648, y = 1.48867 }, angle: 0.373866, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.87142, y = 1.43984 }, angle: 0.333023, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.93489, y = 1.29921 }, angle: 0.408285, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:54] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.89644, y = 1.3456 }, angle: 0.471179, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.83105, y = 1.29775 }, angle: 0.4707, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.82703, y = 1.32168 }, angle: 0.407422, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.79328, y = 1.34133 }, angle: 0.254213, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.78474, y = 1.21913 }, angle: 0.130438, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.86835, y = 1.0536 }, angle: 0.0798162, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.00238, y = 0.917739 }, angle: -0.0431918, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.11753, y = 0.691661 }, angle: 0.0935263, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.98934, y = 0.78761 }, angle: 0.21385, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.94994, y = 0.741344 }, angle: 0.849503, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.97889, y = 0.600595 }, angle: 1.33089, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.86586, y = 0.439826 }, angle: 1.32466, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   3}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.65646, y = 0.503792 }, angle: 1.25304, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.81226, y = 0.42298 }, angle: 1.15688, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.80517, y = 0.315435 }, angle: 0.961869, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.74227, y = 0.287114 }, angle: 0.893797, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.96432, y = 0.224491 }, angle: 0.488245, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.71993, y = 0.174197 }, angle: 0.0817337, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.77113, y = 0.156619 }, angle: -0.145587, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.78714, y = 0.120974 }, angle: -0.692843, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.78848, y = 0.0393072 }, angle: -1.19178, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.17613, y = 0.0545663 }, angle: -1.33645, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.88735, y = 0.0614023 }, angle: -1.48755, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.41555, y = 0.177859 }, angle: -1.42427, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.60826, y = 0.139773 }, angle: -1.36474, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.10271, y = 0.1084 }, angle: -1.35582, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.07558, y = 0.219852 }, angle: -1.35285, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.12227, y = 0.186038 }, angle: -1.32802, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.895235, y = 0.128786 }, angle: -1.18248, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.935695, y = 0.240238 }, angle: -1.03119, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.979605, y = 0.21619 }, angle: -0.964745, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.883347, y = 0.185428 }, angle: -0.683063, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.847394, y = 0.268437 }, angle: -0.383165, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.909617, y = 0.246952 }, angle: -0.24568, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.909617, y = 0.246952 }, angle: -0.24568, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.909617, y = 0.246952 }, angle: -0.24568, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.909617, y = 0.246952 }, angle: -0.24568, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.909617, y = 0.246952 }, angle: -0.24568, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.03138, y = 0.245731 }, angle: 0.195825, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.992645, y = 0.240482 }, angle: 0.173678, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.10837, y = 0.183474 }, angle: 0.199948, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.20232, y = 0.198978 }, angle: 0.338679, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.10328, y = 0.193484 }, angle: 0.416051, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.2633, y = 0.171878 }, angle: 0.530238, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.33559, y = 0.138918 }, angle: 0.656506, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.20712, y = 0.140505 }, angle: 0.740013, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.40855, y = 0.107668 }, angle: 0.725536, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.44172, y = 0.111818 }, angle: 0.713647, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.64172, y = 0.0889906 }, angle: 0.778843, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.92551, y = 0.0944839 }, angle: 0.853721, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.72753, y = 0.0915541 }, angle: 0.863884, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.5279, y = 0.0472419 }, angle: 0.814892, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.46059, y = 0.0871595 }, angle: 0.69313, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.02347, y = 0.0610361 }, angle: 0.448552, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:55] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.77842, y = 0.0939956 }, angle: 0.27521, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.63949, y = 0.0689708 }, angle: 0.201674, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.13824, y = 0.0787366 }, angle: 0.0842264, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.10008, y = 0.0977798 }, angle: 0.0575731, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.10756, y = 0.0837415 }, angle: 0.0688864, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.98752, y = 0.0908217 }, angle: 0.107045, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.99519, y = 0.101442 }, angle: 0.127658, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.95464, y = 0.0955825 }, angle: 0.122768, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.97832, y = 0.107301 }, angle: 0.0606411, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.94572, y = 0.10779 }, angle: 0.00158194, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.92885, y = 0.103517 }, angle: -0.018456, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.88963, y = 0.113161 }, angle: -0.0615999, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.89462, y = 0.116579 }, angle: -0.114907, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.95464, y = 0.116457 }, angle: -0.137533, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.92501, y = 0.12549 }, angle: -0.115194, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.01772, y = 0.126833 }, angle: 0.0429042, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.05972, y = 0.125978 }, angle: 0.12296, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.98081, y = 0.107301 }, angle: 0.128808, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.99883, y = 0.120729 }, angle: 0.122481, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.01216, y = 0.0852064 }, angle: 0.0859522, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.0042, y = 0.106203 }, angle: 0.0282353, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.06355, y = 0.0883803 }, angle: -0.0231539, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.10784, y = 0.0882582 }, angle: -0.0272765, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.06106, y = 0.0961929 }, angle: -0.0328373, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.09596, y = 0.0910658 }, angle: -0.0642844, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.09634, y = 0.0750744 }, angle: -0.10321, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.05732, y = 0.0749523 }, angle: -0.18873, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.10315, y = 0.0672618 }, angle: -0.243092, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.04188, y = 0.0607919 }, angle: -0.250378, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.06393, y = 0.0653086 }, angle: -0.240791, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.12146, y = 0.0467536 }, angle: -0.206851, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.81274, y = 0.0258793 }, angle: -0.0154839, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.07362, y = 0.00976577 }, angle: -0.0317826, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.695239, y = 0.0181888 }, angle: -0.0237291, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.523431, y = 0.0134279 }, angle: 0.0203735, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.724481, y = 0.00122072 }, angle: 0.0257425, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.761969, y = 0.00695811 }, angle: 0.0337002, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.511638, y = 0.00292973 }, angle: 0.0244961, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.35033, y = 0.00549325 }, angle: 0.0255508, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.713839, y = 0.0104982 }, angle: 0.0277559, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.63873, y = 0.00122072 }, angle: 0.0171137, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.14286, y = 0.00244144 }, angle: 0.0118406, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.756408, y = 0.0065919 }, angle: 0.00695096, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.72877, y = 0.00122072 }, angle: -0.00100669, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 0.879224, y = 0.00390631 }, angle: -0.00263657, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.42054, y = 0.000976577 }, angle: 0.000623189, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.56751, y = 0.000976577 }, angle: 0.010019, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:56] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.84536, y = 0.000122072 }, angle: 0.00819733, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.06666, y = 0.00122072 }, angle: 0.00464995, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.58103, y = 0.00109865 }, angle: 0.00675921, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.76847, y = 0.000122072 }, angle: 0.00800558, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.57883, y = 0.00109865 }, angle: 0.00992309, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.67729, y = 0.000976577 }, angle: 0.0104025, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.62619, y = 0.000122072 }, angle: 0.0101148, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.56713, y = 0.000122072 }, angle: 0.00992309, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.18487, y = 0.000488289 }, angle: 0.00982721, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.20951, y = 0.000488289 }, angle: 0.0111695, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.55457, y = 0.000854505 }, angle: 0.0108818, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.64067, y = 0.000122072 }, angle: 0.0117447, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.56471, y = 0 }, angle: 0.0111695, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -1.57461, y = 0 }, angle: 0.0133746, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -1.53702, y = 0 }, angle: 0.0131828, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.95581, y = 0.000610361 }, angle: 0.0132787, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.14995, y = 0 }, angle: 0.0135663, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -1.57892, y = 0 }, angle: 0.0142375, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.49396, y = 0.000610361 }, angle: 0.0150045, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.08831, y = 0 }, angle: 0.0142375, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -1.20415, y = 0 }, angle: 0.0141416, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.63115, y = 0.000732433 }, angle: 0.0129911, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -1.63443, y = 0 }, angle: 0.0127035, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -3.10295, y = 0.000854505 }, angle: 0.0126076, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.99816, y = 0.000732433 }, angle: 0.0105942, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.64007, y = 0.000488289 }, angle: 0.00867671, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.43739, y = 0.000854505 }, angle: 0.00771796, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.63863, y = 0.000854505 }, angle: 0.00608808, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.57173, y = 0.000488289 }, angle: 0.00474583, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 3.03182, y = 0.000732433 }, angle: 0.00436232, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.67161, y = 0.000854505 }, angle: 0.00302007, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.45398, y = 0.000854505 }, angle: 0.00254069, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.90948, y = 0.000366217 }, angle: 0.00225307, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 1.65418, y = 0.000976577 }, angle: 0.00608808, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.87583, y = 0.000854505 }, angle: 0.00627983, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.70316, y = 0.000854505 }, angle: 0.0052252, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.48782, y = 0.000610361 }, angle: 0.00397882, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.40422, y = 0.000732433 }, angle: 0.0029242, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.7603, y = 0.000732433 }, angle: 0.00340357, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.64074, y = 0.000854505 }, angle: 0.00349945, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.64256, y = 0.000732433 }, angle: 0.00455407, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = 2.88398, y = 0.000244144 }, angle: 0.00647158, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.94284, y = 0.000244144 }, angle: 0.00838909, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.9415, y = 0.000122072 }, angle: 0.00858084, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
+[12:22:57] 
+{Source: BASESTATION, Robots: [
+ - {id:  1, hasBall: false, ballPos: -0.033333, ballSensorWorks: false, velocity: { x = -2.61994, y = 0.000732433 }, angle: 0.00925196, xSensCalib:  true, capacitorCharged: false, wheelLocked:    0, wheelBraking:    0, battery: 0.000000, signalStrength:   0}, 
+]}
