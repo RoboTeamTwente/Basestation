@@ -17,10 +17,8 @@ import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
-from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
 from roboteam_embedded_messages.python.REM_RobotGetPIDGains import REM_RobotGetPIDGains
-from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
-from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
+from roboteam_embedded_messages.python.REM_RobotSetPIDGains import REM_RobotSetPIDGains
 from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
 from roboteam_embedded_messages.python.REM_RobotLog import REM_RobotLog
 from roboteam_embedded_messages.python.REM_BasestationLog import REM_BasestationLog
@@ -71,7 +69,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "angular-velocity", "getpid"]
 
 # Parse input arguments 
 try:
@@ -103,14 +101,14 @@ robotConnected = True
 
 doFullTest = test == "full"
 testIndex = 2
+k = 1
 
 # stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0674FF525750877267181714-if02"
 stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF544852707267223637-if02"
 
 def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	log = ""
-
-	# Seperate test
+	
 	if test == "getpid":
 		if period_fraction == 0:
 			robotGetPIDGains = REM_RobotGetPIDGains()
@@ -118,71 +116,79 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			robotGetPIDGains.remVersion = BaseTypes.LOCAL_REM_VERSION
 			robotGetPIDGains.id = robot_id
 			return robotGetPIDGains, log
-
+		
 	# Create new empty robot command
-	cmd = REM_RobotCommand()
-	cmd.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
-	cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
-	cmd.id = robot_id	
-	cmd.messageId = tick_counter
-	if test == "nothing":
-		cmd.rho = 0
-		cmd.theta = 0
-		cmd.angle = 0	
+	command = REM_RobotCommand()
+	command.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
+	command.remVersion = BaseTypes.LOCAL_REM_VERSION
+	command.id = robot_id	
+	command.messageId = tick_counter
+	
+	# Create new empty PID command
+	#PID = PIDConfiguration()
+	#PID.header = BaseTypes.PACKET_TYPE_REM_P_I_D_CONFIGURATION
+	#PID.remVersion = BaseTypes.LOCAL_REM_VERSION
+	#PID.id = robot_id
 
-	if test == "kicker-reflect":
-		cmd.doKick = True
-		cmd.kickChipPower = 0.2
+	# All tests
+	log = ""
 
-	if test == "kicker" or test == "chipper":
-		if period == 0:
-			if test == "kicker"  : cmd.doKick = True
-			if test == "chipper" : cmd.doChip = True
-			cmd.doForce = True
-			cmd.kickChipPower = BaseTypes.PACKET_RANGE_REM_ROBOT_COMMAND_KICK_CHIP_POWER_MAX // 2
+	if True: # This if-statement is just here so that I can easily collapse this large amount of code
+		if test == "nothing":
+			command.rho = 0
+			command.theta = 0
+			command.angle = 0	
 
-	if test == "dribbler":
-		cmd.dribbler = period_fraction
-		log = "speed = %.2f" % cmd.dribbler
+		if test == "kicker-reflect":
+			command.doKick = True
+			command.kickChipPower = 0.2
 
-	if test == "rotate":
-		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction*5 + 0.5) % 1)
-		log = "angle = %+.3f" % cmd.angle
+		if test == "kicker" or test == "chipper":
+			if period == 0:
+				if test == "kicker"  : command.doKick = True
+				if test == "chipper" : command.doChip = True
+				command.doForce = True
+				command.kickChipPower = 0.2
 
-	if test == "forward" or test == "sideways":
-		cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
-		if 0.5 < period_fraction : cmd.theta = -math.pi
-		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
+		if test == "dribbler":
+			command.dribbler = math.floor(8 * period_fraction)
+			log = "speed = %d" % cmd.dribbler
 
-	if test == "sideways":
-		cmd.angle = math.pi / 2
+		if test == "rotate":
+			command.angularControl = 1
+			#PID.PbodyYaw = 20.0
+			command.angle = -math.pi + 2 * math.pi * ((period_fraction*4 + 0.5) % 1)
+			log = "angle = %+.3f" % command.angle
 
-	if test == "rotate-discrete":
-		if period_fraction <=  1.: cmd.angle = math.pi/2
-		if period_fraction <= .75: cmd.angle = -math.pi
-		if period_fraction <= .50: cmd.angle = -math.pi/2
-		if period_fraction <= .25: cmd.angle = 0
-		log = "angle = %+.3f" % cmd.angle
+		if test == "forward" or test == "sideways":
+			command.angularControl = 0
+			command.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
+			if 0.5 < period_fraction : command.theta = -math.pi
+			log = "rho = %+.3f theta = %+.3f" % (command.rho, command.theta)
+			#log = PID.IbodyYaw
 
-	if test == "forward-rotate":
-		cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
-		if 0.5 < period_fraction : cmd.theta = -math.pi
-		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
-		log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+		if test == "sideways":
+			command.angle = math.pi / 2
 
-	return cmd, log
+		if test == "rotate-discrete":
+			if periodFraction <=  1.: command.angle = math.pi/2
+			if periodFraction <= .75: command.angle = -math.pi
+			if periodFraction <= .50: command.angle = -math.pi/2
+			if periodFraction <= .25: command.angle = 0
+			log = "angle = %+.3f" % command.angle
 
-
-
-
-# parser = REMParser(basestation)
-# parser.parseFile("out.bin")
-# print(len(parser.packet_buffer))
-# while parser.hasPackets():
-# 	packet = parser.getNextPacket()
-# exit()
-
-
+		if test == "forward-rotate":
+			command.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
+			if 0.5 < period_fraction : command.theta = -math.pi
+			command.angle = -math.pi + 2 * math.pi * ((periodFraction + 0.5) % 1)
+			log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (command.rho, command.theta, command.angle)
+			
+		if test == "angular-velocity":
+			command.angularControl = 0
+			command.angularVelocity = 6.0
+			log = "commanded = %+.3f" % command.angularVelocity #% REM_RobotStateInfo.rateOfTurn
+		
+		return command, log
 
 while True:
 	try:

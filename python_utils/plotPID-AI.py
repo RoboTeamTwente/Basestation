@@ -21,7 +21,7 @@ Gamma, Phi = [], [] #estimated movement [m/s] and direction of movement [rad]
 Vex, Vey = [], [] #estimated x- and y velocities calculated from gamma and phi
 
 Commandedtimestamps = []
-CommandedAngle, VisionAngle, AngleVel = [], [], [] #commanded angle and angular velocity
+CommandedAngle, VisionAngle, CommandedAngleVel = [], [], [] #commanded angle and angular velocity
 Rho, Theta = [], [] #commanded movement [m/s] and direction of movement [rad]
 Vx, Vy = [], [] #commanded x- and y velocities calculated from rho and theta
 Wc1, Wc2, Wc3, Wc4 = [], [], [], [] #commanded wheel speeds calculated from Vx and Vy
@@ -47,9 +47,10 @@ if len(sys.argv) == 3: lastfile = int(sys.argv[2])
 files = [file for file in os.listdir("PIDfiles") if file.startswith("robotStateInfo") and file.endswith(".csv")]
 filenr = heapq.nlargest(lastfile+1, files)
 filenr = re.findall('[0-9]+', str(filenr)) #find the time of the newest robotStateInfo file
-CommandedLines = open("/home/elias/Downloads/test_data-20220503T150016Z-001/test data/yaw/vision files old PID values/2022-05-03_16-10-56_ROBOTCOMMANDS.txt", "r").read().strip().split("\n")
-robotFeedbackLines = open("/home/elias/Downloads/test_data-20220503T150016Z-001/test data/yaw/vision files old PID values/2022-05-03_16-10-56_ROBOTFEEDBACK.txt", "r").read().strip().split("\n")
-visionLines = open("/home/elias/Downloads/test_data-20220503T150016Z-001/test data/yaw/vision files old PID values/2022-05-03_16-10-58_BLUE_BOTS.txt", "r").read().strip().split("\n")
+CommandedLines = open("/home/elias/Desktop/git/roboteam/Basestation/python_utils/PIDfiles/vision_files/2022-05-23/2022-05-23_16-37-13_ROBOTCOMMANDS.txt", "r").read().strip().split("\n")
+robotFeedbackLines = open("/home/elias/Desktop/git/roboteam/Basestation/python_utils/PIDfiles/vision_files/2022-05-23/2022-05-23_16-37-13_ROBOTFEEDBACK.txt", "r").read().strip().split("\n")
+stateInfoLines = open("/home/elias/Desktop/git/roboteam/Basestation/python_utils/PIDfiles/vision_files/2022-05-23/2022-05-23_16-37-13_ROBOTSTATES.txt", "r").read().strip().split("\n")
+visionLines = open("/home/elias/Desktop/git/roboteam/Basestation/python_utils/PIDfiles/vision_files/2022-05-23/2022-05-23_14-24-35_BLUE_BOTS.txt", "r").read().strip().split("\n")
 
 for i in range(len(CommandedLines)):
 	if (i%2 == 0):
@@ -66,10 +67,13 @@ for i in range(len(CommandedLines)):
 				targetAngle = j + 7
 			if CommandedLines[i][j-1] == 'l' and CommandedLines[i][j] == 'e' and CommandedLines[i][j+1] == ':':
 				visAngle = j+2
+			if CommandedLines[i][j-1] == 't' and CommandedLines[i][j] == 'A' and CommandedLines[i][j+1] == 'n' and CommandedLines[i][j+2] == 'g' :
+				targetAngleVel = j+11
 		Vx.append(float(CommandedLines[i][x:commas[2]]))
 		Vy.append(float(CommandedLines[i][y:commas[3]-2]))
 		CommandedAngle.append(float(CommandedLines[i][targetAngle:commas[4]]))
 		VisionAngle.append(float(CommandedLines[i][visAngle:commas[7]]))
+		CommandedAngleVel.append(float(CommandedLines[i][targetAngleVel:commas[5]]))
 
 
 for i in range(len(robotFeedbackLines)):
@@ -92,6 +96,17 @@ for i in range(len(robotFeedbackLines)):
 		Vex.append(-curVx)
 		Vey.append(curVy)
 		estimatedAngle.append(float(robotFeedbackLines[i][estAngle:commas[8]]))
+		
+for i in range(len(stateInfoLines)):
+	if (i%2 == 0):
+		Statetimestamps.append(stateInfoLines[i][1:13])
+		commas = []
+		for j in range(len(stateInfoLines[i])):
+			if stateInfoLines[i][j] == 'n' and stateInfoLines[i][j+1] == ":":
+				rot = j+2
+			if stateInfoLines[i][j] == ',':
+				commas.append(j)
+		rateOfTurn.append(float(stateInfoLines[i][rot:commas[5]]))
 
 for i in range(len(visionLines)):
 	if (i%2 == 0):
@@ -123,23 +138,28 @@ for i in range(len(Feedbacktimestamps)):
 for i in range(len(Visiontimestamps)):
 	Visiontimestamps[i] = float(Visiontimestamps[i][0:2])*60*60+float(Visiontimestamps[i][3:5])*60 + float(Visiontimestamps[i][6:8]) + float(Visiontimestamps[i][9:12])/1000 - Commandedt0
 
-if plotID == "bode":
-	linesC = open('PIDfiles/velxCommand.csv', 'r').readlines()
-	linesM = open('PIDfiles/velxMeasured.csv', 'r').readlines()
-	tcom = [float(ln.replace('\n','').split(', ')[0]) for ln in linesC]
-	vcom = [float(ln.replace('\n','').split(', ')[1]) for ln in linesC]
-	tmeas = [float(ln.replace('\n','').split(', ')[0]) for ln in linesM]
-	vmeas = [float(ln.replace('\n','').split(', ')[1]) for ln in linesM]
+statet0 = float(Statetimestamps[0][0:2])*60*60+float(Statetimestamps[0][3:5])*60 + float(Statetimestamps[0][6:8])
+for i in range(len(Statetimestamps)):
+	Statetimestamps[i] = float(Statetimestamps[i][0:2])*60*60+float(Statetimestamps[i][3:5])*60 + float(Statetimestamps[i][6:8]) + float(Statetimestamps[i][9:12])/1000 - Commandedt0
+	#Statetimestamps[i] = float(Statetimestamps[i][0:2])*60*60+float(Statetimestamps[i][3:5])*60 + float(Statetimestamps[i][6:8]) - statet0
 
-	fig, ax = plt.subplots()
-	ax.plot(tcom, vcom)
-	ax.plot(tmeas, vmeas)
-	ax.set_title("Velocity in x-direction", fontsize = "xx-large")
-	ax.legend(["Commanded", "Estimated"])
-	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	ax.set_xlabel("Time [s]", fontsize = "x-large")
-	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
-	plt.show()
+#if plotID == "bode":
+#	linesC = open('PIDfiles/velxCommand.csv', 'r').readlines()
+#	linesM = open('PIDfiles/velxMeasured.csv', 'r').readlines()
+#	tcom = [float(ln.replace('\n','').split(', ')[0]) for ln in linesC]
+#	vcom = [float(ln.replace('\n','').split(', ')[1]) for ln in linesC]
+#	tmeas = [float(ln.replace('\n','').split(', ')[0]) for ln in linesM]
+#	vmeas = [float(ln.replace('\n','').split(', ')[1]) for ln in linesM]
+#
+#	fig, ax = plt.subplots()
+#	ax.plot(tcom, vcom)
+#	ax.plot(tmeas, vmeas)
+#	ax.set_title("Velocity in x-direction", fontsize = "xx-large")
+#	ax.legend(["Commanded", "Estimated"])
+#	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax.set_xlabel("Time [s]", fontsize = "x-large")
+#	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
+#	plt.show()
 
 if plotID == "x":
 	fig, ax = plt.subplots()
@@ -182,8 +202,9 @@ if plotID == "y":
 if plotID == "w":
 	fig, ax = plt.subplots()
 	
-	ax.plot(Feedbacktimestamps, AngleVel)
-	ax.plot(Feedbacktimestamps, rateOfTurn)
+	ax.plot(Commandedtimestamps, CommandedAngleVel)
+	ax.plot(Statetimestamps, rateOfTurn)
+	#ax.plot(Visiontimestamps, visionW)
 	ax.set_title("Angular velocity", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
 	#ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
@@ -215,107 +236,107 @@ if plotID == "yaw":
 	#ax.add_artist(at)
 	plt.show()
 
-if plotID == "wheels":
-	fig, ax = plt.subplots(2, 2)
-	fig.suptitle("Wheel velocities", fontsize = "xx-large")
-	ax[0, 0].plot(Feedbacktimestamps, Wc1)
-	ax[0, 0].plot(Feedbacktimestamps, W1)
-	ax[0, 0].set_title('RF')
-	ax[0, 0].legend(["Commanded", "Estimated"])
-	ax[0, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	ax[0, 1].plot(Feedbacktimestamps, Wc2)
-	ax[0, 1].plot(Feedbacktimestamps, W2)
-	ax[0, 1].set_title('RB')
-	ax[0, 1].legend(["Commanded", "Estimated"])
-	ax[0, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	ax[1, 0].plot(Feedbacktimestamps, Wc3)
-	ax[1, 0].plot(Feedbacktimestamps, W3)
-	ax[1, 0].set_title('LB')
-	ax[1, 0].legend(["Commanded", "Estimated"])
-	ax[1, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	ax[1, 1].plot(Feedbacktimestamps, Wc4)
-	ax[1, 1].plot(Feedbacktimestamps, W4)
-	ax[1, 1].set_title('LF')
-	ax[1, 1].legend(["Commanded", "Estimated"])
-	ax[1, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	# make box with PID gains
-	#textstr = '\n'.join((r'$K_P=%.2f$' % (WheelsP[0], ), r'$K_I=%.2f$' % (WheelsI[0], ), r'$K_D=%.2f$' % (WheelsD[0], )))
-	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
-	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
-	#ax[1, 1].add_artist(at)
+#if plotID == "wheels":
+#	fig, ax = plt.subplots(2, 2)
+#	fig.suptitle("Wheel velocities", fontsize = "xx-large")
+#	ax[0, 0].plot(Feedbacktimestamps, Wc1)
+#	ax[0, 0].plot(Feedbacktimestamps, W1)
+#	ax[0, 0].set_title('RF')
+#	ax[0, 0].legend(["Commanded", "Estimated"])
+#	ax[0, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[0, 1].plot(Feedbacktimestamps, Wc2)
+#	ax[0, 1].plot(Feedbacktimestamps, W2)
+#	ax[0, 1].set_title('RB')
+#	ax[0, 1].legend(["Commanded", "Estimated"])
+#	ax[0, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[1, 0].plot(Feedbacktimestamps, Wc3)
+#	ax[1, 0].plot(Feedbacktimestamps, W3)
+#	ax[1, 0].set_title('LB')
+#	ax[1, 0].legend(["Commanded", "Estimated"])
+#	ax[1, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[1, 1].plot(Feedbacktimestamps, Wc4)
+#	ax[1, 1].plot(Feedbacktimestamps, W4)
+#	ax[1, 1].set_title('LF')
+#	ax[1, 1].legend(["Commanded", "Estimated"])
+#	ax[1, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	# make box with PID gains
+#	#textstr = '\n'.join((r'$K_P=%.2f$' % (WheelsP[0], ), r'$K_I=%.2f$' % (WheelsI[0], ), r'$K_D=%.2f$' % (WheelsD[0], )))
+#	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
+#	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
+#	#ax[1, 1].add_artist(at)
 	
-	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
-	fig.text(0.04, 0.5, 'Velocity [m/s]', va='center', rotation='vertical', fontsize = "x-large")
+#	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
+#	fig.text(0.04, 0.5, 'Velocity [m/s]', va='center', rotation='vertical', fontsize = "x-large")
+#
+#	plt.show()
 
-	plt.show()
-
-if plotID == "integral":
-	fig, ax = plt.subplots(2, 2)
-	fig.suptitle("Integral values from PIDs", fontsize = "xx-large")
-	ax[0, 0].plot(Feedbacktimestamps, XInt)
-	ax[0, 0].set_title('X')
-	ax[0, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#if plotID == "integral":
+#	fig, ax = plt.subplots(2, 2)
+#	fig.suptitle("Integral values from PIDs", fontsize = "xx-large")
+#	ax[0, 0].plot(Feedbacktimestamps, XInt)
+#	ax[0, 0].set_title('X')
+#	ax[0, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#textstr = '\n'.join((r'$K_P=%.2f$' % (XP[0], ), r'$K_I=%.2f$' % (XI[0], ), r'$K_D=%.2f$' % (XD[0], )))
 	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
 	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
 	#ax[0, 0].add_artist(at)
-	ax[0, 1].plot(Feedbacktimestamps, YInt)
-	ax[0, 1].set_title('Y')
-	ax[0, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[0, 1].plot(Feedbacktimestamps, YInt)
+#	ax[0, 1].set_title('Y')
+#	ax[0, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#textstr = '\n'.join((r'$K_P=%.2f$' % (YP[0], ), r'$K_I=%.2f$' % (YI[0], ), r'$K_D=%.2f$' % (YD[0], )))
 	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
-	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
+#	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
 	#ax[0, 1].add_artist(at)
-	ax[1, 0].plot(Feedbacktimestamps, WInt)
-	ax[1, 0].set_title('W')
-	ax[1, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[1, 0].plot(Feedbacktimestamps, WInt)
+#	ax[1, 0].set_title('W')
+#	ax[1, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#textstr = '\n'.join((r'$K_P=%.2f$' % (WP[0], ), r'$K_I=%.2f$' % (WI[0], ), r'$K_D=%.2f$' % (WD[0], )))
 	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
 	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
 	#ax[1, 0].add_artist(at)
-	ax[1, 1].plot(Feedbacktimestamps, YawInt)
-	ax[1, 1].set_title('Yaw')
-	ax[1, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[1, 1].plot(Feedbacktimestamps, YawInt)
+#	ax[1, 1].set_title('Yaw')
+#	ax[1, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#textstr = '\n'.join((r'$K_P=%.2f$' % (YawP[0], ), r'$K_I=%.2f$' % (YawI[0], ), r'$K_D=%.2f$' % (YawD[0], )))
 	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
 	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
 	#ax[1, 1].add_artist(at)
 	
-	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
-	fig.text(0.04, 0.5, 'Integral value', va='center', rotation='vertical', fontsize = "x-large")
-	plt.show()
+#	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
+#	fig.text(0.04, 0.5, 'Integral value', va='center', rotation='vertical', fontsize = "x-large")
+#	plt.show()
 	
-if plotID == "integral-wheels":
-	fig, ax = plt.subplots(2, 2)
-	fig.suptitle("Integral values from wheel PIDs", fontsize = "xx-large")
-	ax[0, 0].plot(Feedbacktimestamps, W1Int)
-	ax[0, 0].set_title('RF')
-	ax[0, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#if plotID == "integral-wheels":
+#	fig, ax = plt.subplots(2, 2)
+#	fig.suptitle("Integral values from wheel PIDs", fontsize = "xx-large")
+#	ax[0, 0].plot(Feedbacktimestamps, W1Int)
+#	ax[0, 0].set_title('RF')
+#	ax[0, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#textstr = '\n'.join((r'$K_P=%.2f$' % (WheelsP[0], ), r'$K_I=%.2f$' % (WheelsI[0], ), r'$K_D=%.2f$' % (WheelsD[0], )))
 	#at = AnchoredText(textstr, prop=dict(size=15), frameon=True, loc='center right')
 	#at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
 	#ax[0, 0].add_artist(at)
-	ax[0, 1].plot(Feedbacktimestamps, W2Int)
-	ax[0, 1].set_title('RB')
-	ax[0, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[0, 1].plot(Feedbacktimestamps, W2Int)
+#	ax[0, 1].set_title('RB')
+#	ax[0, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#ax[0, 1].add_artist(at)
-	ax[1, 0].plot(Feedbacktimestamps, W3Int)
-	ax[1, 0].set_title('LB')
-	ax[1, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[1, 0].plot(Feedbacktimestamps, W3Int)
+#	ax[1, 0].set_title('LB')
+#	ax[1, 0].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#ax[1, 0].add_artist(at)
-	ax[1, 1].plot(Feedbacktimestamps, W4Int)
-	ax[1, 1].set_title('LF')
-	ax[1, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+#	ax[1, 1].plot(Feedbacktimestamps, W4Int)
+#	ax[1, 1].set_title('LF')
+#	ax[1, 1].set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	# make box with PID gains
 	#ax[1, 1].add_artist(at)
 	
-	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
-	fig.text(0.04, 0.5, 'Integral value', va='center', rotation='vertical', fontsize = "x-large")
-	plt.show()
+#	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
+#	fig.text(0.04, 0.5, 'Integral value', va='center', rotation='vertical', fontsize = "x-large")
+#	plt.show()

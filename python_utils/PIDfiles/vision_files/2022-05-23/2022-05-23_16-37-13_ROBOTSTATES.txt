@@ -1,0 +1,1570 @@
+[16:37:19.852] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.000012, xSensAcc2: -0.000012, xSensYaw: -0.000012, rateOfTurn: -0.000012, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:19.859] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.000012, xSensAcc2: -0.000012, xSensYaw: -0.000012, rateOfTurn: -0.000012, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:19.875] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.000012, xSensAcc2: -0.000012, xSensYaw: -0.000012, rateOfTurn: -0.000012, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:19.891] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.121014, xSensAcc2: -0.291143, xSensYaw: 0.004971, rateOfTurn: 0.000640, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:19.908] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.074494, xSensAcc2: -0.226928, xSensYaw: 0.005041, rateOfTurn: 0.002549, wheelSp1: %&7f, wheelSp2: 4.167797, wheelSp3: 2.315443, wheelSp4: 2.026011
+
+[16:37:19.924] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.156497, xSensAcc2: -0.163063, xSensYaw: 0.010489, rateOfTurn: 0.111444, wheelSp1: %&7f, wheelSp2: 8.972326, wheelSp3: 4.225678, wheelSp4: 3.878365
+
+[16:37:19.941] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.314380, xSensAcc2: 3.304367, xSensYaw: 0.068278, rateOfTurn: 0.943558, wheelSp1: %&7f, wheelSp2: 10.882563, wheelSp3: 9.261759, wheelSp4: 8.972326
+
+[16:37:19.957] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.360767, xSensAcc2: -3.034587, xSensYaw: 0.157894, rateOfTurn: 2.409017, wheelSp1: %&7f, wheelSp2: 13.313780, wheelSp3: 14.239957, wheelSp4: 12.734917
+
+[16:37:19.973] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.868780, xSensAcc2: 4.668220, xSensYaw: 0.211282, rateOfTurn: 3.202621, wheelSp1: %&7f, wheelSp2: 15.397684, wheelSp3: 14.760939, wheelSp4: 14.587271
+
+[16:37:19.989] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.280844, xSensAcc2: 2.387434, xSensYaw: 0.324927, rateOfTurn: 4.441722, wheelSp1: %&7f, wheelSp2: 15.976547, wheelSp3: 16.555410, wheelSp4: 15.744998
+
+[16:37:20.006] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.150607, xSensAcc2: -3.691029, xSensYaw: 0.437198, rateOfTurn: 5.151995, wheelSp1: %&7f, wheelSp2: 15.629234, wheelSp3: 15.339803, wheelSp4: 15.281920
+
+[16:37:20.022] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -4.280673, xSensAcc2: 1.503259, xSensYaw: 0.490237, rateOfTurn: 5.307270, wheelSp1: %&7f, wheelSp2: 14.876702, wheelSp3: 16.034430, wheelSp4: 15.744998
+
+[16:37:20.038] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.199066, xSensAcc2: 0.671379, xSensYaw: 0.589213, rateOfTurn: 5.279423, wheelSp1: %&7f, wheelSp2: 14.413626, wheelSp3: 14.760939, wheelSp4: 14.703057
+
+[16:37:20.055] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.408932, xSensAcc2: -2.744456, xSensYaw: 0.684790, rateOfTurn: 5.049107, wheelSp1: %&7f, wheelSp2: 13.776880, wheelSp3: 14.297839, wheelSp4: 15.050371
+
+[16:37:20.087] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.125639, xSensAcc2: 0.318175, xSensYaw: 0.819529, rateOfTurn: 4.707219, wheelSp1: %&7f, wheelSp2: 12.040290, wheelSp3: 10.882563, wheelSp4: 11.229876
+
+[16:37:20.120] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.131925, xSensAcc2: -1.756183, xSensYaw: 0.916852, rateOfTurn: 3.999833, wheelSp1: %&7f, wheelSp2: 9.435427, wheelSp3: 9.377522, wheelSp4: 9.493309
+
+[16:37:20.136] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.589927, xSensAcc2: -1.885870, xSensYaw: 0.969635, rateOfTurn: 3.333588, wheelSp1: %&7f, wheelSp2: 7.177855, wheelSp3: 8.046149, wheelSp4: 8.740777
+
+[16:37:20.153] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.115403, xSensAcc2: -1.273223, xSensYaw: 0.994199, rateOfTurn: 3.043457, wheelSp1: %&7f, wheelSp2: 6.078032, wheelSp3: 6.541109, wheelSp4: 6.367464
+
+[16:37:20.169] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.350127, xSensAcc2: -0.097358, xSensYaw: 1.017645, rateOfTurn: 2.324965, wheelSp1: %&7f, wheelSp2: 2.026011, wheelSp3: 2.778519, wheelSp4: 3.531028
+
+[16:37:20.185] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.916689, xSensAcc2: 0.466465, xSensYaw: 1.020322, rateOfTurn: 1.441746, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 0.926165, wheelSp4: 1.099834
+
+[16:37:20.202] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.271003, xSensAcc2: -0.416429, xSensYaw: 1.018157, rateOfTurn: 0.935944, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: 0.289420
+
+[16:37:20.218] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.335544, xSensAcc2: 0.285043, xSensYaw: 1.007493, rateOfTurn: 0.219711, wheelSp1: %&7f, wheelSp2: -0.868307, wheelSp3: -1.157739, wheelSp4: -0.984070
+
+[16:37:20.234] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.068184, xSensAcc2: -0.209629, xSensYaw: 0.996154, rateOfTurn: -0.225648, wheelSp1: %&7f, wheelSp2: -1.041952, wheelSp3: -1.389289, wheelSp4: -1.562934
+
+[16:37:20.251] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.183831, xSensAcc2: -0.410166, xSensYaw: 0.992010, rateOfTurn: -0.325695, wheelSp1: %&7f, wheelSp2: -1.157739, wheelSp3: -1.273502, wheelSp4: -1.389289
+
+[16:37:20.267] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.184833, xSensAcc2: -0.220246, xSensYaw: 0.983558, rateOfTurn: -0.419177, wheelSp1: %&7f, wheelSp2: -0.694639, wheelSp3: -1.157739, wheelSp4: -0.984070
+
+[16:37:20.283] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.718411, xSensAcc2: -0.266905, xSensYaw: 0.978133, rateOfTurn: -0.371120, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: -0.173680, wheelSp4: -1.157739
+
+[16:37:20.300] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.294030, xSensAcc2: 0.321388, xSensYaw: 0.977435, rateOfTurn: -0.322645, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.636757, wheelSp4: -0.868307
+
+[16:37:20.316] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.376475, xSensAcc2: 0.137661, xSensYaw: 0.976643, rateOfTurn: -0.196055, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.115775
+
+[16:37:20.332] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.131608, xSensAcc2: -0.434869, xSensYaw: 0.976527, rateOfTurn: -0.090140, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.289420, wheelSp4: 0.173657
+
+[16:37:20.348] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.142714, xSensAcc2: -0.501832, xSensYaw: 0.976480, rateOfTurn: -0.059942, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.173657, wheelSp4: 0.057870
+
+[16:37:20.365] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.091910, xSensAcc2: -0.396220, xSensYaw: 0.976434, rateOfTurn: -0.022526, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.115775
+
+[16:37:20.381] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.088068, xSensAcc2: -0.354287, xSensYaw: 0.976713, rateOfTurn: -0.003760, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:20.397] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.022340, xSensAcc2: -0.301201, xSensYaw: 0.976853, rateOfTurn: 0.002899, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:20.414] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.184646, xSensAcc2: -0.244228, xSensYaw: 0.977039, rateOfTurn: 0.010233, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:20.430] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.169186, xSensAcc2: -0.220805, xSensYaw: 0.976922, rateOfTurn: 0.008068, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:20.447] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.161363, xSensAcc2: -0.237406, xSensYaw: 0.976853, rateOfTurn: 0.005041, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:20.479] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.008300, xSensAcc2: -0.337942, xSensYaw: -0.018522, rateOfTurn: -0.003574, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.495] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.108068, xSensAcc2: -0.293285, xSensYaw: -0.018498, rateOfTurn: -0.002550, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.512] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.165834, xSensAcc2: -0.274985, xSensYaw: -0.018242, rateOfTurn: 0.003225, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.528] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104087, xSensAcc2: -0.261038, xSensYaw: -0.018149, rateOfTurn: 0.006275, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.545] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.077311, xSensAcc2: -0.246882, xSensYaw: -0.018149, rateOfTurn: 0.008114, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.561] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.064785, xSensAcc2: -0.286556, xSensYaw: -0.018429, rateOfTurn: 0.002084, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.577] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.073330, xSensAcc2: -0.305229, xSensYaw: -0.018498, rateOfTurn: -0.000221, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.593] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.097800, xSensAcc2: -0.315683, xSensYaw: -0.018475, rateOfTurn: -0.001502, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.626] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.098872, xSensAcc2: -0.270561, xSensYaw: -0.018266, rateOfTurn: 0.005483, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.642] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.109698, xSensAcc2: -0.270281, xSensYaw: -0.018335, rateOfTurn: 0.005530, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.659] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091514, xSensAcc2: -0.290095, xSensYaw: -0.018429, rateOfTurn: 0.002363, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.675] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104506, xSensAcc2: -0.289583, xSensYaw: -0.018452, rateOfTurn: 0.001315, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.691] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.088999, xSensAcc2: -0.291097, xSensYaw: -0.018405, rateOfTurn: 0.002061, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.708] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.106392, xSensAcc2: -0.270607, xSensYaw: -0.029209, rateOfTurn: 0.003807, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.724] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.095752, xSensAcc2: -0.272819, xSensYaw: -0.029209, rateOfTurn: 0.004435, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.740] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.107370, xSensAcc2: -0.260666, xSensYaw: -0.029185, rateOfTurn: 0.004529, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.757] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.773] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.789] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.806] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.822] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.838] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.855] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083365, xSensAcc2: -0.269653, xSensYaw: -0.029209, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.887] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.072422, xSensAcc2: -0.288116, xSensYaw: -0.029232, rateOfTurn: 0.002643, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.904] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.093703, xSensAcc2: -0.271096, xSensYaw: -0.029232, rateOfTurn: 0.003062, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.920] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.112120, xSensAcc2: -0.278780, xSensYaw: -0.032375, rateOfTurn: 0.003458, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.936] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102713, xSensAcc2: -0.286789, xSensYaw: -0.032422, rateOfTurn: 0.003015, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.953] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.114168, xSensAcc2: -0.290049, xSensYaw: -0.032422, rateOfTurn: 0.002549, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.969] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.078476, xSensAcc2: -0.289071, xSensYaw: -0.032422, rateOfTurn: 0.002643, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:20.985] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.094355, xSensAcc2: -0.267162, xSensYaw: -0.032445, rateOfTurn: 0.002759, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.002] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.096287, xSensAcc2: -0.278780, xSensYaw: -0.032445, rateOfTurn: 0.002806, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.018] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.088906, xSensAcc2: -0.278826, xSensYaw: -0.032445, rateOfTurn: 0.002712, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.034] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.090466, xSensAcc2: -0.293076, xSensYaw: -0.032468, rateOfTurn: 0.002945, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.051] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083621, xSensAcc2: -0.281946, xSensYaw: -0.032468, rateOfTurn: 0.002899, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.067] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.109768, xSensAcc2: -0.278617, xSensYaw: -0.032468, rateOfTurn: 0.003085, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.084] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.085088, xSensAcc2: -0.277010, xSensYaw: -0.032445, rateOfTurn: 0.003481, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.099] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075845, xSensAcc2: -0.273285, xSensYaw: -0.032468, rateOfTurn: 0.003411, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.116] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.099593, xSensAcc2: -0.276312, xSensYaw: -0.032468, rateOfTurn: 0.003341, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.132] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.097568, xSensAcc2: -0.275846, xSensYaw: -0.033982, rateOfTurn: 0.003597, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.148] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.101479, xSensAcc2: -0.285346, xSensYaw: -0.033982, rateOfTurn: 0.004016, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.165] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.076892, xSensAcc2: -0.281853, xSensYaw: -0.034005, rateOfTurn: 0.004040, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.181] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.100571, xSensAcc2: -0.279222, xSensYaw: -0.033982, rateOfTurn: 0.003714, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.214] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091467, xSensAcc2: -0.283320, xSensYaw: -0.034052, rateOfTurn: 0.002549, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.230] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.090303, xSensAcc2: -0.289769, xSensYaw: -0.034052, rateOfTurn: 0.002363, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.263] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.090303, xSensAcc2: -0.278361, xSensYaw: -0.034052, rateOfTurn: 0.002736, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.279] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104087, xSensAcc2: -0.263623, xSensYaw: -0.034098, rateOfTurn: 0.002666, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.312] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.089721, xSensAcc2: -0.279990, xSensYaw: -0.034098, rateOfTurn: 0.002875, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.328] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091817, xSensAcc2: -0.295776, xSensYaw: -0.034098, rateOfTurn: 0.003132, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.344] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.082201, xSensAcc2: -0.293518, xSensYaw: -0.034121, rateOfTurn: 0.002829, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.361] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.085623, xSensAcc2: -0.296149, xSensYaw: -0.034098, rateOfTurn: 0.003248, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.377] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.096031, xSensAcc2: -0.282133, xSensYaw: -0.034075, rateOfTurn: 0.003504, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.393] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.092864, xSensAcc2: -0.285346, xSensYaw: -0.034098, rateOfTurn: 0.003690, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.410] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.099430, xSensAcc2: -0.290608, xSensYaw: -0.034075, rateOfTurn: 0.003644, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.426] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.070955, xSensAcc2: -0.281900, xSensYaw: -0.034075, rateOfTurn: 0.003364, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.442] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.090536, xSensAcc2: -0.292354, xSensYaw: -0.034075, rateOfTurn: 0.003574, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.459] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.103784, xSensAcc2: -0.286673, xSensYaw: -0.034052, rateOfTurn: 0.003923, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.491] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.092818, xSensAcc2: -0.277360, xSensYaw: -0.034075, rateOfTurn: 0.003341, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.508] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.076473, xSensAcc2: -0.262226, xSensYaw: -0.034028, rateOfTurn: 0.003504, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.524] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102597, xSensAcc2: -0.267255, xSensYaw: -0.034028, rateOfTurn: 0.003644, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.540] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.090233, xSensAcc2: -0.277709, xSensYaw: -0.034028, rateOfTurn: 0.004319, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.557] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.110397, xSensAcc2: -0.265834, xSensYaw: -0.034005, rateOfTurn: 0.003900, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.573] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091072, xSensAcc2: -0.275031, xSensYaw: -0.034028, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.589] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.078499, xSensAcc2: -0.273099, xSensYaw: -0.034005, rateOfTurn: 0.003783, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.606] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.078499, xSensAcc2: -0.273099, xSensYaw: -0.034005, rateOfTurn: 0.003993, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.622] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.082178, xSensAcc2: -0.300317, xSensYaw: -0.034005, rateOfTurn: 0.004063, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.638] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.077009, xSensAcc2: -0.274566, xSensYaw: -0.034028, rateOfTurn: 0.003364, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.655] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.098499, xSensAcc2: -0.267930, xSensYaw: -0.034052, rateOfTurn: 0.003015, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.671] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.076240, xSensAcc2: -0.271376, xSensYaw: -0.034005, rateOfTurn: 0.003481, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.687] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.077311, xSensAcc2: -0.274403, xSensYaw: -0.033982, rateOfTurn: 0.004179, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.703] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.087277, xSensAcc2: -0.269956, xSensYaw: -0.033982, rateOfTurn: 0.004226, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.736] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.752] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.769] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.785] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.801] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.818] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.834] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.850] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080874, xSensAcc2: -0.279432, xSensYaw: -0.033982, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.867] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.105135, xSensAcc2: -0.281411, xSensYaw: -0.034028, rateOfTurn: 0.003178, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.883] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.090396, xSensAcc2: -0.288070, xSensYaw: -0.034028, rateOfTurn: 0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:21.899] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.237871, xSensAcc2: -0.136101, xSensYaw: -0.034331, rateOfTurn: -0.002852, wheelSp1: %&7f, wheelSp2: -7.930409, wheelSp3: -7.409428, wheelSp4: -6.425369
+
+[16:37:21.916] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.816649, xSensAcc2: -1.584820, xSensYaw: -0.109884, rateOfTurn: -1.149590, wheelSp1: %&7f, wheelSp2: -32.358326, wheelSp3: -18.755102, wheelSp4: -21.417847
+
+[16:37:21.932] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.418036, xSensAcc2: -0.397337, xSensYaw: -0.179431, rateOfTurn: -2.110924, wheelSp1: %&7f, wheelSp2: -41.504333, wheelSp3: -27.380127, wheelSp4: -33.284504
+
+[16:37:21.948] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.922898, xSensAcc2: -4.007493, xSensYaw: -0.361947, rateOfTurn: -5.222287, wheelSp1: %&7f, wheelSp2: -43.183018, wheelSp3: -33.052952, wheelSp4: -36.005154
+
+[16:37:21.965] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.803689, xSensAcc2: -3.025087, xSensYaw: -0.610633, rateOfTurn: -8.369179, wheelSp1: %&7f, wheelSp2: -44.745941, wheelSp3: -37.625957, wheelSp4: -37.278641
+
+[16:37:21.981] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.536360, xSensAcc2: -3.906444, xSensYaw: -0.750076, rateOfTurn: -9.898108, wheelSp1: %&7f, wheelSp2: -42.141079, wheelSp3: -38.725800, wheelSp4: -38.899445
+
+[16:37:21.997] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.806071, xSensAcc2: 1.078972, xSensYaw: -1.029891, rateOfTurn: -12.060173, wheelSp1: %&7f, wheelSp2: -40.751801, wheelSp3: -38.957329, wheelSp4: -39.304665
+
+[16:37:22.030] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.321372, xSensAcc2: 0.672357, xSensYaw: -1.431268, rateOfTurn: -13.238739, wheelSp1: %&7f, wheelSp2: -38.899445, wheelSp3: -36.699780, wheelSp4: -36.584015
+
+[16:37:22.046] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.082721, xSensAcc2: 0.490353, xSensYaw: -1.685077, rateOfTurn: -13.102067, wheelSp1: %&7f, wheelSp2: -37.220760, wheelSp3: -35.021091, wheelSp4: -35.194736
+
+[16:37:22.063] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.256079, xSensAcc2: -0.821438, xSensYaw: -1.922797, rateOfTurn: -12.645836, wheelSp1: %&7f, wheelSp2: -31.953131, wheelSp3: -31.605793, wheelSp4: -31.837343
+
+[16:37:22.079] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233843, xSensAcc2: 0.373099, xSensYaw: -2.031715, rateOfTurn: -12.279360, wheelSp1: %&7f, wheelSp2: -30.390207, wheelSp3: -30.216539, wheelSp4: -30.679640
+
+[16:37:22.095] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.129791, xSensAcc2: 0.576128, xSensYaw: -2.229784, rateOfTurn: -11.332392, wheelSp1: %&7f, wheelSp2: -26.222401, wheelSp3: -25.759323, wheelSp4: -26.859146
+
+[16:37:22.128] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.651673, xSensAcc2: 1.014641, xSensYaw: -2.491788, rateOfTurn: -9.740295, wheelSp1: %&7f, wheelSp2: -19.739161, wheelSp3: -19.739161, wheelSp4: -21.533632
+
+[16:37:22.144] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.553403, xSensAcc2: 5.172740, xSensYaw: -2.609112, rateOfTurn: -8.254603, wheelSp1: %&7f, wheelSp2: -12.792822, wheelSp3: -12.850726, wheelSp4: -15.108275
+
+[16:37:22.161] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -3.243319, xSensAcc2: 3.781344, xSensYaw: -2.676726, rateOfTurn: -6.327301, wheelSp1: %&7f, wheelSp2: -12.040313, wheelSp3: -10.245841, wheelSp4: -12.213982
+
+[16:37:22.177] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.004303, xSensAcc2: -4.297669, xSensYaw: -2.699520, rateOfTurn: -5.226012, wheelSp1: %&7f, wheelSp2: -8.682919, wheelSp3: -7.698860, wheelSp4: -9.377545
+
+[16:37:22.193] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.266843, xSensAcc2: -1.500908, xSensYaw: -2.741313, rateOfTurn: -3.566488, wheelSp1: %&7f, wheelSp2: -8.161937, wheelSp3: -7.119996, wheelSp4: -8.046173
+
+[16:37:22.210] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.304950, xSensAcc2: 0.800181, xSensYaw: -2.779264, rateOfTurn: -2.589112, wheelSp1: %&7f, wheelSp2: -1.389289, wheelSp3: -3.762601, wheelSp4: -5.036092
+
+[16:37:22.226] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.299711, xSensAcc2: -0.379735, xSensYaw: -2.780638, rateOfTurn: -2.054579, wheelSp1: %&7f, wheelSp2: -1.968129, wheelSp3: -2.431229, wheelSp4: -2.720661
+
+[16:37:22.242] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.410771, xSensAcc2: -1.076318, xSensYaw: -2.770207, rateOfTurn: -1.054734, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 0.405184, wheelSp4: 0.115752
+
+[16:37:22.275] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.301690, xSensAcc2: -0.638177, xSensYaw: -2.745713, rateOfTurn: 0.256638, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.752497, wheelSp4: 1.447147
+
+[16:37:22.291] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.486744, xSensAcc2: -0.072981, xSensYaw: -2.743176, rateOfTurn: 0.409351, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 1.215597, wheelSp4: 1.041929
+
+[16:37:22.308] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.129722, xSensAcc2: 0.209233, xSensYaw: -2.743339, rateOfTurn: 0.342575, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.173657, wheelSp4: 0.810402
+
+[16:37:22.324] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.028720, xSensAcc2: 0.101712, xSensYaw: -2.745271, rateOfTurn: 0.122737, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.000012, wheelSp4: -0.289443
+
+[16:37:22.340] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.100571, xSensAcc2: -0.288140, xSensYaw: -2.749043, rateOfTurn: -0.028813, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.405207, wheelSp4: -0.173680
+
+[16:37:22.357] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.619225, xSensAcc2: -0.502507, xSensYaw: -2.750743, rateOfTurn: -0.078196, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.347325, wheelSp4: -0.347325
+
+[16:37:22.373] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253471, xSensAcc2: -0.690611, xSensYaw: -2.752978, rateOfTurn: -0.119710, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.289443, wheelSp4: -0.347325
+
+[16:37:22.389] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.212563, xSensAcc2: -0.457920, xSensYaw: -2.754352, rateOfTurn: -0.104506, wheelSp1: %&7f, wheelSp2: -0.289443, wheelSp3: -0.405207, wheelSp4: -0.173680
+
+[16:37:22.406] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.011956, xSensAcc2: -0.292587, xSensYaw: -2.754817, rateOfTurn: -0.091700, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.231562, wheelSp4: -0.173680
+
+[16:37:22.422] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080571, xSensAcc2: -0.259082, xSensYaw: -2.755330, rateOfTurn: -0.059640, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.173680, wheelSp4: -0.057893
+
+[16:37:22.438] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.153750, xSensAcc2: -0.255613, xSensYaw: -2.755190, rateOfTurn: -0.029115, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.115775, wheelSp4: -0.000012
+
+[16:37:22.455] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.189675, xSensAcc2: -0.246998, xSensYaw: -2.755073, rateOfTurn: -0.016403, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:22.471] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.202481, xSensAcc2: -0.274985, xSensYaw: -2.755073, rateOfTurn: -0.001246, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:22.487] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.278361, xSensAcc2: -0.287907, xSensYaw: -2.843712, rateOfTurn: -0.000407, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:22.503] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.170863, xSensAcc2: -0.264926, xSensYaw: -2.843852, rateOfTurn: -0.002177, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.231562
+
+[16:37:22.520] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.190444, xSensAcc2: -0.241294, xSensYaw: -2.844620, rateOfTurn: -0.014843, wheelSp1: %&7f, wheelSp2: -0.984070, wheelSp3: -0.868307, wheelSp4: -0.578875
+
+[16:37:22.553] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.244554, xSensAcc2: -0.216754, xSensYaw: -2.857053, rateOfTurn: -0.196544, wheelSp1: %&7f, wheelSp2: -1.736602, wheelSp3: -1.968129, wheelSp4: -1.794484
+
+[16:37:22.569] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.172609, xSensAcc2: 0.107370, xSensYaw: -2.873235, rateOfTurn: -0.451494, wheelSp1: %&7f, wheelSp2: -2.720661, wheelSp3: -2.836424, wheelSp4: -2.373348
+
+[16:37:22.585] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.192376, xSensAcc2: -0.773103, xSensYaw: -2.883060, rateOfTurn: -0.589935, wheelSp1: %&7f, wheelSp2: -2.720661, wheelSp3: -2.720661, wheelSp4: -2.952211
+
+[16:37:22.602] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.078313, xSensAcc2: -0.023737, xSensYaw: -2.905133, rateOfTurn: -0.832893, wheelSp1: %&7f, wheelSp2: -2.894306, wheelSp3: -3.357406, wheelSp4: -3.357406
+
+[16:37:22.618] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.231538, xSensAcc2: -0.268721, xSensYaw: -2.928672, rateOfTurn: -1.008238, wheelSp1: %&7f, wheelSp2: -3.241643, wheelSp3: -3.704720, wheelSp4: -3.357406
+
+[16:37:22.634] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.067649, xSensAcc2: -0.168348, xSensYaw: -2.940570, rateOfTurn: -1.066772, wheelSp1: %&7f, wheelSp2: -3.357406, wheelSp3: -3.415288, wheelSp4: -3.415288
+
+[16:37:22.683] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.230910, xSensAcc2: -0.296964, xSensYaw: -2.987904, rateOfTurn: -0.985514, wheelSp1: %&7f, wheelSp2: -2.431229, wheelSp3: -2.257561, wheelSp4: -2.489111
+
+[16:37:22.700] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.337127, xSensAcc2: -0.529655, xSensYaw: -3.003923, rateOfTurn: -0.887888, wheelSp1: %&7f, wheelSp2: -2.141798, wheelSp3: -2.662779, wheelSp4: -2.662779
+
+[16:37:22.716] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.354194, xSensAcc2: -0.309630, xSensYaw: -3.019359, rateOfTurn: -0.825420, wheelSp1: %&7f, wheelSp2: -2.199679, wheelSp3: -3.010093, wheelSp4: -1.910247
+
+[16:37:22.732] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.748] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.765] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.781] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.797] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.814] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.830] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.846] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.015565, xSensAcc2: -0.083831, xSensYaw: -3.027322, rateOfTurn: -0.810309, wheelSp1: %&7f, wheelSp2: -1.910247, wheelSp3: -1.852366, wheelSp4: -1.505052
+
+[16:37:22.863] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.706816, xSensAcc2: -0.090466, xSensYaw: -3.095379, rateOfTurn: -0.713847, wheelSp1: %&7f, wheelSp2: -3.357406, wheelSp3: -3.357406, wheelSp4: -3.415288
+
+[16:37:22.879] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.302598, xSensAcc2: 0.356755, xSensYaw: -3.108510, rateOfTurn: -0.862463, wheelSp1: %&7f, wheelSp2: -2.720661, wheelSp3: -3.531051, wheelSp4: -3.299525
+
+[16:37:22.895] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.852218, xSensAcc2: 0.399642, xSensYaw: -3.129884, rateOfTurn: -1.023489, wheelSp1: %&7f, wheelSp2: -3.415288, wheelSp3: -2.604874, wheelSp4: -2.489111
+
+[16:37:22.912] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.844139, xSensAcc2: -0.516290, xSensYaw: -3.140734, rateOfTurn: -0.922231, wheelSp1: %&7f, wheelSp2: -1.852366, wheelSp3: -2.315466, wheelSp4: -1.794484
+
+[16:37:22.928] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.045390, xSensAcc2: -0.396662, xSensYaw: 3.138871, rateOfTurn: -0.794011, wheelSp1: %&7f, wheelSp2: -1.447170, wheelSp3: -1.736602, wheelSp4: -1.505052
+
+[16:37:22.961] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.028347, xSensAcc2: -0.179035, xSensYaw: 3.137800, rateOfTurn: -0.339316, wheelSp1: %&7f, wheelSp2: -0.520994, wheelSp3: 0.115752, wheelSp4: -0.057893
+
+[16:37:22.977] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.009511, xSensAcc2: -0.247813, xSensYaw: -3.140478, rateOfTurn: -0.062201, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: 0.173657, wheelSp4: 0.752497
+
+[16:37:22.993] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.549562, xSensAcc2: -0.117125, xSensYaw: -3.133912, rateOfTurn: 0.143575, wheelSp1: %&7f, wheelSp2: 0.520970, wheelSp3: 0.578852, wheelSp4: 0.984047
+
+[16:37:23.010] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091677, xSensAcc2: -0.107323, xSensYaw: -3.130257, rateOfTurn: 0.216265, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.405184, wheelSp4: 0.984047
+
+[16:37:23.026] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253378, xSensAcc2: 0.211305, xSensYaw: -3.125134, rateOfTurn: 0.270584, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 1.041929, wheelSp4: 0.810402
+
+[16:37:23.043] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.115822, xSensAcc2: -0.165391, xSensYaw: -3.123039, rateOfTurn: 0.232516, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.636734, wheelSp4: 0.752497
+
+[16:37:23.059] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.027486, xSensAcc2: -0.462809, xSensYaw: -3.122340, rateOfTurn: 0.188325, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.810402, wheelSp4: 0.173657
+
+[16:37:23.075] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.621902, xSensAcc2: -0.478781, xSensYaw: -3.123435, rateOfTurn: 0.085484, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.115752, wheelSp4: -0.000012
+
+[16:37:23.091] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.184204, xSensAcc2: -0.579108, xSensYaw: -3.125880, rateOfTurn: -0.005646, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.057893, wheelSp4: -0.231562
+
+[16:37:23.108] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.019616, xSensAcc2: -0.522716, xSensYaw: -3.126369, rateOfTurn: -0.033446, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: -0.115775
+
+[16:37:23.124] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.215240, xSensAcc2: -0.179920, xSensYaw: -3.125740, rateOfTurn: -0.033586, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[16:37:23.140] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.214262, xSensAcc2: -0.187510, xSensYaw: -3.084319, rateOfTurn: -0.007323, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.231562, wheelSp4: -0.000012
+
+[16:37:23.157] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.301597, xSensAcc2: -0.221946, xSensYaw: -3.085227, rateOfTurn: -0.009558, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.231562, wheelSp4: -0.173680
+
+[16:37:23.173] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.243320, xSensAcc2: -0.322924, xSensYaw: -3.088417, rateOfTurn: -0.057800, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.578875, wheelSp4: -0.463112
+
+[16:37:23.189] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.018754, xSensAcc2: -0.330072, xSensYaw: -3.092701, rateOfTurn: -0.126858, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: -0.752520, wheelSp4: -0.463112
+
+[16:37:23.206] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.126881, xSensAcc2: -0.282738, xSensYaw: -3.094564, rateOfTurn: -0.151049, wheelSp1: %&7f, wheelSp2: -0.636757, wheelSp3: -0.694639, wheelSp4: -0.636757
+
+[16:37:23.222] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.126578, xSensAcc2: -0.319013, xSensYaw: -3.097963, rateOfTurn: -0.171887, wheelSp1: %&7f, wheelSp2: -0.520994, wheelSp3: -0.752520, wheelSp4: -0.578875
+
+[16:37:23.238] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.298384, xSensAcc2: -0.281737, xSensYaw: -3.100361, rateOfTurn: -0.154285, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.694639, wheelSp4: -0.463112
+
+[16:37:23.255] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.167300, xSensAcc2: -0.251725, xSensYaw: -3.101060, rateOfTurn: -0.138616, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.520994, wheelSp4: -0.347325
+
+[16:37:23.271] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.248186, xSensAcc2: -0.157335, xSensYaw: -3.102573, rateOfTurn: -0.106345, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.405207, wheelSp4: -0.231562
+
+[16:37:23.287] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.215939, xSensAcc2: -0.176660, xSensYaw: -3.105018, rateOfTurn: -0.098569, wheelSp1: %&7f, wheelSp2: -0.289443, wheelSp3: -0.520994, wheelSp4: -0.463112
+
+[16:37:23.304] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.185135, xSensAcc2: -0.170746, xSensYaw: -3.106694, rateOfTurn: -0.107370, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.463112, wheelSp4: -0.520994
+
+[16:37:23.336] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.199222, xSensAcc2: -0.297523, xSensYaw: -3.112794, rateOfTurn: -0.158919, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.578875, wheelSp4: -0.636757
+
+[16:37:23.353] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.224786, xSensAcc2: -0.318105, xSensYaw: -3.115006, rateOfTurn: -0.157661, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.520994, wheelSp4: -0.347325
+
+[16:37:23.369] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.169838, xSensAcc2: -0.271702, xSensYaw: -3.116007, rateOfTurn: -0.117195, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.231562, wheelSp4: -0.173680
+
+[16:37:23.386] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.129698, xSensAcc2: -0.270444, xSensYaw: -3.116101, rateOfTurn: -0.088138, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.173680, wheelSp4: -0.057893
+
+[16:37:23.402] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.173098, xSensAcc2: -0.249210, xSensYaw: -3.116264, rateOfTurn: -0.051095, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.173680, wheelSp4: -0.115775
+
+[16:37:23.418] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.151398, xSensAcc2: -0.227580, xSensYaw: -3.118056, rateOfTurn: -0.050722, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.463112, wheelSp4: -0.347325
+
+[16:37:23.434] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.192190, xSensAcc2: -0.197173, xSensYaw: -3.119640, rateOfTurn: -0.068906, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.405207, wheelSp4: -0.520994
+
+[16:37:23.451] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.169419, xSensAcc2: -0.180223, xSensYaw: -3.124273, rateOfTurn: -0.129722, wheelSp1: %&7f, wheelSp2: -0.636757, wheelSp3: -0.463112, wheelSp4: -0.752520
+
+[16:37:23.467] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.241294, xSensAcc2: -0.305206, xSensYaw: -3.129232, rateOfTurn: -0.187394, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: -0.520994, wheelSp4: -0.578875
+
+[16:37:23.483] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.185880, xSensAcc2: -0.385696, xSensYaw: -3.130885, rateOfTurn: -0.196102, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.289443, wheelSp4: -0.405207
+
+[16:37:23.500] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.266347, xSensAcc2: -0.324624, xSensYaw: -3.131630, rateOfTurn: -0.154472, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:23.516] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.082736, xSensAcc2: -0.408420, xSensYaw: -3.129279, rateOfTurn: -0.046368, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.289420, wheelSp4: 0.289420
+
+[16:37:23.533] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.328978, xSensAcc2: -0.371074, xSensYaw: -3.127672, rateOfTurn: 0.008510, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: -0.000012, wheelSp4: 0.347302
+
+[16:37:23.549] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.175170, xSensAcc2: -0.227115, xSensYaw: -3.126648, rateOfTurn: 0.064063, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.173680, wheelSp4: -0.000012
+
+[16:37:23.565] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.311818, xSensAcc2: -0.131025, xSensYaw: -3.129232, rateOfTurn: 0.016915, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.347325, wheelSp4: -0.405207
+
+[16:37:23.581] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.154634, xSensAcc2: -0.191911, xSensYaw: -3.131002, rateOfTurn: -0.028370, wheelSp1: %&7f, wheelSp2: -0.289443, wheelSp3: -0.578875, wheelSp4: -0.289443
+
+[16:37:23.598] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.111794, xSensAcc2: -0.252703, xSensYaw: -3.134611, rateOfTurn: -0.110141, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.463112, wheelSp4: -0.405207
+
+[16:37:23.614] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.172539, xSensAcc2: -0.178802, xSensYaw: -3.137591, rateOfTurn: -0.140921, wheelSp1: %&7f, wheelSp2: -0.289443, wheelSp3: -0.231562, wheelSp4: -0.289443
+
+[16:37:23.630] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.119291, xSensAcc2: -0.199105, xSensYaw: -3.138452, rateOfTurn: -0.137172, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.115775, wheelSp4: -0.173680
+
+[16:37:23.647] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.014494, xSensAcc2: -0.394427, xSensYaw: -3.138103, rateOfTurn: -0.086438, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.115752, wheelSp4: -0.000012
+
+[16:37:23.663] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.049046, xSensAcc2: -0.455708, xSensYaw: -3.136729, rateOfTurn: -0.015262, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.115752, wheelSp4: 0.057870
+
+[16:37:23.679] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.114331, xSensAcc2: -0.467652, xSensYaw: -3.136240, rateOfTurn: 0.012771, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[16:37:23.696] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075356, xSensAcc2: -0.373798, xSensYaw: -3.136729, rateOfTurn: 0.019686, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.115775, wheelSp4: -0.115775
+
+[16:37:23.712] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.205089, xSensAcc2: -0.205834, xSensYaw: -3.137451, rateOfTurn: 0.006321, wheelSp1: %&7f, wheelSp2: -0.173680, wheelSp3: -0.231562, wheelSp4: -0.173680
+
+[16:37:23.728] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196265, xSensAcc2: -0.191794, xSensYaw: -3.138150, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:23.761] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196265, xSensAcc2: -0.191794, xSensYaw: -3.138150, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:23.777] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196265, xSensAcc2: -0.191794, xSensYaw: -3.138150, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:23.794] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196265, xSensAcc2: -0.191794, xSensYaw: -3.138150, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:23.811] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196265, xSensAcc2: -0.191794, xSensYaw: -3.138150, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:23.826] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196265, xSensAcc2: -0.191794, xSensYaw: -3.138150, rateOfTurn: -0.011630, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:23.843] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.222784, xSensAcc2: -0.205904, xSensYaw: -3.140687, rateOfTurn: -0.014820, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: -0.115775
+
+[16:37:23.859] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.228861, xSensAcc2: -0.211189, xSensYaw: -3.140851, rateOfTurn: -0.019639, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:23.875] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.211934, xSensAcc2: -0.276568, xSensYaw: -3.140734, rateOfTurn: -0.013446, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:23.892] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.146066, xSensAcc2: -0.350003, xSensYaw: -3.140431, rateOfTurn: 0.001385, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:23.908] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.093004, xSensAcc2: -0.329956, xSensYaw: -3.140385, rateOfTurn: 0.005367, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:23.924] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.152842, xSensAcc2: -0.263739, xSensYaw: -3.140664, rateOfTurn: 0.003900, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:23.941] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.187790, xSensAcc2: -0.238384, xSensYaw: -3.140711, rateOfTurn: -0.000501, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:23.957] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.210700, xSensAcc2: -0.246835, xSensYaw: -3.140687, rateOfTurn: -0.000128, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:23.973] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.159151, xSensAcc2: -0.288908, xSensYaw: -3.140734, rateOfTurn: 0.001199, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:23.990] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.405804, xSensAcc2: 0.172702, xSensYaw: -3.114098, rateOfTurn: 0.500830, wheelSp1: %&7f, wheelSp2: 20.144333, wheelSp3: 11.692976, wheelSp4: 14.297839
+
+[16:37:24.006] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 4.590012, xSensAcc2: 0.103016, xSensYaw: -3.055914, rateOfTurn: 1.228310, wheelSp1: %&7f, wheelSp2: 31.779438, wheelSp3: 17.250038, wheelSp4: 21.938805
+
+[16:37:24.039] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.864558, xSensAcc2: 9.271956, xSensYaw: -2.795027, rateOfTurn: 5.497120, wheelSp1: %&7f, wheelSp2: 37.452263, wheelSp3: 31.316362, wheelSp4: 29.116671
+
+[16:37:24.072] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.159788, xSensAcc2: -2.196792, xSensYaw: -2.314232, rateOfTurn: 10.446588, wheelSp1: %&7f, wheelSp2: 35.426266, wheelSp3: 34.557968, wheelSp4: 35.599934
+
+[16:37:24.088] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.560489, xSensAcc2: -1.474132, xSensYaw: -2.193323, rateOfTurn: 11.070527, wheelSp1: %&7f, wheelSp2: 33.805462, wheelSp3: 34.731640, wheelSp4: 35.831459
+
+[16:37:24.121] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.007043, xSensAcc2: -0.150537, xSensYaw: -1.728546, rateOfTurn: 11.677237, wheelSp1: %&7f, wheelSp2: 32.126751, wheelSp3: 31.837320, wheelSp4: 35.078953
+
+[16:37:24.137] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.443694, xSensAcc2: -0.094494, xSensYaw: -1.618720, rateOfTurn: 11.562498, wheelSp1: %&7f, wheelSp2: 31.026930, wheelSp3: 31.779438, wheelSp4: 33.573910
+
+[16:37:24.169] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.893460, xSensAcc2: -0.232470, xSensYaw: -1.199206, rateOfTurn: 10.785914, wheelSp1: %&7f, wheelSp2: 28.422045, wheelSp3: 29.753416, wheelSp4: 31.258457
+
+[16:37:24.186] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.699249, xSensAcc2: -0.441947, xSensYaw: -1.101021, rateOfTurn: 10.557601, wheelSp1: %&7f, wheelSp2: 27.958967, wheelSp3: 28.769358, wheelSp4: 31.142693
+
+[16:37:24.202] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.355171, xSensAcc2: 7.495715, xSensYaw: -0.910799, rateOfTurn: 10.094547, wheelSp1: %&7f, wheelSp2: 25.701395, wheelSp3: 27.553749, wheelSp4: 28.190495
+
+[16:37:24.218] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.222862, xSensAcc2: -3.166229, xSensYaw: -0.744651, rateOfTurn: 9.398128, wheelSp1: %&7f, wheelSp2: 21.938805, wheelSp3: 22.691338, wheelSp4: 23.906946
+
+[16:37:24.235] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.167099, xSensAcc2: 1.833902, xSensYaw: -0.672496, rateOfTurn: 8.960103, wheelSp1: %&7f, wheelSp2: 21.591492, wheelSp3: 22.980745, wheelSp4: 23.501728
+
+[16:37:24.251] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.618767, xSensAcc2: 0.458176, xSensYaw: -0.525115, rateOfTurn: 8.138281, wheelSp1: %&7f, wheelSp2: 15.976547, wheelSp3: 17.481588, wheelSp4: 19.333942
+
+[16:37:24.267] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -4.156435, xSensAcc2: -2.891489, xSensYaw: -0.467373, rateOfTurn: 7.057900, wheelSp1: %&7f, wheelSp2: 6.830541, wheelSp3: 14.124194, wheelSp4: 12.040290
+
+[16:37:24.284] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.776967, xSensAcc2: -0.654033, xSensYaw: -0.434706, rateOfTurn: 6.432261, wheelSp1: %&7f, wheelSp2: 8.104032, wheelSp3: 9.377522, wheelSp4: 12.213958
+
+[16:37:24.300] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.022029, xSensAcc2: 2.053182, xSensYaw: -0.396476, rateOfTurn: 4.617369, wheelSp1: %&7f, wheelSp2: 2.662756, wheelSp3: 4.978187, wheelSp4: 5.499169
+
+[16:37:24.316] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.253223, xSensAcc2: 1.082790, xSensYaw: -0.393658, rateOfTurn: 2.655818, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: -0.000012, wheelSp4: 0.984047
+
+[16:37:24.333] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.853522, xSensAcc2: 0.282831, xSensYaw: -0.406720, rateOfTurn: 1.646497, wheelSp1: %&7f, wheelSp2: -1.852366, wheelSp3: -1.910247, wheelSp4: -1.215620
+
+[16:37:24.349] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.151049, xSensAcc2: 0.016612, xSensYaw: -0.439759, rateOfTurn: 0.016054, wheelSp1: %&7f, wheelSp2: -2.489111, wheelSp3: -3.067975, wheelSp4: -3.125856
+
+[16:37:24.365] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.386767, xSensAcc2: -0.227627, xSensYaw: -0.453170, rateOfTurn: -0.521529, wheelSp1: %&7f, wheelSp2: -2.662779, wheelSp3: -3.067975, wheelSp4: -3.067975
+
+[16:37:24.382] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.087416, xSensAcc2: -0.291539, xSensYaw: -0.473147, rateOfTurn: -0.996178, wheelSp1: %&7f, wheelSp2: -2.026034, wheelSp3: -2.199679, wheelSp4: -2.546993
+
+[16:37:24.414] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.067952, xSensAcc2: -0.209536, xSensYaw: -0.496313, rateOfTurn: -0.912685, wheelSp1: %&7f, wheelSp2: -1.678697, wheelSp3: -2.141798, wheelSp4: -2.315466
+
+[16:37:24.431] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.180758, xSensAcc2: -0.323064, xSensYaw: -0.506232, rateOfTurn: -0.737223, wheelSp1: %&7f, wheelSp2: -1.562934, wheelSp3: -0.926189, wheelSp4: -1.215620
+
+[16:37:24.447] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.903395, xSensAcc2: -0.194565, xSensYaw: -0.512938, rateOfTurn: -0.550167, wheelSp1: %&7f, wheelSp2: -0.694639, wheelSp3: -0.868307, wheelSp4: -0.752520
+
+[16:37:24.463] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.360759, xSensAcc2: -0.535848, xSensYaw: -0.515243, rateOfTurn: -0.459712, wheelSp1: %&7f, wheelSp2: -0.810425, wheelSp3: -0.636757, wheelSp4: -0.636757
+
+[16:37:24.480] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.363064, xSensYaw: -0.517501, rateOfTurn: -0.303623, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: 0.347302, wheelSp4: -0.231562
+
+[16:37:24.496] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.485394, xSensAcc2: -0.665814, xSensYaw: -0.516453, rateOfTurn: -0.142783, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.173657, wheelSp4: 0.231538
+
+[16:37:24.512] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.154960, xSensAcc2: -0.650261, xSensYaw: -0.514870, rateOfTurn: -0.073074, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.868284, wheelSp4: 0.752497
+
+[16:37:24.529] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.254472, xSensAcc2: -0.482507, xSensYaw: -0.507885, rateOfTurn: 0.111794, wheelSp1: %&7f, wheelSp2: 1.389266, wheelSp3: 1.447147, wheelSp4: 1.505029
+
+[16:37:24.545] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.144274, xSensAcc2: -0.426860, xSensYaw: -0.492123, rateOfTurn: 0.365439, wheelSp1: %&7f, wheelSp2: 2.083892, wheelSp3: 2.431206, wheelSp4: 2.489088
+
+[16:37:24.561] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.430981, xSensAcc2: -0.440108, xSensYaw: -0.482437, rateOfTurn: 0.519340, wheelSp1: %&7f, wheelSp2: 2.662756, wheelSp3: 2.778519, wheelSp4: 2.836401
+
+[16:37:24.578] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.449701, xSensAcc2: 0.198337, xSensYaw: -0.459061, rateOfTurn: 0.823301, wheelSp1: %&7f, wheelSp2: 3.241620, wheelSp3: 3.010069, wheelSp4: 3.415265
+
+[16:37:24.610] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.283250, xSensAcc2: -0.395498, xSensYaw: -0.413612, rateOfTurn: 1.240999, wheelSp1: %&7f, wheelSp2: 4.630873, wheelSp3: 4.283560, wheelSp4: 4.341442
+
+[16:37:24.627] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.146602, xSensAcc2: 0.167417, xSensYaw: -0.380899, rateOfTurn: 1.445122, wheelSp1: %&7f, wheelSp2: 4.399323, wheelSp3: 4.746637, wheelSp4: 4.341442
+
+[16:37:24.643] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.351283, xSensAcc2: -0.104716, xSensYaw: -0.353565, rateOfTurn: 1.498044, wheelSp1: %&7f, wheelSp2: 4.109891, wheelSp3: 4.167797, wheelSp4: 4.167797
+
+[16:37:24.659] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.043924, xSensAcc2: -0.634126, xSensYaw: -0.339060, rateOfTurn: 1.483329, wheelSp1: %&7f, wheelSp2: 4.515110, wheelSp3: 4.225678, wheelSp4: 4.109891
+
+[16:37:24.676] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.029651, xSensAcc2: -1.041533, xSensYaw: -0.309863, rateOfTurn: 1.439697, wheelSp1: %&7f, wheelSp2: 3.936246, wheelSp3: 4.515110, wheelSp4: 3.762578
+
+[16:37:24.692] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.708] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.725] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.741] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.757] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.774] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.790] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.806] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.823] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.878877, xSensAcc2: -0.204903, xSensYaw: -0.288629, rateOfTurn: 1.341000, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.878365, wheelSp4: 3.183715
+
+[16:37:24.839] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.309444, xSensAcc2: -0.277453, xSensYaw: -0.163738, rateOfTurn: 1.022464, wheelSp1: %&7f, wheelSp2: 3.936246, wheelSp3: 4.052010, wheelSp4: 3.820460
+
+[16:37:24.855] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.381342, xSensAcc2: -0.575709, xSensYaw: -0.134355, rateOfTurn: 1.245586, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 4.109891, wheelSp4: 3.704696
+
+[16:37:24.871] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.002573, xSensAcc2: -0.106182, xSensYaw: -0.111910, rateOfTurn: 1.288659, wheelSp1: %&7f, wheelSp2: 2.952188, wheelSp3: 3.125833, wheelSp4: 2.778519
+
+[16:37:24.888] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.461272, xSensAcc2: -0.304810, xSensYaw: -0.102876, rateOfTurn: 1.225097, wheelSp1: %&7f, wheelSp2: 2.778519, wheelSp3: 3.183715, wheelSp4: 3.067951
+
+[16:37:24.904] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.089488, xSensAcc2: -0.437174, xSensYaw: -0.084552, rateOfTurn: 1.075084, wheelSp1: %&7f, wheelSp2: 3.241620, wheelSp3: 2.662756, wheelSp4: 2.836401
+
+[16:37:24.921] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.241760, xSensAcc2: -0.090443, xSensYaw: -0.069023, rateOfTurn: 0.931590, wheelSp1: %&7f, wheelSp2: 2.026011, wheelSp3: 2.546969, wheelSp4: 2.257538
+
+[16:37:24.937] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.388187, xSensAcc2: -0.417919, xSensYaw: -0.063831, rateOfTurn: 0.855967, wheelSp1: %&7f, wheelSp2: 1.678674, wheelSp3: 1.736579, wheelSp4: 1.968106
+
+[16:37:24.953] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.233611, xSensAcc2: -0.374753, xSensYaw: -0.059966, rateOfTurn: 0.607630, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 1.041929, wheelSp4: 0.926165
+
+[16:37:24.969] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.097149, xSensAcc2: -0.159710, xSensYaw: -0.062899, rateOfTurn: 0.281248, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.231562, wheelSp4: 0.231538
+
+[16:37:25.002] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.055844, xSensAcc2: -0.422250, xSensYaw: -0.076008, rateOfTurn: -0.167463, wheelSp1: %&7f, wheelSp2: -0.868307, wheelSp3: -0.405207, wheelSp4: -0.926189
+
+[16:37:25.018] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.668492, xSensAcc2: -0.277313, xSensYaw: -0.081991, rateOfTurn: -0.295939, wheelSp1: %&7f, wheelSp2: -0.810425, wheelSp3: -1.041952, wheelSp4: -0.868307
+
+[16:37:25.035] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.668236, xSensAcc2: -0.420667, xSensYaw: -0.084622, rateOfTurn: -0.305765, wheelSp1: %&7f, wheelSp2: -0.926189, wheelSp3: -0.810425, wheelSp4: -0.810425
+
+[16:37:25.051] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.059407, xSensAcc2: -0.251143, xSensYaw: -0.087323, rateOfTurn: -0.241830, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.463112, wheelSp4: -0.173680
+
+[16:37:25.068] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.041176, xSensAcc2: -0.168954, xSensYaw: -0.085367, rateOfTurn: -0.118080, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:25.084] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.130606, xSensAcc2: -0.290910, xSensYaw: -0.083598, rateOfTurn: -0.046345, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.231538, wheelSp4: 0.173657
+
+[16:37:25.100] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.048836, xSensAcc2: -0.283273, xSensYaw: -0.081293, rateOfTurn: 0.060035, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: -0.057893, wheelSp4: 0.289420
+
+[16:37:25.117] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.137731, xSensAcc2: -0.338268, xSensYaw: -0.081433, rateOfTurn: 0.063295, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: -0.173680
+
+[16:37:25.133] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.011187, xSensAcc2: -0.214402, xSensYaw: -0.082294, rateOfTurn: 0.038382, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: -0.173680
+
+[16:37:25.149] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.020431, xSensAcc2: -0.315125, xSensYaw: -0.083668, rateOfTurn: -0.012771, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: 0.057870
+
+[16:37:25.166] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.122713, xSensAcc2: -0.294938, xSensYaw: -0.024552, rateOfTurn: -0.018638, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:25.182] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.036287, xSensAcc2: -0.390073, xSensYaw: -0.023784, rateOfTurn: -0.011001, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.115752
+
+[16:37:25.198] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.044622, xSensAcc2: -0.316359, xSensYaw: -0.023667, rateOfTurn: 0.008137, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:25.214] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.065600, xSensAcc2: -0.171305, xSensYaw: -0.023737, rateOfTurn: 0.010536, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:25.231] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.119524, xSensAcc2: -0.326440, xSensYaw: -0.023923, rateOfTurn: 0.003318, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:25.247] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.060524, xSensAcc2: -0.312517, xSensYaw: -0.023970, rateOfTurn: -0.000244, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.263] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083132, xSensAcc2: -0.262808, xSensYaw: -0.023923, rateOfTurn: 0.001036, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:25.280] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.087509, xSensAcc2: -0.265439, xSensYaw: -0.023737, rateOfTurn: 0.005297, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.296] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.085670, xSensAcc2: -0.271352, xSensYaw: -0.023900, rateOfTurn: 0.004598, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.312] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102178, xSensAcc2: -0.279222, xSensYaw: -0.023947, rateOfTurn: 0.003644, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.329] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.099943, xSensAcc2: -0.318803, xSensYaw: -0.023900, rateOfTurn: 0.001292, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.345] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.080641, xSensAcc2: -0.291516, xSensYaw: -0.023854, rateOfTurn: 0.003364, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.361] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.074354, xSensAcc2: -0.287697, xSensYaw: -0.023854, rateOfTurn: 0.003877, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.378] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.110350, xSensAcc2: -0.293518, xSensYaw: -0.030443, rateOfTurn: 0.003667, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.394] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.082410, xSensAcc2: -0.302808, xSensYaw: -0.030512, rateOfTurn: 0.002549, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.427] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.084832, xSensAcc2: -0.265555, xSensYaw: -0.030443, rateOfTurn: 0.003225, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.443] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.089954, xSensAcc2: -0.288419, xSensYaw: -0.030466, rateOfTurn: 0.003783, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.460] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.109139, xSensAcc2: -0.278640, xSensYaw: -0.030466, rateOfTurn: 0.003574, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.476] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.085973, xSensAcc2: -0.267930, xSensYaw: -0.030466, rateOfTurn: 0.003038, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.492] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.087579, xSensAcc2: -0.287604, xSensYaw: -0.030419, rateOfTurn: 0.003807, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.508] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.093353, xSensAcc2: -0.286323, xSensYaw: -0.030419, rateOfTurn: 0.003783, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.525] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.089046, xSensAcc2: -0.287022, xSensYaw: -0.030419, rateOfTurn: 0.004366, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.541] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.098452, xSensAcc2: -0.286975, xSensYaw: -0.030419, rateOfTurn: 0.004272, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.557] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.086904, xSensAcc2: -0.297406, xSensYaw: -0.030419, rateOfTurn: 0.003690, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.574] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083807, xSensAcc2: -0.293169, xSensYaw: -0.030419, rateOfTurn: 0.003504, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.590] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091235, xSensAcc2: -0.279665, xSensYaw: -0.030443, rateOfTurn: 0.003201, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.623] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083691, xSensAcc2: -0.290514, xSensYaw: -0.032305, rateOfTurn: 0.003970, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.639] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.093167, xSensAcc2: -0.286929, xSensYaw: -0.032305, rateOfTurn: 0.004040, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.655] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.083947, xSensAcc2: -0.287837, xSensYaw: -0.032329, rateOfTurn: 0.003318, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.672] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.091607, xSensAcc2: -0.277779, xSensYaw: -0.032329, rateOfTurn: 0.002969, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.688] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.704] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.721] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.737] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.753] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.770] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.786] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.802] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102946, xSensAcc2: -0.288396, xSensYaw: -0.032305, rateOfTurn: 0.003434, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:25.835] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.173075, xSensAcc2: -0.248069, xSensYaw: -0.031607, rateOfTurn: 0.013702, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.115752
+
+[16:37:25.851] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.428164, xSensAcc2: -0.611891, xSensYaw: -0.069744, rateOfTurn: -0.660971, wheelSp1: %&7f, wheelSp2: -17.481611, wheelSp3: -11.635118, wheelSp4: -13.255921
+
+[16:37:25.868] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.706932, xSensAcc2: 3.021036, xSensYaw: -0.135985, rateOfTurn: -1.487334, wheelSp1: %&7f, wheelSp2: -30.100777, wheelSp3: -18.755102, wheelSp4: -21.128414
+
+[16:37:25.884] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.373161, xSensAcc2: 2.050807, xSensYaw: -0.300689, rateOfTurn: -4.201231, wheelSp1: %&7f, wheelSp2: -36.873447, wheelSp3: -26.801264, wheelSp4: -30.969048
+
+[16:37:25.900] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.015394, xSensAcc2: -2.246222, xSensYaw: -0.520318, rateOfTurn: -7.323886, wheelSp1: %&7f, wheelSp2: -39.709862, wheelSp3: -31.605793, wheelSp4: -32.821404
+
+[16:37:25.917] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.260503, xSensAcc2: -2.493139, xSensYaw: -0.644045, rateOfTurn: -8.708972, wheelSp1: %&7f, wheelSp2: -37.799625, wheelSp3: -33.573933, wheelSp4: -33.516052
+
+[16:37:25.949] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.011420, xSensAcc2: 3.689167, xSensYaw: -1.130381, rateOfTurn: -11.594605, wheelSp1: %&7f, wheelSp2: -35.368408, wheelSp3: -33.573933, wheelSp4: -33.458172
+
+[16:37:25.966] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.071785, xSensAcc2: -1.415017, xSensYaw: -1.245237, rateOfTurn: -11.690718, wheelSp1: %&7f, wheelSp2: -34.905308, wheelSp3: -33.052952, wheelSp4: -33.400265
+
+[16:37:25.982] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -4.781049, xSensAcc2: -1.514971, xSensYaw: -1.471967, rateOfTurn: -11.599355, wheelSp1: %&7f, wheelSp2: -33.863365, wheelSp3: -32.184658, wheelSp4: -31.837343
+
+[16:37:26.015] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.249645, xSensAcc2: -1.770363, xSensYaw: -1.689501, rateOfTurn: -11.234812, wheelSp1: %&7f, wheelSp2: -31.953131, wheelSp3: -30.158659, wheelSp4: -30.505972
+
+[16:37:26.047] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253844, xSensAcc2: -0.751100, xSensYaw: -2.100377, rateOfTurn: -10.557671, wheelSp1: %&7f, wheelSp2: -28.016872, wheelSp3: -26.859146, wheelSp4: -27.727440
+
+[16:37:26.064] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.549841, xSensAcc2: -2.412812, xSensYaw: -2.193789, rateOfTurn: -10.302954, wheelSp1: %&7f, wheelSp2: -27.322245, wheelSp3: -26.106636, wheelSp4: -26.627596
+
+[16:37:26.113] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.666078, xSensAcc2: -1.464610, xSensYaw: -2.627529, rateOfTurn: -8.951466, wheelSp1: %&7f, wheelSp2: -24.601597, wheelSp3: -23.328106, wheelSp4: -24.312164
+
+[16:37:26.129] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -3.191095, xSensAcc2: 2.106943, xSensYaw: -2.793863, rateOfTurn: -8.555840, wheelSp1: %&7f, wheelSp2: -23.154438, wheelSp3: -22.980768, wheelSp4: -24.833145
+
+[16:37:26.145] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.921509, xSensAcc2: -3.514241, xSensYaw: -2.874352, rateOfTurn: -8.416001, wheelSp1: %&7f, wheelSp2: -23.154438, wheelSp3: -22.459810, wheelSp4: -23.733301
+
+[16:37:26.162] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.550307, xSensAcc2: 1.044094, xSensYaw: -3.032398, rateOfTurn: -8.192019, wheelSp1: %&7f, wheelSp2: -22.517693, wheelSp3: -20.954769, wheelSp4: -22.980768
+
+[16:37:26.178] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -4.524703, xSensAcc2: -1.426565, xSensYaw: 3.098010, rateOfTurn: -7.952901, wheelSp1: %&7f, wheelSp2: -21.938828, wheelSp3: -20.375906, wheelSp4: -22.112497
+
+[16:37:26.195] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 6.923184, xSensAcc2: 8.499774, xSensYaw: 3.022573, rateOfTurn: -7.827522, wheelSp1: %&7f, wheelSp2: -16.786961, wheelSp3: -16.671198, wheelSp4: -17.944689
+
+[16:37:26.211] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.404104, xSensAcc2: 5.357189, xSensYaw: 2.912164, rateOfTurn: -7.016479, wheelSp1: %&7f, wheelSp2: -12.445508, wheelSp3: -12.734940, wheelSp4: -13.255921
+
+[16:37:26.227] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.126787, xSensAcc2: 1.592527, xSensYaw: 2.853607, rateOfTurn: -5.545083, wheelSp1: %&7f, wheelSp2: -10.130077, wheelSp3: -9.898527, wheelSp4: -11.056254
+
+[16:37:26.243] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.912855, xSensAcc2: -1.964218, xSensYaw: 2.825854, rateOfTurn: -4.736928, wheelSp1: %&7f, wheelSp2: -9.377545, wheelSp3: -9.782763, wheelSp4: -11.519331
+
+[16:37:26.260] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.899995, xSensAcc2: -6.678107, xSensYaw: 2.760778, rateOfTurn: -3.701367, wheelSp1: %&7f, wheelSp2: -9.146018, wheelSp3: -9.203900, wheelSp4: -9.030231
+
+[16:37:26.276] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 4.728197, xSensAcc2: -2.239633, xSensYaw: 2.701406, rateOfTurn: -3.301038, wheelSp1: %&7f, wheelSp2: -9.319664, wheelSp3: -8.451368, wheelSp4: -9.088114
+
+[16:37:26.292] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.602329, xSensAcc2: -3.300363, xSensYaw: 2.672698, rateOfTurn: -3.195589, wheelSp1: %&7f, wheelSp2: -8.451368, wheelSp3: -8.914469, wheelSp4: -10.014291
+
+[16:37:26.309] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 4.416274, xSensAcc2: -5.208689, xSensYaw: 2.613000, rateOfTurn: -3.038661, wheelSp1: %&7f, wheelSp2: -5.036092, wheelSp3: -5.672837, wheelSp4: -6.078055
+
+[16:37:26.325] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.025297, xSensAcc2: 1.385284, xSensYaw: 2.583477, rateOfTurn: -2.445292, wheelSp1: %&7f, wheelSp2: 11.866621, wheelSp3: 0.636734, wheelSp4: 1.099834
+
+[16:37:26.341] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.614762, xSensAcc2: -0.135193, xSensYaw: 2.616818, rateOfTurn: -1.615018, wheelSp1: %&7f, wheelSp2: 17.134275, wheelSp3: 5.614932, wheelSp4: 5.036068
+
+[16:37:26.358] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.796323, xSensAcc2: -2.223451, xSensYaw: 2.711231, rateOfTurn: 0.850821, wheelSp1: %&7f, wheelSp2: 25.527750, wheelSp3: 11.924526, wheelSp4: 12.792798
+
+[16:37:26.374] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.103093, xSensAcc2: 0.358035, xSensYaw: 2.831908, rateOfTurn: 3.511098, wheelSp1: %&7f, wheelSp2: 22.459787, wheelSp3: 17.655233, wheelSp4: 17.655233
+
+[16:37:26.390] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.427209, xSensAcc2: -0.557269, xSensYaw: 2.902548, rateOfTurn: 4.512828, wheelSp1: %&7f, wheelSp2: 20.723196, wheelSp3: 17.771021, wheelSp4: 18.928724
+
+[16:37:26.423] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.469259, xSensAcc2: 3.151933, xSensYaw: -3.117125, rateOfTurn: 6.321969, wheelSp1: %&7f, wheelSp2: 18.002546, wheelSp3: 17.539471, wheelSp4: 18.118334
+
+[16:37:26.455] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.651891, xSensAcc2: -5.736749, xSensYaw: -2.951908, rateOfTurn: 5.969510, wheelSp1: %&7f, wheelSp2: 15.802879, wheelSp3: 14.876702, wheelSp4: 16.902725
+
+[16:37:26.472] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.415482, xSensAcc2: -5.880336, xSensYaw: -2.845714, rateOfTurn: 5.622569, wheelSp1: %&7f, wheelSp2: 15.744998, wheelSp3: 16.208097, wheelSp4: 15.802879
+
+[16:37:26.488] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.965195, xSensAcc2: 2.928230, xSensYaw: -2.794212, rateOfTurn: 5.453161, wheelSp1: %&7f, wheelSp2: 11.866621, wheelSp3: 13.024348, wheelSp4: 13.776880
+
+[16:37:26.504] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.850674, xSensAcc2: -0.343414, xSensYaw: -2.726202, rateOfTurn: 4.790852, wheelSp1: %&7f, wheelSp2: 8.277699, wheelSp3: 8.046149, wheelSp4: 9.840622
+
+[16:37:26.521] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.481683, xSensAcc2: 1.897395, xSensYaw: -2.703548, rateOfTurn: 3.405346, wheelSp1: %&7f, wheelSp2: 3.241620, wheelSp3: 2.836401, wheelSp4: 3.357383
+
+[16:37:26.537] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.977342, xSensAcc2: -0.897108, xSensYaw: -2.713909, rateOfTurn: 2.434163, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: -0.694639, wheelSp4: 0.520970
+
+[16:37:26.553] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.291050, xSensAcc2: 0.534474, xSensYaw: -2.751045, rateOfTurn: 0.488537, wheelSp1: %&7f, wheelSp2: -3.762601, wheelSp3: -3.820483, wheelSp4: -4.052033
+
+[16:37:26.570] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.014307, xSensAcc2: 1.045212, xSensYaw: -2.773118, rateOfTurn: -0.379665, wheelSp1: %&7f, wheelSp2: -5.383405, wheelSp3: -5.730742, wheelSp4: -4.978210
+
+[16:37:26.586] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.561040, xSensAcc2: -2.332742, xSensYaw: -2.826250, rateOfTurn: -1.566403, wheelSp1: %&7f, wheelSp2: -6.656919, wheelSp3: -6.367487, wheelSp4: -7.004232
+
+[16:37:26.602] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.012864, xSensAcc2: 1.327053, xSensYaw: -2.874585, rateOfTurn: -2.133974, wheelSp1: %&7f, wheelSp2: -6.656919, wheelSp3: -7.004232, wheelSp4: -6.656919
+
+[16:37:26.619] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.047136, xSensAcc2: -0.332843, xSensYaw: -2.897775, rateOfTurn: -2.254534, wheelSp1: %&7f, wheelSp2: -6.946351, wheelSp3: -7.004232, wheelSp4: -6.367487
+
+[16:37:26.635] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.563679, xSensAcc2: 1.473993, xSensYaw: -2.942269, rateOfTurn: -2.279703, wheelSp1: %&7f, wheelSp2: -5.788624, wheelSp3: -6.772683, wheelSp4: -7.409428
+
+[16:37:26.668] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.117506, xSensAcc2: -1.569081, xSensYaw: -2.999732, rateOfTurn: -2.087501, wheelSp1: %&7f, wheelSp2: -5.672837, wheelSp3: -6.020174, wheelSp4: -6.135937
+
+[16:37:26.684] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.700] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.717] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.733] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.749] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.766] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.782] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.798] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.489142, xSensAcc2: 1.128053, xSensYaw: -3.015401, rateOfTurn: -1.985033, wheelSp1: %&7f, wheelSp2: -4.862447, wheelSp3: -5.499192, wheelSp4: -5.904387
+
+[16:37:26.815] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.380620, xSensAcc2: -0.483252, xSensYaw: 3.116613, rateOfTurn: -0.733754, wheelSp1: %&7f, wheelSp2: -1.215620, wheelSp3: -1.852366, wheelSp4: -1.099857
+
+[16:37:26.897] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.446092, xSensAcc2: -0.044249, xSensYaw: -3.136264, rateOfTurn: 0.443275, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 1.215597, wheelSp4: 1.620792
+
+[16:37:26.913] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.081316, xSensAcc2: -0.244041, xSensYaw: -3.132003, rateOfTurn: 0.460108, wheelSp1: %&7f, wheelSp2: 1.157715, wheelSp3: 1.099834, wheelSp4: 1.389266
+
+[16:37:26.929] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104832, xSensAcc2: -0.140478, xSensYaw: -3.127253, rateOfTurn: 0.411167, wheelSp1: %&7f, wheelSp2: 0.810402, wheelSp3: 0.520970, wheelSp4: 0.463088
+
+[16:37:26.946] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.268954, xSensAcc2: -0.024203, xSensYaw: -3.127090, rateOfTurn: 0.335055, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.289420, wheelSp4: -0.057893
+
+[16:37:26.962] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.044436, xSensAcc2: -0.279711, xSensYaw: -3.130676, rateOfTurn: 0.127486, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.405207, wheelSp4: -0.405207
+
+[16:37:26.978] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.059290, xSensAcc2: -0.321737, xSensYaw: -3.135519, rateOfTurn: -0.057847, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.347325, wheelSp4: -0.463112
+
+[16:37:26.995] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.113307, xSensAcc2: -0.381412, xSensYaw: -3.136333, rateOfTurn: -0.099873, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.115775, wheelSp4: -0.115775
+
+[16:37:27.011] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104157, xSensAcc2: -0.359549, xSensYaw: -3.134913, rateOfTurn: -0.075030, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.115752, wheelSp4: 0.231538
+
+[16:37:27.027] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.115496, xSensAcc2: -0.261527, xSensYaw: -3.132538, rateOfTurn: 0.015285, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:27.044] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.397221, xSensAcc2: -0.072934, xSensYaw: -3.132468, rateOfTurn: 0.037660, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:27.060] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.425230, xSensAcc2: -0.068347, xSensYaw: -3.133656, rateOfTurn: 0.026135, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.115775
+
+[16:37:27.076] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.357896, xSensAcc2: -0.262877, xSensYaw: -3.133935, rateOfTurn: -0.005739, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:27.093] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.138010, xSensAcc2: -0.346766, xSensYaw: -3.133656, rateOfTurn: -0.007323, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.109] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.225601, xSensAcc2: -0.270514, xSensYaw: -3.133400, rateOfTurn: 0.003411, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:27.125] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.268186, xSensAcc2: -0.173238, xSensYaw: 3.102876, rateOfTurn: 0.007835, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.141] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.151305, xSensAcc2: -0.238128, xSensYaw: 3.102853, rateOfTurn: 0.006089, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.158] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.194751, xSensAcc2: -0.301714, xSensYaw: 3.102806, rateOfTurn: 0.002619, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.174] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.179757, xSensAcc2: -0.254123, xSensYaw: 3.102806, rateOfTurn: 0.002643, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.191] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.188255, xSensAcc2: -0.247161, xSensYaw: 3.102899, rateOfTurn: 0.003527, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.207] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.192912, xSensAcc2: -0.233005, xSensYaw: 3.102829, rateOfTurn: 0.003830, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.223] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.187231, xSensAcc2: -0.277476, xSensYaw: 3.102829, rateOfTurn: 0.003620, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.256] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.189512, xSensAcc2: -0.241387, xSensYaw: 3.102876, rateOfTurn: 0.004109, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.272] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.183482, xSensAcc2: -0.251399, xSensYaw: 3.102899, rateOfTurn: 0.004296, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.289] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.200968, xSensAcc2: -0.260898, xSensYaw: 3.102876, rateOfTurn: 0.003830, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.305] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.206416, xSensAcc2: -0.248652, xSensYaw: 3.102853, rateOfTurn: 0.003295, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.321] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.187953, xSensAcc2: -0.251981, xSensYaw: 3.102853, rateOfTurn: 0.003038, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.338] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.201247, xSensAcc2: -0.250980, xSensYaw: 3.102946, rateOfTurn: 0.003993, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.354] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.208325, xSensAcc2: -0.267045, xSensYaw: 3.107090, rateOfTurn: 0.003923, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.370] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.192632, xSensAcc2: -0.266952, xSensYaw: 3.107113, rateOfTurn: 0.004040, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.387] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.195403, xSensAcc2: -0.250048, xSensYaw: 3.107113, rateOfTurn: 0.003178, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.403] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.190979, xSensAcc2: -0.251818, xSensYaw: 3.107113, rateOfTurn: 0.003527, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.419] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.197522, xSensAcc2: -0.246044, xSensYaw: 3.107136, rateOfTurn: 0.003760, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.436] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.192632, xSensAcc2: -0.253564, xSensYaw: 3.107113, rateOfTurn: 0.003388, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.452] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.194798, xSensAcc2: -0.255753, xSensYaw: 3.107136, rateOfTurn: 0.003551, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.468] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.197079, xSensAcc2: -0.262179, xSensYaw: 3.107113, rateOfTurn: 0.003341, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.485] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196125, xSensAcc2: -0.265928, xSensYaw: 3.107090, rateOfTurn: 0.002922, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.501] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.197778, xSensAcc2: -0.243296, xSensYaw: 3.107113, rateOfTurn: 0.003155, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.517] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.202854, xSensAcc2: -0.255497, xSensYaw: 3.107136, rateOfTurn: 0.003364, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.534] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.196660, xSensAcc2: -0.269047, xSensYaw: 3.107113, rateOfTurn: 0.004133, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:27.550] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.452642, xSensAcc2: 1.548405, xSensYaw: 3.070955, rateOfTurn: -0.642787, wheelSp1: %&7f, wheelSp2: -20.375906, wheelSp3: -11.866645, wheelSp4: -11.229899
+
+[16:37:27.566] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.031886, xSensAcc2: 0.240619, xSensYaw: 3.003201, rateOfTurn: -1.496135, wheelSp1: %&7f, wheelSp2: -33.921249, wheelSp3: -18.523552, wheelSp4: -18.986652
+
+[16:37:27.583] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.314930, xSensAcc2: 6.916293, xSensYaw: 2.845109, rateOfTurn: -4.128821, wheelSp1: %&7f, wheelSp2: -42.488392, wheelSp3: -29.174599, wheelSp4: -35.889366
+
+[16:37:27.615] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.768337, xSensAcc2: 0.023341, xSensYaw: 2.472091, rateOfTurn: -9.032932, wheelSp1: %&7f, wheelSp2: -42.662037, wheelSp3: -37.278641, wheelSp4: -38.204819
+
+[16:37:27.632] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.299758, xSensAcc2: -0.939134, xSensYaw: 2.194464, rateOfTurn: -11.568202, wheelSp1: %&7f, wheelSp2: -41.446426, wheelSp3: -38.494251, wheelSp4: -37.278641
+
+[16:37:27.648] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.541087, xSensAcc2: -0.805606, xSensYaw: 1.925218, rateOfTurn: -12.830354, wheelSp1: %&7f, wheelSp2: -40.230820, wheelSp3: -37.799625, wheelSp4: -37.741718
+
+[16:37:27.681] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.697] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.713] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.730] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.746] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.763] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.779] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.653660, xSensAcc2: -0.589050, xSensYaw: 1.793622, rateOfTurn: -13.073336, wheelSp1: %&7f, wheelSp2: -39.420429, wheelSp3: -37.625957, wheelSp4: -36.815544
+
+[16:37:27.795] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.076193, xSensAcc2: -1.727569, xSensYaw: 0.431517, rateOfTurn: -10.691362, wheelSp1: %&7f, wheelSp2: -29.000931, wheelSp3: -26.743382, wheelSp4: -28.827286
+
+[16:37:27.811] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.311414, xSensAcc2: 0.388676, xSensYaw: 0.233331, rateOfTurn: -10.339136, wheelSp1: %&7f, wheelSp2: -28.190517, wheelSp3: -26.743382, wheelSp4: -28.422068
+
+[16:37:27.828] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.367085, xSensAcc2: -2.428552, xSensYaw: 0.044855, rateOfTurn: -9.931426, wheelSp1: %&7f, wheelSp2: -15.687140, wheelSp3: -16.323885, wheelSp4: -18.639315
+
+[16:37:27.844] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.466348, xSensAcc2: 2.620497, xSensYaw: -0.024622, rateOfTurn: -9.359291, wheelSp1: %&7f, wheelSp2: -11.808763, wheelSp3: -14.818844, wheelSp4: -16.960630
+
+[16:37:27.860] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -3.009557, xSensAcc2: -0.454474, xSensYaw: -0.096310, rateOfTurn: -7.453829, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: -5.209760, wheelSp4: -11.635118
+
+[16:37:27.877] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 7.698207, xSensAcc2: -1.776975, xSensYaw: -0.123878, rateOfTurn: -4.696835, wheelSp1: %&7f, wheelSp2: 15.339803, wheelSp3: 5.325500, wheelSp4: 0.173657
+
+[16:37:27.893] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.857224, xSensAcc2: -3.251119, xSensYaw: -0.116893, rateOfTurn: -3.272726, wheelSp1: %&7f, wheelSp2: 15.571329, wheelSp3: 5.325500, wheelSp4: 5.904364
+
+[16:37:27.926] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.163032, xSensAcc2: -2.334372, xSensYaw: 0.012119, rateOfTurn: 1.117273, wheelSp1: %&7f, wheelSp2: 12.908585, wheelSp3: 14.239957, wheelSp4: 12.156053
+
+[16:37:27.942] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.587738, xSensAcc2: -4.143489, xSensYaw: 0.120408, rateOfTurn: 3.452238, wheelSp1: %&7f, wheelSp2: 13.950525, wheelSp3: 14.760939, wheelSp4: 14.471507
+
+[16:37:27.959] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 4.320533, xSensAcc2: -2.385594, xSensYaw: 0.221573, rateOfTurn: 4.526752, wheelSp1: %&7f, wheelSp2: 13.834762, wheelSp3: 14.239957, wheelSp4: 13.603211
+
+[16:37:27.975] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.552589, xSensAcc2: -0.825583, xSensYaw: 0.311120, rateOfTurn: 4.711968, wheelSp1: %&7f, wheelSp2: 12.966467, wheelSp3: 14.355743, wheelSp4: 13.603211
+
+[16:37:27.991] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.792032, xSensAcc2: -0.230421, xSensYaw: 0.352238, rateOfTurn: 4.613900, wheelSp1: %&7f, wheelSp2: 12.503389, wheelSp3: 13.776880, wheelSp4: 13.661094
+
+[16:37:28.007] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.931714, xSensAcc2: -1.081068, xSensYaw: 0.431866, rateOfTurn: 4.320650, wheelSp1: %&7f, wheelSp2: 10.187936, wheelSp3: 11.171994, wheelSp4: 10.535249
+
+[16:37:28.024] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.011700, xSensAcc2: -3.694405, xSensYaw: 0.488514, rateOfTurn: 3.807910, wheelSp1: %&7f, wheelSp2: 6.946328, wheelSp3: 7.583073, wheelSp4: 8.219818
+
+[16:37:28.040] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.140828, xSensAcc2: 1.382839, xSensYaw: 0.512332, rateOfTurn: 3.457710, wheelSp1: %&7f, wheelSp2: 4.804542, wheelSp3: 5.672814, wheelSp4: 5.730719
+
+[16:37:28.056] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.147587, xSensAcc2: -2.033345, xSensYaw: 0.517548, rateOfTurn: 2.252834, wheelSp1: %&7f, wheelSp2: 0.463088, wheelSp3: 0.578852, wheelSp4: 0.578852
+
+[16:37:28.089] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.767026, xSensAcc2: -0.051118, xSensYaw: 0.462297, rateOfTurn: -0.151421, wheelSp1: %&7f, wheelSp2: -5.209760, wheelSp3: -4.862447, wheelSp4: -5.557074
+
+[16:37:28.105] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.166819, xSensAcc2: 0.015169, xSensYaw: 0.411889, rateOfTurn: -1.412455, wheelSp1: %&7f, wheelSp2: -6.830564, wheelSp3: -7.293664, wheelSp4: -7.235759
+
+[16:37:28.122] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.581141, xSensAcc2: -2.474769, xSensYaw: 0.383460, rateOfTurn: -1.853437, wheelSp1: %&7f, wheelSp2: -6.714801, wheelSp3: -7.177878, wheelSp4: -7.351546
+
+[16:37:28.138] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.181712, xSensAcc2: 1.074758, xSensYaw: 0.334287, rateOfTurn: -2.281985, wheelSp1: %&7f, wheelSp2: -7.004232, wheelSp3: -6.656919, wheelSp4: -7.004232
+
+[16:37:28.154] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -3.199826, xSensAcc2: -1.293875, xSensYaw: 0.287488, rateOfTurn: -2.390228, wheelSp1: %&7f, wheelSp2: -6.425369, wheelSp3: -7.293664, wheelSp4: -6.888446
+
+[16:37:28.170] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.072065, xSensAcc2: 1.052709, xSensYaw: 0.266416, rateOfTurn: -2.321752, wheelSp1: %&7f, wheelSp2: -6.425369, wheelSp3: -6.714801, wheelSp4: -6.599014
+
+[16:37:28.187] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.285377, xSensAcc2: -0.746676, xSensYaw: 0.227604, rateOfTurn: -2.205127, wheelSp1: %&7f, wheelSp2: -6.020174, wheelSp3: -6.135937, wheelSp4: -6.078055
+
+[16:37:28.203] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.628359, xSensAcc2: 0.429398, xSensYaw: 0.188558, rateOfTurn: -2.037466, wheelSp1: %&7f, wheelSp2: -5.441310, wheelSp3: -4.978210, wheelSp4: -5.441310
+
+[16:37:28.220] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.506674, xSensAcc2: -0.515895, xSensYaw: 0.173866, rateOfTurn: -1.952576, wheelSp1: %&7f, wheelSp2: -4.804565, wheelSp3: -4.630897, wheelSp4: -5.093997
+
+[16:37:28.236] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104809, xSensAcc2: -0.738085, xSensYaw: 0.141247, rateOfTurn: -1.793506, wheelSp1: %&7f, wheelSp2: -4.978210, wheelSp3: -4.804565, wheelSp4: -4.978210
+
+[16:37:28.252] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.379091, xSensAcc2: 0.472029, xSensYaw: 0.113097, rateOfTurn: -1.605891, wheelSp1: %&7f, wheelSp2: -3.820483, wheelSp3: -3.878388, wheelSp4: -4.283583
+
+[16:37:28.285] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.674592, xSensAcc2: -0.087696, xSensYaw: 0.081153, rateOfTurn: -1.303677, wheelSp1: %&7f, wheelSp2: -3.125856, wheelSp3: -3.299525, wheelSp4: -3.010093
+
+[16:37:28.301] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.397221, xSensAcc2: -0.458013, xSensYaw: 0.059244, rateOfTurn: -1.153012, wheelSp1: %&7f, wheelSp2: -3.125856, wheelSp3: -3.125856, wheelSp4: -3.415288
+
+[16:37:28.334] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.044319, xSensAcc2: -0.564673, xSensYaw: 0.041805, rateOfTurn: -0.873569, wheelSp1: %&7f, wheelSp2: -1.794484, wheelSp3: -1.852366, wheelSp4: -1.794484
+
+[16:37:28.350] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.071770, xSensAcc2: -0.646978, xSensYaw: 0.037870, rateOfTurn: -0.571867, wheelSp1: %&7f, wheelSp2: -0.694639, wheelSp3: -0.810425, wheelSp4: -0.347325
+
+[16:37:28.366] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.221969, xSensAcc2: -0.196754, xSensYaw: 0.037753, rateOfTurn: -0.424625, wheelSp1: %&7f, wheelSp2: -0.520994, wheelSp3: -0.520994, wheelSp4: -0.000012
+
+[16:37:28.399] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.699994, xSensAcc2: 0.088557, xSensYaw: 0.045996, rateOfTurn: 0.048836, wheelSp1: %&7f, wheelSp2: 0.463088, wheelSp3: 0.289420, wheelSp4: 0.694615
+
+[16:37:28.416] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.294985, xSensAcc2: -0.461715, xSensYaw: 0.049255, rateOfTurn: 0.136986, wheelSp1: %&7f, wheelSp2: 0.347302, wheelSp3: 0.173657, wheelSp4: 0.405184
+
+[16:37:28.432] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.642624, xSensAcc2: -0.061875, xSensYaw: 0.055612, rateOfTurn: 0.246719, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 0.984047, wheelSp4: 0.984047
+
+[16:37:28.448] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.712823, xSensAcc2: -0.182737, xSensYaw: 0.058848, rateOfTurn: 0.277196, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.752497, wheelSp4: 0.868284
+
+[16:37:28.465] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.413891, xSensAcc2: -0.108068, xSensYaw: 0.065414, rateOfTurn: 0.304088, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.926165, wheelSp4: 0.752497
+
+[16:37:28.481] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.131677, xSensAcc2: -0.314123, xSensYaw: 0.068604, rateOfTurn: 0.271469, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.463088, wheelSp4: 0.347302
+
+[16:37:28.546] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.227301, xSensAcc2: -0.373938, xSensYaw: 0.066601, rateOfTurn: -0.002922, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:28.563] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.087742, xSensAcc2: -0.296056, xSensYaw: 0.067486, rateOfTurn: -0.003295, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.115752
+
+[16:37:28.579] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.009348, xSensAcc2: -0.179664, xSensYaw: 0.067672, rateOfTurn: 0.011863, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.595] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.035262, xSensAcc2: -0.192213, xSensYaw: 0.067439, rateOfTurn: 0.013353, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:28.612] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.154122, xSensAcc2: -0.361388, xSensYaw: 0.067207, rateOfTurn: 0.002177, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:28.628] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.085088, xSensAcc2: -0.318640, xSensYaw: 0.067323, rateOfTurn: -0.000105, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:28.644] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.053609, xSensAcc2: -0.269304, xSensYaw: 0.067486, rateOfTurn: 0.003318, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:28.660] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.677] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.693] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.726] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.742] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.758] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.775] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075286, xSensAcc2: -0.247371, xSensYaw: 0.067579, rateOfTurn: 0.005972, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:28.824] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.028533, xSensAcc2: -0.227534, xSensYaw: 0.067276, rateOfTurn: 0.000640, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.115775
+
+[16:37:28.840] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.073470, xSensAcc2: -0.292913, xSensYaw: 0.085810, rateOfTurn: -0.011397, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.173680, wheelSp4: -0.173680
+
+[16:37:28.857] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.145484, xSensAcc2: -0.336079, xSensYaw: 0.084296, rateOfTurn: -0.036357, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.289443, wheelSp4: -0.231562
+
+[16:37:28.873] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.132958, xSensAcc2: -0.348373, xSensYaw: 0.083318, rateOfTurn: -0.049814, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.231562, wheelSp4: -0.347325
+
+[16:37:28.889] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.168977, xSensAcc2: -0.354496, xSensYaw: 0.080455, rateOfTurn: -0.086695, wheelSp1: %&7f, wheelSp2: -0.405207, wheelSp3: -0.520994, wheelSp4: -0.405207
+
+[16:37:28.906] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.126974, xSensAcc2: -0.308023, xSensYaw: 0.076822, rateOfTurn: -0.126252, wheelSp1: %&7f, wheelSp2: -0.578875, wheelSp3: -0.405207, wheelSp4: -0.405207
+
+[16:37:28.954] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.001548, xSensAcc2: -0.354287, xSensYaw: 0.069162, rateOfTurn: -0.152725, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.520994, wheelSp4: -0.463112
+
+[16:37:28.971] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.064366, xSensAcc2: -0.431866, xSensYaw: 0.067998, rateOfTurn: -0.141782, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.636757, wheelSp4: -0.347325
+
+[16:37:28.987] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.165484, xSensAcc2: -0.443950, xSensYaw: 0.064902, rateOfTurn: -0.135007, wheelSp1: %&7f, wheelSp2: -0.694639, wheelSp3: -0.752520, wheelSp4: -0.347325
+
+[16:37:29.003] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.191957, xSensAcc2: -0.140013, xSensYaw: 0.060897, rateOfTurn: -0.154309, wheelSp1: %&7f, wheelSp2: -0.694639, wheelSp3: -0.752520, wheelSp4: -0.463112
+
+[16:37:29.020] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.182877, xSensAcc2: -0.092771, xSensYaw: 0.058755, rateOfTurn: -0.169862, wheelSp1: %&7f, wheelSp2: -0.752520, wheelSp3: -0.810425, wheelSp4: -0.636757
+
+[16:37:29.036] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.159617, xSensAcc2: -0.161270, xSensYaw: 0.052748, rateOfTurn: -0.219012, wheelSp1: %&7f, wheelSp2: -0.926189, wheelSp3: -1.099857, wheelSp4: -0.984070
+
+[16:37:29.052] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.188395, xSensAcc2: -0.349374, xSensYaw: 0.043807, rateOfTurn: -0.299804, wheelSp1: %&7f, wheelSp2: -1.157739, wheelSp3: -1.157739, wheelSp4: -1.157739
+
+[16:37:29.069] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.189862, xSensAcc2: -0.216055, xSensYaw: 0.039244, rateOfTurn: -0.343227, wheelSp1: %&7f, wheelSp2: -1.215620, wheelSp3: -1.157739, wheelSp4: -1.389289
+
+[16:37:29.085] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.122038, xSensAcc2: -0.403903, xSensYaw: 0.029698, rateOfTurn: -0.415032, wheelSp1: %&7f, wheelSp2: -1.215620, wheelSp3: -1.099857, wheelSp4: -1.389289
+
+[16:37:29.118] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.257755, xSensAcc2: -0.359060, xSensYaw: 0.016775, rateOfTurn: -0.438339, wheelSp1: %&7f, wheelSp2: -1.041952, wheelSp3: -0.810425, wheelSp4: -1.447170
+
+[16:37:29.151] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.464160, xSensAcc2: -0.744464, xSensYaw: 0.007113, rateOfTurn: -0.296498, wheelSp1: %&7f, wheelSp2: -0.347325, wheelSp3: -0.405207, wheelSp4: -0.752520
+
+[16:37:29.167] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.473077, xSensAcc2: -0.964280, xSensYaw: 0.008417, rateOfTurn: -0.214495, wheelSp1: %&7f, wheelSp2: 7.293641, wheelSp3: 7.467286, wheelSp4: 5.730719
+
+[16:37:29.183] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.888322, xSensAcc2: -0.945677, xSensYaw: 0.096939, rateOfTurn: 1.146889, wheelSp1: %&7f, wheelSp2: 27.553749, wheelSp3: 25.527750, wheelSp4: 19.276037
+
+[16:37:29.199] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.781174, xSensAcc2: 7.193966, xSensYaw: 0.251608, rateOfTurn: 3.796245, wheelSp1: %&7f, wheelSp2: 34.152775, wheelSp3: 29.695534, wheelSp4: 24.196354
+
+[16:37:29.216] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.509204, xSensAcc2: -4.579418, xSensYaw: 0.361830, rateOfTurn: 5.510671, wheelSp1: %&7f, wheelSp2: 41.099091, wheelSp3: 31.837320, wheelSp4: 31.200575
+
+[16:37:29.232] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.292773, xSensAcc2: 2.113765, xSensYaw: 0.592752, rateOfTurn: 8.457725, wheelSp1: %&7f, wheelSp2: 40.751778, wheelSp3: 33.226597, wheelSp4: 34.094894
+
+[16:37:29.265] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.206431, xSensAcc2: 2.652861, xSensYaw: 0.973407, rateOfTurn: 11.343660, wheelSp1: %&7f, wheelSp2: 35.252598, wheelSp3: 35.542030, wheelSp4: 36.120892
+
+[16:37:29.281] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 4.317297, xSensAcc2: 3.507861, xSensYaw: 1.216342, rateOfTurn: 11.998287, wheelSp1: %&7f, wheelSp2: 33.979107, wheelSp3: 35.773579, wheelSp4: 36.815517
+
+[16:37:29.297] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.693661, xSensAcc2: -0.341621, xSensYaw: 1.333898, rateOfTurn: 12.061803, wheelSp1: %&7f, wheelSp2: 33.284481, wheelSp3: 34.384300, wheelSp4: 36.410324
+
+[16:37:29.314] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.141992, xSensAcc2: 0.312866, xSensYaw: 1.563330, rateOfTurn: 11.859567, wheelSp1: %&7f, wheelSp2: 31.547888, wheelSp3: 33.689674, wheelSp4: 34.963165
+
+[16:37:29.346] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.851977, xSensAcc2: -2.118375, xSensYaw: 1.889572, rateOfTurn: 11.291344, wheelSp1: %&7f, wheelSp2: 28.769358, wheelSp3: 30.563829, wheelSp4: 32.995049
+
+[16:37:29.363] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.192260, xSensAcc2: -1.141231, xSensYaw: 2.089294, rateOfTurn: 10.766589, wheelSp1: %&7f, wheelSp2: 27.148554, wheelSp3: 28.595713, wheelSp4: 30.158634
+
+[16:37:29.379] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.032398, xSensAcc2: 1.800375, xSensYaw: 2.272159, rateOfTurn: 10.081555, wheelSp1: %&7f, wheelSp2: 24.427904, wheelSp3: 25.875063, wheelSp4: 28.132612
+
+[16:37:29.395] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.272936, xSensAcc2: -1.295668, xSensYaw: 2.355070, rateOfTurn: 9.684299, wheelSp1: %&7f, wheelSp2: 23.906946, wheelSp3: 25.354082, wheelSp4: 27.785299
+
+[16:37:29.412] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.031591, xSensAcc2: -1.107820, xSensYaw: 2.525851, rateOfTurn: 9.066088, wheelSp1: %&7f, wheelSp2: 22.922863, wheelSp3: 24.427904, wheelSp4: 26.453926
+
+[16:37:29.428] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -5.982921, xSensAcc2: -4.289939, xSensYaw: 2.670789, rateOfTurn: 8.257188, wheelSp1: %&7f, wheelSp2: 11.229876, wheelSp3: 17.771021, wheelSp4: 16.786938
+
+[16:37:29.444] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.846817, xSensAcc2: -2.730184, xSensYaw: 2.705574, rateOfTurn: 7.534760, wheelSp1: %&7f, wheelSp2: 13.834762, wheelSp3: 12.966467, wheelSp4: 14.760939
+
+[16:37:29.461] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -6.197824, xSensAcc2: -1.670641, xSensYaw: 2.759055, rateOfTurn: 5.563477, wheelSp1: %&7f, wheelSp2: 6.772659, wheelSp3: 8.509250, wheelSp4: 11.229876
+
+[16:37:29.477] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 3.555964, xSensAcc2: -2.356258, xSensYaw: 2.778147, rateOfTurn: 3.347837, wheelSp1: %&7f, wheelSp2: 4.399323, wheelSp3: 4.167797, wheelSp4: 5.904364
+
+[16:37:29.493] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.548622, xSensAcc2: 1.772249, xSensYaw: 2.779521, rateOfTurn: 2.495816, wheelSp1: %&7f, wheelSp2: 2.315443, wheelSp3: 2.662756, wheelSp4: 3.704696
+
+[16:37:29.510] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.644696, xSensAcc2: 0.358245, xSensYaw: 2.779288, rateOfTurn: 1.164863, wheelSp1: %&7f, wheelSp2: 1.562911, wheelSp3: 1.099834, wheelSp4: 2.662756
+
+[16:37:29.526] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.399479, xSensAcc2: 0.205694, xSensYaw: 2.783781, rateOfTurn: 0.575243, wheelSp1: %&7f, wheelSp2: 0.520970, wheelSp3: 0.520970, wheelSp4: 0.405184
+
+[16:37:29.542] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.333448, xSensAcc2: -0.027881, xSensYaw: 2.785365, rateOfTurn: 0.423950, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.347302, wheelSp4: 0.810402
+
+[16:37:29.559] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.142201, xSensAcc2: 0.067742, xSensYaw: 2.784969, rateOfTurn: 0.278221, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.115752, wheelSp4: -0.347325
+
+[16:37:29.575] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.086206, xSensAcc2: -0.409025, xSensYaw: 2.785225, rateOfTurn: 0.198034, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: -0.173680, wheelSp4: -0.289443
+
+[16:37:29.591] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.343577, xSensAcc2: -0.308955, xSensYaw: 2.783828, rateOfTurn: 0.063016, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.057893, wheelSp4: -0.347325
+
+[16:37:29.608] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.428443, xSensAcc2: -0.224507, xSensYaw: 2.783223, rateOfTurn: 0.000966, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:29.624] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.691938, xSensAcc2: -0.327674, xSensYaw: 2.782920, rateOfTurn: -0.013516, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:29.640] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.657] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.673] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.689] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.706] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.722] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.755] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.276824, xSensAcc2: -0.273378, xSensYaw: 2.783362, rateOfTurn: -0.006694, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:29.771] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.176916, xSensAcc2: -0.274985, xSensYaw: 2.783293, rateOfTurn: 0.001432, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:29.787] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.178616, xSensAcc2: -0.288954, xSensYaw: 2.783362, rateOfTurn: 0.001548, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:29.804] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.057544, xSensAcc2: 0.000338, xSensYaw: 2.784410, rateOfTurn: 0.023853, wheelSp1: %&7f, wheelSp2: 0.520970, wheelSp3: 1.389266, wheelSp4: 0.926165
+
+[16:37:29.820] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.153400, xSensAcc2: -0.144437, xSensYaw: 2.789346, rateOfTurn: 0.103528, wheelSp1: %&7f, wheelSp2: 1.505029, wheelSp3: 1.331361, wheelSp4: 1.331361
+
+[16:37:29.836] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.065134, xSensAcc2: 0.136124, xSensYaw: 2.806738, rateOfTurn: 0.362971, wheelSp1: %&7f, wheelSp2: 2.257538, wheelSp3: 2.083892, wheelSp4: 2.083892
+
+[16:37:29.853] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.288590, xSensAcc2: -0.111724, xSensYaw: 2.827390, rateOfTurn: 0.698853, wheelSp1: %&7f, wheelSp2: 3.125833, wheelSp3: 3.067951, wheelSp4: 2.662756
+
+[16:37:29.869] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.105065, xSensAcc2: -0.265299, xSensYaw: 2.839102, rateOfTurn: 0.825978, wheelSp1: %&7f, wheelSp2: 3.588933, wheelSp3: 3.473146, wheelSp4: 3.010069
+
+[16:37:29.885] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.199943, xSensAcc2: -0.455242, xSensYaw: 2.865179, rateOfTurn: 1.049426, wheelSp1: %&7f, wheelSp2: 3.531028, wheelSp3: 4.052010, wheelSp4: 3.878365
+
+[16:37:29.902] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.268861, xSensAcc2: -0.117149, xSensYaw: 2.894399, rateOfTurn: 1.235784, wheelSp1: %&7f, wheelSp2: 3.878365, wheelSp3: 4.052010, wheelSp4: 4.457205
+
+[16:37:29.918] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.427046, xSensAcc2: -0.402413, xSensYaw: 2.907996, rateOfTurn: 1.300254, wheelSp1: %&7f, wheelSp2: 3.588933, wheelSp3: 3.704696, wheelSp4: 4.109891
+
+[16:37:29.951] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.367302, xSensAcc2: -0.874337, xSensYaw: 2.955378, rateOfTurn: 1.251243, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.704696, wheelSp4: 3.357383
+
+[16:37:29.967] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.435149, xSensAcc2: -0.559294, xSensYaw: 2.965366, rateOfTurn: 1.198647, wheelSp1: %&7f, wheelSp2: 3.125833, wheelSp3: 3.241620, wheelSp4: 3.010069
+
+[16:37:29.983] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.077288, xSensAcc2: -0.758108, xSensYaw: 2.985622, rateOfTurn: 1.102744, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 2.720638, wheelSp4: 3.473146
+
+[16:37:30.000] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.295528, xSensAcc2: 0.202574, xSensYaw: 2.994959, rateOfTurn: 1.052942, wheelSp1: %&7f, wheelSp2: 2.604851, wheelSp3: 2.199656, wheelSp4: 3.183715
+
+[16:37:30.016] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.365998, xSensAcc2: 0.278640, xSensYaw: 3.008836, rateOfTurn: 0.924861, wheelSp1: %&7f, wheelSp2: 1.620792, wheelSp3: 2.083892, wheelSp4: 2.431206
+
+[16:37:30.032] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.129791, xSensAcc2: 0.158104, xSensYaw: 3.017799, rateOfTurn: 0.736385, wheelSp1: %&7f, wheelSp2: 1.099834, wheelSp3: 1.273479, wheelSp4: 0.752497
+
+[16:37:30.049] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.126206, xSensAcc2: -0.289583, xSensYaw: 3.020803, rateOfTurn: 0.621343, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 1.331361, wheelSp4: 0.520970
+
+[16:37:30.065] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.394613, xSensAcc2: -0.459317, xSensYaw: 3.022293, rateOfTurn: 0.390352, wheelSp1: %&7f, wheelSp2: 1.157715, wheelSp3: 0.752497, wheelSp4: 0.405184
+
+[16:37:30.114] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.314845, xSensAcc2: -0.480178, xSensYaw: 3.019732, rateOfTurn: 0.013539, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: 0.057870, wheelSp4: -0.057893
+
+[16:37:30.130] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.739179, xSensAcc2: 0.129745, xSensYaw: 3.018684, rateOfTurn: -0.034634, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:30.147] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.171538, xSensAcc2: -0.253913, xSensYaw: 3.020174, rateOfTurn: -0.022643, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: 0.173657, wheelSp4: 0.289420
+
+[16:37:30.179] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.261643, xSensAcc2: -0.192330, xSensYaw: 3.031699, rateOfTurn: 0.197615, wheelSp1: %&7f, wheelSp2: 0.984047, wheelSp3: 0.984047, wheelSp4: 0.810402
+
+[16:37:30.196] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.241410, xSensAcc2: -0.251282, xSensYaw: 3.035518, rateOfTurn: 0.250724, wheelSp1: %&7f, wheelSp2: 1.099834, wheelSp3: 0.926165, wheelSp4: 0.810402
+
+[16:37:30.212] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.041595, xSensAcc2: -0.728073, xSensYaw: 3.043411, rateOfTurn: 0.328070, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 0.926165, wheelSp4: 0.926165
+
+[16:37:30.228] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.006438, xSensAcc2: -0.406394, xSensYaw: 3.050535, rateOfTurn: 0.357802, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.520970, wheelSp4: 0.810402
+
+[16:37:30.245] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.155403, xSensAcc2: -0.414264, xSensYaw: 3.053120, rateOfTurn: 0.347488, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 0.463088, wheelSp4: 0.752497
+
+[16:37:30.261] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.273145, xSensAcc2: 0.142690, xSensYaw: 3.057381, rateOfTurn: 0.301597, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.405184, wheelSp4: 0.694615
+
+[16:37:30.277] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.172609, xSensAcc2: 0.045111, xSensYaw: 3.062596, rateOfTurn: 0.267976, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 0.810402, wheelSp4: 0.636734
+
+[16:37:30.294] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.515662, xSensAcc2: 0.132492, xSensYaw: 3.066275, rateOfTurn: 0.276731, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 0.926165, wheelSp4: 0.810402
+
+[16:37:30.310] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.288605, xSensAcc2: -0.161876, xSensYaw: 3.073050, rateOfTurn: 0.304088, wheelSp1: %&7f, wheelSp2: 1.157715, wheelSp3: 1.157715, wheelSp4: 0.868284
+
+[16:37:30.376] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.238244, xSensAcc2: -0.240479, xSensYaw: 3.095006, rateOfTurn: 0.444648, wheelSp1: %&7f, wheelSp2: 1.389266, wheelSp3: 1.620792, wheelSp4: 1.678674
+
+[16:37:30.392] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.028324, xSensAcc2: -0.613753, xSensYaw: 3.106345, rateOfTurn: 0.490842, wheelSp1: %&7f, wheelSp2: 1.678674, wheelSp3: 1.505029, wheelSp4: 1.620792
+
+[16:37:30.408] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.229257, xSensAcc2: -0.626000, xSensYaw: 3.117404, rateOfTurn: 0.523555, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 1.331361, wheelSp4: 1.620792
+
+[16:37:30.425] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.151072, xSensAcc2: -0.650052, xSensYaw: 3.121921, rateOfTurn: 0.525417, wheelSp1: %&7f, wheelSp2: 0.463088, wheelSp3: 1.041929, wheelSp4: 1.041929
+
+[16:37:30.441] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.255613, xSensAcc2: -0.523764, xSensYaw: 3.126298, rateOfTurn: 0.430096, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 0.347302, wheelSp4: 0.926165
+
+[16:37:30.457] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.030349, xSensAcc2: -0.530586, xSensYaw: 3.126555, rateOfTurn: 0.265671, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.347325, wheelSp4: -0.115775
+
+[16:37:30.473] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.259245, xSensAcc2: 0.209839, xSensYaw: 3.126252, rateOfTurn: 0.174169, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.173680
+
+[16:37:30.490] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.772311, xSensAcc2: 0.072026, xSensYaw: 3.124017, rateOfTurn: 0.041106, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.231562, wheelSp4: -0.289443
+
+[16:37:30.506] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.668794, xSensAcc2: -0.224041, xSensYaw: 3.123039, rateOfTurn: -0.027276, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.173680
+
+[16:37:30.522] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.348303, xSensAcc2: -0.182178, xSensYaw: 3.122899, rateOfTurn: -0.034960, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.115775
+
+[16:37:30.539] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.304740, xSensAcc2: -0.385533, xSensYaw: 3.122992, rateOfTurn: -0.022596, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: 0.173657
+
+[16:37:30.555] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.123924, xSensAcc2: -0.335707, xSensYaw: 3.123621, rateOfTurn: 0.002596, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: 0.173657
+
+[16:37:30.588] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.092608, xSensAcc2: -0.239688, xSensYaw: 3.124273, rateOfTurn: 0.022037, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:30.604] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.202947, xSensAcc2: -0.194169, xSensYaw: 3.124320, rateOfTurn: 0.018219, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:30.620] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.239245, xSensAcc2: -0.249653, xSensYaw: 3.124273, rateOfTurn: 0.013097, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:30.637] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.669] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.686] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.702] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.718] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.735] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.751] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.253983, xSensAcc2: -0.241015, xSensYaw: 3.124226, rateOfTurn: 0.009302, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.768] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.212213, xSensAcc2: -0.232726, xSensYaw: 3.115425, rateOfTurn: 0.029954, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.115752, wheelSp4: 0.231538
+
+[16:37:30.784] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.425673, xSensAcc2: -0.444555, xSensYaw: 3.117311, rateOfTurn: 0.057544, wheelSp1: %&7f, wheelSp2: 0.347302, wheelSp3: 0.231538, wheelSp4: 0.173657
+
+[16:37:30.800] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.785117, xSensAcc2: -0.109931, xSensYaw: 3.118406, rateOfTurn: 0.067719, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.231538, wheelSp4: 0.115752
+
+[16:37:30.817] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.301807, xSensAcc2: -0.237452, xSensYaw: 3.118941, rateOfTurn: 0.069186, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.115752, wheelSp4: 0.057870
+
+[16:37:30.833] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.039942, xSensAcc2: -0.335637, xSensYaw: 3.118336, rateOfTurn: 0.035355, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:30.849] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.288745, xSensAcc2: -0.278733, xSensYaw: 3.118056, rateOfTurn: 0.018638, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:30.865] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.195589, xSensAcc2: -0.273611, xSensYaw: 3.118615, rateOfTurn: 0.007253, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:30.882] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.160944, xSensAcc2: -0.239222, xSensYaw: 3.120059, rateOfTurn: 0.029814, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: 0.173657, wheelSp4: 0.173657
+
+[16:37:30.898] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.261038, xSensAcc2: -0.236614, xSensYaw: 3.120874, rateOfTurn: 0.045274, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:30.914] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.269001, xSensAcc2: -0.251073, xSensYaw: 3.122364, rateOfTurn: 0.065437, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.289420, wheelSp4: 0.231538
+
+[16:37:30.931] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.208488, xSensAcc2: -0.268186, xSensYaw: 3.123411, rateOfTurn: 0.067230, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.231538, wheelSp4: 0.173657
+
+[16:37:30.947] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.188837, xSensAcc2: -0.265788, xSensYaw: 3.123900, rateOfTurn: 0.064925, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.289420, wheelSp4: 0.115752
+
+[16:37:30.963] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.170001, xSensAcc2: -0.236474, xSensYaw: 3.125460, rateOfTurn: 0.066461, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: 0.231538, wheelSp4: 0.347302
+
+[16:37:30.980] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.169792, xSensAcc2: -0.281667, xSensYaw: 3.127509, rateOfTurn: 0.080198, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.405184, wheelSp4: 0.347302
+
+[16:37:31.013] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.131677, xSensAcc2: -0.349304, xSensYaw: 3.130163, rateOfTurn: 0.092702, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.231538, wheelSp4: 0.115752
+
+[16:37:31.029] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.082015, xSensAcc2: -0.329420, xSensYaw: 3.130466, rateOfTurn: 0.070140, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[16:37:31.045] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.199780, xSensAcc2: -0.324252, xSensYaw: 3.130187, rateOfTurn: 0.050466, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.062] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.219408, xSensAcc2: -0.245625, xSensYaw: 3.129698, rateOfTurn: 0.014447, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.078] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.152888, xSensAcc2: -0.274659, xSensYaw: 3.130466, rateOfTurn: 0.009744, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.094] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.144856, xSensAcc2: -0.258919, xSensYaw: 3.131002, rateOfTurn: 0.018359, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.115752, wheelSp4: 0.173657
+
+[16:37:31.110] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.153144, xSensAcc2: -0.296382, xSensYaw: 3.131933, rateOfTurn: 0.037265, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.115752, wheelSp4: 0.115752
+
+[16:37:31.127] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.168255, xSensAcc2: -0.312680, xSensYaw: 3.132306, rateOfTurn: 0.037218, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[16:37:31.143] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.210677, xSensAcc2: -0.297080, xSensYaw: 3.132189, rateOfTurn: 0.029604, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.159] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.169233, xSensAcc2: -0.274496, xSensYaw: 3.131933, rateOfTurn: 0.012608, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.176] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.168558, xSensAcc2: -0.289560, xSensYaw: 3.132050, rateOfTurn: 0.007765, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.192] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.077428, xSensAcc2: -0.145484, xSensYaw: 3.132888, rateOfTurn: 0.017055, wheelSp1: %&7f, wheelSp2: 0.520970, wheelSp3: 0.115752, wheelSp4: 0.057870
+
+[16:37:31.208] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.209862, xSensAcc2: -0.233587, xSensYaw: 3.135519, rateOfTurn: 0.057241, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.405184, wheelSp4: 0.173657
+
+[16:37:31.225] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.209862, xSensAcc2: -0.233587, xSensYaw: 3.135519, rateOfTurn: 0.078126, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 0.520970, wheelSp4: 0.347302
+
+[16:37:31.241] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.292331, xSensAcc2: -0.140409, xSensYaw: 3.139034, rateOfTurn: 0.124786, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.694615, wheelSp4: 0.405184
+
+[16:37:31.258] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.343227, xSensAcc2: -0.295893, xSensYaw: -3.139919, rateOfTurn: 0.161317, wheelSp1: %&7f, wheelSp2: 0.578852, wheelSp3: 0.752497, wheelSp4: 0.636734
+
+[16:37:31.274] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.279874, xSensAcc2: -0.466092, xSensYaw: -3.137800, rateOfTurn: 0.178174, wheelSp1: %&7f, wheelSp2: 0.636734, wheelSp3: 0.752497, wheelSp4: 0.520970
+
+[16:37:31.290] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.160269, xSensAcc2: -0.458595, xSensYaw: -3.134704, rateOfTurn: 0.185089, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.405184, wheelSp4: 0.578852
+
+[16:37:31.307] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.062410, xSensAcc2: -0.316824, xSensYaw: -3.132562, rateOfTurn: 0.159128, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.000012, wheelSp4: 0.231538
+
+[16:37:31.323] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.047719, xSensAcc2: -0.413822, xSensYaw: -3.132259, rateOfTurn: 0.131887, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.173657, wheelSp4: 0.173657
+
+[16:37:31.339] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.187324, xSensAcc2: -0.356452, xSensYaw: -3.133516, rateOfTurn: 0.059872, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.173680, wheelSp4: -0.173680
+
+[16:37:31.355] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.251399, xSensAcc2: -0.244949, xSensYaw: -3.135262, rateOfTurn: -0.012189, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.173680, wheelSp4: -0.173680
+
+[16:37:31.372] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.198220, xSensAcc2: -0.270281, xSensYaw: -3.135682, rateOfTurn: -0.031770, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.115775
+
+[16:37:31.388] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.365975, xSensAcc2: -0.386650, xSensYaw: -3.135100, rateOfTurn: -0.024226, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.231538, wheelSp4: 0.057870
+
+[16:37:31.421] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.199780, xSensAcc2: -0.240665, xSensYaw: -3.132585, rateOfTurn: 0.041316, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.173657, wheelSp4: 0.173657
+
+[16:37:31.437] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.131491, xSensAcc2: -0.249420, xSensYaw: -3.131747, rateOfTurn: 0.057195, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: -0.057893, wheelSp4: 0.115752
+
+[16:37:31.453] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.128790, xSensAcc2: -0.304810, xSensYaw: -3.132236, rateOfTurn: 0.034051, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.173680, wheelSp4: -0.115775
+
+[16:37:31.470] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.070303, xSensAcc2: -0.354636, xSensYaw: -3.132888, rateOfTurn: 0.013260, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: -0.173680
+
+[16:37:31.486] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.208255, xSensAcc2: -0.312098, xSensYaw: -3.133842, rateOfTurn: -0.019034, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:31.503] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.199222, xSensAcc2: -0.294286, xSensYaw: -3.133912, rateOfTurn: -0.024692, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.519] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.206626, xSensAcc2: -0.280642, xSensYaw: -3.133237, rateOfTurn: -0.007858, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.535] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.148884, xSensAcc2: -0.245927, xSensYaw: -3.132608, rateOfTurn: 0.015146, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: -0.000012, wheelSp4: 0.057870
+
+[16:37:31.551] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.147207, xSensAcc2: -0.270654, xSensYaw: -3.132562, rateOfTurn: 0.020058, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: 0.057870
+
+[16:37:31.568] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.110024, xSensAcc2: -0.316545, xSensYaw: -3.133004, rateOfTurn: 0.010093, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:31.584] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.179664, xSensAcc2: -0.322575, xSensYaw: -3.133540, rateOfTurn: -0.006321, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:31.600] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.218849, xSensAcc2: -0.291981, xSensYaw: -3.133586, rateOfTurn: -0.009651, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.617] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.633] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.649] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.666] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.682] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.698] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.715] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.731] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.233029, xSensAcc2: -0.272889, xSensYaw: -3.133283, rateOfTurn: -0.003271, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: -0.000012
+
+[16:37:31.747] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.112609, xSensAcc2: -0.307744, xSensYaw: -3.133190, rateOfTurn: 0.005716, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.764] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.150141, xSensAcc2: -0.314007, xSensYaw: -3.133377, rateOfTurn: 0.001688, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:31.780] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.192842, xSensAcc2: -0.285252, xSensYaw: -3.133377, rateOfTurn: 0.000175, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.000012
+
+[16:37:31.796] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.198220, xSensAcc2: -0.280037, xSensYaw: -3.133377, rateOfTurn: 0.000221, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:31.829] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.726047, xSensAcc2: 0.901299, xSensYaw: -3.031490, rateOfTurn: 1.484773, wheelSp1: %&7f, wheelSp2: 34.210655, wheelSp3: 22.459787, wheelSp4: 20.954746
+
+[16:37:31.845] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.101953, xSensAcc2: -3.628724, xSensYaw: -2.957007, rateOfTurn: 2.653303, wheelSp1: %&7f, wheelSp2: 43.125114, wheelSp3: 32.879284, wheelSp4: 29.811321
+
+[16:37:31.862] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.725783, xSensAcc2: -4.404399, xSensYaw: -2.741430, rateOfTurn: 6.147113, wheelSp1: %&7f, wheelSp2: 53.081509, wheelSp3: 37.452263, wheelSp4: 36.294559
+
+[16:37:31.878] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.220184, xSensAcc2: 1.882261, xSensYaw: -2.615096, rateOfTurn: 7.838325, wheelSp1: %&7f, wheelSp2: 54.875984, wheelSp3: 40.578133, wheelSp4: 39.073090
+
+[16:37:31.894] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.651503, xSensAcc2: -3.173424, xSensYaw: -2.326269, rateOfTurn: 10.998606, wheelSp1: %&7f, wheelSp2: 49.261040, wheelSp3: 41.504311, wheelSp4: 41.909504
+
+[16:37:31.927] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.358865, xSensAcc2: -4.356226, xSensYaw: -1.876557, rateOfTurn: 13.804237, wheelSp1: %&7f, wheelSp2: 42.662014, wheelSp3: 41.330639, wheelSp4: 44.051289
+
+[16:37:31.943] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.801438, xSensAcc2: 1.133524, xSensYaw: -1.590059, rateOfTurn: 14.331785, wheelSp1: %&7f, wheelSp2: 39.999268, wheelSp3: 41.562191, wheelSp4: 42.951443
+
+[16:37:31.960] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.175473, xSensAcc2: 1.076411, xSensYaw: -1.316715, rateOfTurn: 14.165567, wheelSp1: %&7f, wheelSp2: 37.452263, wheelSp3: 39.362522, wheelSp4: 41.793716
+
+[16:37:31.976] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.630967, xSensAcc2: -2.475816, xSensYaw: -1.185027, rateOfTurn: 13.970106, wheelSp1: %&7f, wheelSp2: 35.947224, wheelSp3: 37.857483, wheelSp4: 39.999268
+
+[16:37:31.992] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.208092, xSensAcc2: -1.896487, xSensYaw: -0.934547, rateOfTurn: 13.383187, wheelSp1: %&7f, wheelSp2: 33.284481, wheelSp3: 34.789520, wheelSp4: 36.931305
+
+[16:37:32.009] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.533101, xSensAcc2: -2.758449, xSensYaw: -0.715477, rateOfTurn: 12.421689, wheelSp1: %&7f, wheelSp2: 25.411963, wheelSp3: 29.521889, wheelSp4: 29.464008
+
+[16:37:32.025] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.655305, xSensAcc2: 0.747957, xSensYaw: -0.626233, rateOfTurn: 11.731580, wheelSp1: %&7f, wheelSp2: 25.932945, wheelSp3: 29.058790, wheelSp4: 30.505949
+
+[16:37:32.041] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.638487, xSensAcc2: -2.592255, xSensYaw: -0.438851, rateOfTurn: 10.511291, wheelSp1: %&7f, wheelSp2: 20.260118, wheelSp3: 22.054592, wheelSp4: 25.643513
+
+[16:37:32.058] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.112872, xSensAcc2: 0.173028, xSensYaw: -0.322971, rateOfTurn: 8.733699, wheelSp1: %&7f, wheelSp2: 10.187936, wheelSp3: 15.802879, wheelSp4: 17.018488
+
+[16:37:32.074] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.404679, xSensAcc2: -4.170660, xSensYaw: -0.285299, rateOfTurn: 7.714576, wheelSp1: %&7f, wheelSp2: 8.335582, wheelSp3: 13.313780, wheelSp4: 13.487449
+
+[16:37:32.090] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 2.784177, xSensAcc2: -1.296832, xSensYaw: -0.242156, rateOfTurn: 5.391554, wheelSp1: %&7f, wheelSp2: 3.357383, wheelSp3: 5.325500, wheelSp4: 9.956386
+
+[16:37:32.106] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -2.227223, xSensAcc2: -1.642376, xSensYaw: -0.233494, rateOfTurn: 3.533775, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 1.678674, wheelSp4: 2.315443
+
+[16:37:32.123] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.619023, xSensAcc2: -1.120649, xSensYaw: -0.241457, rateOfTurn: 2.666505, wheelSp1: %&7f, wheelSp2: -0.463112, wheelSp3: -0.636757, wheelSp4: 1.562911
+
+[16:37:32.139] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.364485, xSensAcc2: 1.123140, xSensYaw: -0.274053, rateOfTurn: 0.826770, wheelSp1: %&7f, wheelSp2: -3.878388, wheelSp3: -3.936270, wheelSp4: -2.720661
+
+[16:37:32.156] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.270631, xSensAcc2: -0.269630, xSensYaw: -0.307790, rateOfTurn: -0.651425, wheelSp1: %&7f, wheelSp2: -4.804565, wheelSp3: -5.093997, wheelSp4: -4.688778
+
+[16:37:32.172] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.728958, xSensAcc2: 1.113547, xSensYaw: -0.330817, rateOfTurn: -1.138158, wheelSp1: %&7f, wheelSp2: -5.557074, wheelSp3: -5.267642, wheelSp4: -5.209760
+
+[16:37:32.188] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.286960, xSensAcc2: -0.750448, xSensYaw: -0.370422, rateOfTurn: -1.632527, wheelSp1: %&7f, wheelSp2: -4.399347, wheelSp3: -4.920329, wheelSp4: -4.573015
+
+[16:37:32.205] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.335614, xSensAcc2: 0.443414, xSensYaw: -0.386394, rateOfTurn: -1.747196, wheelSp1: %&7f, wheelSp2: -3.762601, wheelSp3: -4.688778, wheelSp4: -4.920329
+
+[16:37:32.237] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.546543, xSensAcc2: -0.387419, xSensYaw: -0.442180, rateOfTurn: -1.512549, wheelSp1: %&7f, wheelSp2: -3.473170, wheelSp3: -3.820483, wheelSp4: -3.299525
+
+[16:37:32.254] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.467419, xSensAcc2: -0.896992, xSensYaw: -0.453519, rateOfTurn: -1.419790, wheelSp1: %&7f, wheelSp2: -3.010093, wheelSp3: -3.588956, wheelSp4: -3.473170
+
+[16:37:32.270] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.152166, xSensAcc2: -0.002340, xSensYaw: -0.471098, rateOfTurn: -1.223956, wheelSp1: %&7f, wheelSp2: -2.315466, wheelSp3: -2.546993, wheelSp4: -3.241643
+
+[16:37:32.287] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -1.152570, xSensAcc2: 0.256149, xSensYaw: -0.489259, rateOfTurn: -1.031498, wheelSp1: %&7f, wheelSp2: -2.604874, wheelSp3: -2.720661, wheelSp4: -2.604874
+
+[16:37:32.303] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.034455, xSensAcc2: -0.214356, xSensYaw: -0.497082, rateOfTurn: -0.966166, wheelSp1: %&7f, wheelSp2: -1.215620, wheelSp3: -1.099857, wheelSp4: -1.331384
+
+[16:37:32.319] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.242249, xSensAcc2: 0.226113, xSensYaw: -0.498525, rateOfTurn: -0.651472, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.636734, wheelSp4: 0.520970
+
+[16:37:32.335] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.049465, xSensAcc2: -0.425742, xSensYaw: -0.478851, rateOfTurn: -0.067556, wheelSp1: %&7f, wheelSp2: 2.662756, wheelSp3: 2.141774, wheelSp4: 2.257538
+
+[16:37:32.352] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.032864, xSensAcc2: -0.310328, xSensYaw: -0.467768, rateOfTurn: 0.284996, wheelSp1: %&7f, wheelSp2: 3.010069, wheelSp3: 3.473146, wheelSp4: 2.894283
+
+[16:37:32.368] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.499573, xSensAcc2: -0.667863, xSensYaw: -0.436732, rateOfTurn: 0.902277, wheelSp1: %&7f, wheelSp2: 4.572992, wheelSp3: 4.283560, wheelSp4: 4.515110
+
+[16:37:32.384] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.304787, xSensAcc2: -1.051172, xSensYaw: -0.396499, rateOfTurn: 1.395366, wheelSp1: %&7f, wheelSp2: 5.614932, wheelSp3: 5.730719, wheelSp4: 5.325500
+
+[16:37:32.401] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.106819, xSensAcc2: 1.407543, xSensYaw: -0.376452, rateOfTurn: 1.588312, wheelSp1: %&7f, wheelSp2: 5.557050, wheelSp3: 5.499169, wheelSp4: 5.383382
+
+[16:37:32.417] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.765233, xSensAcc2: -1.178950, xSensYaw: -0.340270, rateOfTurn: 1.801515, wheelSp1: %&7f, wheelSp2: 5.267619, wheelSp3: 5.325500, wheelSp4: 5.441287
+
+[16:37:32.433] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.783681, xSensAcc2: 0.418758, xSensYaw: -0.301900, rateOfTurn: 1.846964, wheelSp1: %&7f, wheelSp2: 5.441287, wheelSp3: 5.846482, wheelSp4: 5.036068
+
+[16:37:32.450] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.285648, xSensAcc2: -0.084739, xSensYaw: -0.286277, rateOfTurn: 1.807779, wheelSp1: %&7f, wheelSp2: 5.267619, wheelSp3: 4.862423, wheelSp4: 4.688755
+
+[16:37:32.466] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.235753, xSensAcc2: -0.636035, xSensYaw: -0.257988, rateOfTurn: 1.693668, wheelSp1: %&7f, wheelSp2: 4.167797, wheelSp3: 4.283560, wheelSp4: 3.762578
+
+[16:37:32.482] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.264042, xSensAcc2: 0.204716, xSensYaw: -0.232004, rateOfTurn: 1.499488, wheelSp1: %&7f, wheelSp2: 3.994128, wheelSp3: 4.283560, wheelSp4: 4.341442
+
+[16:37:32.499] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 1.421955, xSensAcc2: 0.152376, xSensYaw: -0.220502, rateOfTurn: 1.412758, wheelSp1: %&7f, wheelSp2: 4.052010, wheelSp3: 3.820460, wheelSp4: 3.878365
+
+[16:37:32.515] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.050908, xSensAcc2: -0.413496, xSensYaw: -0.203738, rateOfTurn: 1.194084, wheelSp1: %&7f, wheelSp2: 2.546969, wheelSp3: 2.778519, wheelSp4: 2.315443
+
+[16:37:32.531] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.064482, xSensAcc2: -0.541296, xSensYaw: -0.189932, rateOfTurn: 0.959344, wheelSp1: %&7f, wheelSp2: 2.373324, wheelSp3: 1.736579, wheelSp4: 1.736579
+
+[16:37:32.547] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.194262, xSensAcc2: -0.337150, xSensYaw: -0.184856, rateOfTurn: 0.837923, wheelSp1: %&7f, wheelSp2: 1.910224, wheelSp3: 2.026011, wheelSp4: 2.026011
+
+[16:37:32.564] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.044995, xSensAcc2: -0.406743, xSensYaw: -0.173377, rateOfTurn: 0.691984, wheelSp1: %&7f, wheelSp2: 1.562911, wheelSp3: 1.794461, wheelSp4: 2.026011
+
+[16:37:32.580] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.404322, xSensAcc2: -0.148651, xSensYaw: -0.162364, rateOfTurn: 0.602787, wheelSp1: %&7f, wheelSp2: 1.910224, wheelSp3: 1.447147, wheelSp4: 1.620792
+
+[16:37:32.597] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.352680, xSensAcc2: -0.123971, xSensYaw: -0.158104, rateOfTurn: 0.577664, wheelSp1: %&7f, wheelSp2: 1.041929, wheelSp3: 1.273479, wheelSp4: 1.562911
+
+[16:37:32.613] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.629] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.662] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.678] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.694] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.711] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.727] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.796409, xSensAcc2: -0.287395, xSensYaw: -0.155426, rateOfTurn: 0.516966, wheelSp1: %&7f, wheelSp2: 0.752497, wheelSp3: 1.157715, wheelSp4: 1.157715
+
+[16:37:32.744] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.134215, xSensAcc2: -0.269816, xSensYaw: -0.163412, rateOfTurn: 0.023365, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.173657
+
+[16:37:32.760] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.328629, xSensAcc2: -0.411470, xSensYaw: -0.162621, rateOfTurn: 0.021339, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.115752, wheelSp4: 0.115752
+
+[16:37:32.776] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.009302, xSensAcc2: -0.292284, xSensYaw: -0.162155, rateOfTurn: 0.026973, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.173657, wheelSp4: 0.173657
+
+[16:37:32.793] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.129675, xSensAcc2: -0.178430, xSensYaw: -0.160222, rateOfTurn: 0.055030, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.231538, wheelSp4: 0.405184
+
+[16:37:32.809] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.177289, xSensAcc2: -0.197615, xSensYaw: -0.154681, rateOfTurn: 0.129209, wheelSp1: %&7f, wheelSp2: 0.810402, wheelSp3: 0.578852, wheelSp4: 0.636734
+
+[16:37:32.825] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.259199, xSensAcc2: -0.171724, xSensYaw: -0.151235, rateOfTurn: 0.180292, wheelSp1: %&7f, wheelSp2: 0.810402, wheelSp3: 0.868284, wheelSp4: 0.868284
+
+[16:37:32.842] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.252516, xSensAcc2: -0.068208, xSensYaw: -0.101363, rateOfTurn: 0.274007, wheelSp1: %&7f, wheelSp2: 0.926165, wheelSp3: 1.041929, wheelSp4: 0.868284
+
+[16:37:32.858] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.139454, xSensAcc2: -0.227138, xSensYaw: -0.095309, rateOfTurn: 0.312563, wheelSp1: %&7f, wheelSp2: 1.099834, wheelSp3: 1.099834, wheelSp4: 0.868284
+
+[16:37:32.874] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.153889, xSensAcc2: -0.344508, xSensYaw: -0.091607, rateOfTurn: 0.324997, wheelSp1: %&7f, wheelSp2: 1.215597, wheelSp3: 0.984047, wheelSp4: 0.984047
+
+[16:37:32.890] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.205904, xSensAcc2: -0.234495, xSensYaw: -0.081758, rateOfTurn: 0.375265, wheelSp1: %&7f, wheelSp2: 1.273479, wheelSp3: 1.562911, wheelSp4: 1.215597
+
+[16:37:32.907] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.306929, xSensAcc2: -0.485533, xSensYaw: -0.071304, rateOfTurn: 0.450772, wheelSp1: %&7f, wheelSp2: 1.620792, wheelSp3: 1.505029, wheelSp4: 1.562911
+
+[16:37:32.923] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.255380, xSensAcc2: -0.540575, xSensYaw: -0.064971, rateOfTurn: 0.493962, wheelSp1: %&7f, wheelSp2: 1.331361, wheelSp3: 1.562911, wheelSp4: 1.562911
+
+[16:37:32.939] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.021525, xSensAcc2: -0.554265, xSensYaw: -0.052748, rateOfTurn: 0.551937, wheelSp1: %&7f, wheelSp2: 1.505029, wheelSp3: 1.331361, wheelSp4: 1.852342
+
+[16:37:32.956] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.820181, xSensAcc2: 0.038173, xSensYaw: -0.046671, rateOfTurn: 0.576104, wheelSp1: %&7f, wheelSp2: 1.331361, wheelSp3: 0.868284, wheelSp4: 1.852342
+
+[16:37:32.988] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.166881, xSensAcc2: -0.217662, xSensYaw: -0.033795, rateOfTurn: 0.519038, wheelSp1: %&7f, wheelSp2: 0.868284, wheelSp3: 0.984047, wheelSp4: 1.099834
+
+[16:37:33.005] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.151328, xSensAcc2: -0.075076, xSensYaw: -0.031840, rateOfTurn: 0.459806, wheelSp1: %&7f, wheelSp2: 0.520970, wheelSp3: 0.463088, wheelSp4: 0.578852
+
+[16:37:33.037] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.120967, xSensAcc2: -0.131864, xSensYaw: -0.037008, rateOfTurn: 0.052305, wheelSp1: %&7f, wheelSp2: -0.231562, wheelSp3: -0.231562, wheelSp4: -0.578875
+
+[16:37:33.054] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.010279, xSensAcc2: -0.462250, xSensYaw: -0.038871, rateOfTurn: -0.033865, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.057893, wheelSp4: -0.347325
+
+[16:37:33.086] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.409374, xSensAcc2: -0.500318, xSensYaw: -0.038499, rateOfTurn: -0.044063, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.289420, wheelSp4: 0.289420
+
+[16:37:33.103] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.324368, xSensAcc2: -0.412122, xSensYaw: -0.036869, rateOfTurn: 0.003993, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.231538, wheelSp4: 0.463088
+
+[16:37:33.119] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.384578, xSensAcc2: -0.216335, xSensYaw: -0.034890, rateOfTurn: 0.070652, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.173657, wheelSp4: 0.231538
+
+[16:37:33.135] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.030117, xSensAcc2: -0.068883, xSensYaw: -0.035425, rateOfTurn: 0.060711, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: 0.057870
+
+[16:37:33.152] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.103971, xSensAcc2: -0.180944, xSensYaw: -0.036031, rateOfTurn: 0.035029, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:33.168] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.147463, xSensAcc2: -0.384718, xSensYaw: -0.036333, rateOfTurn: -0.002526, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:33.184] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.199757, xSensAcc2: -0.233541, xSensYaw: -0.035239, rateOfTurn: 0.007835, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.173657, wheelSp4: 0.173657
+
+[16:37:33.201] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.177429, xSensAcc2: -0.256172, xSensYaw: -0.034284, rateOfTurn: 0.026834, wheelSp1: %&7f, wheelSp2: 0.173657, wheelSp3: 0.173657, wheelSp4: 0.405184
+
+[16:37:33.217] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.068976, xSensAcc2: -0.397547, xSensYaw: -0.031770, rateOfTurn: 0.073772, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.463088, wheelSp4: 0.578852
+
+[16:37:33.233] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.237522, xSensAcc2: -0.227394, xSensYaw: -0.028021, rateOfTurn: 0.122038, wheelSp1: %&7f, wheelSp2: 0.463088, wheelSp3: 0.578852, wheelSp4: 0.463088
+
+[16:37:33.250] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.088441, xSensAcc2: -0.180339, xSensYaw: -0.026275, rateOfTurn: 0.140385, wheelSp1: %&7f, wheelSp2: 0.578852, wheelSp3: 0.405184, wheelSp4: 0.405184
+
+[16:37:33.266] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.142085, xSensAcc2: -0.185415, xSensYaw: -0.023528, rateOfTurn: 0.154844, wheelSp1: %&7f, wheelSp2: 0.578852, wheelSp3: 0.463088, wheelSp4: 0.347302
+
+[16:37:33.282] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.167300, xSensAcc2: -0.334682, xSensYaw: -0.021851, rateOfTurn: 0.133493, wheelSp1: %&7f, wheelSp2: 0.405184, wheelSp3: 0.231538, wheelSp4: 0.231538
+
+[16:37:33.315] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.122527, xSensAcc2: -0.432425, xSensYaw: -0.020827, rateOfTurn: 0.077754, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.173657, wheelSp4: 0.231538
+
+[16:37:33.348] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.053935, xSensAcc2: -0.276731, xSensYaw: -0.019406, rateOfTurn: 0.052236, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.173657, wheelSp4: 0.347302
+
+[16:37:33.364] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.126671, xSensAcc2: -0.177801, xSensYaw: -0.017311, rateOfTurn: 0.069069, wheelSp1: %&7f, wheelSp2: 0.231538, wheelSp3: 0.231538, wheelSp4: 0.405184
+
+[16:37:33.380] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.015774, xSensAcc2: -0.196521, xSensYaw: -0.015565, rateOfTurn: 0.088534, wheelSp1: %&7f, wheelSp2: 0.347302, wheelSp3: 0.405184, wheelSp4: 0.520970
+
+[16:37:33.397] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.017870, xSensAcc2: -0.227557, xSensYaw: -0.011211, rateOfTurn: 0.141852, wheelSp1: %&7f, wheelSp2: 0.694615, wheelSp3: 0.694615, wheelSp4: 0.463088
+
+[16:37:33.446] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.213820, xSensAcc2: -0.387628, xSensYaw: -0.001595, rateOfTurn: 0.194472, wheelSp1: %&7f, wheelSp2: 0.347302, wheelSp3: 0.289420, wheelSp4: 0.405184
+
+[16:37:33.462] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.104320, xSensAcc2: -0.230491, xSensYaw: -0.016380, rateOfTurn: 0.142993, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: -0.173680, wheelSp4: 0.231538
+
+[16:37:33.494] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.127393, xSensAcc2: -0.437128, xSensYaw: -0.015378, rateOfTurn: 0.069139, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.511] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.205694, xSensAcc2: -0.255194, xSensYaw: -0.015332, rateOfTurn: 0.040571, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[16:37:33.527] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.036077, xSensAcc2: -0.249234, xSensYaw: -0.015006, rateOfTurn: 0.034494, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[16:37:33.592] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.280619, xSensYaw: -0.010466, rateOfTurn: 0.068347, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.625] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.280619, xSensYaw: -0.010466, rateOfTurn: 0.068347, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.642] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.280619, xSensYaw: -0.010466, rateOfTurn: 0.068347, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.658] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.280619, xSensYaw: -0.010466, rateOfTurn: 0.068347, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.674] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.280619, xSensYaw: -0.010466, rateOfTurn: 0.068347, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.707] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.116427, xSensAcc2: -0.280619, xSensYaw: -0.010466, rateOfTurn: 0.068347, wheelSp1: %&7f, wheelSp2: 0.289420, wheelSp3: 0.173657, wheelSp4: 0.115752
+
+[16:37:33.723] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075542, xSensAcc2: -0.302366, xSensYaw: -0.003178, rateOfTurn: 0.040990, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: 0.057870, wheelSp4: 0.115752
+
+[16:37:33.757] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.079151, xSensAcc2: -0.243855, xSensYaw: -0.003318, rateOfTurn: 0.010186, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:33.772] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.197475, xSensAcc2: -0.231422, xSensYaw: -0.004133, rateOfTurn: -0.005693, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:33.789] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.110513, xSensAcc2: -0.330701, xSensYaw: -0.003690, rateOfTurn: -0.007835, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:33.805] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.110513, xSensAcc2: -0.330701, xSensYaw: -0.003690, rateOfTurn: -0.003178, wheelSp1: %&7f, wheelSp2: 0.057870, wheelSp3: 0.057870, wheelSp4: -0.057893
+
+[16:37:33.821] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.042387, xSensAcc2: -0.371656, xSensYaw: -0.003178, rateOfTurn: 0.012817, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:33.838] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: -0.002224, xSensAcc2: -0.280852, xSensYaw: -0.003644, rateOfTurn: 0.008347, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:33.887] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.102085, xSensAcc2: -0.326789, xSensYaw: -0.003946, rateOfTurn: -0.003597, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.057870, wheelSp4: 0.057870
+
+[16:37:33.903] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.168488, xSensAcc2: -0.364182, xSensYaw: -0.003458, rateOfTurn: 0.007695, wheelSp1: %&7f, wheelSp2: 0.115752, wheelSp3: 0.115752, wheelSp4: 0.057870
+
+[16:37:33.919] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.117870, xSensAcc2: -0.314030, xSensYaw: -0.003108, rateOfTurn: 0.019849, wheelSp1: %&7f, wheelSp2: -0.115775, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:33.936] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.072282, xSensAcc2: -0.210234, xSensYaw: -0.003970, rateOfTurn: 0.006671, wheelSp1: %&7f, wheelSp2: -0.057893, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:33.952] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.082597, xSensAcc2: -0.257033, xSensYaw: -0.004272, rateOfTurn: -0.003714, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.057893, wheelSp4: -0.057893
+
+[16:37:33.968] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.087067, xSensAcc2: -0.299478, xSensYaw: -0.004249, rateOfTurn: -0.012026, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.034] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.036776, xSensAcc2: -0.251841, xSensYaw: -0.004133, rateOfTurn: 0.000780, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.057893
+
+[16:37:34.099] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.149792, xSensAcc2: -0.296638, xSensYaw: -0.003807, rateOfTurn: 0.007416, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.115] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.086322, xSensAcc2: -0.253215, xSensYaw: -0.003900, rateOfTurn: 0.005926, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.132] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.072469, xSensAcc2: -0.241806, xSensYaw: -0.003946, rateOfTurn: 0.004063, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.148] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.098220, xSensAcc2: -0.298757, xSensYaw: -0.003923, rateOfTurn: 0.002084, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.164] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.114564, xSensAcc2: -0.295544, xSensYaw: -0.004016, rateOfTurn: 0.001595, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.181] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.094681, xSensAcc2: -0.289094, xSensYaw: -0.004016, rateOfTurn: 0.002014, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.213] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.081223, xSensAcc2: -0.284764, xSensYaw: -0.003970, rateOfTurn: 0.003667, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.230] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.075845, xSensAcc2: -0.304112, xSensYaw: -0.003970, rateOfTurn: 0.003667, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.279] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.087696, xSensAcc2: -0.304158, xSensYaw: -0.003970, rateOfTurn: 0.003062, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.344] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.092445, xSensAcc2: -0.298617, xSensYaw: -0.003993, rateOfTurn: 0.003411, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
+[16:37:34.377] Team: YELLOWId:  7, MsgId:     0, xSensAcc1: 0.089069, xSensAcc2: -0.277848, xSensYaw: -0.003993, rateOfTurn: 0.003760, wheelSp1: %&7f, wheelSp2: -0.000012, wheelSp3: -0.000012, wheelSp4: -0.000012
+
