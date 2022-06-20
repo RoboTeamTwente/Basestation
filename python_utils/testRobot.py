@@ -19,6 +19,7 @@ from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedbac
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
 from roboteam_embedded_messages.python.REM_RobotGetPIDGains import REM_RobotGetPIDGains
+from roboteam_embedded_messages.python.REM_RobotSetPIDGains import REM_RobotSetPIDGains
 from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
 from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
 from roboteam_embedded_messages.python.REM_RobotPIDGains import REM_RobotPIDGains
@@ -27,6 +28,11 @@ from roboteam_embedded_messages.python.REM_BasestationLog import REM_Basestation
 from roboteam_embedded_messages.python.REM_BasestationGetConfiguration import REM_BasestationGetConfiguration
 from roboteam_embedded_messages.python.REM_BasestationSetConfiguration import REM_BasestationSetConfiguration
 from roboteam_embedded_messages.python.REM_BasestationConfiguration import REM_BasestationConfiguration
+
+
+robotStateInfoFile = open(f"logs/robotStateInfo_{int(time.time())}.csv", "w+")
+robotCommandFile = open(f"logs/robotCommand_{int(time.time())}.csv", "w+")
+robotFeedbackFile = open(f"logs/robotFeedback_{int(time.time())}.csv", "w+")
 
 try:
 	import cv2
@@ -106,6 +112,36 @@ testIndex = 2
 
 # stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0674FF525750877267181714-if02"
 stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF544852707267223637-if02"
+
+def createSetPIDCommand(robot_id, PbodyX = 0.0, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.0, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 0.0, IbodyW = 0.0, DbodyW = 0.0, PbodyYaw = 0.0, IbodyYaw = 0.0, DbodyYaw = 0.0, Pwheels = 0.0, Iwheels = 0.0, Dwheels = 0.0):
+	# Create new empty setPID command
+	setPID = REM_RobotSetPIDGains()
+	setPID.header = BaseTypes.PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
+	setPID.remVersion = BaseTypes.LOCAL_REM_VERSION
+	setPID.id = robot_id
+	
+	# Set the PID gains
+	setPID.PbodyX = PbodyX
+	setPID.IbodyX = IbodyX
+	setPID.DbodyX = DbodyX
+	
+	setPID.PbodyY = PbodyY
+	setPID.IbodyY = IbodyY
+	setPID.DbodyY = DbodyY
+	
+	setPID.PbodyW = PbodyW
+	setPID.IbodyW = IbodyW
+	setPID.DbodyW = DbodyW
+	
+	#setPID.PbodyYaw = PbodyYaw
+	#setPID.IbodyYaw = IbodyYaw
+	#setPID.DbodyYaw = DbodyYaw
+	
+	setPID.Pwheels = Pwheels
+	setPID.Iwheels = Iwheels
+	setPID.Dwheels = Dwheels
+	
+	return setPID
 
 def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	log = ""
@@ -192,6 +228,7 @@ while True:
 		latest_packets = {}
 		last_robotfeedback_time = 0
 		last_robotcommand_time = 0
+		last_robotstateinfo_time = 0
 		last_basestation_log = ""
 		parser = None
 		# Visualisation
@@ -208,6 +245,13 @@ while True:
 		if parser is None and basestation is not None:
 			datetime_str = datetime.now().strftime("%Y%m%d_%H%M%S")
 			parser = REMParser(basestation, output_file=f"log_{datetime_str}.bin")
+		
+		# Create and send new PID gains (default 0)
+		# Comment these lines out to use default PID values
+		setPID = createSetPIDCommand(robot_id, PbodyX = 0.1, IbodyX = 0.0, Pwheels = 4.5) #put PID gains as arguments to change them
+		setPID_encoded = setPID.encode()
+		basestation.write(setPID_encoded)
+		parser.writeBytes(setPID_encoded)
 
 		# Continuously write -> read -> visualise
 		while True:
@@ -242,6 +286,10 @@ while True:
 				parser.writeBytes(cmd_encoded)
 				last_robotcommand_time = time.time()
 
+				# Write packet info to files (used in plotPID.py) 
+				robotCommandFile.write(f"{last_robotcommand_time} {cmd.doKick} {cmd.doChip} {cmd.doForce} {cmd.useCameraAngle} {cmd.rho} {cmd.theta} {cmd.angle} {cmd.angularVelocity} 					{cmd.cameraAngle} {cmd.dribbler} {cmd.kickChipPower} {cmd.useAbsoluteAngle} \n")
+				robotCommandFile.flush()
+				
 				# if period == 0:
 				# 	cmd = REM_BasestationGetConfiguration()
 				# 	cmd.header = BaseTypes.PACKET_TYPE_REM_BASESTATION_GET_CONFIGURATION
@@ -288,6 +336,8 @@ while True:
 				robotFeedback = latest_packets[REM_RobotFeedback]
 				latest_packets[REM_RobotFeedback] = None
 				last_robotfeedback_time = time.time()
+				robotFeedbackFile.write(f"{last_robotfeedback_time} {robotFeedback.batteryLevel} {robotFeedback.XsensCalibrated} {robotFeedback.ballSensorWorking} 							{robotFeedback.hasBall} {robotFeedback.capacitorCharged} {robotFeedback.ballPos} {robotFeedback.rho} {robotFeedback.theta} {robotFeedback.angle} 								{robotFeedback.wheelLocked} {robotFeedback.wheelBraking} {robotFeedback.rssi} \n")
+				robotFeedbackFile.flush()
 
 				# Ballsensor
 				if robotFeedback.ballSensorWorking:
@@ -309,6 +359,9 @@ while True:
 			if REM_RobotStateInfo in latest_packets and latest_packets[REM_RobotStateInfo] is not None:
 				robotStateInfo = latest_packets[REM_RobotStateInfo]
 				latest_packets[REM_RobotStateInfo] = None
+				last_robotstateinfo_time = time.time()
+				robotStateInfoFile.write(f"{last_robotstateinfo_time} {robotStateInfo.xsensAcc1} {robotStateInfo.xsensAcc2} {robotStateInfo.xsensYaw} {robotStateInfo.rateOfTurn} 					{robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4} {robotStateInfo.bodyXIntegral} 				{robotStateInfo.bodyYIntegral} {robotStateInfo.bodyWIntegral} {robotStateInfo.bodyYawIntegral} {robotStateInfo.wheel1Integral} {robotStateInfo.wheel2Integral} 					{robotStateInfo.wheel3Integral} {robotStateInfo.wheel4Integral} \n")
+				robotStateInfoFile.flush()
 
 				# XSens yaw
 				px, py = rotate((250, 250), (250, 150), -robotStateInfo.xsensYaw)
