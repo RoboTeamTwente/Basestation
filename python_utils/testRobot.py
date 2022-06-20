@@ -256,10 +256,10 @@ while True:
 		
 		# Create and send new PID gains (default 0)
 		# Comment these lines out to use default PID values
-		#setPID = createSetPIDCommand(robot_id, PbodyW = 1.0, IbodyW = 1.0) #put PID gains as arguments to change them
-		#setPID_encoded = setPID.encode()
-		#basestation.write(setPID_encoded)
-		#parser.writeBytes(setPID_encoded)
+		setPID = createSetPIDCommand(robot_id, PbodyW = 1.5, IbodyW = 4.0, DbodyW = 0.05, PbodyX = 3.3, IbodyX = 3.5, PbodyY = 3.3, IbodyY = 3.5) #put PID gains as arguments to change them
+		setPID_encoded = setPID.encode()
+		basestation.write(setPID_encoded)
+		parser.writeBytes(setPID_encoded)
 
 		# Continuously write -> read -> visualise
 		while True:

@@ -22,7 +22,7 @@ Rho, Theta = [], [] #commanded movement [m/s] and direction of movement [rad]
 Vx, Vy = [], [] #commanded x- and y velocities calculated from rho and theta
 Wc1, Wc2, Wc3, Wc4 = [], [], [], [] #commanded wheel speeds calculated from Vx and Vy
 
-plotsAvailable = ["x", "y", "w", "yaw", "wheels", "integral", "integral-wheels"]
+plotsAvailable = ["x", "y", "w", "yaw", "wheels", "integral", "integral-wheels", "filtered"]
 # Parse input arguments 
 try:
 	if len(sys.argv) not in [2,3]:
@@ -127,7 +127,7 @@ if plotID == "bode":
 if plotID == "x":
 	fig, ax = plt.subplots()
 	
-	ax.plot(Feedbacktimestamps, Vx)
+	ax.plot(Commandedtimestamps, Vx)
 	ax.plot(Feedbacktimestamps, Vex)
 	ax.set_title("Velocity in x-direction", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
@@ -139,7 +139,7 @@ if plotID == "x":
 if plotID == "y":
 	fig, ax = plt.subplots()
 	
-	ax.plot(Feedbacktimestamps, Vy)
+	ax.plot(Commandedtimestamps, Vy)
 	ax.plot(Feedbacktimestamps, Vey)
 	ax.set_title("Velocity in y-direction", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
@@ -239,4 +239,16 @@ if plotID == "integral-wheels":
 	
 	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
 	fig.text(0.04, 0.5, 'Integral value', va='center', rotation='vertical', fontsize = "x-large")
+	plt.show()
+
+if plotID == "filtered":
+	fig, ax = plt.subplots()
+	
+	ax.plot(Statetimestamps, XInt)
+	ax.plot(Statetimestamps, YInt)
+	ax.set_title("Angular velocity", fontsize = "xx-large")
+	ax.legend(["Unfiltered", "Filtered"])
+	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+	ax.set_xlabel("Time [s]", fontsize = "x-large")
+	ax.set_ylabel("Velocity [rad/s]", fontsize = "x-large")
 	plt.show()
