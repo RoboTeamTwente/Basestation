@@ -139,7 +139,7 @@ if plotID == "x":
 if plotID == "y":
 	fig, ax = plt.subplots()
 	
-	ax.plot(Feedbacktimestamps, Vy)
+	ax.plot(Commandedtimestamps, Vy)
 	ax.plot(Feedbacktimestamps, Vey)
 	ax.set_title("Velocity in y-direction", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
@@ -163,8 +163,8 @@ if plotID == "w":
 if plotID == "yaw":
 	fig, ax = plt.subplots()
 	
-	ax.plot(Feedbacktimestamps, Angle)
-	ax.plot(Feedbacktimestamps, XsensYaw)
+	ax.plot(Commandedtimestamps, Angle)
+	ax.plot(Statetimestamps, XsensYaw)
 	ax.set_title("Absolute angle", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
 	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))

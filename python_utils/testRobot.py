@@ -248,7 +248,7 @@ while True:
 		
 		# Create and send new PID gains (default 0)
 		# Comment these lines out to use default PID values
-		setPID = createSetPIDCommand(robot_id, PbodyX = 0.1, IbodyX = 0.0, Pwheels = 4.5) #put PID gains as arguments to change them
+		setPID = createSetPIDCommand(robot_id, PbodyX = 0.1, PbodyY = 0.4, Pwheels = 4.5, PbodyW = 20.0, IbodyW = 5.0) #put PID gains as arguments to change them
 		setPID_encoded = setPID.encode()
 		basestation.write(setPID_encoded)
 		parser.writeBytes(setPID_encoded)
