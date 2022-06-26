@@ -77,7 +77,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "sawtooth", "step", "u-turn"]
 
 # Parse input arguments 
 try:
@@ -111,7 +111,7 @@ testIndex = 2
 # stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0674FF525750877267181714-if02"
 stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF544852707267223637-if02"
 
-def createSetPIDCommand(robot_id, PbodyX = 0.1, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.4, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 1.3, IbodyW = 0.0, DbodyW = 0.0, PbodyYaw = 20.0, IbodyYaw = 5.0, DbodyYaw = 0.0, Pwheels = 4.5, Iwheels = 0.0, Dwheels = 0.0): # Change the default values if the robot PIDs change
+def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.3, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 1.5, IbodyW = 0.5, DbodyW = 0.0, PbodyYaw = 20.0, IbodyYaw = 5.0, DbodyYaw = 0.0, Pwheels = 2.0, Iwheels = 0.0, Dwheels = 0.0): # Change the default values if the robot PIDs change
 	# Create new empty setPID command
 	setPID = REM_RobotSetPIDGains()
 	setPID.header = BaseTypes.PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
@@ -191,16 +191,21 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		cmd.useAbsoluteAngle = 1
 		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction*5 + 0.5) % 1)
 		log = "angle = %+.3f" % cmd.angle
-
-	if test == "forward" or test == "sideways":
+	
+	if test == "sawtooth":
 		if period_fraction == 1:
 			counter += 1
-		cmd.useAbsoluteAngle = 1
-		cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
-		#cmd.rho = signal.sawtooth(2 * np.pi * period_fraction+counter, 0.5)
-		#cmd.theta = (0.5 * -np.sign(cmd.rho) + 0.5) * -math.pi
+		cmd.rho = abs(signal.sawtooth(2 * np.pi * period_fraction+counter, 0.5))
 		#cmd.rho = abs(cmd.rho)
-		if 0.5 < period_fraction : cmd.theta = -math.pi
+		cmd.theta = (0.5 * -np.sign(cmd.rho) + 0.5) * -math.pi
+		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
+	
+	if test == "step":
+		#cmd.theta = math.pi/2 #for sideways if yaw PID is 0 (local)
+		#cmd.angle = math.pi/2 #for sideways with yaw PID (global)
+		#cmd.rho = 1
+		cmd.useAbsoluteAngle = 1
+		cmd.angle = 0#math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 	
 	if test == "raised-cosine": #not working yet
@@ -215,6 +220,14 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		#if t < (2*T): cmd.theta = -math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
+	if test == "forward" or test == "sideways":
+		cmd.useAbsoluteAngle = 1
+		cmd.rho = 1.0 - 1.0 * math.cos( 4 * math.pi * period_fraction )
+		if 0.5 < period_fraction : cmd.theta = -math.pi
+		#if 0.5 < period_fraction : cmd.theta = -math.pi/2 #for sideways if yaw PID is 0 (local)
+		#else: cmd.theta = math.pi/2
+		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)	
+	
 	if test == "sideways":
 		cmd.useAbsoluteAngle = 1
 		cmd.angle = math.pi / 2
@@ -242,8 +255,15 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		
 	if test == "angular-velocity":
 		cmd.useAbsoluteAngle = 0
-		cmd.angularVelocity = 2*math.pi
+		#cmd.angularVelocity = 2*math.pi
+		cmd.angularVelocity = 2 * math.pi * period_fraction
+		#cmd.angularVelocity = 4.0 - 4.0 * math.cos( 12 * math.pi * period_fraction )
 		log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
+	
+	if test == "u-turn":
+		cmd.useAbsoluteAngle = 1
+		if 0.5 < period_fraction : cmd.angle = -math.pi
+		else: cmd.angle = 0
 
 	return cmd, log
 
@@ -284,7 +304,7 @@ while True:
 		
 		# Create and send new PID gains
 		# Comment these lines out if you're not tuning PIDs
-		#setPID = createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, PbodyY = 0.25, IbodyW = 0.5) #put PID gains as arguments to change them (unchanged keep default value)
+		#setPID = createSetPIDCommand(robot_id, Pwheels = 2.0, PbodyX = 0.0, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.0, IbodyY = 0.0, PbodyW = 0.0, IbodyW = 0.0, DbodyW = 0.0, PbodyYaw = 20.0, IbodyYaw = 5.0) #put PID gains as arguments to change them (unchanged keep default value)
 		#setPID_encoded = setPID.encode()
 		#basestation.write(setPID_encoded)
 		#parser.writeBytes(setPID_encoded)

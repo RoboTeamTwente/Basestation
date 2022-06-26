@@ -133,33 +133,9 @@ if plotID == "x":
 	fig, ax = plt.subplots()
 	
 	ax.plot(Commandedtimestamps, Vx)
-	#ax.plot(Feedbacktimestamps, VexLocal)
-	ax.plot(Feedbacktimestamps, VexGlobal)
+	ax.plot(Feedbacktimestamps, VexLocal)
+	#ax.plot(Feedbacktimestamps, VexGlobal)
 	ax.set_title("Velocity in x-direction", fontsize = "xx-large")
-	ax.legend(["Commanded", "Estimated"])
-	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	ax.set_xlabel("Time [s]", fontsize = "x-large")
-	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
-	plt.show()
-
-if plotID == "rho":
-	fig, ax = plt.subplots()
-	
-	ax.plot(Commandedtimestamps, Rho)
-	ax.plot(Feedbacktimestamps, Gamma)
-	ax.set_title("Magnitude of movement", fontsize = "xx-large")
-	ax.legend(["Commanded", "Estimated"])
-	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
-	ax.set_xlabel("Time [s]", fontsize = "x-large")
-	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
-	plt.show()
-
-if plotID == "theta":
-	fig, ax = plt.subplots()
-	
-	ax.plot(Commandedtimestamps, Theta)
-	ax.plot(Feedbacktimestamps, Phi)
-	ax.set_title("Direction of movement", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
 	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	ax.set_xlabel("Time [s]", fontsize = "x-large")
@@ -170,8 +146,8 @@ if plotID == "y":
 	fig, ax = plt.subplots()
 	
 	ax.plot(Commandedtimestamps, Vy)
-	#ax.plot(Feedbacktimestamps, VeyLocal)
-	ax.plot(Feedbacktimestamps, VeyGlobal)
+	ax.plot(Feedbacktimestamps, VeyLocal)
+	#ax.plot(Feedbacktimestamps, VeyGlobal)
 	ax.set_title("Velocity in y-direction", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
 	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
@@ -230,6 +206,30 @@ if plotID == "wheels":
 	fig.text(0.5, 0.04, "Time [s]", ha="center", fontsize = "x-large")
 	fig.text(0.04, 0.5, 'Velocity [m/s]', va='center', rotation='vertical', fontsize = "x-large")
 
+	plt.show()
+
+if plotID == "rho":
+	fig, ax = plt.subplots()
+	
+	ax.plot(Commandedtimestamps, Rho)
+	ax.plot(Feedbacktimestamps, Gamma)
+	ax.set_title("Magnitude of movement", fontsize = "xx-large")
+	ax.legend(["Commanded", "Estimated"])
+	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+	ax.set_xlabel("Time [s]", fontsize = "x-large")
+	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
+	plt.show()
+
+if plotID == "theta":
+	fig, ax = plt.subplots()
+	
+	ax.plot(Commandedtimestamps, Theta)
+	ax.plot(Feedbacktimestamps, Phi)
+	ax.set_title("Direction of movement", fontsize = "xx-large")
+	ax.legend(["Commanded", "Estimated"])
+	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+	ax.set_xlabel("Time [s]", fontsize = "x-large")
+	ax.set_ylabel("Velocity [m/s]", fontsize = "x-large")
 	plt.show()
 
 if plotID == "integral":
