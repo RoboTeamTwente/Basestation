@@ -3,9 +3,9 @@ import os
 files = [file for file in os.listdir() if file.startswith("robotStateInfo") and file.endswith(".csv")]
 
 
-# lines = open("robotStateInfo_1632500763.csv", "r").read().strip().split("\n")
-# lines = open("robotStateInfo_1632501235.csv", "r").read().strip().split("\n")
-lines = open("robotStateInfo_1632501996.csv", "r").read().strip().split("\n")
+# lines = open("logs/robotStateInfo_1632500763.csv", "r").read().strip().split("\n")
+# lines = open("logs/robotStateInfo_1632501235.csv", "r").read().strip().split("\n")
+lines = open("logs/robotStateInfo_1632501996.csv", "r").read().strip().split("\n")
 
 
 timestamps = []
