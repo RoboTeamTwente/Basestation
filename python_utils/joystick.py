@@ -49,12 +49,11 @@ class EventHandler:
 				for id in self.joystick_handler.controllers:
 					controller = self.joystick_handler.controllers[id]
 					id = int(id) + 1
-					print(f"Controller: {id} | Robot: {controller.robot_id} (Dribbler: {controller.dribbler})")
+					print(f"Controller: {id} | Robot: {controller.robot_id} (Dribbler: {controller.dribbler}) (Super: {controller.super})")
 				print()
 
 				for event in self.events:
 					print(event)
-				self.events = []
 
 				time.sleep(0.1)
 		except Exception as e:
@@ -110,11 +109,11 @@ class Joystick:
 		self.controller = controller
 		self.robot_id = robot_id
 		self.kick_speed = 3
+		self.chip_speed = 6.5
 		self.dribbler = False
 		self.absolute_angle = 0
+		self.super = False
 
-		self.A = False
-		self.B = False
 		self.X = False
 		self.Y = False
 		self.HAT_X = 0
@@ -133,8 +132,11 @@ class Joystick:
 			self.robot_id = (self.robot_id + addition) % 16
 
 	def get_payload(self):
+		if self.controller.button_select.is_pressed and self.controller.button_mode.is_pressed and self.controller.button_start.is_pressed:
+			self.super = not self.super
+		
 		# Left or right arrow pressed, loop through available robots
-		if self.HAT_X != self.controller.hat.x:
+		if self.controller.button_select.is_pressed and self.HAT_X != self.controller.hat.x:
 			self.HAT_X = self.controller.hat.x
 			self.robot_id = (self.robot_id + self.controller.hat.x) % 16
 			self.assign_open_robot(addition=self.controller.hat.x)
@@ -148,36 +150,58 @@ class Joystick:
 		# Kick or chip
 		self.command.doKick = False
 		self.command.doChip = False
-		if self.controller.button_a._value and not self.A:
-			self.command.kickChipPower = self.kick_speed
+		if self.controller.button_a._value:
+			self.command.kickChipPower = self.chip_speed if not self.super else 6.5
 			self.command.doChip = True
 			self.command.doForce = True
-		self.A = self.controller.button_a._value
 
-		if self.controller.button_b._value and not self.B:
-			self.command.kickChipPower = self.kick_speed
+		if self.controller.button_b._value:
+			self.command.kickChipPower = self.kick_speed if not self.super else 6.5
 			self.command.doKick = True
 			self.command.doForce = True
-		self.B = self.controller.button_b._value
+			
+		r_x = self.controller.axis_r.x
+		l_x = self.controller.axis_l.x
+		l_y = self.controller.axis_l.y
+
+		if self.controller.button_trigger_r._value:
+			r_x = -0.4
+			l_x = 0.5
+			l_y = 0
+
+		if self.controller.button_trigger_l._value:
+			r_x = 0.4
+			l_x = -0.5
+			l_y = 0
 
 		# Calculate angle
-		if 0.3 < abs(self.controller.axis_r.x): self.absolute_angle -= self.controller.axis_r.x * 0.1
+		if 0.3 < abs(r_x): self.absolute_angle -= r_x * 0.1
 
 		# Forward backward left right
 		deadzone = 0.3
 
 		velocity_x = 0
-		if deadzone < abs(self.controller.axis_l.x):
-			velocity_x = ( abs(self.controller.axis_l.x) - deadzone) / (1 - deadzone)
-			velocity_x *= np.sign(self.controller.axis_l.x)
+		if deadzone < abs(l_x):
+			velocity_x = ( abs(l_x) - deadzone) / (1 - deadzone)
+			velocity_x *= np.sign(l_x)
 
 		velocity_y = 0
-		if deadzone < abs(self.controller.axis_l.y):
-			velocity_y = ( abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone)
-			velocity_y *= np.sign(self.controller.axis_l.y)
+		if deadzone < abs(l_y):
+			velocity_y = ( abs(l_y) - deadzone) / (1 - deadzone)
+			velocity_y *= np.sign(l_y)
+		
+		if self.super:
+			velocity_x *= 4
+			velocity_y *= 4
 
 		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
 		theta = math.atan2(-velocity_x, -velocity_y);
+
+		if self.controller.button_x._value and not self.X:
+			rho = 8.0
+			theta = math.pi
+			self.absolute_angle = self.absolute_angle + math.pi if self.absolute_angle <= 0 else self.absolute_angle - math.pi
+		self.X = self.controller.button_x._value
 
 		self.command.header = BaseTypes.PACKET_TYPE_REM_ROBOT_COMMAND
 		self.command.remVersion = BaseTypes.LOCAL_REM_VERSION
