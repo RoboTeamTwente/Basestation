@@ -184,7 +184,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			cmd.kickChipPower = BaseTypes.PACKET_RANGE_REM_ROBOT_COMMAND_KICK_CHIP_POWER_MAX // 2
 
 	if test == "dribbler":
-		cmd.dribbler = period_fraction
+		cmd.dribbler = 1.0
 		log = "speed = %.2f" % cmd.dribbler
 
 	if test == "rotate":
@@ -233,8 +233,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		log = "angle = %+.3f" % cmd.angle
 
 	if test == "forward-rotate":
+		cmd.dribbler = 1.0
 		cmd.useAbsoluteAngle = 0
-		cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
+		cmd.rho = 0.25 - 0.25 * math.cos( 4 * math.pi * period_fraction )
 		if 0.5 < period_fraction : cmd.theta = -math.pi
 		#cmd.angle = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
 		cmd.angularVelocity = math.pi/3 # set useAbsoluteAngle to 0 to use this
@@ -373,12 +374,12 @@ while True:
 				
 
 				# Ballsensor
-				if robotFeedback.ballSensorWorking:
-					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 1, 0),2)
-					if robotFeedback.hasBall:
-						cv2.circle(image_vis, (250+int(73*robotFeedback.ballPos), 250-90), 10, (0, 0.4, 1), -1)
-				else:
-					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 0, 1),2)
+				#if robotFeedback.ballSensorWorking:
+				cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 1, 0),2)
+				if robotFeedback.dribblerSeesBall:
+					cv2.circle(image_vis, (250+int(73*robotFeedback.ballPos), 250-90), 10, (0, 0.4, 1), -1)
+				#else:
+				#	cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 0, 1),2)
 
 				length = int(robotFeedback.rho * 500)
 				px, py = rotate((250, 250), (250, 250+length), robotFeedback.theta)
@@ -393,7 +394,7 @@ while True:
 				robotStateInfo = latest_packets[REM_RobotStateInfo]
 				latest_packets[REM_RobotStateInfo] = None
 				last_robotstateinfo_time = time.time()
-				robotStateInfoFile.write(f"{last_robotstateinfo_time} {robotStateInfo.xsensAcc1} {robotStateInfo.xsensAcc2} {robotStateInfo.xsensYaw} {robotStateInfo.rateOfTurn} 					{robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4} {robotStateInfo.bodyXIntegral} 				{robotStateInfo.bodyYIntegral} {robotStateInfo.bodyWIntegral} {robotStateInfo.bodyYawIntegral} {robotStateInfo.wheel1Integral} {robotStateInfo.wheel2Integral} 					{robotStateInfo.wheel3Integral} {robotStateInfo.wheel4Integral} \n")
+				robotStateInfoFile.write(f"{last_robotstateinfo_time} {robotStateInfo.xsensAcc1} {robotStateInfo.xsensAcc2} {robotStateInfo.xsensYaw} {robotStateInfo.rateOfTurn} 					{robotStateInfo.wheelSpeed1} {robotStateInfo.wheelSpeed2} {robotStateInfo.wheelSpeed3} {robotStateInfo.wheelSpeed4} {robotStateInfo.dribbleSpeed} {robotStateInfo.bodyXIntegral} 				{robotStateInfo.bodyYIntegral} {robotStateInfo.bodyWIntegral} {robotStateInfo.bodyYawIntegral} {robotStateInfo.wheel1Integral} {robotStateInfo.wheel2Integral} 					{robotStateInfo.wheel3Integral} {robotStateInfo.wheel4Integral} \n")
 				robotStateInfoFile.flush()
 				last_robotfeedback_time = time.time()
 				robotFeedbackFile.write(f"{last_robotfeedback_time} {robotFeedback.batteryLevel} {robotFeedback.XsensCalibrated} {robotFeedback.ballSensorWorking} 							{robotFeedback.ballSensorSeesBall} {robotFeedback.dribblerSeesBall} {robotFeedback.capacitorCharged} {robotFeedback.ballPos} {robotFeedback.rho} {robotFeedback.theta} {robotFeedback.angle} 								{robotFeedback.wheelLocked} {robotFeedback.wheelBraking} {robotFeedback.rssi} \n")

@@ -9,6 +9,7 @@ from matplotlib.offsetbox import AnchoredText
 Statetimestamps = []
 rateOfTurn = [] #estimated angular velocity
 W1, W2, W3, W4 = [], [], [], [] #estimated wheel speeds
+DribblerSpeed = [] #estimated dribbler speed [rad/s]
 XsensX, XsensY, XsensYaw = [], [], [] #estimated x-, y accelerations and absolute angle
 XInt, YInt, WInt, YawInt, W1Int, W2Int, W3Int, W4Int = [], [], [], [], [], [], [], [] #integral value from the I part of the PIDs
 
@@ -16,6 +17,7 @@ Feedbacktimestamps = []
 Gamma, Phi = [], [] #estimated movement [m/s] and direction of movement [rad]
 VexLocal, VeyLocal = [], [] #estimated local x- and y velocities calculated from gamma and phi
 VexGlobal, VeyGlobal = [], [] #estimated global x- and y velocities calculated from estimated angle
+DribblerSeesBall = [] #bool to see if dribbler thinks it has the ball
 
 Commandedtimestamps = []
 Angle, AngleVel = [], [] #commanded angle and angular velocity
@@ -23,7 +25,7 @@ Rho, Theta = [], [] #commanded movement [m/s] and direction of movement [rad]
 Vx, Vy = [], [] #commanded x- and y velocities calculated from rho and theta
 Wc1, Wc2, Wc3, Wc4 = [], [], [], [] #commanded wheel speeds calculated from Vx and Vy
 
-plotsAvailable = ["x", "y", "w", "yaw", "wheels", "integral", "integral-wheels", "rho", "theta"]
+plotsAvailable = ["x", "y", "w", "yaw", "wheels", "integral", "integral-wheels", "rho", "theta", "dribbler"]
 # Parse input arguments 
 try:
 	if len(sys.argv) not in [2,3]:
@@ -46,7 +48,7 @@ CommandedLines = open("logs/robotCommand_" + filenr[lastfile] +  ".csv", "r").re
 robotFeedbackLines = open("logs/robotFeedback_" + filenr[lastfile] + ".csv", "r").read().strip().split("\n")
 
 for line in StateInfoLines:
-	ts, xsensx, xsensy, xsensyaw, rot, w1, w2, w3, w4, xint, yint, wint, yawint, w1int, w2int, w3int, w4int = line.split(" ")[:17]
+	ts, xsensx, xsensy, xsensyaw, rot, w1, w2, w3, w4, dribblerSpeed, xint, yint, wint, yawint, w1int, w2int, w3int, w4int = line.split(" ")[:18]
 	ts = int(float(ts) * 1000)/1000
 	Statetimestamps.append(ts)
 	
@@ -58,6 +60,7 @@ for line in StateInfoLines:
 	W2.append(float(w2))
 	W3.append(float(w3))
 	W4.append(float(w4))
+	DribblerSpeed.append(float(dribblerSpeed))
 	XInt.append(float(xint))
 	YInt.append(float(yint))
 	WInt.append(float(wint))
@@ -87,7 +90,8 @@ for line in CommandedLines:
 	Wc4.append((curVx * -np.cos(30 * np.pi/180) + curVy * np.sin(30 * np.pi/180))/0.028 + float(angvel) * 0.081 / 0.028) 
 
 for line in robotFeedbackLines:
-	ts, batteryLevel, XsensCalibrated, ballSensorWorking, hasBall, capacitorCharged, ballPos, gamma, phi, wheelLocked, wheelBraking, rssi = line.split(" ")[:12]
+	ts, batteryLevel, XsensCalibrated, ballSensorWorking, ballSensorSeesBall, dribblerSeesBall, capacitorCharged, ballPos, gamma, phi, wheelLocked, wheelBraking, rssi = line.split(" ")[:13]
+	
 	ts = int(float(ts) * 1000)/1000 #multiply by 1000 to get ms accuracy, divide by 1000 to get x-axis in seconds
 	Feedbacktimestamps.append(ts)
 	
@@ -95,6 +99,10 @@ for line in robotFeedbackLines:
 	Phi.append(float(phi))
 	curVex = float(gamma)*np.cos(float(phi))
 	curVey = float(gamma)*np.sin(float(phi))
+	if dribblerSeesBall == 'False':
+		DribblerSeesBall.append(0.0)
+	else:
+		DribblerSeesBall.append(808.0)
 	VexLocal.append(curVex)
 	VeyLocal.append(curVey)
 
@@ -198,6 +206,18 @@ if plotID == "yaw":
 	ax.plot(Statetimestamps, XsensYaw)
 	ax.set_title("Absolute angle", fontsize = "xx-large")
 	ax.legend(["Commanded", "Estimated"])
+	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
+	ax.set_xlabel("Time [s]", fontsize = "x-large")
+	ax.set_ylabel("Angle [rad]", fontsize = "x-large")
+	plt.show()
+
+if plotID == "dribbler":
+	fig, ax = plt.subplots()
+	
+	ax.plot(Statetimestamps, DribblerSpeed)
+	ax.plot(Feedbacktimestamps, DribblerSeesBall)
+	ax.set_title("Absolute angle", fontsize = "xx-large")
+	ax.legend(["Estimated", "hasBall"])
 	ax.set_xticks(np.arange(Feedbacktimestamps[0], Feedbacktimestamps[-1], step=1))
 	ax.set_xlabel("Time [s]", fontsize = "x-large")
 	ax.set_ylabel("Angle [rad]", fontsize = "x-large")
