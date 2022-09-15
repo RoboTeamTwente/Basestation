@@ -262,7 +262,7 @@ while True:
 		# Open writer / parser
 		if parser is None and basestation is not None:
 			datetime_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-			parser = REMParser(basestation, output_file=f"log_{datetime_str}.bin")
+			parser = REMParser(basestation)
 
 		
 		# Create and send new PID gains
