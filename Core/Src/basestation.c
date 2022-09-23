@@ -1,22 +1,30 @@
 #include "basestation.h"
 #include "main.h"
 #include "Wireless.h"
-#include "TextOut.h"
+#include "logging.h"
 #include "packet_buffers.h"
 #include "FT812Q_Drawing.h"
 #include "iwdg.h"
 
-#include "BaseTypes.h"
-#include "BasestationStatistics.h"
-#include "RobotCommand.h"
-#include "RobotFeedback.h"
-#include "RobotStateInfo.h"
+#include "REM_BaseTypes.h"
+#include "REM_BasestationConfiguration.h"
+#include "REM_RobotCommand.h"
+#include "REM_RobotFeedback.h"
+#include "REM_RobotStateInfo.h"
+#include "REM_RobotSetPIDGains.h"
+#include "REM_RobotMusicCommand.h"
+#include "REM_SX1280Filler.h"
 
 /* Counters, tracking the number of packets handled */ 
 volatile int handled_RobotCommand = 0;
 volatile int handled_RobotFeedback = 0;
 volatile int handled_RobotBuzzer = 0;
 volatile int handled_RobotStateInfo = 0;
+volatile int handled_RobotGetPIDGains = 0;
+volatile int handled_RobotSetPIDGains = 0;
+volatile int handled_RobotPIDGains = 0;
+volatile int handled_RobotMusicCommand = 0;
+
 
 /* Import hardware handles from main.c */
 extern SPI_HandleTypeDef hspi4;
@@ -30,18 +38,71 @@ IWDG_Handle* iwdg;
 DISPLAY_STATES displayState = DISPLAY_STATE_DEINITIALIZED;
 uint16_t touchPoint[2] = {-1, -1}; // Initialize touchPoint outside of screen, meaning TOUCH_STATE_RELEASED
 TouchState touchState; // TODO check default initialization. What is touchState->state? Compiler dependent?
-char logBuffer[100];
 
 // Based on Wireless.c:SX1280_Settings.TXoffset
 // Currently, we're splitting the SX1280 256 byte buffer in half. 128 for sending, 128 for receiving
 // Set to 127, because that's the max value as defined in the datasheet
 // Table 14-38: Payload Length Definition in FLRC Packet, page 124
 #define MAX_PACKET_SIZE 127
-// global buffer that holds a single transmission that can be sent to the robot. Used in the timer1 callback
-uint8_t sendBuffer[MAX_PACKET_SIZE];
+
+/* SX data */
+// TODO: Maybe move all configs to its own file? (basestation_config.c/h???)
+extern SX1280_Settings SX1280_DEFAULT_SETTINGS;
+static Wireless SX1280_TX = {0};
+static Wireless SX1280_RX = {0};
+static Wireless* SX_TX = &SX1280_TX;
+static Wireless* SX_RX = &SX1280_RX;
+static uint8_t SXTX_TX_buffer[MAX_PAYLOAD_SIZE + 3] __attribute__((aligned(4))) = {0};
+static uint8_t SXTX_RX_buffer[MAX_PAYLOAD_SIZE + 3] __attribute__((aligned(4))) = {0};
+static uint8_t SXRX_TX_buffer[MAX_PAYLOAD_SIZE + 3] __attribute__((aligned(4))) = {0};
+static uint8_t SXRX_RX_buffer[MAX_PAYLOAD_SIZE + 3] __attribute__((aligned(4))) = {0};
+
+static Wireless_Packet txPacket;
+static Wireless_Packet rxPacket;
+
+// The pins cannot be set at this point as they are not "const" enough for the compiler, so set them in the init
+SX1280_Interface SX_TX_Interface = {.SPI= &hspi2, .TXbuf= SXTX_TX_buffer, .RXbuf= SXTX_RX_buffer, .logger=LOG_printf,};
+SX1280_Interface SX_RX_Interface = {.SPI= &hspi4, .TXbuf= SXRX_TX_buffer, .RXbuf= SXRX_RX_buffer, .logger=LOG_printf,};
+
+void Wireless_Writepacket_Cplt(void){
+  TransmitPacket(SX_TX);
+}
+void Wireless_Readpacket_Cplt(void){
+  handlePacket(rxPacket.message, rxPacket.payloadLength);
+};
+
+void Wireless_TXDone(SX1280_Packet_Status *status){
+  toggle_pin(LD_TX);
+}
+
+void Wireless_RXDone(SX1280_Packet_Status *status){
+  toggle_pin(LD_RX);
+  toggle_pin(LD_LED2);
+  /* It is possible that random noise can trigger the syncword. 
+    * Syncword is 32 bits. Noise comes in at 2.4GHz. Syncword resets when wrong bit is received.
+    * Expected length of wrong syncword is 1*0.5 + 2*0.25 + 3*0.125 + ... = 2
+    * 2^32 combinations / (2400000000 / 2) syncwords = correct syncword every 3.57 seconds purely from noise
+  */
+  // Correct syncword from noise have a very weak signal 
+  // Threshold is at -160/2 = -80 dBm
+  if (status->RSSISync < 160) {
+    ReadPacket_DMA(SX_RX, &rxPacket, &Wireless_Readpacket_Cplt);
+    // not necessary to force WaitForPacket() here when configured in Rx Continuous mode
+  }
+}
+
+void Wireless_RXTXTimeout(void){
+  // Did not receive packet from robot. Should never be triggered, since the receiving SX is in continuous receiving mode
+  toggle_pin(LD_LED3);
+}
+
+Wireless_IRQcallbacks SXTX_IRQcallbacks = {.txdone= &Wireless_TXDone, .rxdone= NULL,              .rxtxtimeout= &Wireless_RXTXTimeout};
+Wireless_IRQcallbacks SXRX_IRQcallbacks = {.txdone= NULL,             .rxdone= &Wireless_RXDone,  .rxtxtimeout= &Wireless_RXTXTimeout};
+
+
 
 /* Flags */
-volatile bool flagHandleStatistics = false; 
+volatile bool flagHandleConfiguration = false;
 
 // screenCounter acts as a timer for updating the screen
 uint32_t screenCounter = 0;
@@ -52,20 +113,44 @@ uint32_t heartbeat_1000ms = 0;
 
 
 void init(){
+    HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
+    LOG_init();
     
-    HAL_Delay(1000); // Wait for 1000ms to allow for USB to start up
-    
+    // Init SX_TX
     LOG("[init] Initializing SX_TX\n");
-    SX_TX = Wireless_Init(WIRELESS_COMMAND_CHANNEL, &hspi2, 0);
+    Wireless_Error err;
+    SX_TX_Interface.BusyPin = SX_TX_BUSY;
+    SX_TX_Interface.CS= SX_TX_CS;
+    SX_TX_Interface.Reset= SX_TX_RST;
+    err = Wireless_setPrint_Callback(SX_TX, NULL);
+    err = Wireless_Init(SX_TX, SX1280_DEFAULT_SETTINGS, &SX_TX_Interface);
+    err = Wireless_setIRQ_Callbacks(SX_TX,&SXTX_IRQcallbacks);
+    if(err != WIRELESS_OK){
+      //TODO: What do?
+      while(1);
+    }
+    Wireless_setChannel(SX_TX, YELLOW_CHANNEL);
     
+    // Init SX_RX
     LOG("[init] Initializing SX_RX\n");
-    SX_RX = Wireless_Init(WIRELESS_FEEDBACK_CHANNEL, &hspi4, 1);
-
+    SX_RX_Interface.BusyPin= SX_RX_BUSY;
+    SX_RX_Interface.CS= SX_RX_CS;
+    SX_RX_Interface.Reset= SX_RX_RST;
+    err = Wireless_setPrint_Callback(SX_TX, NULL);
+    err = Wireless_Init(SX_RX, SX1280_DEFAULT_SETTINGS, &SX_RX_Interface);
+    err = Wireless_setIRQ_Callbacks(SX_RX,&SXRX_IRQcallbacks);
+    if(err != WIRELESS_OK){
+      //TODO: What do?
+      while(1);
+    }
+    // TODO: Use proper defines
+    Wireless_setChannel(SX_RX, YELLOW_CHANNEL);
     // Set SX_RX syncword to basestation syncword
-    SX_RX->SX_settings->syncWords[0] = robot_syncWord[16];
-    setSyncWords(SX_RX, SX_RX->SX_settings->syncWords[0], 0x00, 0x00);
+    uint32_t syncwords[2] = {robot_syncWord[16],0};
+    Wireless_setRXSyncwords(SX_RX, syncwords);
+
     // Start listening on the SX_RX for packets from the robots
-    setRX(SX_RX, SX_RX->SX_settings->periodBase, 0xFFFF);
+    WaitForPacketContinuous(SX_RX);
 
     // Start the timer that is responsible for sending packets to the robots
     // With 16 robots at 60Hz each, this timer runs at approximately 960Hz
@@ -77,30 +162,30 @@ void init(){
     // drawBasestation(true);
 
     IWDG_Init(iwdg);
+
+    // Initialize the REM_SX1280FillerPayload packet
+    REM_SX1280Filler filler = {0};
+    filler.header = REM_PACKET_TYPE_REM_SX1280FILLER;
+    filler.remVersion = REM_LOCAL_VERSION;
+    encodeREM_SX1280Filler(&SX1280_filler_payload, &filler);
+
     LOG("[init] Initializion complete\n");
 }
 
 
 
 void loop(){
-  IWDG_Refresh(iwdg);
   
-  /* Send logs to PC, if there is anything in the buffer */
-  /* Nothing should be sent to the PC while in an interrupt. Therefore, while in an interrupt, text can be placed in the logBuffer */
-  /* Here, in the main loop, text can be safely sent to the PC */
-  if(0 < strlen(logBuffer)){
-    // LOG(logBuffer);        // Send any text in the buffer over USB to the PC
-    logBuffer[0] = '\0';   // 'Empty' the buffer by setting the first byte to \0
-  }
+  IWDG_Refresh(iwdg);
+  LOG_send();
 
   handled_RobotStateInfo++;
   /* Heartbeat every second */
-  if(heartbeat_1000ms + 200 < HAL_GetTick()){
-    heartbeat_1000ms += 200;
-    sprintf(logBuffer, "hallo\n");// "Tick |  RSI %d\n",
-    // handled_RobotStateInfo);
-    LOG(logBuffer);
-    logBuffer[0] = '\0';
+  if(heartbeat_1000ms + 1000 < HAL_GetTick()){
+    heartbeat_1000ms += 1000;
+    // HexOut("Tick!\n", 6);
+    LOG_printf("Tick | RC %d RF %d RB %d RSI %d GPID %d PID %d\n",
+    handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer, handled_RobotStateInfo, handled_RobotGetPIDGains, handled_RobotPIDGains);
     toggle_pin(LD_ACTIVE);
   }
   // RC %d RF %d RB %d handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer,
@@ -110,7 +195,7 @@ void loop(){
   /* Send any new RobotFeedback packets */
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_RobotFeedback[id].isNewPacket){
-      // HexOut(buffer_RobotFeedback[id].packet.payload, PACKET_SIZE_ROBOT_FEEDBACK);
+      LOG_sendBlocking(buffer_RobotFeedback[id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_FEEDBACK);
       buffer_RobotFeedback[id].isNewPacket = false;
     }
   }
@@ -118,16 +203,31 @@ void loop(){
   /* Send any new RobotStateInfo packets */
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_RobotStateInfo[id].isNewPacket){
-      handled_RobotBuzzer++;
-      // HexOut(buffer_RobotStateInfo[id].packet.payload, PACKET_SIZE_ROBOT_STATE_INFO);
+      LOG_sendBlocking(buffer_RobotStateInfo[id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_STATE_INFO);
       buffer_RobotStateInfo[id].isNewPacket = false;
     }
   }
 
-  // TODO needs to be updated to the latest roboteam_embedded_messages version. Disabled for now.
-  if(flagHandleStatistics){
-    // handleStatistics();
-    flagHandleStatistics = false;
+  /* Send any new RobotPIDGains packets */
+  for(int id = 0; id <= MAX_ROBOT_ID; id++){
+    if(buffer_RobotPIDGains[id].isNewPacket){
+      LOG_sendBlocking(buffer_RobotPIDGains[id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_PIDGAINS);
+      buffer_RobotPIDGains[id].isNewPacket = false;
+    }
+  }
+
+  if (flagHandleConfiguration) {
+    // TODO: Make a nice function for this
+    REM_BasestationConfiguration configuration;
+    configuration.header = REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION;
+    configuration.remVersion = REM_LOCAL_VERSION;
+    configuration.channel = Wireless_getChannel(SX_TX);
+
+    REM_BasestationConfigurationPayload payload;
+    encodeREM_BasestationConfiguration(&payload, &configuration);
+
+    LOG_sendBlocking(payload.payload, REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION);
+    flagHandleConfiguration = false;
   }
 
 
@@ -175,7 +275,7 @@ void loop(){
 
 /**
  * @brief Updates the state of the touch. This helps identifying
- * multiple touch evsents as a single screen press, keeps track on
+ * multiple touch events as a single screen press, keeps track on
  * if the screen press has been handled, and stores the location 
  * of the last touch event
  * TODO there might be a better place for this. Maybe in FT812Q.c?
@@ -217,11 +317,35 @@ void updateTouchState(TouchState* touchState){
 void handleRobotCommand(uint8_t* packet_buffer){
   handled_RobotCommand++;
 
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotCommand_get_remVersion((REM_RobotCommandPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotCommand] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
+
   // Store the message in the RobotCommand buffer. Set flag indicating packet needs to be sent to the robot
-  uint8_t robot_id = RobotCommand_get_id((RobotCommandPayload*) packet_buffer);
-  memcpy(buffer_RobotCommand[robot_id].packet.payload, packet_buffer, PACKET_SIZE_ROBOT_COMMAND);
+  uint8_t robot_id = REM_RobotCommand_get_toRobotId((REM_RobotCommandPayload*) packet_buffer);
+  memcpy(buffer_RobotCommand[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_COMMAND);
   buffer_RobotCommand[robot_id].isNewPacket = true;
   buffer_RobotCommand[robot_id].counter++;
+}
+
+void handleRobotSetPIDGains(uint8_t* packet_buffer){
+  handled_RobotSetPIDGains++;
+
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotSetPIDGains_get_remVersion((REM_RobotSetPIDGainsPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotSetPIDGains] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
+
+  // Store the message in the RobotSetPIDGains buffer. Set flag indicating packet needs to be sent to the robot
+  uint8_t robot_id = REM_RobotSetPIDGains_get_toRobotId((REM_RobotSetPIDGainsPayload*) packet_buffer);
+  memcpy(buffer_RobotSetPIDGains[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS);
+  buffer_RobotSetPIDGains[robot_id].isNewPacket = true;
+  buffer_RobotSetPIDGains[robot_id].counter++;
 }
 
 
@@ -235,9 +359,16 @@ void handleRobotCommand(uint8_t* packet_buffer){
 void handleRobotFeedback(uint8_t* packet_buffer){
   handled_RobotFeedback++;
   
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotFeedback_get_remVersion((REM_RobotFeedbackPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotFeedback] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
+
   // Store the message in the RobotFeedback buffer. Set flag indicating packet needs to be sent to the robot
-  uint8_t robot_id = RobotFeedback_get_id((RobotFeedbackPayload*) packet_buffer);
-  memcpy(buffer_RobotFeedback[robot_id].packet.payload, packet_buffer, PACKET_SIZE_ROBOT_FEEDBACK);
+  uint8_t robot_id = REM_RobotFeedback_get_toRobotId((REM_RobotFeedbackPayload*) packet_buffer);
+  memcpy(buffer_RobotFeedback[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_FEEDBACK);
   buffer_RobotFeedback[robot_id].isNewPacket = true;
   buffer_RobotFeedback[robot_id].counter++;
 }
@@ -252,10 +383,17 @@ void handleRobotFeedback(uint8_t* packet_buffer){
  */
 void handleRobotStateInfo(uint8_t* packet_buffer){
   handled_RobotStateInfo++;
+  
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotStateInfo_get_remVersion((REM_RobotStateInfoPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotStateInfo] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
 
   // Store the message in the RobotStateInfo buffer. Set flag to be sent to the robot
-  uint8_t robot_id = RobotStateInfo_get_id((RobotStateInfoPayload*) packet_buffer);
-  memcpy(buffer_RobotStateInfo[robot_id].packet.payload, packet_buffer, PACKET_SIZE_ROBOT_STATE_INFO);
+  uint8_t robot_id = REM_RobotStateInfo_get_toRobotId((REM_RobotStateInfoPayload*) packet_buffer);
+  memcpy(buffer_RobotStateInfo[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_STATE_INFO);
   buffer_RobotStateInfo[robot_id].isNewPacket = true;
   buffer_RobotStateInfo[robot_id].counter++;
 }
@@ -271,23 +409,70 @@ void handleRobotStateInfo(uint8_t* packet_buffer){
 void handleRobotBuzzer(uint8_t* packet_buffer){
   handled_RobotBuzzer++;
   
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotBuzzer_get_remVersion((REM_RobotBuzzerPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotBuzzer] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
+
   // Store the message in the RobotBuzzer buffer. Set flag to be sent to the robot
-  uint8_t robot_id = RobotBuzzer_get_id((RobotBuzzerPayload*) packet_buffer);
-  memcpy(buffer_RobotBuzzer[robot_id].packet.payload, packet_buffer, PACKET_SIZE_ROBOT_BUZZER);
+  uint8_t robot_id = REM_RobotBuzzer_get_toRobotId((REM_RobotBuzzerPayload*) packet_buffer);
+  memcpy(buffer_RobotBuzzer[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_BUZZER);
   buffer_RobotBuzzer[robot_id].isNewPacket = true;
   buffer_RobotBuzzer[robot_id].counter++;
 }
 
+void handleRobotGetPIDGains(uint8_t* packet_buffer){
+  handled_RobotGetPIDGains++;
+  
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotGetPIDGains_get_remVersion((REM_RobotGetPIDGainsPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotGetPIDGains] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
 
-/**
- * @brief Handles sending basestation statistics over USB.
- * Meant to sent all counters from buffer_RobotCommand and buffer_RobotFeedback to the PC.
- * TODO needs to be updated with the latest version of roboteam_embedded_messages. Currently disabled
- */
-void handleStatistics(){
-  return;
+  // Store the message in the RobotGetPIDGains buffer. Set flag to be sent to the robot
+  uint8_t robot_id = REM_RobotGetPIDGains_get_toRobotId((REM_RobotGetPIDGainsPayload*) packet_buffer);
+  memcpy(buffer_RobotGetPIDGains[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_GET_PIDGAINS);
+  buffer_RobotGetPIDGains[robot_id].isNewPacket = true;
+  buffer_RobotGetPIDGains[robot_id].counter++;
 }
 
+void handleRobotPIDGains(uint8_t* packet_buffer){
+  handled_RobotPIDGains++;
+  
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotPIDGains_get_remVersion((REM_RobotPIDGainsPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotPIDGains] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
+
+  // Store the message in the RobotGetPIDGains buffer. Set flag to be sent to the robot
+  uint8_t robot_id = REM_RobotPIDGains_get_toRobotId((REM_RobotPIDGainsPayload*) packet_buffer);
+  memcpy(buffer_RobotPIDGains[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_PIDGAINS);
+  buffer_RobotPIDGains[robot_id].isNewPacket = true;
+  buffer_RobotPIDGains[robot_id].counter++;
+}
+
+void handleRobotMusicCommand(uint8_t* packet_buffer){
+  handled_RobotMusicCommand++;
+  
+  // Check if the packet REM version corresponds to the local REM version. If the REM versions do not correspond, drop the packet.
+  uint8_t packet_rem_version = REM_RobotMusicCommand_get_remVersion((REM_RobotMusicCommandPayload*) packet_buffer);
+  if(packet_rem_version != REM_LOCAL_VERSION){
+    LOG_printf("[handleRobotMusicCommand] Error! packet_rem_version %u != %u REM_LOCAL_VERSION.", packet_rem_version, REM_LOCAL_VERSION);
+    return;
+  }
+
+  // Store the message in the RobotMusicCommand buffer. Set flag to be sent to the robot
+  uint8_t robot_id = REM_RobotMusicCommand_get_toRobotId((REM_RobotMusicCommandPayload*) packet_buffer);
+  memcpy(buffer_RobotMusicCommand[robot_id].packet.payload, packet_buffer, REM_PACKET_SIZE_REM_ROBOT_MUSIC_COMMAND);
+  buffer_RobotMusicCommand[robot_id].isNewPacket = true;
+  buffer_RobotMusicCommand[robot_id].counter++;
+}
 
 
 /**
@@ -314,33 +499,53 @@ bool handlePacket(uint8_t* packet_buffer, uint32_t packet_length){
 
     switch (packet_type){
 
-      case PACKET_TYPE_ROBOT_COMMAND:
+      case REM_PACKET_TYPE_REM_ROBOT_COMMAND:
         handleRobotCommand(packet_buffer + bytes_processed);
-        bytes_processed += PACKET_SIZE_ROBOT_COMMAND;
+        bytes_processed += REM_PACKET_SIZE_REM_ROBOT_COMMAND;
         break;
       
-      case PACKET_TYPE_ROBOT_FEEDBACK:
+      case REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS:
+        handleRobotSetPIDGains(packet_buffer + bytes_processed);
+        bytes_processed += REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS;
+        break;
+      
+      case REM_PACKET_TYPE_REM_ROBOT_FEEDBACK:
         handleRobotFeedback(packet_buffer + bytes_processed);
-        bytes_processed += PACKET_SIZE_ROBOT_FEEDBACK;
+        bytes_processed += REM_PACKET_SIZE_REM_ROBOT_FEEDBACK;
         break;
       
-      case PACKET_TYPE_BASESTATION_GET_STATISTICS:
-        bytes_processed += PACKET_SIZE_BASESTATION_GET_STATISTICS;
-        // flagHandleStatistics = true;  
-        break;
-      
-      case PACKET_TYPE_ROBOT_BUZZER:
+      case REM_PACKET_TYPE_REM_ROBOT_BUZZER:
         handleRobotBuzzer(packet_buffer + bytes_processed);
-        bytes_processed += PACKET_SIZE_ROBOT_BUZZER;
+        bytes_processed += REM_PACKET_SIZE_REM_ROBOT_BUZZER;
         break;
 
-      case PACKET_TYPE_ROBOT_STATE_INFO:
+      case REM_PACKET_TYPE_REM_ROBOT_STATE_INFO:
         handleRobotStateInfo(packet_buffer + bytes_processed);
-        bytes_processed += PACKET_SIZE_ROBOT_STATE_INFO;
+        bytes_processed += REM_PACKET_SIZE_REM_ROBOT_STATE_INFO;
+        break;
+      
+      case REM_PACKET_TYPE_REM_ROBOT_GET_PIDGAINS:
+        handleRobotGetPIDGains(packet_buffer + bytes_processed);
+        bytes_processed += REM_PACKET_TYPE_REM_ROBOT_GET_PIDGAINS;
+        break;
+
+      case REM_PACKET_TYPE_REM_ROBOT_PIDGAINS:
+        handleRobotPIDGains(packet_buffer + bytes_processed);
+        bytes_processed += REM_PACKET_TYPE_REM_ROBOT_PIDGAINS;
+        break;
+
+      case REM_PACKET_TYPE_REM_BASESTATION_GET_CONFIGURATION:
+        bytes_processed += REM_PACKET_SIZE_REM_BASESTATION_GET_CONFIGURATION;
+        flagHandleConfiguration = true;
+        break;
+
+      case REM_PACKET_TYPE_REM_ROBOT_MUSIC_COMMAND:
+        handleRobotMusicCommand(packet_buffer + bytes_processed);
+        bytes_processed += REM_PACKET_SIZE_REM_ROBOT_MUSIC_COMMAND;
         break;
 
       default:
-        sprintf(logBuffer, "[handlePacket] Error! At %ld of %ld bytes. [@] = %d\n", bytes_processed, packet_length, packet_buffer[bytes_processed]);
+        LOG_printf("[handlePacket] Error! At %ld of %ld bytes. [@] = %d\n", bytes_processed, packet_length, packet_buffer[bytes_processed]);
         return false;
     }
   }
@@ -352,14 +557,12 @@ bool handlePacket(uint8_t* packet_buffer, uint32_t packet_length){
 
 /* Triggers when a call to HAL_SPI_TransmitReceive_DMA or HAL_SPI_TransmitReceive_IT (both non-blocking) completes */
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
-  if(hspi->Instance == SX_TX->SPI->Instance){
+  if(hspi->Instance == SX_TX->Interface->SPI->Instance){
     Wireless_DMA_Handler(SX_TX);
     // SX_TX should never receive a packet so that's why we don't call handlePacket here.
 	}
-	if(hspi->Instance == SX_RX->SPI->Instance) {
+	if(hspi->Instance == SX_RX->Interface->SPI->Instance) {
     Wireless_DMA_Handler(SX_RX);
-    // First 3 bytes in the buffer are SX1280 status bytes, therefore +3
-    handlePacket(SX_RX->RXbuf+3, SX_RX->payloadLength);
 	}
 }
 
@@ -367,12 +570,12 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi){
 /* External interrupt. Triggers when one of the SX1280 antennas has information available */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {  
   // SX that sends packets wants to tell us something
-  if (GPIO_Pin == SX_TX_IRQ.PIN && SX_TX != NULL) {
-    Wireless_IRQ_Handler(SX_TX, 0, 0);
+  if (GPIO_Pin == SX_TX_IRQ.PIN) {
+    Wireless_IRQ_Handler(SX_TX);
   }
   // SX that receives packets wants to tell us something
-  if (GPIO_Pin == SX_RX_IRQ.PIN && SX_RX != NULL) {
-    Wireless_IRQ_Handler(SX_RX, 0, 0);
+  if (GPIO_Pin == SX_RX_IRQ.PIN) {
+    Wireless_IRQ_Handler(SX_RX);
     toggle_pin(LD_LED1);
   } 
 }
@@ -399,27 +602,56 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
     /* Add RobotCommand to the transmission */
     if(buffer_RobotCommand[idCounter].isNewPacket 
-    && total_packet_length + PACKET_SIZE_ROBOT_COMMAND < MAX_PACKET_SIZE){
+    && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_COMMAND < MAX_PACKET_SIZE){
       buffer_RobotCommand[idCounter].isNewPacket = false;
-      memcpy(sendBuffer + total_packet_length, buffer_RobotCommand[idCounter].packet.payload, PACKET_SIZE_ROBOT_COMMAND);
-      total_packet_length += PACKET_SIZE_ROBOT_COMMAND;
+      memcpy(txPacket.message + total_packet_length, buffer_RobotCommand[idCounter].packet.payload, REM_PACKET_SIZE_REM_ROBOT_COMMAND);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_COMMAND;
+    }
+
+    /* Add RobotSetPIDGains to the transmission */
+    if(buffer_RobotSetPIDGains[idCounter].isNewPacket
+    && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS < MAX_PACKET_SIZE){
+      buffer_RobotSetPIDGains[idCounter].isNewPacket = false;
+      memcpy(txPacket.message + total_packet_length, buffer_RobotSetPIDGains[idCounter].packet.payload, REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS;
     }
 
     /* Add RobotBuzzer to the transmission */
     if(buffer_RobotBuzzer[idCounter].isNewPacket
-    && total_packet_length + PACKET_SIZE_ROBOT_BUZZER < MAX_PACKET_SIZE){
+    && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_BUZZER < MAX_PACKET_SIZE){
       buffer_RobotBuzzer[idCounter].isNewPacket = false;
-      memcpy(sendBuffer + total_packet_length, buffer_RobotBuzzer[idCounter].packet.payload, PACKET_SIZE_ROBOT_BUZZER);
-      total_packet_length += PACKET_SIZE_ROBOT_BUZZER;
+      memcpy(txPacket.message + total_packet_length, buffer_RobotBuzzer[idCounter].packet.payload, REM_PACKET_SIZE_REM_ROBOT_BUZZER);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_BUZZER;
     }
     
+    /* Add RobotGetPIDGains to the transmission */
+    if(buffer_RobotGetPIDGains[idCounter].isNewPacket && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_GET_PIDGAINS < MAX_PACKET_SIZE){
+      buffer_RobotGetPIDGains[idCounter].isNewPacket = false;
+      memcpy(txPacket.message + total_packet_length, buffer_RobotGetPIDGains[idCounter].packet.payload, REM_PACKET_SIZE_REM_ROBOT_GET_PIDGAINS);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_GET_PIDGAINS;
+    }
+
+    /* Add RobotMusicCommand to the transmission */
+    if(buffer_RobotMusicCommand[idCounter].isNewPacket && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_MUSIC_COMMAND < MAX_PACKET_SIZE){
+      buffer_RobotMusicCommand[idCounter].isNewPacket = false;
+      memcpy(txPacket.message + total_packet_length, buffer_RobotMusicCommand[idCounter].packet.payload, REM_PACKET_SIZE_REM_ROBOT_MUSIC_COMMAND);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_MUSIC_COMMAND;
+    }
+
     /* Send new command if available for this robot ID */
     if(0 < total_packet_length){
-      if(!isTransmitting){
-        isTransmitting = true;
-        SX_TX->SX_settings->syncWords[0] = robot_syncWord[idCounter];
-        setSyncWords(SX_TX, SX_TX->SX_settings->syncWords[0], 0, 0);
-        SendPacket(SX_TX, sendBuffer, total_packet_length);
+      if(SX_TX->state == WIRELESS_READY){
+        /* Add a filler packet to the buffer if there are currently less than 6 bytes in the buffer
+        * The minimum payload size for the SX1280 in FLRC mode is 6 bytes. 
+        * See documentation page 124 - Table 14-36: Sync Word Combination in FLRC Packet */
+        if(total_packet_length < 6){
+          memcpy(txPacket.message + total_packet_length, SX1280_filler_payload.payload, REM_PACKET_SIZE_REM_SX1280FILLER);
+          total_packet_length += REM_PACKET_SIZE_REM_SX1280FILLER;
+        }
+
+        txPacket.payloadLength = total_packet_length;
+        Wireless_setTXSyncword(SX_TX,robot_syncWord[idCounter]);
+        WritePacket_DMA(SX_TX, &txPacket, &Wireless_Writepacket_Cplt);
       }
     }
 

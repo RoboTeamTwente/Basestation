@@ -45,7 +45,7 @@ robotConnected = True
 connection = None
 
 # connection = serial.Serial(port="/dev/ttyACM0", timeout=0.001, baudrate=115200)
-
+total_bytes_received = 0
 while True:
 	# Open basestation with the basestation
 
@@ -53,6 +53,7 @@ while True:
 		connection = utils.openContinuous(timeout = 0.1)
 
 	try:
+		bytes_received = 0
 		# Continuously read and print messages from the basestation
 		while True:
 
@@ -63,8 +64,8 @@ while True:
 
 			packetType = packet_type[0]
 
-			if packetType == rem.lib.PACKET_TYPE_ROBOT_COMMAND:
-				packet = packet_type + connection.read(rem.lib.PACKET_SIZE_ROBOT_COMMAND - 1)
+			if packetType == rem.lib.PACKET_TYPE_REM_ROBOT_COMMAND:
+				packet = packet_type + connection.read(rem.lib.PACKET_SIZE_REM_ROBOT_COMMAND - 1)
 				payload = rem.ffi.new("RobotCommandPayload*")
 				payload.payload = packet
 
@@ -72,20 +73,12 @@ while True:
 				rem.lib.decodeRobotCommand(cmd, payload)
 				printPacket(cmd)
 
-			if packetType == rem.lib.PACKET_TYPE_BASESTATION_LOG:
-				print("[LOG]" + connection.readline().decode(), end="")
+			if packetType == rem.lib.PACKET_TYPE_REM_BASESTATION_LOG:
+				line = connection.readline().decode()
+				bytes_received += len(line) + 1
+				total_bytes_received += len(line) + 1
+				print(f"{total_bytes_received} {bytes_received} [LOG] {line}", end="")
 				continue
-
-			if packetType == rem.lib.PACKET_TYPE_BASESTATION_STATISTICS:
-				print("[Statistics]")
-				packet = packet_type + connection.read(rem.lib.PACKET_SIZE_BASESTATION_STATISTICS - 1)
-				print(type(packet), len(packet), packet[1], packet[2], packet[3], packet[4])
-				# payload = rem.ffi.new("RobotCommandPayload*")
-				# payload.payload = packet
-
-				# cmd = rem.ffi.new("RobotCommand*")
-				# rem.lib.decodeRobotCommand(cmd, payload)
-				# printPacket(cmd)
 
 	except serial.SerialException as se:
 		print("SerialException", se)
