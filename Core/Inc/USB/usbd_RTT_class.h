@@ -20,9 +20,9 @@
 
 
 #define USB_RTT_EP1_TYPE              USBD_EP_TYPE_BULK
-#define USB_RTT_EP1_PACKET_SIZE       USB_BULK_HS_MAX_PACKET_SIZE
+#define USB_RTT_EP1_MAX_PACKET_SIZE       USB_BULK_HS_MAX_PACKET_SIZE
 #define USB_RTT_EP2_TYPE              USBD_EP_TYPE_BULK
-#define USB_RTT_EP2_PACKET_SIZE       USB_BULK_HS_MAX_PACKET_SIZE
+#define USB_RTT_EP2_MAX_PACKET_SIZE       USB_BULK_HS_MAX_PACKET_SIZE
 
 // reference to the RTT USB class struct created in usbd_RTT_class.c, which contains all callback functions needed for usb
 extern USBD_ClassTypeDef USBD_RTT_ClassDriver;
@@ -34,6 +34,7 @@ typedef struct
 {
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
+  uint32_t setup_data[USB_HS_MAX_PACKET_SIZE / 4U];
   uint8_t  *HighPriorityRxBuffer; // (host --> device)
   uint8_t  *HighPriorityTxBuffer; // (host <-- device)
   uint8_t  *LowPriorityRxBuffer;  // (host --> device)
@@ -46,10 +47,11 @@ typedef struct
 } USBD_RTT_HandleTypeDef;
 
 // User callable functions to transmit data
-void USB_TransmitLowPriority(USBD_HandleTypeDef *pdev, uint8_t* buf, uint32_t len);
-void USB_TransmitHighPriority(USBD_HandleTypeDef *pdev, uint8_t* buf, uint32_t len);
+USBD_StatusTypeDef USB_TransmitLowPriority(USBD_HandleTypeDef *pdev, uint8_t* buf, uint32_t len);
+USBD_StatusTypeDef USB_TransmitHighPriority(USBD_HandleTypeDef *pdev, uint8_t* buf, uint32_t len);
 
 // Callback prototypes
+typedef USBD_StatusTypeDef USB_Class_Setup_Requests(uint8_t cmd, uint8_t* pbuf, uint16_t length); // Make class implementation instead of user?
 typedef void USB_HighPriority_TX_cplt();
 typedef void USB_HighPriority_RX_cplt(uint8_t* buf, uint32_t*len);
 typedef void USB_LowPriority_TX_cplt();
@@ -57,12 +59,13 @@ typedef void USB_LowPriority_RX_cplt(uint8_t* buf, uint32_t*len);
 
 
 // Callback functions needed to be implemented in basestation.c
+// NOTE: These functions are called from an interupt, so the implementation of these functions should be the bare minimum needed.
 typedef struct USBD_RTT_Callbacks{
+  USB_Class_Setup_Requests* usbControl;
   USB_HighPriority_TX_cplt* highprioTXcplt;
   USB_HighPriority_RX_cplt* highprioRXcplt;
   USB_LowPriority_TX_cplt* lowprioTXcplt;
   USB_LowPriority_RX_cplt* lowprioRXcplt;
 } USBD_RTT_Callbacks;
-
 
 #endif  /* __USB_RTT_CORE_H */

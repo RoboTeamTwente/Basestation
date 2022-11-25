@@ -98,17 +98,17 @@ static uint8_t USBD_RTT_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   }
 
   /* Open all EP IN */
-  (void)USBD_LL_OpenEP(pdev, RTT_HIGH_PRIO_IN_EP, USB_RTT_EP1_TYPE, USB_RTT_EP1_PACKET_SIZE);
+  (void)USBD_LL_OpenEP(pdev, RTT_HIGH_PRIO_IN_EP, USB_RTT_EP1_TYPE, USB_RTT_EP1_MAX_PACKET_SIZE);
   pdev->ep_in[RTT_HIGH_PRIO_IN_EP & 0xFU].is_used = 1U;
 
-  (void)USBD_LL_OpenEP(pdev, RTT_LOW_PRIO_IN_EP, USB_RTT_EP2_TYPE, USB_RTT_EP2_PACKET_SIZE);
+  (void)USBD_LL_OpenEP(pdev, RTT_LOW_PRIO_IN_EP, USB_RTT_EP2_TYPE, USB_RTT_EP2_MAX_PACKET_SIZE);
   pdev->ep_in[RTT_LOW_PRIO_IN_EP & 0xFU].is_used = 1U;
 
   /* Open all EP OUT */
-  (void)USBD_LL_OpenEP(pdev, RTT_HIGH_PRIO_OUT_EP, USB_RTT_EP1_TYPE, USB_RTT_EP1_PACKET_SIZE);
+  (void)USBD_LL_OpenEP(pdev, RTT_HIGH_PRIO_OUT_EP, USB_RTT_EP1_TYPE, USB_RTT_EP1_MAX_PACKET_SIZE);
   pdev->ep_out[RTT_HIGH_PRIO_OUT_EP & 0xFU].is_used = 1U;
 
-  (void)USBD_LL_OpenEP(pdev, RTT_LOW_PRIO_OUT_EP, USB_RTT_EP2_TYPE, USB_RTT_EP2_PACKET_SIZE);
+  (void)USBD_LL_OpenEP(pdev, RTT_LOW_PRIO_OUT_EP, USB_RTT_EP2_TYPE, USB_RTT_EP2_MAX_PACKET_SIZE);
   pdev->ep_out[RTT_LOW_PRIO_OUT_EP & 0xFU].is_used = 1U;
 
   /* Init  physical Interface components */
@@ -120,8 +120,8 @@ static uint8_t USBD_RTT_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   hcdc->TxState = 0U;
 
   /* Prepare Out endpoints to receive next packet */
-  (void)USBD_LL_PrepareReceive(pdev, RTT_HIGH_PRIO_OUT_EP, hcdc->HighPriorityRxBuffer, USB_RTT_EP1_PACKET_SIZE);
-  (void)USBD_LL_PrepareReceive(pdev, RTT_LOW_PRIO_OUT_EP, hcdc->LowPriorityRxBuffer, USB_RTT_EP2_PACKET_SIZE);
+  (void)USBD_LL_PrepareReceive(pdev, RTT_HIGH_PRIO_OUT_EP, hcdc->HighPriorityRxBuffer, USB_RTT_EP1_MAX_PACKET_SIZE);
+  (void)USBD_LL_PrepareReceive(pdev, RTT_LOW_PRIO_OUT_EP, hcdc->LowPriorityRxBuffer, USB_RTT_EP2_MAX_PACKET_SIZE);
 
   return (uint8_t)USBD_OK;
 }
@@ -167,34 +167,41 @@ static uint8_t USBD_RTT_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   * @param  req: usb requests
   * @retval status
   */
-static uint8_t USBD_RTT_Setup(USBD_HandleTypeDef *pdev,
-                                   USBD_SetupReqTypedef *req)
-{
-  USBD_StatusTypeDef ret = USBD_OK;
+static uint8_t USBD_RTT_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req){
   // TODO: figure out setup
+  USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)pdev->pClassData;
+  USBD_StatusTypeDef ret = USBD_OK;
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
-  case USB_REQ_TYPE_CLASS :
-    switch (req->bRequest)
-    {
-    default:
-      USBD_CtlError(pdev, req);
-      ret = USBD_FAIL;
-      break;
+    // RTT Class specific requests
+  case USB_REQ_TYPE_CLASS:
+    // If meant to receive data, prepare to receive
+    if ((req->bmRequest & 0x80U) != 0U){
+      hcdc->CmdOpCode = req->bRequest;
+      hcdc->CmdLength = (uint8_t)req->wLength;
+      (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->setup_data, req->wLength);
+    }else if(req->wLength != 0U){
+      // Have to send data
+      ((USBD_RTT_Callbacks *)pdev->pUserData)->usbControl(req->bRequest, (uint8_t *)hcdc->setup_data, req->wLength);
+      (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->setup_data, req->wLength);
+
+    }else{
+      // just process request data
+      ((USBD_RTT_Callbacks *)pdev->pUserData)->usbControl(req->bRequest, (uint8_t *)hcdc->setup_data, 0);
     }
     break;
 
+  // Standard requests. Should already be implemented by the library
   case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
+    switch (req->bRequest){
     default:
       USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
     }
     break;
-
+  // Unknown request
   default:
     USBD_CtlError(pdev, req);
     ret = USBD_FAIL;
@@ -206,43 +213,37 @@ static uint8_t USBD_RTT_Setup(USBD_HandleTypeDef *pdev,
 
 /**
   * @brief  USBD_RTT_DataIn
-  *         handle data IN Stage (host <-- device), This is called when a transmit has completed. In the case the data transfer needs more transfers send a new packet
+  *         handle data IN Stage (host <-- device), This is called when a message has been transmitted to the host
   * @param  pdev: device instance
   * @param  epnum: endpoint index
   * @retval status
   */
 static uint8_t USBD_RTT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
-  USBD_RTT_HandleTypeDef *hcdc;
+  USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)pdev->pClassData;
   PCD_HandleTypeDef *hpcd = pdev->pData;
 
-  if (pdev->pClassData == NULL)
-  {
+  if (hcdc == NULL){
     return (uint8_t)USBD_FAIL;
   }
 
-  hcdc = (USBD_RTT_HandleTypeDef *)pdev->pClassData;
-  // keep sending data if not done
-  if ((pdev->ep_in[epnum].total_length > 0U) &&
-      ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U))
-  {
+  // When the complete message length fits perfectly in n packets, send a zero length packet (ZLP) to let the host know there is no more data
+  if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U))  {
     /* Update the packet total length */
     pdev->ep_in[epnum].total_length = 0U;
-
     /* Send ZLP */
     (void)USBD_LL_Transmit(pdev, epnum, NULL, 0U);
   }
   else
   {
+    // TX done
     hcdc->TxState = 0U;
     if(epnum == RTT_HIGH_PRIO_IN_EP){
       ((USBD_RTT_Callbacks *)pdev->pUserData)->highprioTXcplt();
     }else if(epnum == RTT_LOW_PRIO_IN_EP){
       ((USBD_RTT_Callbacks *)pdev->pUserData)->lowprioTXcplt();
     }
-    hcdc->TxState = 0; // TX done
   }
-
   return (uint8_t)USBD_OK;
 }
 
@@ -257,8 +258,7 @@ static uint8_t USBD_RTT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)pdev->pClassData;
 
-  if (pdev->pClassData == NULL)
-  {
+  if (pdev->pClassData == NULL){
     return (uint8_t)USBD_FAIL;
   }
 
@@ -271,12 +271,12 @@ static uint8_t USBD_RTT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
     // Let the user process data in the buffer
     ((USBD_RTT_Callbacks *)pdev->pUserData)->highprioRXcplt(hcdc->HighPriorityRxBuffer, received_length);
     // Listen for new packets
-    (void)USBD_LL_PrepareReceive(pdev, RTT_HIGH_PRIO_OUT_EP, hcdc->HighPriorityRxBuffer, received_length);
+    (void)USBD_LL_PrepareReceive(pdev, RTT_HIGH_PRIO_OUT_EP, hcdc->HighPriorityRxBuffer, USB_RTT_EP1_MAX_PACKET_SIZE);
   }else if( epnum == RTT_LOW_PRIO_OUT_EP){
     // Let the user process data in the buffer
     ((USBD_RTT_Callbacks *)pdev->pUserData)->lowprioRXcplt(hcdc->LowPriorityRxBuffer, received_length);
     // Listen for new packets
-    (void)USBD_LL_PrepareReceive(pdev, RTT_LOW_PRIO_OUT_EP, hcdc->LowPriorityRxBuffer, received_length);
+    (void)USBD_LL_PrepareReceive(pdev, RTT_LOW_PRIO_OUT_EP, hcdc->LowPriorityRxBuffer, USB_RTT_EP2_MAX_PACKET_SIZE);
   }
 
   return (uint8_t)USBD_OK;
@@ -284,13 +284,18 @@ static uint8_t USBD_RTT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 
 /**
   * @brief  USBD_RTT_EP0_RxReady
-  *         handle EP0 Rx Ready event
+  *         handle EP0 Rx Ready event. This is called when data that was requested to be received on Ep0 is complete.
+  *         Now process request. (USBD_RTT_Setup was called before this)
   * @param  pdev: device instance
   * @retval status
   */
 static uint8_t USBD_RTT_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
-
+  USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)pdev->pClassData;
+  if ((pdev->pUserData != NULL) && (hcdc->CmdOpCode != 0xFFU)){
+    ((USBD_RTT_Callbacks *)pdev->pUserData)->usbControl(hcdc->CmdOpCode, (uint8_t *)hcdc->setup_data, (uint16_t)hcdc->CmdLength);
+    hcdc->CmdOpCode = 0xFFU;
+  }
   return (uint8_t)USBD_OK;
 }
 /**
@@ -301,7 +306,7 @@ static uint8_t USBD_RTT_EP0_RxReady(USBD_HandleTypeDef *pdev)
   */
 static uint8_t USBD_RTT_EP0_TxReady(USBD_HandleTypeDef *pdev)
 {
-
+  // Not needed
   return (uint8_t)USBD_OK;
 }
 /**
@@ -312,7 +317,7 @@ static uint8_t USBD_RTT_EP0_TxReady(USBD_HandleTypeDef *pdev)
   */
 static uint8_t USBD_RTT_SOF(USBD_HandleTypeDef *pdev)
 {
-
+  //not needed
   return (uint8_t)USBD_OK;
 }
 /**
@@ -324,7 +329,7 @@ static uint8_t USBD_RTT_SOF(USBD_HandleTypeDef *pdev)
   */
 static uint8_t USBD_RTT_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
-
+  // not used
   return (uint8_t)USBD_OK;
 }
 /**
@@ -336,7 +341,7 @@ static uint8_t USBD_RTT_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum)
   */
 static uint8_t USBD_RTT_IsoOutIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
-
+  // Not used
   return (uint8_t)USBD_OK;
 }
 
@@ -350,7 +355,8 @@ static uint8_t USBD_RTT_IsoOutIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum
 static USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len){
   USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)hUsbDeviceHS.pClassData;
 
-  if (hcdc == NULL){
+  // Device needs to be configured before data can be sent
+  if (hcdc == NULL || hUsbDeviceHS.dev_state != USBD_STATE_CONFIGURED){
     return (uint8_t)USBD_FAIL;
   }
   // can't send when still busy sending
@@ -377,10 +383,11 @@ static USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len){
 static USBD_StatusTypeDef USB_TransmitHighPriority(USBD_HandleTypeDef *pdev, uint8_t* buf, uint32_t len){
   USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)hUsbDeviceHS.pClassData;
 
-  if (hcdc == NULL){
+  // Device needs to be configured before data can be sent
+  if (hcdc == NULL || hUsbDeviceHS.dev_state != USBD_STATE_CONFIGURED){
     return (uint8_t)USBD_FAIL;
   }
-  // can't send when still busy sending
+  // can't send new packets when already sending
   if(hcdc->TxState == 1){
     return USBD_BUSY;
   }
