@@ -43,45 +43,47 @@ USBD_DescriptorsTypeDef HS_Desc =
 
 
 // ---------------------------------------- DESCRIPTORS
-/* USB Device Qualifier Descriptor */
+/** USB Device Qualifier Descriptor
+ * Describes how the device should be set up for every speed (FS or HS). If not acknowledged it will go to FS. Should be the same as USBD_HS_DeviceDesc
+ */
 // Device Qualifier Descriptors contents are described in https://www.keil.com/pack/doc/mw/USB/html/_u_s_b__device__qualifier__descriptor.html
 __ALIGN_BEGIN static uint8_t USBD_RTT_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] __ALIGN_END =
 {
-  USB_LEN_DEV_QUALIFIER_DESC,
-  USB_DESC_TYPE_DEVICE_QUALIFIER,
-  0x00,
-  0x02,
-  0x00,
-  0x00,
-  0x00,
-  0x40,
-  0x01,
-  0x00,
+  USB_LEN_DEV_QUALIFIER_DESC,     //bLength
+  USB_DESC_TYPE_DEVICE_QUALIFIER, //bdescriptorType
+  0x00,                           //bcsUSB (LSB)
+  0x02,                           //bcsUSB (MSB)
+  0x00,                           //bDeviceClass (0x00 - derive from interface)
+  0x00,                           //bDeviceSubClass
+  0x00,                           //bDeviceProtocol
+  USB_MAX_EP0_SIZE,               //bMaxPacketSize EP0
+  0x01,                           //bNumConfigurations
+  0x00,                           //RESERVED
 };
 
 /** USB device descriptor. */
 // Device Descriptor contents are described in https://www.keil.com/pack/doc/mw/USB/html/_u_s_b__device__descriptor.html
+// Or https://www.beyondlogic.org/usbnutshell/usb5.shtml#ConfigurationDescriptors
 __ALIGN_BEGIN uint8_t USBD_HS_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
 {
-  0x12,                       /*bLength */
-  USB_DESC_TYPE_DEVICE,       /*bDescriptorType*/
-  0x00,                       /*bcdUSB */
-
-  0x02,
-  0xFF,                       /*bDeviceClass*/
-  0x02,                       /*bDeviceSubClass*/
-  0x00,                       /*bDeviceProtocol*/
-  USB_MAX_EP0_SIZE,           /*bMaxPacketSize*/
-  LOBYTE(USBD_VID),           /*idVendor*/
-  HIBYTE(USBD_VID),           /*idVendor*/
-  LOBYTE(USBD_PID_HS),        /*idProduct*/
-  HIBYTE(USBD_PID_HS),        /*idProduct*/
-  0x00,                       /*bcdDevice rel. 2.00*/
-  0x02,
-  USBD_IDX_MFC_STR,           /*Index of manufacturer  string*/
-  USBD_IDX_PRODUCT_STR,       /*Index of product string*/
-  USBD_IDX_SERIAL_STR,        /*Index of serial number string*/
-  USBD_MAX_NUM_CONFIGURATION  /*bNumConfigurations*/
+  0x12,                       //bLength 
+  USB_DESC_TYPE_DEVICE,       //bDescriptorType
+  0x00,                       //bcdUSB (LSB)
+  0x02,                       //bcdUSB (MSB)
+  0x00,                       //bDeviceClass (0x00 - derive from interface)
+  0x00,                       //bDeviceSubClass
+  0x00,                       //bDeviceProtocol
+  USB_MAX_EP0_SIZE,           //bMaxPacketSize EP0
+  LOBYTE(USBD_VID),           //idVendor
+  HIBYTE(USBD_VID),           //idVendor
+  LOBYTE(USBD_PID_HS),        //idProduct
+  HIBYTE(USBD_PID_HS),        //idProduct
+  0x00,                       //device release number (LSB) TODO: match with REM version?
+  0x02,                       //device release number (MSB) 
+  USBD_IDX_MFC_STR,           //Index of manufacturer  string
+  USBD_IDX_PRODUCT_STR,       //Index of product string
+  USBD_IDX_SERIAL_STR,        //Index of serial number string
+  USBD_MAX_NUM_CONFIGURATION  //bNumConfigurations
 };
 
 #if defined ( __ICCARM__ ) /* IAR Compiler */

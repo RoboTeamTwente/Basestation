@@ -18,8 +18,8 @@
 /* Exported functions ------------------------------------------------------- */
 extern USBD_DescriptorsTypeDef RTT_Desc;
 
-static uint8_t *USBD_RTT_DeviceQualifierDescriptor(uint16_t *length);
-static uint8_t *USBD_RTT_GetDeviceQualifierDesc(uint16_t *length);
+extern uint8_t *USBD_RTT_DeviceQualifierDescriptor(uint16_t *length);
+extern uint8_t *USBD_RTT_GetDeviceQualifierDesc(uint16_t *length);
 
 #endif /* __USBD_DESC_TEMPLATE_H*/
 

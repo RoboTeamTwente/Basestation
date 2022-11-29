@@ -8,10 +8,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "usbd_cdc.h"
-#include "usb_device.h"
-#include "usbd_cdc_if.h"
-extern USBD_HandleTypeDef hUsbDeviceFS;
+#include "usbd_RTT_class.h"
 
 // Buffer used by vsprintf. Static to make it private to this file
 static char printf_buffer[1024];
@@ -116,15 +113,8 @@ void LOG_send(){
 }
 
 void LOG_sendBlocking(uint8_t* data, uint8_t length){
-    USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
-    while(!(hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED));
-	// if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED) {
-    while(hcdc->TxState != 0);
-		// TODO unneccesary memcpy? How about CDC_Transmit_FS(data, length);? 
-		// 	 if CDC_Transmit_FS is blocking, no fear to have 'data' go out of scope.
-		// memcpy(TxBuffer, data, length);
-    CDC_Transmit_FS(data, length);
-	// }
+    // TODO: USB_TransmitLowPriority can return busy or fail, deal with that 
+    USB_TransmitLowPriority(data, length);
 }
 
 void LOG_sendAll(){
