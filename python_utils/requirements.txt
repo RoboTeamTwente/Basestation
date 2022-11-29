@@ -3,3 +3,5 @@ pyserial
 bitarray
 numpy
 cffi
+zmq
+protobuf==3.19

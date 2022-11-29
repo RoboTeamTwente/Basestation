@@ -10,6 +10,7 @@ import shutil
 import multiprocessing
 import os
 import utils
+import zmq
 from REMParser import REMParser
 from SerialSimulator import SerialSimulator
 
@@ -61,7 +62,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward_only", "sideways_only"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "step-response-forward", "step-response-sideways"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -179,10 +180,10 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction*5 + 0.5) % 1)
 		log = "angle = %+.3f" % cmd.angle
 
-	if test == "forward_only" or test == "sideways_only":
+	if test == "step-response-forward" or test == "step-response-sideways":
 		cmd.rho = 2	
 
-	if test == "sideways_only":
+	if test == "step-response-sideways":
 		cmd.useAbsoluteAngle = 1
 		cmd.theta = math.pi / 2
 
