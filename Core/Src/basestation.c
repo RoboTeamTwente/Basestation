@@ -6,6 +6,9 @@
 #include "FT812Q_Drawing.h"
 #include "iwdg.h"
 
+#include "usb_device.h" // USB start function
+#include "usbd_RTT_class.h" // USB class definition
+
 #include "REM_BaseTypes.h"
 #include "REM_BasestationConfiguration.h"
 #include "REM_RobotCommand.h"
@@ -99,7 +102,35 @@ void Wireless_RXTXTimeout(void){
 Wireless_IRQcallbacks SXTX_IRQcallbacks = {.txdone= &Wireless_TXDone, .rxdone= NULL,              .rxtxtimeout= &Wireless_RXTXTimeout};
 Wireless_IRQcallbacks SXRX_IRQcallbacks = {.txdone= NULL,             .rxdone= &Wireless_RXDone,  .rxtxtimeout= &Wireless_RXTXTimeout};
 
+// USB functions
+USBD_StatusTypeDef USB_Control(uint8_t cmd, uint8_t* pbuf, uint16_t length){
+  // currently no RTT class specific stuff
+  return USBD_OK;
+}
 
+void USB_HighPrioTXCplt(void){
+  return;
+}
+
+void USB_HighPrioRXCplt(uint8_t* buf, uint32_t*len){
+  handlePacket(buf,len);
+}
+
+void USB_LowPrioRXCplt(uint8_t* buf, uint32_t*len){
+  handlePacket(buf,len);
+}
+
+void USB_LowPrioTXCplt(void){
+  return;
+}
+
+USBD_RTT_Callbacks USB_callbacks = {
+  .usbControl = USB_Control,
+  .highprioRXcplt = USB_HighPrioRXCplt,
+  .highprioTXcplt = USB_HighPrioTXCplt,
+  .lowprioRXcplt = USB_LowPrioRXCplt,
+  .lowprioTXcplt = USB_LowPrioTXCplt,
+};
 
 /* Flags */
 volatile bool flagHandleConfiguration = false;
@@ -110,9 +141,9 @@ uint32_t screenCounter = 0;
 /* Tracks time since last heartbeat. Runs at 1Hz */
 uint32_t heartbeat_1000ms = 0;
 
-
-
 void init(){
+    // Start USB (USB has been initialized before this)
+    USB_Start_Class(&USB_callbacks);
     HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
     LOG_init();
     

@@ -64,7 +64,8 @@ typedef struct{
   InterfaceConfig* INT0active; // pointer to active interface
   uint8_t INT1AltSetting;
   InterfaceConfig* INT1active; // pointer to active interface
-  __IO uint32_t TxState;
+  __IO uint32_t INT0TxState;
+  __IO uint32_t INT1TxState;
   __IO uint32_t RxState;
 } USBD_RTT_HandleTypeDef;
 
@@ -74,10 +75,10 @@ static USBD_StatusTypeDef USB_TransmitHighPriority(uint8_t* buf, uint32_t len);
 
 // Callback prototypes
 typedef USBD_StatusTypeDef USB_Class_Setup_Requests(uint8_t cmd, uint8_t* pbuf, uint16_t length); // Make class implementation instead of user?
-typedef void USB_HighPriority_TX_cplt();
-typedef void USB_HighPriority_RX_cplt(uint8_t* buf, uint32_t*len);
-typedef void USB_LowPriority_TX_cplt();
-typedef void USB_LowPriority_RX_cplt(uint8_t* buf, uint32_t*len);
+typedef void USB_HighPriority_TX_cplt(void);
+typedef void USB_HighPriority_RX_cplt(uint8_t* buf, uint32_t len);
+typedef void USB_LowPriority_TX_cplt(void);
+typedef void USB_LowPriority_RX_cplt(uint8_t* buf, uint32_t len);
 
 
 // Callback functions needed to be implemented in basestation.c
