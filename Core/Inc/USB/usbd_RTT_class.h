@@ -70,8 +70,8 @@ typedef struct{
 } USBD_RTT_HandleTypeDef;
 
 // User callable functions to transmit data
-static USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len);
-static USBD_StatusTypeDef USB_TransmitHighPriority(uint8_t* buf, uint32_t len);
+USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len);
+USBD_StatusTypeDef USB_TransmitHighPriority(uint8_t* buf, uint32_t len);
 
 // Callback prototypes
 typedef USBD_StatusTypeDef USB_Class_Setup_Requests(uint8_t cmd, uint8_t* pbuf, uint16_t length); // Make class implementation instead of user?

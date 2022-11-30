@@ -61,7 +61,9 @@ void EXTI4_IRQHandler(void);
 void TIM1_UP_TIM10_IRQHandler(void);
 void SPI2_IRQHandler(void);
 void EXTI15_10_IRQHandler(void);
+void SDMMC1_IRQHandler(void);
 void DMA2_Stream2_IRQHandler(void);
+void DMA2_Stream3_IRQHandler(void);
 void OTG_HS_IRQHandler(void);
 void SPI4_IRQHandler(void);
 void QUADSPI_IRQHandler(void);
@@ -74,5 +76,3 @@ void QUADSPI_IRQHandler(void);
 #endif
 
 #endif /* __STM32F7xx_IT_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

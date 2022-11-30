@@ -373,16 +373,17 @@ static uint8_t USBD_RTT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
     return (uint8_t)USBD_FAIL;
   }
 
-  // When the complete message length fits perfectly in n packets, send a zero length packet (ZLP) to let the host know there is no more data
-  if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U))  {
-    /* Update the packet total length */
-    pdev->ep_in[epnum].total_length = 0U;
-    /* Send ZLP */
-    (void)USBD_LL_Transmit(pdev, epnum, NULL, 0U);
-  }
-  else
-  {
+  // // When the complete message length fits perfectly in n packets, send a zero length packet (ZLP) to let the host know there is no more data
+  // if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U))  {
+  //   /* Update the packet total length */
+  //   pdev->ep_in[epnum].total_length = 0U;
+  //   /* Send ZLP */
+  //   (void)USBD_LL_Transmit(pdev, epnum, NULL, 0U);
+  // }
+  // else
+  // {
     // TX done
+    hcdc->INT0TxState = 0U;
     if(epnum == hcdc->INT0active->InAddress){
       hcdc->INT0TxState = 0U;
       if(callbacks->highprioTXcplt){
@@ -390,11 +391,11 @@ static uint8_t USBD_RTT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
       }
     }else if(epnum == hcdc->INT1active->InAddress){
       hcdc->INT1TxState = 0U;
-      if(callbacks->highprioTXcplt){
+      if(callbacks->lowprioTXcplt){
         callbacks->lowprioTXcplt();
       }
     }
-  }
+  // }
   return (uint8_t)USBD_OK;
 }
 
@@ -508,7 +509,7 @@ static uint8_t USBD_RTT_IsoOutIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum
   * @param  len: length of the data
   * @retval USB status
   */
-static USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len){
+USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len){
   USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)hUsbDeviceHS.pClassData;
 
   // Device needs to be configured before data can be sent
@@ -536,7 +537,7 @@ static USBD_StatusTypeDef USB_TransmitLowPriority(uint8_t* buf, uint32_t len){
   * @param  len: length of the data
   * @retval USB status
   */
-static USBD_StatusTypeDef USB_TransmitHighPriority(uint8_t* buf, uint32_t len){
+USBD_StatusTypeDef USB_TransmitHighPriority(uint8_t* buf, uint32_t len){
   USBD_RTT_HandleTypeDef *hcdc = (USBD_RTT_HandleTypeDef *)hUsbDeviceHS.pClassData;
 
   // Device needs to be configured before data can be sent
@@ -544,17 +545,15 @@ static USBD_StatusTypeDef USB_TransmitHighPriority(uint8_t* buf, uint32_t len){
     return (uint8_t)USBD_FAIL;
   }
   // can't send new packets when already sending
-  if(hcdc->INT0TxState == 1){
-    return USBD_BUSY;
-  }
+  // if(hcdc->INT0TxState == 1){
+  //   return USBD_BUSY;
+  // }
   /* Tx Transfer in progress */
   hcdc->INT0TxState = 1U;
   /* Update the packet total length */
   hUsbDeviceHS.ep_in[RTT_HIGH_PRIO_IN_EP & 0xFU].total_length = len;
   /* Transmit next packet */
-  (void)USBD_LL_Transmit(&hUsbDeviceHS, RTT_HIGH_PRIO_IN_EP, buf, len);
-
-  return USBD_OK;
+  return USBD_LL_Transmit(&hUsbDeviceHS, RTT_HIGH_PRIO_IN_EP, buf, len);
 }
 
 

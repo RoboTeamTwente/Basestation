@@ -35,7 +35,7 @@ extern SPI_HandleTypeDef hspi2;
 extern TIM_HandleTypeDef htim1;
 
 /* Watchdog timer handler */
-IWDG_Handle* iwdg;
+IWDG_Handle iwdg;
 
 /* Screen variables */
 DISPLAY_STATES displayState = DISPLAY_STATE_DEINITIALIZED;
@@ -79,8 +79,8 @@ void Wireless_TXDone(SX1280_Packet_Status *status){
 }
 
 void Wireless_RXDone(SX1280_Packet_Status *status){
-  toggle_pin(LD_RX);
-  toggle_pin(LD_LED2);
+  // toggle_pin(LD_RX);
+  // toggle_pin(LD_LED2);
   /* It is possible that random noise can trigger the syncword. 
     * Syncword is 32 bits. Noise comes in at 2.4GHz. Syncword resets when wrong bit is received.
     * Expected length of wrong syncword is 1*0.5 + 2*0.25 + 3*0.125 + ... = 2
@@ -109,14 +109,23 @@ USBD_StatusTypeDef USB_Control(uint8_t cmd, uint8_t* pbuf, uint16_t length){
 }
 
 void USB_HighPrioTXCplt(void){
+  toggle_pin(LD_LED1);
   return;
 }
 
-void USB_HighPrioRXCplt(uint8_t* buf, uint32_t*len){
-  handlePacket(buf,len);
+void USB_HighPrioRXCplt(uint8_t* buf, uint32_t len){
+  // handlePacket(buf,len);
+  USBD_StatusTypeDef ret;
+  ret = USB_TransmitHighPriority(buf,len);
+  if(ret == USBD_BUSY){
+    toggle_pin(LD_LED3);
+  }else if(ret == USBD_FAIL){
+    toggle_pin(LD_LED2);
+  }
+  toggle_pin(LD_USB);
 }
 
-void USB_LowPrioRXCplt(uint8_t* buf, uint32_t*len){
+void USB_LowPrioRXCplt(uint8_t* buf, uint32_t len){
   handlePacket(buf,len);
 }
 
@@ -125,11 +134,11 @@ void USB_LowPrioTXCplt(void){
 }
 
 USBD_RTT_Callbacks USB_callbacks = {
-  .usbControl = USB_Control,
-  .highprioRXcplt = USB_HighPrioRXCplt,
-  .highprioTXcplt = USB_HighPrioTXCplt,
-  .lowprioRXcplt = USB_LowPrioRXCplt,
-  .lowprioTXcplt = USB_LowPrioTXCplt,
+  .usbControl = &USB_Control,
+  .highprioRXcplt = &USB_HighPrioRXCplt,
+  .highprioTXcplt = &USB_HighPrioTXCplt,
+  .lowprioRXcplt = &USB_LowPrioRXCplt,
+  .lowprioTXcplt = &USB_LowPrioTXCplt,
 };
 
 /* Flags */
@@ -144,7 +153,7 @@ uint32_t heartbeat_1000ms = 0;
 void init(){
     // Start USB (USB has been initialized before this)
     USB_Start_Class(&USB_callbacks);
-    HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
+    HAL_Delay(200); // TODO Why do we have this again? To allow for USB to start up iirc?
     LOG_init();
     
     // Init SX_TX
@@ -192,7 +201,7 @@ void init(){
     // displayState = DISPLAY_STATE_INITIALIZED;
     // drawBasestation(true);
 
-    IWDG_Init(iwdg);
+    IWDG_Init(&iwdg);
 
     // Initialize the REM_SX1280FillerPayload packet
     REM_SX1280Filler filler = {0};
@@ -207,7 +216,7 @@ void init(){
 
 void loop(){
   
-  IWDG_Refresh(iwdg);
+  IWDG_Refresh(&iwdg);
   LOG_send();
 
   handled_RobotStateInfo++;

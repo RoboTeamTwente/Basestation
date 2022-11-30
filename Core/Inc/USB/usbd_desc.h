@@ -16,7 +16,7 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-extern USBD_DescriptorsTypeDef RTT_Desc;
+extern USBD_DescriptorsTypeDef HS_Desc;
 
 extern uint8_t *USBD_RTT_DeviceQualifierDescriptor(uint16_t *length);
 extern uint8_t *USBD_RTT_GetDeviceQualifierDesc(uint16_t *length);
