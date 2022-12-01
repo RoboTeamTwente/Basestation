@@ -28,7 +28,7 @@ output_file = args.output_dir + "/" + output_filename
 with open(output_file, 'x') as output:
 
     # Create a csv so define all the column names
-    output.write("time_in_ms,id,pos_x,pos_y,angle,vel_x,vel_y,w")
+    output.write("time_in_ms,id,pos_x,pos_y,angle,vel_x,vel_y,w\r\n")
 
     # Start reading incoming protobuf packages
     while True:
@@ -38,7 +38,9 @@ with open(output_file, 'x') as output:
 
         world = world_state.last_seen_world
         time = world.time
-        robots = world.yellow + world.blue
-        for robot in robots:
-            output.write(f"{time},{robot.id},{robot.pos.x},{robot.pos.y},{robot.angle},{robot.vel.x},{robot.vel.y},{robot.w}")
+        for robot in world.yellow:
+            output.write(f"{time},{robot.id},{robot.pos.x},{robot.pos.y},{robot.angle},{robot.vel.x},{robot.vel.y},{robot.w}\r\n")
+            output.flush()
+        for robot in world.blue:
+            output.write(f"{time},{robot.id},{robot.pos.x},{robot.pos.y},{robot.angle},{robot.vel.x},{robot.vel.y},{robot.w}\r\n")
             output.flush()
