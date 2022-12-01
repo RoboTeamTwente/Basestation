@@ -102,11 +102,6 @@ void Wireless_RXTXTimeout(void){
 Wireless_IRQcallbacks SXTX_IRQcallbacks = {.txdone= &Wireless_TXDone, .rxdone= NULL,              .rxtxtimeout= &Wireless_RXTXTimeout};
 Wireless_IRQcallbacks SXRX_IRQcallbacks = {.txdone= NULL,             .rxdone= &Wireless_RXDone,  .rxtxtimeout= &Wireless_RXTXTimeout};
 
-
-
-/* Flags */
-volatile bool flagHandleConfiguration = false;
-
 // screenCounter acts as a timer for updating the screen
 uint32_t screenCounter = 0;
 
@@ -244,9 +239,6 @@ void loop(){
     
     while (heartbeat_1000ms + 1000 < current_time) heartbeat_1000ms += 1000;
 
-    // LOG_printf("Tick | RC %d RF %d RB %d RSI %d GPID %d PID %d INV %d B %d\n",
-    // handled_RobotCommand, handled_RobotFeedback, handled_RobotBuzzer, handled_RobotStateInfo, handled_RobotGetPIDGains, handled_RobotPIDGains, handled_INVALID, handled_total_bytes);
-
     LOG_printf("Tick : Type in out | RC %d %d | RF %d %d | RB %d %d | RSI %d %d | toPC %d | toBS %d\n",
       packet_counter_in[REM_PACKET_INDEX_REM_ROBOT_COMMAND],    packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_COMMAND],
       packet_counter_in[REM_PACKET_INDEX_REM_ROBOT_FEEDBACK],   packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_FEEDBACK],
@@ -284,7 +276,7 @@ void loop(){
       REM_PacketPayload* packet = (REM_PacketPayload*) nonpriority_queue_pc[ nonpriority_queue_pc_index->indexRead ].data;
       uint8_t  packet_type = REM_Packet_get_header(packet);
       uint32_t packet_size = REM_Packet_get_payloadSize(packet);
-      bool packet_sent = LOG_sendBuffer((uint8_t*)packet, packet_size, false);
+      bool packet_sent = LOG_sendBuffer((uint8_t*)packet, packet_size, true);
       if(packet_sent) {
         uint8_t packet_type = REM_Packet_get_header(packet);
         packet_counter_out[REM_PACKET_TYPE_TO_INDEX(packet_type)]++;
@@ -293,6 +285,22 @@ void loop(){
       }else{
         // LOG("Couldn't send packet..\n");
       }
+  }
+
+  /* Deal with any packets that are in the queue and meant for the Basestation, one at a time */
+  if(CircularBuffer_canRead(nonpriority_queue_bs_index, 1)){
+    uint8_t* data = nonpriority_queue_bs[ nonpriority_queue_bs_index->indexRead ].data;
+    REM_PacketPayload* packet = (REM_PacketPayload*) nonpriority_queue_bs[ nonpriority_queue_bs_index->indexRead ].data;
+
+    LOG_printf("[loop]["STRINGIZE(__LINE__)"] Packet ready for Basestation with type %d\n", REM_Packet_get_header(packet));
+    
+    if(REM_Packet_get_header(packet) == REM_PACKET_TYPE_REM_BASESTATION_GET_CONFIGURATION)
+      if( handleREM_BasestationGetConfiguration() )
+        CircularBuffer_read(nonpriority_queue_bs_index, NULL, 1);
+    
+    if(REM_Packet_get_header(packet) == REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION)
+      if( handleREM_BasestationConfiguration( (REM_BasestationConfigurationPayload*) packet) )
+        CircularBuffer_read(nonpriority_queue_bs_index, NULL, 1);    
   }
 
   // /* Send any new RobotStateInfo packets */
@@ -310,24 +318,6 @@ void loop(){
   //     buffer_RobotPIDGains[id].isNewPacket = false;
   //   }
   // }
-
-  if (flagHandleConfiguration) {
-    // TODO: Make a nice function for this
-    REM_BasestationConfiguration configuration;
-    configuration.header = REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION;
-    configuration.toPC = true;
-    configuration.fromBS = true;
-    configuration.remVersion = REM_LOCAL_VERSION;
-    configuration.payloadSize = REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION;
-    configuration.timestamp = HAL_GetTick();
-    configuration.channel = Wireless_getChannel(SX_TX);
-
-    REM_BasestationConfigurationPayload payload;
-    encodeREM_BasestationConfiguration(&payload, &configuration);
-
-    //LOG_sendBlocking(payload.payload, REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION);
-    flagHandleConfiguration = false;
-  }
 
 
   /* Skip all screen stuff */
@@ -371,6 +361,31 @@ void loop(){
 }
 
 
+bool handleREM_BasestationGetConfiguration(){
+  /* Create REM_BasestationConfiguration packet */
+  REM_BasestationConfiguration configuration = {0};
+  configuration.header = REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION;
+  configuration.toPC = true;
+  configuration.fromBS = true;
+  configuration.remVersion = REM_LOCAL_VERSION;
+  configuration.payloadSize = REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION;
+  configuration.timestamp = HAL_GetTick();
+  configuration.channel = Wireless_getChannel(SX_TX);
+  /* Encode packet */
+  REM_BasestationConfigurationPayload payload = {0};
+  encodeREM_BasestationConfiguration(&payload, &configuration);
+  /* Send packet blocking */
+  bool sent = LOG_sendBuffer((uint8_t*)payload.payload, REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION, true);
+  /* Let caller know whether the request been handled succesfully */
+  return sent;
+}
+
+bool handleREM_BasestationConfiguration(REM_BasestationConfigurationPayload* payload){
+  WIRELESS_CHANNEL new_channel = REM_BasestationConfiguration_get_channel(payload);
+  Wireless_setChannel(SX_TX, new_channel);
+  Wireless_setChannel(SX_RX, new_channel);
+  return true;
+}
 
 /**
  * @brief Updates the state of the touch. This helps identifying
@@ -485,7 +500,9 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
     bool to_PC = REM_Packet_get_toPC(packet);  // Packet is destined for the PC
     bool to_BS = REM_Packet_get_toBS(packet);  // Packet is destined for the BaseStation
     bool to_robot = !(to_PC || to_BS);         // Packet is destined for a robot
-    bool robot_id = REM_Packet_get_toRobotId(packet);
+    uint8_t robot_id = REM_Packet_get_toRobotId(packet);
+
+    // LOG_printf("[handlePackets]["STRINGIZE(__LINE__)"] Packet type %u; to_PC %d; to_BS %d; to_robot %d; robot_id %d;\n", packet_type, to_PC, to_BS, to_robot, robot_id);
 
     // High priority : Deal with RobotCommand packets that are destined for a robot
     if(packet_type == REM_PACKET_TYPE_REM_ROBOT_COMMAND && to_robot){
