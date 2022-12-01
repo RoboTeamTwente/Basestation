@@ -373,29 +373,29 @@ static uint8_t USBD_RTT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
     return (uint8_t)USBD_FAIL;
   }
 
-  // // When the complete message length fits perfectly in n packets, send a zero length packet (ZLP) to let the host know there is no more data
-  // if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U))  {
-  //   /* Update the packet total length */
-  //   pdev->ep_in[epnum].total_length = 0U;
-  //   /* Send ZLP */
-  //   (void)USBD_LL_Transmit(pdev, epnum, NULL, 0U);
-  // }
-  // else
-  // {
+  // When the complete message length fits perfectly in n packets, send a zero length packet (ZLP) to let the host know there is no more data
+  if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U))  {
+    /* Update the packet total length */
+    pdev->ep_in[epnum].total_length = 0U;
+    /* Send ZLP */
+    (void)USBD_LL_Transmit(pdev, epnum, NULL, 0U);
+  }
+  else
+  {
     // TX done
-    hcdc->INT0TxState = 0U;
-    if(epnum == hcdc->INT0active->InAddress){
+    // Remove the 0x80 (IN) from the endpoint to just get the index (ep & 0x7F)
+    if(epnum == (hcdc->INT0active->InAddress &0x7F)){
       hcdc->INT0TxState = 0U;
       if(callbacks->highprioTXcplt){
         callbacks->highprioTXcplt();
       }
-    }else if(epnum == hcdc->INT1active->InAddress){
+    }else if(epnum == (hcdc->INT1active->InAddress &0x7F)){
       hcdc->INT1TxState = 0U;
       if(callbacks->lowprioTXcplt){
         callbacks->lowprioTXcplt();
       }
     }
-  // }
+  }
   return (uint8_t)USBD_OK;
 }
 
