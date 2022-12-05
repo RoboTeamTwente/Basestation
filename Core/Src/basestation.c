@@ -469,6 +469,7 @@ void updateTouchState(TouchState* touchState){
     }
   }
 }
+
 /**
  * @brief routes any incoming packet to the correct function. Hub for all incoming packets.
  * TODO actually make it route all incoming packets, and not just USB packets
