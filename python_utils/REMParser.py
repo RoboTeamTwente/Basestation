@@ -69,7 +69,8 @@ class REMParser():
 			# If the packet type is not valid / unknown
 			if not packet_valid:
 				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet_type}!")
+				break
+				# raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet_type}!")
 
 			# Make sure that at least the entire default REM_Packet header is in the buffer
 			# This is need to call functions such as get_remVersion()and get_payloadSize()
