@@ -408,20 +408,20 @@ while True:
 				rx, ry = rotate((330, 170), (330, 170 - wheel_speeds_exp[0] * 80), -30 * np.pi / 180.)
 				cv2.line(image_vis, (330, 170), (int(rx), int(ry)), (1, 1, 1), 4)
 				# XSens wheel speed 2
-				rx, ry = rotate((330, 330), (330, 330 - wheel_speeds_avg[1] * 80), 60 * np.pi / 180.)
-				cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (.15, .15, 1), 10)
-				rx, ry = rotate((330, 330), (330, 330 - wheel_speeds_exp[1] * 80), 60 * np.pi / 180.)
-				cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (1, 1, 1), 4)
+				rx, ry = rotate((170, 170), (170, 170 + wheel_speeds_avg[1] * 80), 30 * np.pi / 180.)
+				cv2.line(image_vis, (170, 170), (int(rx), int(ry)), (.15, .15, 1), 10)
+				rx, ry = rotate((170, 170), (170, 170 + wheel_speeds_exp[1] * 80), 30 * np.pi / 180.)
+				cv2.line(image_vis, (170, 170), (int(rx), int(ry)), (1, 1, 1), 4)
 				# XSens wheel speed 3
 				rx, ry = rotate((170, 330), (170, 330 + wheel_speeds_avg[2] * 80), -60 * np.pi / 180.)
 				cv2.line(image_vis, (170, 330), (int(rx), int(ry)), (.15, .15, 1), 10)
 				rx, ry = rotate((170, 330), (170, 330 + wheel_speeds_exp[2] * 80), -60 * np.pi / 180.)
 				cv2.line(image_vis, (170, 330), (int(rx), int(ry)), (1, 1, 1), 4)
 				# XSens wheel speed 4
-				rx, ry = rotate((170, 170), (170, 170 + wheel_speeds_avg[3] * 80), 30 * np.pi / 180.)
-				cv2.line(image_vis, (170, 170), (int(rx), int(ry)), (.15, .15, 1), 10)
-				rx, ry = rotate((170, 170), (170, 170 + wheel_speeds_exp[3] * 80), 30 * np.pi / 180.)
-				cv2.line(image_vis, (170, 170), (int(rx), int(ry)), (1, 1, 1), 4)
+				rx, ry = rotate((330, 330), (330, 330 - wheel_speeds_avg[3] * 80), 60 * np.pi / 180.)
+				cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (.15, .15, 1), 10)
+				rx, ry = rotate((330, 330), (330, 330 - wheel_speeds_exp[3] * 80), 60 * np.pi / 180.)
+				cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (1, 1, 1), 4)
 			
 
 			if REM_BasestationConfiguration in latest_packets and latest_packets[REM_BasestationConfiguration] is not None:
