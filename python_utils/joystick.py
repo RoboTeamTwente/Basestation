@@ -200,7 +200,7 @@ class Joystick:
 			velocity_y *= np.sign(self.controller.axis_l.y)
 
 		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
-		theta = math.atan2(-velocity_x, -velocity_y);
+		theta = math.atan2(velocity_x, -velocity_y);
 
 		self.command.toRobotId = self.robot_id
 
