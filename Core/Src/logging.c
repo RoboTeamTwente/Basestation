@@ -25,15 +25,14 @@ static bool log_initialized = false;
 
 void LOG_init(){
     // UPDATE TO CORRECT USB DEVICES
-    /*
     // Can't initialize twice
     if(log_initialized) return;
     // Create buffer indexer
     buffer_indexer = CircularBuffer_init(true, LOG_MAX_MESSAGES);
     // Wait for USB to be ready for communication
-    while(!(hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED));
+    while(!(hUsbDeviceHS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceHS.dev_state == USBD_STATE_SUSPENDED));
     log_initialized = true;
-    */
+
 }
 
 void LOG_printf(char *format, ...){
@@ -92,29 +91,30 @@ void LOG(char *message){
 
 void LOG_send(){
     // UPDATE TO CORRECT USB DEVICES
-    /*
+    
     // Check if the USB is ready for transmitting
-    if(!(hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED)) return;
-    USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
-    if (hcdc->TxState != 0) return;
+    if(!(hUsbDeviceHS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceHS.dev_state == USBD_STATE_SUSPENDED)) return;
+    USBD_RTT_HandleTypeDef* hcdc = (USBD_RTT_HandleTypeDef*)hUsbDeviceHS.pClassData;
+    if (hcdc->INT1TxState != 0) return;
     // Check if there is something in the buffer
     if(CircularBuffer_spaceFilled(buffer_indexer) == 0) return;
     // Write the message over USB
-    MessageContainer* message_container = &message_buffer[buffer_indexer->indexRead];
-    CDC_Transmit_FS(message_container->payload, message_container->length);
+    // MessageContainer* message_container = &message_buffer[buffer_indexer->indexRead];
+    // USB_TransmitHighPriority(message_container->payload, message_container->length);
     // Move up the circular buffer
     CircularBuffer_read(buffer_indexer, NULL, 1);
-    */
+    
 }
 
 void LOG_sendBlocking(uint8_t* data, uint8_t length){
     // TODO: USB_TransmitLowPriority can return busy or fail, deal with that 
-    USB_TransmitLowPriority(data, length);
+    // USB_TransmitLowPriority(data, length);
 }
 
 bool LOG_sendBuffer(uint8_t* data, uint32_t length, bool blocking){
     if(!log_initialized) return false;
-    return USB_TransmitLowPriority(data, length) == USBD_OK;
+    // return USB_TransmitHighPriority(data, length) == USBD_OK;
+    return true;
 }
 
 void LOG_sendAll(){

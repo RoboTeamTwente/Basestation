@@ -4,16 +4,10 @@
 #include <stdbool.h>
 #include "basestation.h"
 
-#include "REM_SX1280Filler.h"
 #include "REM_BaseTypes.h"
 #include "REM_RobotCommand.h"
 #include "REM_RobotFeedback.h"
-#include "REM_RobotBuzzer.h"
-#include "REM_RobotStateInfo.h"
-#include "REM_RobotGetPIDGains.h"
-#include "REM_RobotSetPIDGains.h"
-#include "REM_RobotPIDGains.h"
-#include "REM_RobotMusicCommand.h"
+#include "REM_SX1280Filler.h"
 
 REM_SX1280FillerPayload SX1280_filler_payload;
 

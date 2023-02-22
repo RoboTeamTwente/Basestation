@@ -162,7 +162,7 @@ extern UART_HandleTypeDef huart3;
 
 void init(){
   USB_Start_Class(&USB_callbacks);
-  HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
+  HAL_Delay(100); // TODO Why do we have this again? To allow for USB to start up iirc?
   
   LOG_init();
   
@@ -666,7 +666,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
       // Copy packet to the transmission
       CircularBuffer_read(index, NULL, 1);
-      memcpy(txPacket.message + total_packet_length, (uint8_t)packet, packet_size);
+      memcpy(txPacket.message + total_packet_length, (uint8_t*)packet, packet_size);
       // Update total packet length
       total_packet_length += packet_size;
       // Increment packet counter

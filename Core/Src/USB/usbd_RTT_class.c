@@ -24,7 +24,7 @@ static void USBD_RTT_OpenInterface(USBD_HandleTypeDef *pdev, InterfaceConfig* in
 static void USBD_RTT_CloseInterface(USBD_HandleTypeDef *pdev, InterfaceConfig* interface);
 static void USBD_RTT_PrepareReceiveInterface(USBD_HandleTypeDef *pdev, InterfaceConfig* interface);
 
-// USBD functions
+// USBD functions for device driver
 USBD_ClassTypeDef USBD_RTT_ClassDriver =
 {
   USBD_RTT_Init,
@@ -51,6 +51,9 @@ static uint8_t LowPriorityRxBuffer[USB_LOW_PRIO_RX_BUF_SIZE] __attribute__ ((ali
 static InterfaceConfig int0 = {.InAddress = RTT_HIGH_PRIO_IN_EP, .OutAddress = RTT_HIGH_PRIO_OUT_EP, .MaxPacketSize = USB_RTT_EP1_MAX_PACKET_SIZE, .Type = USB_RTT_EP1_TYPE, .Rxbuffer = HighPriorityRxBuffer};
 static InterfaceConfig int0ALT = {.InAddress = RTT_HIGH_PRIO_IN_EP, .OutAddress = RTT_HIGH_PRIO_OUT_EP, .MaxPacketSize = USB_RTT_EP1_ALT_MAX_PACKET_SIZE, .Type = USB_RTT_EP1_ALT_TYPE, .Rxbuffer = HighPriorityRxBuffer};
 static InterfaceConfig int1 = {.InAddress = RTT_LOW_PRIO_IN_EP, .OutAddress = RTT_LOW_PRIO_OUT_EP, .MaxPacketSize = USB_RTT_EP2_MAX_PACKET_SIZE, .Type = USB_RTT_EP2_TYPE, .Rxbuffer = LowPriorityRxBuffer};
+
+// RTT USB class state data
+USBD_RTT_HandleTypeDef rtt_handle = {0};
 
 /* USB RTT device Configuration Descriptor */
 // Contents are described in https://www.keil.com/pack/doc/mw/USB/html/_u_s_b__configuration__descriptor.html
@@ -110,7 +113,7 @@ __ALIGN_BEGIN static uint8_t USBD_RTT_CfgDesc[] __ALIGN_END =
   0x00, //bInterfaceProtocol
   0x00, //Index to a human readable string describing this interface (0x00 - not available)
 
-  /********************* Endpoints for interface 0, ALT 0*/
+  /********************* Endpoints for interface 0, ALT 1*/
   // Endpoint HIGH PRIO IN
   0x07, //bLength
   USB_DESC_TYPE_ENDPOINT, //bDescriptorType: Endpoint
@@ -118,7 +121,7 @@ __ALIGN_BEGIN static uint8_t USBD_RTT_CfgDesc[] __ALIGN_END =
   USB_RTT_EP1_ALT_TYPE,       //bmAttributes, (ISO has more settings)
   LOBYTE(USB_RTT_EP1_ALT_MAX_PACKET_SIZE), // wMaxPacketSize
   HIBYTE(USB_RTT_EP1_ALT_MAX_PACKET_SIZE), // wMaxPacketSize
-  0x00,                   //bInterval interval for polling (frame counts). Ignored for Bulk and Control
+  USB_RTT_EP1_ALT_BINTERVAL,               //bInterval interval for polling (frame counts). Ignored for Bulk and Control
   
   // Endpoint HIGH PRIO OUT
   0x07, //bLength
@@ -127,7 +130,7 @@ __ALIGN_BEGIN static uint8_t USBD_RTT_CfgDesc[] __ALIGN_END =
   USB_RTT_EP1_ALT_TYPE,     //bmAttributes, (ISO has more settings)
   LOBYTE(USB_RTT_EP1_ALT_MAX_PACKET_SIZE), // wMaxPacketSize
   HIBYTE(USB_RTT_EP1_ALT_MAX_PACKET_SIZE), // wMaxPacketSize
-  0x00,                   //bInterval interval for polling (frame counts). Ignored for Bulk and Control
+  USB_RTT_EP1_ALT_BINTERVAL,               //bInterval interval for polling (frame counts). Ignored for Bulk and Control
 
   /**********  Descriptor of RTT interface 1 Alternate setting 0 (LOW PRIO channel)**************/
   0x09, // blength 
@@ -159,6 +162,8 @@ __ALIGN_BEGIN static uint8_t USBD_RTT_CfgDesc[] __ALIGN_END =
   HIBYTE(USB_RTT_EP2_MAX_PACKET_SIZE), // wMaxPacketSize
   0x00,                   //bInterval interval for polling (frame counts). Ignored for Bulk and Control
   };
+
+
 /**
   * @brief  USBD_RTT_GetCfgDesc
   *         return configuration descriptor
@@ -184,7 +189,7 @@ static uint8_t USBD_RTT_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
   // alloc RTTclass specific data struct
   USBD_RTT_HandleTypeDef *hcdc;
-  hcdc = USBD_malloc(sizeof(USBD_RTT_HandleTypeDef));
+  hcdc = &rtt_handle;
 
   if (hcdc == NULL){
     pdev->pClassData = NULL;
@@ -324,14 +329,14 @@ static uint8_t USBD_RTT_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *re
           if(req->wIndex == USB_RTT_HIGH_PRIO_INTERFACE){
             hcdc->INT0AltSetting = req->wValue;
             if(req->wValue == 0){
-              USBD_RTT_CloseInterface(pdev,&int0);
-              USBD_RTT_OpenInterface(pdev,&int0ALT);
-              hcdc->INT0active = &int0ALT;
-              hcdc->INT0TxState = 0U;
-            }else{
               USBD_RTT_CloseInterface(pdev,&int0ALT);
               USBD_RTT_OpenInterface(pdev,&int0);
               hcdc->INT0active = &int0;
+              hcdc->INT0TxState = 0U;
+            }else if(req->wValue == 1){
+              USBD_RTT_CloseInterface(pdev,&int0);
+              USBD_RTT_OpenInterface(pdev,&int0ALT);
+              hcdc->INT0active = &int0ALT;
               hcdc->INT0TxState = 0U;
             }
           }else{

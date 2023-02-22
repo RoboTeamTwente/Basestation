@@ -16,13 +16,18 @@
 // IN (0x80) means host <-- device, OUT (0x00) means host --> device
 // EP 0x00U and 0x80U are reserved for command packets
 #define RTT_HIGH_PRIO_IN_EP               0x81U
-#define RTT_HIGH_PRIO_OUT_EP              0x01U
-#define RTT_LOW_PRIO_IN_EP                0x82U
-#define RTT_LOW_PRIO_OUT_EP               0x02U
+#define RTT_HIGH_PRIO_OUT_EP              0x02U
+#define RTT_LOW_PRIO_IN_EP                0x84U
+#define RTT_LOW_PRIO_OUT_EP               0x03U
 
 // Packet Sizes
 #define USB_BULK_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  // Max Bulk packet size in bytes for HS
 #define USB_BULK_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE   // Max Bulk packet size in bytes for FS
+
+// The USB host can only allocate for a certain bandwidth on the bus, BULK are not allocated and lowest priority.
+// The user program may opt for a certain interface but the USB host alone controls the interface selection.
+// The host will try to use the interface if possible, but no interface is guaranteed.
+// INTR are calculated by max_packet_size*(1000/bInterval). So small max_packet_size and bInterval is prefered for fast updates.
 
 #define USB_INTR_HS_MAX_PACKET_SIZE    1024  // MAX Interupt packet size in HS
 #define USB_INTR_FS_MAX_PACKET_SIZE    64    // MAX Interupt packet size in FS
@@ -31,8 +36,10 @@
 #define USB_RTT_HIGH_PRIO_INTERFACE       0x00
 #define USB_RTT_EP1_TYPE                  USBD_EP_TYPE_BULK
 #define USB_RTT_EP1_MAX_PACKET_SIZE       USB_BULK_HS_MAX_PACKET_SIZE
+
 #define USB_RTT_EP1_ALT_TYPE              USBD_EP_TYPE_INTR
-#define USB_RTT_EP1_ALT_MAX_PACKET_SIZE   USB_INTR_HS_MAX_PACKET_SIZE
+#define USB_RTT_EP1_ALT_MAX_PACKET_SIZE   64
+#define USB_RTT_EP1_ALT_BINTERVAL         1
 
 #define USB_RTT_LOW_PRIO_INTERFACE        0x01
 #define USB_RTT_EP2_TYPE                  USBD_EP_TYPE_BULK
@@ -55,6 +62,7 @@ typedef struct{
 
 // Class specific data
 typedef struct{
+  // Control transfer data
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
   uint32_t setup_data[USB_HS_MAX_PACKET_SIZE / 4U];
