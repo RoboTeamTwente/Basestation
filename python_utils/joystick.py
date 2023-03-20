@@ -113,7 +113,7 @@ class Joystick:
 		self.id = controller.index
 		self.controller = controller
 		self.robot_id = robot_id
-		self.kick_speed = 3
+		self.kick_speed = 6
 		self.dribbler = False
 		self.absolute_angle = 0
 
@@ -199,13 +199,13 @@ class Joystick:
 			velocity_y = ( abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone)
 			velocity_y *= np.sign(self.controller.axis_l.y)
 
-		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y);
-		theta = math.atan2(-velocity_x, -velocity_y);
+		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y) * 1
+		theta = math.atan2(velocity_x, -velocity_y);
 
 		self.command.toRobotId = self.robot_id
 
 		self.command.rho = rho
-		self.command.theta = theta + self.absolute_angle
+		self.command.theta = theta - self.absolute_angle
 		self.command.angle = self.absolute_angle
 		self.command.useAbsoluteAngle = 1
 
