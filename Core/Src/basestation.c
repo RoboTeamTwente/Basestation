@@ -157,10 +157,14 @@ uint32_t screenCounter = 0;
 /* Tracks time since last heartbeat. Runs at 1Hz */
 uint32_t heartbeat_1000ms = 0;
 
-uint8_t stringbuffer[1024];
-extern UART_HandleTypeDef huart3;
+// For manually writing to the programmer UART, without the logging library
+// uint8_t stringbuffer[1024];
+// extern UART_HandleTypeDef huart4;
 
 void init(){
+  // Initialize Watchdog timer. Already started in main.c:MX_IWDG_Init(), but now, we can call IWDG_Refresh.
+  IWDG_Init(&iwdg);
+
   USB_Start_Class(&USB_callbacks);
   HAL_Delay(100); // TODO Why do we have this again? To allow for USB to start up iirc?
   
@@ -264,8 +268,6 @@ void init(){
     // display_Init();
     // displayState = DISPLAY_STATE_INITIALIZED;
     // drawBasestation(true);
-
-    IWDG_Init(&iwdg);
 
     // Initialize the REM_SX1280FillerPayload packet
     REM_SX1280Filler filler = {0};
