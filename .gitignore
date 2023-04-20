@@ -14,7 +14,7 @@ Middlewares
 !Core/Src/Middlewares/**
 USB_DEVICE
 startup
-STM32F767ZITx_FLASH.ld
+*.ld
 compile_commands.json
 python_utils/rem
 
