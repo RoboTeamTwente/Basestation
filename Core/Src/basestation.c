@@ -86,16 +86,15 @@ void Wireless_TXDone(SX1280_Packet_Status *status){
 }
 
 void Wireless_RXDone(SX1280_Packet_Status *status){
-  // toggle_pin(LD_RX);
-  // toggle_pin(LD_LED2);
   /* It is possible that random noise can trigger the syncword. 
-    * Syncword is 32 bits. Noise comes in at 2.4GHz. Syncword resets when wrong bit is received.
+    * Syncword is 32 bits. Information comes in at 1.2MHz (someone confirm). Syncword resets when wrong bit is received.
     * Expected length of wrong syncword is 1*0.5 + 2*0.25 + 3*0.125 + ... = 2
-    * 2^32 combinations / (2400000000 / 2) syncwords = correct syncword every 3.57 seconds purely from noise
+    * 2^32 combinations / (1200000 / 2) syncwords = correct syncword every 7158 seconds (2 hours) purely from noise
   */
   // Correct syncword from noise have a very weak signal 
   // Threshold is at -160/2 = -80 dBm
   if (status->RSSISync < 160) {
+    toggle_pin(LD_RX);
     ReadPacket_DMA(SX_RX, &rxPacket, &Wireless_Readpacket_Cplt);
     // not necessary to force WaitForPacket() here when configured in Rx Continuous mode
   }
@@ -154,12 +153,26 @@ volatile bool flagHandleConfiguration = false;
 // screenCounter acts as a timer for updating the screen
 uint32_t screenCounter = 0;
 
-/* Tracks time since last heartbeat. Runs at 1Hz */
+uint32_t timestamp_initialized = 0;
+uint32_t heartbeat_17ms = 0;
+uint32_t heartbeat_100ms = 0;
 uint32_t heartbeat_1000ms = 0;
 
 // For manually writing to the programmer UART, without the logging library
 // uint8_t stringbuffer[1024];
 // extern UART_HandleTypeDef huart4;
+
+void sendFakeRobotCommand(uint8_t id){
+  static REM_RobotCommand fake_cmd = {0};
+  fake_cmd.header = REM_PACKET_TYPE_REM_ROBOT_COMMAND;
+  fake_cmd.toRobotId = id;
+  fake_cmd.fromBS = true;
+  fake_cmd.remVersion = REM_LOCAL_VERSION;
+  fake_cmd.payloadSize = REM_PACKET_SIZE_REM_ROBOT_COMMAND;
+  fake_cmd.rho = 0.01;
+  encodeREM_RobotCommand(&buffer_REM_RobotCommand[id].packet.payload, &fake_cmd);
+  buffer_REM_RobotCommand[id].isNewPacket = true;
+}
 
 void init(){
   // Initialize Watchdog timer. Already started in main.c:MX_IWDG_Init(), but now, we can call IWDG_Refresh.
@@ -187,9 +200,6 @@ void init(){
   //   HAL_Delay(1000);
   // }
 
-
-
-
   // Initialize the circular buffers for the nonprioriry queue
   // STM32F767 has 512kb of RAM. Give each robot a 10kb buffer for a total of 160kb RAM. 
   // That should be enough for around 200 messages per robot at least
@@ -202,81 +212,87 @@ void init(){
 
 
 
+  // Init SX_TX
+  LOG("[init:"STRINGIZE(__LINE__)"] Initializing SX_TX\n");
+  bool SX_TX_init_err = false;
+  SX_TX_Interface.BusyPin = SX_TX_BUSY;
+  SX_TX_Interface.CS= SX_TX_CS;
+  SX_TX_Interface.Reset= SX_TX_RST;
+  // Set the print function. NULL to supress printing, LOG_printf to enable printing
+  // SX_TX_init_err |= WIRELESS_OK != Wireless_setPrint_Callback(SX_TX, LOG_printf);
+  // Wake up the TX SX1280 and send it all the default settings
+  SX_TX_init_err |= WIRELESS_OK != Wireless_Init(SX_TX, SX1280_DEFAULT_SETTINGS, &SX_TX_Interface);
+  // Set the functions that have to be called on stuff like "a packet has been received" or "a packet has been sent" or "a timeout has occured". See Wireless_IRQcallbacks in Wireless.h
+  SX_TX_init_err |= WIRELESS_OK != Wireless_setIRQ_Callbacks(SX_TX,&SXTX_IRQcallbacks);
+  // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
+  SX_TX_init_err |= WIRELESS_OK != Wireless_setChannel(SX_TX, YELLOW_CHANNEL);
 
-    // Init SX_TX
-    LOG("[init:"STRINGIZE(__LINE__)"] Initializing SX_TX\n");
-    bool SX_TX_init_err = false;
-    SX_TX_Interface.BusyPin = SX_TX_BUSY;
-    SX_TX_Interface.CS= SX_TX_CS;
-    SX_TX_Interface.Reset= SX_TX_RST;
-    // Set the print function. NULL to supress printing, LOG_printf to enable printing
-    // SX_TX_init_err |= WIRELESS_OK != Wireless_setPrint_Callback(SX_TX, LOG_printf);
-    // Wake up the TX SX1280 and send it all the default settings
-    SX_TX_init_err |= WIRELESS_OK != Wireless_Init(SX_TX, SX1280_DEFAULT_SETTINGS, &SX_TX_Interface);
-    // Set the functions that have to be called on stuff like "a packet has been received" or "a packet has been sent" or "a timeout has occured". See Wireless_IRQcallbacks in Wireless.h
-    SX_TX_init_err |= WIRELESS_OK != Wireless_setIRQ_Callbacks(SX_TX,&SXTX_IRQcallbacks);
-    // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
-    SX_TX_init_err |= WIRELESS_OK != Wireless_setChannel(SX_TX, YELLOW_CHANNEL);
-
-    if(SX_TX_init_err){
-      while(true){
-        LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_TX! Please reboot the basestation\n");
-        LOG_sendAll();
-        HAL_Delay(1000);
-      }
+  if(SX_TX_init_err){
+    while(true){
+      LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_TX! Please reboot the basestation\n");
+      LOG_sendAll();
+      HAL_Delay(1000);
     }
+  }
 
-    
+  
 
+  // Init SX_RX
+  LOG("[init:"STRINGIZE(__LINE__)"] Initializing SX_RX\n");
+  bool SX_RX_init_err = false;
+  SX_RX_Interface.BusyPin= SX_RX_BUSY;
+  SX_RX_Interface.CS= SX_RX_CS;
+  SX_RX_Interface.Reset= SX_RX_RST;
+  // Set the print function. NULL to supress printing, LOG_printf to enable printing
+  SX_RX_init_err |= WIRELESS_OK != Wireless_setPrint_Callback(SX_TX, NULL);
+  // Wake up the RX SX1280 and send it all the default settings
+  SX_RX_init_err |= WIRELESS_OK != Wireless_Init(SX_RX, SX1280_DEFAULT_SETTINGS, &SX_RX_Interface);
+  // Set the functions that have to be called on stuff like "a packet has been received" or "a packet has been sent" or "a timeout has occured". See Wireless_IRQcallbacks in Wireless.h
+  SX_RX_init_err |= WIRELESS_OK != Wireless_setIRQ_Callbacks(SX_RX, &SXRX_IRQcallbacks);
+  // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
+  SX_RX_init_err |= WIRELESS_OK != Wireless_setChannel(SX_RX, YELLOW_CHANNEL);
+  // Set SX_RX syncword to basestation syncword. Meaning, let the receiving SX only receive packets meant for the basestation
+  uint32_t syncwords[2] = {robot_syncWord[16],0};
+  SX_RX_init_err |= WIRELESS_OK != Wireless_setRXSyncwords(SX_RX, syncwords);
+  // Start listening on the SX_RX for packets from the robots
+  SX_RX_init_err |= WIRELESS_OK != WaitForPacketContinuous(SX_RX);
 
-
-    // Init SX_RX
-    LOG("[init:"STRINGIZE(__LINE__)"] Initializing SX_RX\n");
-    bool SX_RX_init_err = false;
-    SX_RX_Interface.BusyPin= SX_RX_BUSY;
-    SX_RX_Interface.CS= SX_RX_CS;
-    SX_RX_Interface.Reset= SX_RX_RST;
-    // Set the print function. NULL to supress printing, LOG_printf to enable printing
-    SX_RX_init_err |= WIRELESS_OK != Wireless_setPrint_Callback(SX_TX, NULL);
-    // Wake up the RX SX1280 and send it all the default settings
-    SX_RX_init_err |= WIRELESS_OK != Wireless_Init(SX_RX, SX1280_DEFAULT_SETTINGS, &SX_RX_Interface);
-    // Set the functions that have to be called on stuff like "a packet has been received" or "a packet has been sent" or "a timeout has occured". See Wireless_IRQcallbacks in Wireless.h
-    SX_RX_init_err |= WIRELESS_OK != Wireless_setIRQ_Callbacks(SX_RX, &SXRX_IRQcallbacks);
-    // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
-    SX_RX_init_err |= WIRELESS_OK != Wireless_setChannel(SX_RX, YELLOW_CHANNEL);
-    // Set SX_RX syncword to basestation syncword. Meaning, let the receiving SX only receive packets meant for the basestation
-    uint32_t syncwords[2] = {robot_syncWord[16],0};
-    SX_RX_init_err |= WIRELESS_OK != Wireless_setRXSyncwords(SX_RX, syncwords);
-    // Start listening on the SX_RX for packets from the robots
-    SX_RX_init_err |= WIRELESS_OK != WaitForPacketContinuous(SX_RX);
-
-    if(SX_RX_init_err){
-      while(true){
-        LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_RX! Please reboot the basestation\n");
-        LOG_sendAll();
-        HAL_Delay(1000);
-      }
+  if(SX_RX_init_err){
+    while(true){
+      LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_RX! Please reboot the basestation\n");
+      LOG_sendAll();
+      HAL_Delay(1000);
     }
+  }
 
 
-    // Start the timer that is responsible for sending packets to the robots
-    // With 16 robots at 60Hz each, this timer runs at approximately 960Hz
-    /// It's required that all buffers are initialized before starting the timer!
-    LOG("[init:"STRINGIZE(__LINE__)"] Initializing Timer\n");
-    HAL_TIM_Base_Start_IT(&htim1);
 
-    // display_Init();
-    // displayState = DISPLAY_STATE_INITIALIZED;
-    // drawBasestation(true);
+  // Start the timer that is responsible for sending packets to the robots
+  // With 16 robots at 60Hz each, this timer runs at approximately 960Hz
+  /// It's required that all buffers are initialized before starting the timer!
+  LOG("[init:"STRINGIZE(__LINE__)"] Initializing Timer\n");
+  HAL_TIM_Base_Start_IT(&htim1);
 
-    // Initialize the REM_SX1280FillerPayload packet
-    REM_SX1280Filler filler = {0};
-    filler.header = REM_PACKET_TYPE_REM_SX1280FILLER;
-    filler.remVersion = REM_LOCAL_VERSION;
-    encodeREM_SX1280Filler(&SX1280_filler_payload, &filler);
+  // display_Init();
+  // displayState = DISPLAY_STATE_INITIALIZED;
+  // drawBasestation(true);
 
-    LOG("[init:"STRINGIZE(__LINE__)"] Initializion complete\n");
-    LOG_sendAll();
+  // Initialize the REM_SX1280FillerPayload packet
+  REM_SX1280Filler filler = {0};
+  filler.header = REM_PACKET_TYPE_REM_SX1280FILLER;
+  filler.remVersion = REM_LOCAL_VERSION;
+  encodeREM_SX1280Filler(&SX1280_filler_payload, &filler);
+
+  LOG("[init:"STRINGIZE(__LINE__)"] Initializion complete\n");
+  LOG_sendAll();
+
+  timestamp_initialized = HAL_GetTick();
+
+	/* Set the heartbeat timers */
+	heartbeat_17ms   = timestamp_initialized + 17;
+	heartbeat_100ms  = timestamp_initialized + 100;
+	heartbeat_1000ms = timestamp_initialized + 1000;
+
 }
 
 
@@ -288,10 +304,19 @@ void loop(){
 
   uint32_t current_time = HAL_GetTick();
 
+  // Heartbeat every 17ms
+  if(heartbeat_17ms < current_time){
+		while (heartbeat_17ms < current_time) heartbeat_17ms += 17;
+  }
+
+  // Heartbeat every 100ms
+  if(heartbeat_100ms < current_time){
+		while (heartbeat_100ms < current_time) heartbeat_100ms += 100;
+  }
+
   /* Heartbeat every second */
-  if(heartbeat_1000ms + 1000 < current_time){
-    
-    while (heartbeat_1000ms + 1000 < current_time) heartbeat_1000ms += 1000;
+  if(heartbeat_1000ms < current_time){
+		while (heartbeat_1000ms < current_time) heartbeat_1000ms += 1000;
 
     LOG_printf("Tick : Type in out | RC %d %d | RF %d %d | RB %d %d | RSI %d %d | toPC %d | toBS %d\n",
       packet_counter_in[REM_PACKET_INDEX_REM_ROBOT_COMMAND],    packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_COMMAND],
