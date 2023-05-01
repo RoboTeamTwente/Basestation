@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -69,6 +69,7 @@ parser.add_argument('test', help='Test to execute', type=str)
 parser.add_argument('--simulate', '-s', action='store_true', help='Create a fake basestation that sends REM_RobotFeedback packets')
 parser.add_argument('--no-visualization', '--nv', action='store_true', help='Disable robot feedback visualization')
 parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
+parser.add_argument('--max-duration', '-mx', help="How long should this script last before it stops the robot? [in seconds]")
 
 args = parser.parse_args()
 print(args)
@@ -189,6 +190,20 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 
 	if test == "sideways":
 		cmd.useAbsoluteAngle = 1
+		cmd.angle = math.pi / 2
+
+	if test == "forward-always" or test == "sideways-always":
+		if args.max_duration:
+			if tick_counter < float(args.max_duration) * packetHz:
+				cmd.useAbsoluteAngle = 1
+				cmd.rho = 2
+			else:
+				cmd.rho = 0
+		else:
+			print("Please provide a maximum time for going forward (use -mx)")
+			exit()
+	
+	if test == "sideways-always":
 		cmd.angle = math.pi / 2
 	
 	if test == "circle":
