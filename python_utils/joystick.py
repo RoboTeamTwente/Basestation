@@ -99,7 +99,7 @@ class JoystickHandler:
 							self.event_handler.record_event(id, "New controller discovered")
 						except Exception as e:
 							print(e)
-							sleep(1)
+							time.sleep(1)
 							pass
 
 				time.sleep(0.1)
@@ -199,7 +199,7 @@ class Joystick:
 			velocity_y = ( abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone)
 			velocity_y *= np.sign(self.controller.axis_l.y)
 
-		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y) * 1
+		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y) * 0.7
 		theta = math.atan2(velocity_x, -velocity_y);
 
 		self.command.toRobotId = self.robot_id
