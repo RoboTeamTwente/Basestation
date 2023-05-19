@@ -120,15 +120,7 @@ void USB_HighPrioTXCplt(void){
 }
 
 void USB_HighPrioRXCplt(uint8_t* buf, uint32_t len){
-  // handlePacket(buf,len);
-  USBD_StatusTypeDef ret;
-  ret = USB_TransmitHighPriority(buf,len);
-  if(ret == USBD_BUSY){
-    toggle_pin(LD_LED3);
-  }else if(ret == USBD_FAIL){
-    toggle_pin(LD_LED2);
-  }
-  toggle_pin(LD_USB);
+  handlePackets(buf,len);
 }
 
 void USB_LowPrioRXCplt(uint8_t* buf, uint32_t len){
