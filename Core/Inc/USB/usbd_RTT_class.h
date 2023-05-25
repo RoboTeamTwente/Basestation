@@ -16,9 +16,9 @@
 // IN (0x80) means host <-- device, OUT (0x00) means host --> device
 // EP 0x00U and 0x80U are reserved for command packets
 #define RTT_HIGH_PRIO_IN_EP               0x81U
-#define RTT_HIGH_PRIO_OUT_EP              0x02U
-#define RTT_LOW_PRIO_IN_EP                0x84U
-#define RTT_LOW_PRIO_OUT_EP               0x03U
+#define RTT_LOW_PRIO_IN_EP                0x82U
+#define RTT_HIGH_PRIO_OUT_EP              0x03U
+#define RTT_LOW_PRIO_OUT_EP               0x04U
 
 // Packet Sizes
 #define USB_BULK_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  // Max Bulk packet size in bytes for HS
