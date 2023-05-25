@@ -128,6 +128,7 @@ void USB_LowPrioRXCplt(uint8_t* buf, uint32_t len){
 }
 
 void USB_LowPrioTXCplt(void){
+  toggle_pin(LD_LED1);
   return;
 }
 
