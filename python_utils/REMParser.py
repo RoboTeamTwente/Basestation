@@ -20,7 +20,7 @@ class REMParser():
 	
 	def __init__(self, device, output_file=None):
 		print(f"[REMParser] New REMParser")
-		if device: print(f"[REMParser] Device {device.port}")
+		if device and hasattr(device, 'port'): print(f"[REMParser] Device {device.port}")
 
 		self.device = device
 		self.byte_buffer = bytes()
@@ -37,12 +37,20 @@ class REMParser():
 				print("\n")
 				print(e)
 			os.symlink(output_file, "latest.rembin")
+
 	def read(self):
-		bytes_in_waiting = self.device.inWaiting()
-		if bytes_in_waiting == 0: return
-		if DEBUG: print(f"[read] {bytes_in_waiting} bytes in waiting")
-		self.byte_buffer += self.device.read(bytes_in_waiting)
-		if DEBUG: print(f"[read] Read {bytes_in_waiting} bytes")
+		bytes_read = self.device.read()
+		if bytes_read > 0:
+			# print(f"\tREMParser received {bytes_read} bytes from basestation")
+			self.byte_buffer += self.device.byte_buffer if type(self.device.byte_buffer) == bytes else self.device.byte_buffer[0] + self.device.byte_buffer[1]
+			self.device.byte_buffer = bytes()
+			# self.byte_buffer += self.device.get_byte_buffer(erase=True, high_priority=False)
+
+		# bytes_in_waiting = self.device.inWaiting()
+		# if bytes_in_waiting == 0: return
+		# if DEBUG: print(f"[read] {bytes_in_waiting} bytes in waiting")
+		# self.byte_buffer += self.device.read(bytes_in_waiting)
+		# if DEBUG: print(f"[read] Read {bytes_in_waiting} bytes")
 
 	def process(self, parse_file=False):
 		# No bytes in the buffer, so nothing to process
@@ -68,6 +76,7 @@ class REMParser():
 			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet_type)
 			# If the packet type is not valid / unknown
 			if not packet_valid:
+				print(self.byte_buffer)
 				self.byte_buffer = bytes()
 				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet_type}!")
 

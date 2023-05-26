@@ -226,7 +226,7 @@ class BasestationHandler:
 		self.shutdown = shutdown
 		self.packet_Hz = 60
 		self.running = True
-		self.basestation = utils.openContinuous(timeout=0.001)
+		self.basestation = utils.Basestation()  #utils.openContinuous(timeout=0.001)
 		self.event_handler = event_handler
 		self.joystick_handler = joystick_handler
 

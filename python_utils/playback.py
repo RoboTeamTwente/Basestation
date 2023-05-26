@@ -1,19 +1,9 @@
 import argparse
-import copy
-from collections import deque
-from datetime import datetime, timedelta
-import json
-import numpy as np
-import os
-import time 
+import time
 
+import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 import utils
 from REMParser import REMParser
-import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.REM_Packet import REM_Packet
-from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
-from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
-from roboteam_embedded_messages.python.REM_Log import REM_Log
 
 if __name__ == "__main__":
 	print("Running REMParser directly")
@@ -37,7 +27,7 @@ if __name__ == "__main__":
 	for command in rcs:
 		command.timestamp_parser_ms = (command.timestamp_parser_ms - t_start)/1000 + t_now
 	
-	serial = utils.openContinuous(timeout=0.001)
+	basestation = utils.Basestation()
 
 	rc_index = 0
 	while True:
@@ -46,4 +36,4 @@ if __name__ == "__main__":
 		if rcs[rc_index].timestamp_parser_ms < t_now:
 			# print(rc_index)
 			rc_index += 1
-			serial.write(rcs[rc_index].encode())
+			basestation.write(rcs[rc_index].encode())

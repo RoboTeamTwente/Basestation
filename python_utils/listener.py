@@ -32,7 +32,7 @@ parser.print_help()
 args = parser.parse_args()
 print()
 
-serial_connection = None
+basestation = None
 parser = None
 
 robotCommand = REM_RobotCommand()
@@ -58,12 +58,12 @@ if len(packet_types_selected) == 0:
 
 while True:
 	# Open serial_connection with the serial_connection
-	if serial_connection is None or not serial_connection.isOpen():
-		serial_connection = utils.openContinuous(timeout=0.01)
-		if parser is not None: parser.device = serial_connection
+	if basestation is None:
+		basestation = utils.Basestation()
+		if parser is not None: parser.device = basestation
 
-	if parser is None and serial_connection is not None:
-		parser = REMParser(serial_connection)
+	if parser is None and basestation is not None:
+		parser = REMParser(basestation)
 
 	try:
 		# Continuously read and print messages from the serial_connection
@@ -96,13 +96,13 @@ while True:
 
 	except serial.SerialException as se:
 		print("SerialException", se)
-		serial_connection = None
+		basestation = None
 	except serial.SerialTimeoutException as ste:
 		print("SerialTimeoutException", ste)
 	except KeyError:
 		print("[Error] KeyError", e, "{0:b}".format(int(str(e))))
 	except Exception as e:
 		print("\n[Exception]", e)
-		serial_connection = None
+		basestation = None
 		# raise e
 		# print(traceback.format_exc())

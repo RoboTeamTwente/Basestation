@@ -246,7 +246,8 @@ while True:
 		# Open basestation
 		if basestation is None or not basestation.isOpen():
 			port = None if not args.simulate else simulated_basestation.getSerialName()
-			basestation = utils.openContinuous(timeout=0.01, port=port)
+			basestation = utils.Basestation()
+			# basestation = utils.openContinuous(timeout=0.01, port=port)
 			print("Basestation opened")
 			if parser is not None:
 				parser.device = basestation
