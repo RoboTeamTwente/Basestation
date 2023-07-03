@@ -19,16 +19,21 @@
 #define WIRELESS_YELLOW_CHANNELS 0
 #define WIRELESS_BLUE_CHANNELS 1
 
-/* 
-* Frequency steps in MHz, starting at 2.4GHz, going up to 2.5GHz 
-* For the 2022 RoboCup, we have been assigned the band 2.494 GHz to 2.500 GHz
-*/
+/* Frequency steps in MHz, starting at 2.4GHz, going up to 2.5GHz */
 
-// These frequencies are not between the 2.4 and 2.5, but far below the 2.4 wifi to prevent interference
-#define WIRELESS_CHANNEL_YELLOW_ROBOT_TO_BASESTATION -10
+/* Frequencies for the RoboCup 2023 */
+#define WIRELESS_CHANNEL_YELLOW_ROBOT_TO_BASESTATION 85  
+#define WIRELESS_CHANNEL_BLUE_ROBOT_TO_BASESTATION   86
+#define WIRELESS_CHANNEL_YELLOW_BASESTATION_TO_ROBOT 87
+#define WIRELESS_CHANNEL_BLUE_BASESTATION_TO_ROBOT   88
+
+/* Frequencies below 2.4GHz to avoid WiFi. Officially not supported by documentation, but according to TIGERs it works */
+/*
+#define WIRELESS_CHANNEL_YELLOW_ROBOT_TO_BASESTATION -10  
 #define WIRELESS_CHANNEL_BLUE_ROBOT_TO_BASESTATION   -11.5
-#define WIRELESS_CHANNEL_YELLOW_BASESTATION_TO_ROBOT -13
+#define WIRELESS_CHANNEL_YELLOW_BASESTATION_TO_ROBOT -13  
 #define WIRELESS_CHANNEL_BLUE_BASESTATION_TO_ROBOT   -14.5
+*/
 
 #define WIRELESS_CHANNEL_DEFAULT_ROBOT_TO_BASESTATION WIRELESS_CHANNEL_YELLOW_ROBOT_TO_BASESTATION
 #define WIRELESS_CHANNEL_DEFAULT_BASESTATION_TO_ROBOT WIRELESS_CHANNEL_YELLOW_BASESTATION_TO_ROBOT
