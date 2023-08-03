@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)

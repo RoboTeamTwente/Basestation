@@ -14,6 +14,7 @@
 #include "REM_RobotSetPIDGains.h"
 #include "REM_RobotPIDGains.h"
 #include "REM_RobotMusicCommand.h"
+#include "REM_RobotKillCommand.h"
 
 REM_SX1280FillerPayload SX1280_filler_payload;
 
@@ -29,10 +30,15 @@ typedef struct _wrapper_REM_RobotFeedback {
 	bool isNewPacket;
 } wrapper_REM_RobotFeedback;
 
+typedef struct _wrapper_REM_RobotKillCommand {
+	REM_RobotKillCommandPayload packet;
+	bool isNewPacket;
+} wrapper_REM_RobotKillCommand;
 
 
 wrapper_REM_RobotCommand buffer_REM_RobotCommand[MAX_NUMBER_OF_ROBOTS];
 wrapper_REM_RobotFeedback buffer_REM_RobotFeedback[MAX_NUMBER_OF_ROBOTS];
+wrapper_REM_RobotKillCommand buffer_REM_RobotKillCommand[MAX_NUMBER_OF_ROBOTS];
 
 CircularBuffer* nonpriority_queue_robots_index[MAX_NUMBER_OF_ROBOTS];
 CircularBuffer* nonpriority_queue_pc_index;

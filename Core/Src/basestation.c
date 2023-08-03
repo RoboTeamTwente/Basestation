@@ -14,6 +14,7 @@
 #include "REM_RobotMusicCommand.h"
 #include "REM_Packet.h"
 #include "REM_SX1280Filler.h"
+#include "REM_RobotKillCommand.h"
 
 #include "CircularBuffer.h"
 
@@ -32,6 +33,7 @@ volatile int handled_RobotGetPIDGains = 0;
 volatile int handled_RobotSetPIDGains = 0;
 volatile int handled_RobotPIDGains = 0;
 volatile int handled_RobotMusicCommand = 0;
+volatile int handled_RobotKillCommand = 0;
 
 /* Import hardware handles from main.c */
 extern SPI_HandleTypeDef hspi1;
@@ -512,6 +514,15 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       handled_RobotCommand++;
     }else
 
+    // High priority : Deal with RobotKillCommand packets that are destined for a robot
+    if (packet_type == REM_PACKET_TYPE_REM_ROBOT_KILL_COMMAND && to_robot) {
+      // Store the message in the RobotCommand buffer. 
+      // TODO: Perhaps dedicate a separate buffer for these types of commands.
+      memcpy(buffer_REM_RobotKillCommand[robot_id].packet.payload, packet, packet_size);
+      buffer_REM_RobotKillCommand[robot_id].isNewPacket = true;
+      handled_RobotKillCommand++;
+    }else
+
     // High priority : Deal with RobotFeedback packets that are destined for the PC
     if(packet_type == REM_PACKET_TYPE_REM_ROBOT_FEEDBACK && to_PC){
       // Store the message in the RobotFeedback buffer. Set flag indicating packet needs to be sent to the PC
@@ -601,6 +612,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
       memcpy(txPacket.message + total_packet_length, buffer_REM_RobotCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_COMMAND);
       total_packet_length += REM_PACKET_SIZE_REM_ROBOT_COMMAND;
       packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_COMMAND]++;
+    }
+
+    /* Add RobotKillCommand to the transmission */
+    if(buffer_REM_RobotKillCommand[robot_id].isNewPacket
+      && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
+      buffer_REM_RobotKillCommand[robot_id].isNewPacket = false;
+      memcpy(txPacket.message + total_packet_length, buffer_REM_RobotKillCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND;
+      packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_KILL_COMMAND]++;
     }
 
     /* Add any other packet from the queue to the transmission */
