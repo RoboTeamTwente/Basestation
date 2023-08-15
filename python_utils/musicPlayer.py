@@ -5,17 +5,27 @@ from roboteam_embedded_messages.python.REM_RobotMusicCommand import REM_RobotMus
 
 connection = utils.openContinuous(timeout=0.01)
 
-def cleanRMC():
+def cleanRMC(robot_id):
+	""" Generates and returns a clean REM_RobotMusicCommand
+
+	Args:
+		robot_id (int): The id of the robot to send the command to
+ 
+	Returns:
+		REM_RobotMusicCommand: The clean REM_RobotMusicCommand
+	"""
 	cmd = REM_RobotMusicCommand()
-	cmd.header = BaseTypes.PACKET_TYPE_REM_ROBOT_MUSIC_COMMAND
-	cmd.remVersion = BaseTypes.LOCAL_REM_VERSION
-	cmd.id = 12
+	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_MUSIC_COMMAND
+	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
+	cmd.id = robot_id
 	return cmd
+
+robot_id = 0
 
 while True:
 	cmd = cleanRMC()
 
-	arg = input("(folder $ song $)(next|previous)(volume up,down,$)(play|pause|stop) Command: ")
+	arg = input(f"[robot {robot_id}](folder $ song $)(next|previous)(volume up,down,$)(play|pause|stop) Command: ")
 
 	## Song
 	if arg.startswith("folder"):
