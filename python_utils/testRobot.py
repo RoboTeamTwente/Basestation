@@ -43,7 +43,18 @@ def drawProgressBar(progress):
 	string += "]"
 	return string
 
-def rotate(origin, point, angle):
+def rotate(origin:tuple[float, float], point:tuple[float, float], angle:float) -> tuple[float, float]:
+	""" Rotate a point counterclockwise by a given angle around a given origin.
+
+	Args:
+		origin (tuple[float, float]): The origin of the rotation
+		point (tuple[float, float]): The point to rotate around the origin
+		angle (float): The angle in radians to rotate the point
+
+	Returns:
+		tuple[float, float]: The point rotated around the origin
+	"""
+    
 	ox, oy = origin
 	px, py = point
 
@@ -51,7 +62,16 @@ def rotate(origin, point, angle):
 	qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
 	return qx, qy
 
-def normalize_angle(angle):
+def normalize_angle(angle:float) -> float:
+	""" Normalize an angle between -pi and pi
+
+	Args:
+		angle (float): The angle to normalize
+
+	Returns:
+		float: The normalized angle between -pi and pi
+	"""
+ 
 	pi2 = 2*math.pi
 	# reduce the angle  
 	angle = angle % (pi2)
@@ -61,7 +81,9 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
+# List of available tests
 testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "kill-robot"]
+print("Available tests:", ", ".join(testsAvailable), "\n")
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -70,10 +92,7 @@ parser.add_argument('--simulate', '-s', action='store_true', help='Create a fake
 parser.add_argument('--no-visualization', '--nv', action='store_true', help='Disable robot feedback visualization')
 parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
 parser.add_argument('--max-duration', '-mx', help="How long should this script last before it stops the robot? [in seconds]")
-
 args = parser.parse_args()
-print(args)
-# exit()
 
 # Parse input arguments 
 robot_id = args.robot_id
@@ -87,17 +106,16 @@ if test not in testsAvailable:
 basestation = None
 simulated_basestation = None
 
-tick_counter = 0
-periodLength = 150
-packetHz = 60
+tick_counter = 0	# Number of ticks since the start of the script
+period_length = 100  # Number of ticks per period
+packet_Hz = 60 		# Frequency of packets sent to the robot
+
+print(f"Sending commands to robot {robot_id} with test '{test}' at {packet_Hz}Hz. Test will repeat every {period_length / packet_Hz:.2f} seconds")
 
 robotConnected = True
 
 doFullTest = test == "full"
 testIndex = 2
-
-# stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0674FF525750877267181714-if02"
-stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF544852707267223637-if02"
 
 def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.3, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 0.25, IbodyW = 5.0, DbodyW = 0.0, PbodyYaw = 20.0, IbodyYaw = 5.0, DbodyYaw = 0.0, Pwheels = 2.0, Iwheels = 0.0, Dwheels = 0.0): # Change the default values if the robot PIDs change
 	# Create new empty setPID command
@@ -169,22 +187,23 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			if test == "kicker"  : cmd.doKick = True
 			if test == "chipper" : cmd.doChip = True
 			cmd.doForce = True
-			cmd.kickChipPower = 1.5
+			cmd.kickChipPower = 2
+		cmd.dribbler = 0
 
 	if test == "dribbler":
-		cmd.dribbler = period_fraction
+		cmd.dribbler = 0.4#period_fraction
 		log = "speed = %.2f" % cmd.dribbler
 
 	if test == "rotate":
 		cmd.useAbsoluteAngle = 1
-		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction*5 + 0.5) % 1)
+		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
 		log = "angle = %+.3f" % cmd.angle
 
 	if test == "forward" or test == "sideways":
 		if period_fraction == 1:
 			counter += 1
 		cmd.useAbsoluteAngle = 1
-		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction )
+		cmd.rho = 2.3 - 2.3 * math.cos( 4 * math.pi * period_fraction )
 		if 0.5 < period_fraction : cmd.theta = -math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
@@ -194,7 +213,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 
 	if test == "forward-always" or test == "sideways-always":
 		if args.max_duration:
-			if tick_counter < float(args.max_duration) * packetHz:
+			if tick_counter < float(args.max_duration) * packet_Hz:
 				cmd.useAbsoluteAngle = 1
 				cmd.rho = 2
 			else:
@@ -226,7 +245,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		#cmd.angle = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
 		cmd.angularVelocity = math.pi/3 # set useAbsoluteAngle to 0 to use this
 		log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
-		
+
 	if test == "angular-velocity":
 		cmd.angularVelocity = math.pi
 		log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
@@ -235,7 +254,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 
 while True:
 	try:
-
 
 		# ========== INIT ========== #
 		# Loop control
@@ -282,13 +300,13 @@ while True:
 		while True:
 			# Timing stuff. Get current time, seconds to next tick, and check if a new tick is required
 			current_time = time.time()
-			s_until_next_tick = last_tick_time + 1./packetHz - current_time
+			s_until_next_tick = last_tick_time + 1./packet_Hz - current_time
 			tick_required = s_until_next_tick < 0
 
 			# If tick is not required yet, sleep for 10% of the time between ticks, to prevent 100% CPU usage
 			# It 'should' also still give the script enough time between ticks to handle all reading and rendering
-			if not tick_required and 0.1 / packetHz < s_until_next_tick: 
-				time.sleep(0.1 / packetHz)
+			if not tick_required and 0.1 / packet_Hz < s_until_next_tick: 
+				time.sleep(0.1 / packet_Hz)
 
 
 
@@ -296,10 +314,10 @@ while True:
 			if tick_required:
 
 				# Timing stuff
-				last_tick_time += 1./packetHz
+				last_tick_time += 1./packet_Hz
 				tick_counter += 1
-				period = tick_counter % periodLength
-				period_fraction = period / periodLength
+				period = tick_counter % period_length
+				period_fraction = period / period_length
 
 				# Check connection with robot
 				robotConnected = last_robotcommand_time - last_robotfeedback_time < 0.5
@@ -372,14 +390,10 @@ while True:
 				robotFeedback = latest_packets[REM_RobotFeedback]
 				latest_packets[REM_RobotFeedback] = None
 				
-
-				# Ballsensor
-				if robotFeedback.ballSensorWorking:
-					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 1, 0),2)
-					if robotFeedback.hasBall:
-						cv2.circle(image_vis, (250+int(73*robotFeedback.ballPos), 250-90), 10, (0, 0.4, 1), -1)
-				else:
-					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 0, 1),2)
+				# Dribbler ballsensor
+				cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 1, 0),2)
+				if robotFeedback.dribblerSeesBall:
+					cv2.circle(image_vis, (250+int(73*robotFeedback.ballPos), 250-90), 10, (0, 0.4, 1), -1)
 
 				length = int(robotFeedback.rho * 500)
 				px, py = rotate((250, 250), (250, 250+length), robotFeedback.theta)
@@ -452,10 +466,10 @@ while True:
 					exit()
 				image_vis *= 0.7
 
-			# for packet_type in latest_packets.keys():
-			# 	if latest_packets[packet_type] is not None:
-			# 		print(f"Unhandled packet {packet_type.__name__}")
-			# 		latest_packets[packet_type] = None
+			for packet_type in latest_packets.keys():
+				if latest_packets[packet_type] is not None:
+					print(f"Unhandled packet {packet_type.__name__}")
+					latest_packets[packet_type] = None
 
 			
 
