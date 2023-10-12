@@ -167,17 +167,13 @@ void init(){
     // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
     SX_TX_init_err |= WIRELESS_OK != Wireless_setChannel(SX_TX, YELLOW_CHANNEL);
 
-    if(SX_TX_init_err){
-      while(true){
+    if(SX_TX_init_err){// maybe move this after each of the SX_TX_init_err assignment, better debugging!
+      while(true){// Good Idea to print this then, shut down robot
         LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_TX! Please reboot the basestation\n");
         LOG_sendAll();
         HAL_Delay(1000);
       }
     }
-
-    
-
-
 
     // Init SX_RX
     LOG("[init:"STRINGIZE(__LINE__)"] Initializing SX_RX\n");
@@ -199,8 +195,8 @@ void init(){
     // Start listening on the SX_RX for packets from the robots
     SX_RX_init_err |= WIRELESS_OK != WaitForPacketContinuous(SX_RX);
 
-    if(SX_RX_init_err){
-      while(true){
+    if(SX_RX_init_err){// maybe move this after each of the SX_TX_init_err assignment, better debugging!
+      while(true){ // Good Idea to print this then, shut down robot
         LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_RX! Please reboot the basestation\n");
         LOG_sendAll();
         HAL_Delay(1000);
