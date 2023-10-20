@@ -14,18 +14,22 @@ from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedbac
 from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
 from roboteam_embedded_messages.python.REM_Log import REM_Log
 
-DEBUG = False
-
 class REMParser():
 	
-	def __init__(self, device, output_file=None):
+	def __init__(self, data_origin, device, output_file=None):
 		print(f"[REMParser] New REMParser")
 		if device: print(f"[REMParser] Device {device.port}")
 
 		self.device = device
+		self.data_origin = data_origin
 		self.byte_buffer = bytes()
 		self.packet_buffer = deque()
 		self.output_file = None
+
+		if self.data_origin == "basestation":
+			self.timeStampsIncluded = True
+		elif self.data_origin == "sd_card":
+			self.timeStampsIncluded = False
 
 		if type(output_file) == str:
 			print(f"[REMParser] Creating output file {output_file}")
@@ -55,11 +59,12 @@ class REMParser():
 			# Stop when there are no more bytes to process
 			if len(self.byte_buffer) == 0: break
 
-			timestamp_parser_ms = None
-			if parse_file:
-				timestamp_ms_bytes = self.byte_buffer[:8]
-				timestamp_parser_ms = int.from_bytes(timestamp_ms_bytes, 'little')
-				self.byte_buffer = self.byte_buffer[8:]
+			if self.timeStampsIncluded:
+				timestamp_parser_ms = None
+				if parse_file:
+					timestamp_ms_bytes = self.byte_buffer[:8]
+					timestamp_parser_ms = int.from_bytes(timestamp_ms_bytes, 'little')
+					self.byte_buffer = self.byte_buffer[8:]
 
 			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
 
@@ -110,8 +115,9 @@ class REMParser():
 				# Convert bytes into string, and store in REM_Log object
 				packet.message = message.decode()
 			
-			if timestamp_parser_ms is not None:
-				packet.timestamp_parser_ms = timestamp_parser_ms
+			if self.timeStampsIncluded:
+				if timestamp_parser_ms is not None:
+					packet.timestamp_parser_ms = timestamp_parser_ms
 
 			# Add packet to buffer
 			self.addPacket(packet)
@@ -145,39 +151,51 @@ class REMParser():
 		if not print_statistics: return
 
 		# Print file statistics
+		if self.timeStampsIncluded:
+			packet_counts = {}
+			packet_timestamps = {}
+			
+			print("   ", "PACKET TYPE".ljust(20), "COUNT", " ", "START DATE".ljust(23), " ", "STOP DATE".ljust(23), " ", "DURATION H:M:S:MS")
+			for packet in self.packet_buffer:
+				packet_type = type(packet)
+				if packet_type not in packet_counts:
+					packet_counts[packet_type] = 0
+					packet_timestamps[packet_type] = {'start' : packet.timestamp_parser_ms / 1000}
+				packet_counts[packet_type] += 1
+				packet_timestamps[packet_type]['stop'] = packet.timestamp_parser_ms / 1000
 
-		packet_counts = {}
-		packet_timestamps = {}
-		
-		print("   ", "PACKET TYPE".ljust(20), "COUNT", " ", "START DATE".ljust(23), " ", "STOP DATE".ljust(23), " ", "DURATION H:M:S:MS")
-		for packet in self.packet_buffer:
-			packet_type = type(packet)
-			if packet_type not in packet_counts:
-				packet_counts[packet_type] = 0
-				packet_timestamps[packet_type] = {'start' : packet.timestamp_parser_ms / 1000}
-			packet_counts[packet_type] += 1
-			packet_timestamps[packet_type]['stop'] = packet.timestamp_parser_ms / 1000
+			for packet_type in packet_counts:
+				start_sec, stop_sec = packet_timestamps[packet_type].values()
+				start_msec, stop_msec = start_sec % 1, stop_sec % 1
+				datetime_str_start = datetime.fromtimestamp(np.floor(start_sec)).strftime("%Y-%m-%d %H:%M:%S")  + (f".{start_msec:.3f}"[2:])
+				datetime_str_stop  = datetime.fromtimestamp(np.floor(stop_sec )).strftime("%Y-%m-%d %H:%M:%S")  + (f".{stop_msec :.3f}"[2:])
+				duration_sec = stop_sec - start_sec
+				duration_str = str(timedelta(seconds=duration_sec))[:-3]
 
-		for packet_type in packet_counts:
-			start_sec, stop_sec = packet_timestamps[packet_type].values()
-			start_msec, stop_msec = start_sec % 1, stop_sec % 1
-			datetime_str_start = datetime.fromtimestamp(np.floor(start_sec)).strftime("%Y-%m-%d %H:%M:%S")  + (f".{start_msec:.3f}"[2:])
-			datetime_str_stop  = datetime.fromtimestamp(np.floor(stop_sec )).strftime("%Y-%m-%d %H:%M:%S")  + (f".{stop_msec :.3f}"[2:])
-			duration_sec = stop_sec - start_sec
-			duration_str = str(timedelta(seconds=duration_sec))[:-3]
-
-			print("   ", packet_type.__name__.ljust(20), str(packet_counts[packet_type]).rjust(5), " ", datetime_str_start, " ", datetime_str_stop, " ", duration_str)
+				print("   ", packet_type.__name__.ljust(20), str(packet_counts[packet_type]).rjust(5), " ", datetime_str_start, " ", datetime_str_stop, " ", duration_str)
 
 if __name__ == "__main__":
 	print("Running REMParser directly")
 
 	argparser = argparse.ArgumentParser()
-	argparser.add_argument('input_file', help='File to parse')
+	argparser.add_argument('input_file', help='File to parse', type=str)
+	argparser.add_argument('data_origin', help='File origin (basestation or sd_card)', type=str)
+	argparser.add_argument('--debug', '-d', action='store_true', help="REMParser debug mode")
 	args = argparser.parse_args()
 
-	print("Parsing file", args.input_file)
+	if args.debug:
+		DEBUG = True
+	else:
+		DEBUG = False
 
-	parser = REMParser(device=None)
+	originAvailable = ["basestation","sd_card"]
+	data_origin = args.data_origin
+	if data_origin not in originAvailable:
+		raise Exception("Error : Unknown file origin %s. Choose a file origin : %s" % (data_origin, ", ".join(originAvailable)))
+
+	print("Parsing %s file" % data_origin, args.input_file)
+
+	parser = REMParser(data_origin, device=None)
 	parser.parseFile(args.input_file)
 
 	packet_dicts = []
@@ -215,6 +233,16 @@ if __name__ == "__main__":
 				file.write(string + "\n")
 
 	print("Done!")
+
+
+
+
+
+
+
+
+
+
 
 
 
