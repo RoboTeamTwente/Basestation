@@ -205,6 +205,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 
 	if test == "constant-velocity-range":
 		velocityList = [2.0, 1.0, 0.8, 0.3]
+		velocityList.sort(reverse=True)
 
 		periodsPassed = tick_counter/periodLength
 		currentPeriod = math.ceil(periodsPassed)
