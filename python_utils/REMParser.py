@@ -16,20 +16,16 @@ from roboteam_embedded_messages.python.REM_Log import REM_Log
 
 class REMParser():
 	
-	def __init__(self, data_origin, device, output_file=None):
+	def __init__(self, device, output_file=None, parse_sd_data=False, DEBUG=False):
 		print(f"[REMParser] New REMParser")
 		if device: print(f"[REMParser] Device {device.port}")
 
+		self.DEBUG = DEBUG
 		self.device = device
-		self.data_origin = data_origin
+		self.parse_sd_data = parse_sd_data
 		self.byte_buffer = bytes()
 		self.packet_buffer = deque()
 		self.output_file = None
-
-		if self.data_origin == "basestation":
-			self.timeStampsIncluded = True
-		elif self.data_origin == "sd_card":
-			self.timeStampsIncluded = False
 
 		if type(output_file) == str:
 			print(f"[REMParser] Creating output file {output_file}")
@@ -44,29 +40,29 @@ class REMParser():
 	def read(self):
 		bytes_in_waiting = self.device.inWaiting()
 		if bytes_in_waiting == 0: return
-		if DEBUG: print(f"[read] {bytes_in_waiting} bytes in waiting")
+		if self.DEBUG: print(f"[read] {bytes_in_waiting} bytes in waiting")
 		self.byte_buffer += self.device.read(bytes_in_waiting)
-		if DEBUG: print(f"[read] Read {bytes_in_waiting} bytes")
+		if self.DEBUG: print(f"[read] Read {bytes_in_waiting} bytes")
 
 	def process(self, parse_file=False):
 		# No bytes in the buffer, so nothing to process
 		if len(self.byte_buffer) == 0: return
 		
-		if DEBUG: print("--process()-----------")
+		if self.DEBUG: print("--process()-----------")
 		
 		# Process as many bytes / packets as possible
 		while True:
 			# Stop when there are no more bytes to process
 			if len(self.byte_buffer) == 0: break
 
-			if self.timeStampsIncluded:
+			if not self.parse_sd_data:
 				timestamp_parser_ms = None
 				if parse_file:
 					timestamp_ms_bytes = self.byte_buffer[:8]
 					timestamp_parser_ms = int.from_bytes(timestamp_ms_bytes, 'little')
 					self.byte_buffer = self.byte_buffer[8:]
 
-			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
+			if self.DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
 
 			# Check if the packet type is valid according to REM
 			packet_type = self.byte_buffer[0]
@@ -79,7 +75,7 @@ class REMParser():
 			# Make sure that at least the entire default REM_Packet header is in the buffer
 			# This is need to call functions such as get_remVersion()and get_payloadSize()
 			if len(self.byte_buffer) < BaseTypes.REM_PACKET_SIZE_REM_PACKET:
-				if DEBUG: print(f"- Complete REM_Packet not yet in buffer. {len(self.byte_buffer)}/{BaseTypes.REM_PACKET_SIZE_REM_PACKET} bytes")
+				if self.DEBUG: print(f"- Complete REM_Packet not yet in buffer. {len(self.byte_buffer)}/{BaseTypes.REM_PACKET_SIZE_REM_PACKET} bytes")
 				break				
 
 			# At least the REM_Packet headers are in the buffer. Decode it
@@ -89,11 +85,11 @@ class REMParser():
 			# Get the expected packet size as expected by REM
 			rem_packet_size = BaseTypes.REM_PACKET_TYPE_TO_SIZE(packet.header)
 
-			if DEBUG: print(f"- type={packet.header} ({BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.header).__name__}), size={packet.payloadSize}, REM_size={rem_packet_size}")
+			if self.DEBUG: print(f"- type={packet.header} ({BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.header).__name__}), size={packet.payloadSize}, REM_size={rem_packet_size}")
 
 			# Ensure that the entire payload is in the byte buffer
 			if len(self.byte_buffer) < packet.payloadSize: 
-				if DEBUG: print(f"- Complete packet not yet in buffer. {len(self.byte_buffer)}/{rem_packet_size} bytes")
+				if self.DEBUG: print(f"- Complete packet not yet in buffer. {len(self.byte_buffer)}/{rem_packet_size} bytes")
 				break
 
 			# if not REM_log, packet->payloadSize should be equal to expected REM_PACKET_SIZE
@@ -115,13 +111,13 @@ class REMParser():
 				# Convert bytes into string, and store in REM_Log object
 				packet.message = message.decode()
 			
-			if self.timeStampsIncluded:
+			if not self.parse_sd_data:
 				if timestamp_parser_ms is not None:
 					packet.timestamp_parser_ms = timestamp_parser_ms
 
 			# Add packet to buffer
 			self.addPacket(packet)
-			if DEBUG: print(f"- Added packet type={type(packet)}")
+			if self.DEBUG: print(f"- Added packet type={type(packet)}")
 			# Write bytes to output file
 			self.writeBytes(packet_bytes)
 			# Remove processed bytes from buffer
@@ -151,7 +147,7 @@ class REMParser():
 		if not print_statistics: return
 
 		# Print file statistics
-		if self.timeStampsIncluded:
+		if not self.parse_sd_data:
 			packet_counts = {}
 			packet_timestamps = {}
 			
@@ -179,23 +175,23 @@ if __name__ == "__main__":
 
 	argparser = argparse.ArgumentParser()
 	argparser.add_argument('input_file', help='File to parse', type=str)
-	argparser.add_argument('data_origin', help='File origin (basestation or sd_card)', type=str)
+	argparser.add_argument('--sd-card', '-sd', action='store_true', help='Process sd card data')
 	argparser.add_argument('--debug', '-d', action='store_true', help="REMParser debug mode")
 	args = argparser.parse_args()
+
+	if args.sd_card:
+		parse_sd_data = True
+	else:
+		parse_sd_data = False
 
 	if args.debug:
 		DEBUG = True
 	else:
 		DEBUG = False
 
-	originAvailable = ["basestation","sd_card"]
-	data_origin = args.data_origin
-	if data_origin not in originAvailable:
-		raise Exception("Error : Unknown file origin %s. Choose a file origin : %s" % (data_origin, ", ".join(originAvailable)))
+	print("Parsing file", args.input_file)
 
-	print("Parsing %s file" % data_origin, args.input_file)
-
-	parser = REMParser(data_origin, device=None)
+	parser = REMParser(device=None, parse_sd_data=parse_sd_data, DEBUG=DEBUG)
 	parser.parseFile(args.input_file)
 
 	packet_dicts = []
