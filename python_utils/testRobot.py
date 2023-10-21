@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "kill-robot"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -88,7 +88,7 @@ basestation = None
 simulated_basestation = None
 
 tick_counter = 0
-periodLength = 150
+periodLength = 240
 packetHz = 60
 
 robotConnected = True
@@ -193,6 +193,66 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		cmd.angle = math.pi / 2
 
 	if test == "forward-always" or test == "sideways-always":
+		if args.max_duration:
+			if tick_counter < float(args.max_duration) * packetHz:
+				cmd.useAbsoluteAngle = 1
+				cmd.rho = 2
+			else:
+				cmd.rho = 0
+		else:
+			print("Please provide a maximum time for going forward (use -mx)")
+			exit()
+
+	if test == "constant-velocity-range":
+		velocityList = [2.0, 1.0, 0.8, 0.3]
+
+		periodsPassed = tick_counter/periodLength
+		currentPeriod = math.ceil(periodsPassed)
+		evenPeriod = (bool) (currentPeriod % 2)
+
+		secondsPerPeriod = periodLength/packetHz
+		secondsPassed = tick_counter/packetHz
+		secondsInCurrentPeriod = secondsPassed % secondsPerPeriod
+
+		# Check if still within experiment time
+		if periodsPassed < len(velocityList):
+			cmd.useAbsoluteAngle = 1
+			# Determine rho of robot
+			if secondsInCurrentPeriod <= (secondsPerPeriod - 1):
+				cmd.rho = velocityList[math.floor(periodsPassed)]
+				# Determine direction of robot
+				if evenPeriod:
+					cmd.angle = 0
+					cmd.theta = 0
+				else:
+					cmd.angle = math.pi
+					cmd.theta = math.pi
+			elif secondsInCurrentPeriod <= (secondsPerPeriod - 0.5):
+				cmd.rho = 0
+				# Determine direction of robot
+				if evenPeriod:
+					cmd.angle = 0
+					cmd.theta = 0
+				else:
+					cmd.angle = math.pi
+					cmd.theta = math.pi
+			else:
+				cmd.rho = 0
+				# Determine direction of robot in the last 0.5 seconds
+				if not evenPeriod:
+					cmd.angle = 0
+					cmd.theta = 0
+				else:
+					cmd.angle = math.pi
+					cmd.theta = math.pi
+			print('seconds in period: ', str(round(secondsInCurrentPeriod, 2)), ' | rho: ', cmd.rho, ' | angle: ', cmd.angle, ' | theta: ', cmd.theta)
+		else:
+			cmd.rho = 0
+
+		
+		# print(cmd.angle)
+		# print(evenPeriod)
+
 		if args.max_duration:
 			if tick_counter < float(args.max_duration) * packetHz:
 				cmd.useAbsoluteAngle = 1
