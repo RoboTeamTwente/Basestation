@@ -88,7 +88,7 @@ basestation = None
 simulated_basestation = None
 
 tick_counter = 0
-periodLength = 240
+periodLength = 300
 packetHz = 60
 
 robotConnected = True
@@ -204,12 +204,15 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			exit()
 
 	if test == "constant-velocity-range":
-		velocityList = [2.0, 1.0, 0.8, 0.3]
+		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3]
 		velocityList.sort(reverse=True)
 
 		periodsPassed = tick_counter/periodLength
 		currentPeriod = math.ceil(periodsPassed)
 		evenPeriod = (bool) (currentPeriod % 2)
+
+		brakeTime = 0.5
+		turnTime = 1.5
 
 		secondsPerPeriod = periodLength/packetHz
 		secondsPassed = tick_counter/packetHz
@@ -219,7 +222,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		if periodsPassed < len(velocityList):
 			cmd.useAbsoluteAngle = 1
 			# Determine rho of robot
-			if secondsInCurrentPeriod <= (secondsPerPeriod - 1):
+			if secondsInCurrentPeriod <= (secondsPerPeriod - (brakeTime + turnTime)):
 				cmd.rho = velocityList[math.floor(periodsPassed)]
 				# Determine direction of robot
 				if evenPeriod:
@@ -228,7 +231,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 				else:
 					cmd.angle = math.pi
 					cmd.theta = math.pi
-			elif secondsInCurrentPeriod <= (secondsPerPeriod - 0.5):
+			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
 				cmd.rho = 0
 				# Determine direction of robot
 				if evenPeriod:
@@ -249,20 +252,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			print('seconds in period: ', str(round(secondsInCurrentPeriod, 2)), ' | rho: ', cmd.rho, ' | angle: ', cmd.angle, ' | theta: ', cmd.theta)
 		else:
 			cmd.rho = 0
-
-		
-		# print(cmd.angle)
-		# print(evenPeriod)
-
-		if args.max_duration:
-			if tick_counter < float(args.max_duration) * packetHz:
-				cmd.useAbsoluteAngle = 1
-				cmd.rho = 2
-			else:
-				cmd.rho = 0
-		else:
-			print("Please provide a maximum time for going forward (use -mx)")
-			exit()
 	
 	if test == "sideways-always":
 		cmd.angle = math.pi / 2
