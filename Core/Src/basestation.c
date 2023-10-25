@@ -531,6 +531,14 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       handled_RobotFeedback++;
     }else
 
+    // High priority : Deal with RobotFeedback packets that are destined for the PC
+    if(packet_type == REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS && to_robot){
+      // Store the message in the RobotFeedback buffer. Set flag indicating packet needs to be sent to the PC
+      memcpy(buffer_REM_RobotSetPIDGains[robot_id].packet.payload, packet, packet_size);
+      buffer_REM_RobotSetPIDGains[robot_id].isNewPacket = true;
+      handled_RobotFeedback++;
+    }else
+
     // Low priority : Deal with any other packet
     {
       // Assume the packet is meant for a robot
@@ -621,6 +629,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
       memcpy(txPacket.message + total_packet_length, buffer_REM_RobotKillCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND);
       total_packet_length += REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND;
       packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_KILL_COMMAND]++;
+    }
+
+    /* Add RobotSetPIDGains to the transmission */
+    if(buffer_REM_RobotSetPIDGains[robot_id].isNewPacket
+      && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
+      buffer_REM_RobotSetPIDGains[robot_id].isNewPacket = false;
+      memcpy(txPacket.message + total_packet_length, buffer_REM_RobotSetPIDGains[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS);
+      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS;
+      packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_SET_PIDGAINS]++;
     }
 
     /* Add any other packet from the queue to the transmission */

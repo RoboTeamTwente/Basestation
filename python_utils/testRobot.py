@@ -293,10 +293,10 @@ while True:
 
 			parser = REMParser(basestation, output_file=output_file)
 
-		# setPID = createSetPIDCommand(robot_id, PbodyX = 0.0, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.0, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 0.0, IbodyW = 0.0, DbodyW = 0.0, PbodyYaw = 0.0, IbodyYaw = 0.0, DbodyYaw = 0.0, Pwheels = 0.0, Iwheels = 0.0, Dwheels = 0.0) #put PID gains as arguments to change them (unchanged keep default value)
-		# setPID_encoded = setPID.encode()
-		# basestation.write(setPID_encoded)
-		# parser.writeBytes(setPID_encoded)
+		setPID = createSetPIDCommand(robot_id, PbodyX = 0.0, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.0, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 0.0, IbodyW = 0.0, DbodyW = 0.0, PbodyYaw = 0.0, IbodyYaw = 0.0, DbodyYaw = 0.0, Pwheels = 0.0, Iwheels = 0.0, Dwheels = 0.0) #put PID gains as arguments to change them (unchanged keep default value)
+		setPID_encoded = setPID.encode()
+		basestation.write(setPID_encoded)
+		parser.writeBytes(setPID_encoded)
 
 		# ========== LOOP ========== #
 		# Continuously write -> read -> visualise

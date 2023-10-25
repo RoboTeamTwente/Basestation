@@ -35,10 +35,16 @@ typedef struct _wrapper_REM_RobotKillCommand {
 	bool isNewPacket;
 } wrapper_REM_RobotKillCommand;
 
+typedef struct _wrapper_REM_RobotSetPIDGains {
+	REM_RobotSetPIDGainsPayload packet;
+	bool isNewPacket;
+} wrapper_REM_RobotSetPIDGains;
 
 wrapper_REM_RobotCommand buffer_REM_RobotCommand[MAX_NUMBER_OF_ROBOTS];
 wrapper_REM_RobotFeedback buffer_REM_RobotFeedback[MAX_NUMBER_OF_ROBOTS];
 wrapper_REM_RobotKillCommand buffer_REM_RobotKillCommand[MAX_NUMBER_OF_ROBOTS];
+wrapper_REM_RobotSetPIDGains buffer_REM_RobotSetPIDGains[MAX_NUMBER_OF_ROBOTS];
+
 
 CircularBuffer* nonpriority_queue_robots_index[MAX_NUMBER_OF_ROBOTS];
 CircularBuffer* nonpriority_queue_pc_index;
