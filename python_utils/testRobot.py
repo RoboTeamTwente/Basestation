@@ -61,6 +61,9 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
+# def getUnixTime():
+# return int(time.time())
+
 testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "kill-robot"]
 
 parser = argparse.ArgumentParser()
@@ -129,6 +132,18 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	
 	return setPID
 	
+# def createTimePacket(robot_id, tick):
+# packet = REM_TimePacket()
+# packet.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
+# packet.toRobotId = robot_id
+# packet.fromPC = True 
+# packet.remVersion = BaseTypes.REM_LOCAL_VERSION
+# packet.messageId = tick_counter
+# packet.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
+# packet.time = getUnixTime()
+# log = "Created time packet for %d".format(robot_id)
+# return packet, log
+
 def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	log = ""
 
