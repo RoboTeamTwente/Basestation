@@ -646,7 +646,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
       // Copy packet to the transmission
       CircularBuffer_read(index, NULL, 1);
-      memcpy(txPacket.message + total_packet_length, (uint8_t)packet, packet_size);
+      memcpy(txPacket.message + total_packet_length, packet->payload, packet_size);
       // Update total packet length
       total_packet_length += packet_size;
       // Increment packet counter
