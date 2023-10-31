@@ -104,11 +104,15 @@ stlink_port = "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF54485
 
 def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, PbodyY = 0.3, IbodyY = 0.0, DbodyY = 0.0, PbodyW = 0.25, IbodyW = 5.0, DbodyW = 0.0, PbodyYaw = 20.0, IbodyYaw = 5.0, DbodyYaw = 0.0, Pwheels = 2.0, Iwheels = 0.0, Dwheels = 0.0): # Change the default values if the robot PIDs change
 	# Create new empty setPID command
+	
 	setPID = REM_RobotSetPIDGains()
 	setPID.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
+	setPID.toRobotId = robot_id
+	setPID.fromPC = True
 	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
-	setPID.id = robot_id
-	
+	setPID.messageId = tick_counter
+	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
+
 	# Set the PID gains
 	setPID.PbodyX = PbodyX
 	setPID.IbodyX = IbodyX
@@ -291,6 +295,10 @@ while True:
 
 			parser = REMParser(basestation, output_file=output_file)
 
+		# setPID = createSetPIDCommand(robot_id) #put PID gains as arguments to change them (unchanged keep default value)
+		# setPID_encoded = setPID.encode()
+		# basestation.write(setPID_encoded)
+		# parser.writeBytes(setPID_encoded)
 
 		# ========== LOOP ========== #
 		# Continuously write -> read -> visualise
