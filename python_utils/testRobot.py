@@ -384,8 +384,8 @@ while True:
 				# Ballsensor
 				if robotFeedback.ballSensorWorking:
 					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 1, 0),2)
-					if robotFeedback.hasBall:
-						cv2.circle(image_vis, (250+int(73*robotFeedback.ballPos), 250-90), 10, (0, 0.4, 1), -1)
+					if robotFeedback.ballSensorSeesBall:
+						cv2.circle(image_vis, (250, 250-90), 10, (0, 0.4, 1), -1)
 				else:
 					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 0, 1),2)
 
