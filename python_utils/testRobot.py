@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "kill-robot"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -208,12 +208,12 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			exit()
 
 	if test == "constant-velocity-range":
-		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand dicretisation
+		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 		velocityList.sort(reverse=True)
 
 		periodsPassed = tick_counter/periodLength
-		currentPeriod = math.ceil(periodsPassed)
-		evenPeriod = (bool) (currentPeriod % 2)
+		currentPeriod = math.ceil(periodsPassed + (1/(2*periodLength)))
+		unevenPeriod = (bool) (currentPeriod % 2)
 
 		brakeTime = 0.5
 		turnTime = 1.5
@@ -229,7 +229,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			if secondsInCurrentPeriod <= (secondsPerPeriod - (brakeTime + turnTime)):
 				cmd.rho = velocityList[math.floor(periodsPassed)]
 				# Set direction of robot
-				if evenPeriod:
+				if unevenPeriod:
 					cmd.angle = 0
 					cmd.theta = 0
 				else:
@@ -238,7 +238,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
 				cmd.rho = 0
 				# Set direction of robot
-				if evenPeriod:
+				if unevenPeriod:
 					cmd.angle = 0
 					cmd.theta = 0
 				else:
@@ -247,7 +247,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			else:
 				cmd.rho = 0
 				# Set direction of robot in the last 0.5 seconds
-				if not evenPeriod:
+				if not unevenPeriod:
 					cmd.angle = 0
 					cmd.theta = 0
 				else:
@@ -258,11 +258,11 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			cmd.rho = 0
 		
 	if test == "constant-angular-velocity-range":
-		angularVelocityList = [12.5,10,5,2.5,1] # max 12.5 m/s otherwise problems due to REM_RobotCommand dicretisation
+		angularVelocityList = [12.5,10,5,2.5,1] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 		angularVelocityList.sort(reverse=False)
 
 		periodsPassed = tick_counter/periodLength
-		currentPeriod = math.ceil(periodsPassed)
+		currentPeriod = math.ceil(periodsPassed + (1/(2*periodLength)))
 
 		secondsPerPeriod = periodLength/packetHz
 		secondsPassed = tick_counter/packetHz
@@ -275,6 +275,66 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			log = 'seconds in period: %.2f | omega_ref:  %.2f | omega: %.2f' % (secondsInCurrentPeriod, cmd.angularVelocity, robotStateInfo.rateOfTurn)
 		else:
 			cmd.angularVelocity = 0
+
+	if test == "constant-velocity-xywfb":
+		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+		velocityList.sort(reverse=True)
+		directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi]
+		angularVelocityList = [12.5,10,5,2.5,1] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
+		angularVelocityList.sort(reverse=False)
+
+		periodsPassed = tick_counter/periodLength
+		currentPeriod = math.ceil(periodsPassed + (1/(2*periodLength)))
+		unevenPeriod = (bool) (currentPeriod % 2)
+
+		brakeTime = 0.5
+		turnTime = 1.5
+
+		secondsPerPeriod = periodLength/packetHz
+		secondsPassed = tick_counter/packetHz
+		secondsInCurrentPeriod = secondsPassed % secondsPerPeriod
+
+		# Check if still within experiment time
+		if periodsPassed < len(velocityList)*len(directionList):
+			cmd.useAbsoluteAngle = 1
+			velocityIndex = math.floor(periodsPassed / len(directionList))
+			directionIndex = math.floor(periodsPassed % len(directionList))
+			# Set rho of robot
+			if secondsInCurrentPeriod <= (secondsPerPeriod - (brakeTime + turnTime)):
+				cmd.rho = velocityList[velocityIndex]
+				# Set direction of robot
+				if unevenPeriod:
+					cmd.angle = directionList[directionIndex]
+					cmd.theta = 0
+				else:
+					cmd.angle = directionList[directionIndex] + math.pi
+					cmd.theta = math.pi
+			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
+				cmd.rho = 0
+				# Set direction of robot
+				if unevenPeriod:
+					cmd.angle = directionList[directionIndex]
+					cmd.theta = 0
+				else:
+					cmd.angle = directionList[directionIndex] + math.pi
+					cmd.theta = math.pi
+			else:
+				cmd.rho = 0
+				# Set direction of robot in the last 0.5 seconds
+				if not unevenPeriod:
+					cmd.angle = directionList[(directionIndex+1)%len(directionList)]
+					cmd.theta = 0
+				else:
+					cmd.angle = directionList[(directionIndex+1)%len(directionList)] + math.pi
+					cmd.theta = math.pi
+			log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+		elif periodsPassed < (len(velocityList)*len(directionList) + len(angularVelocityList)):
+			cmd.useAbsoluteAngle = 0
+			cmd.rho = 0
+			cmd.angularVelocity = angularVelocityList[math.floor(periodsPassed - len(velocityList)*len(directionList))]
+			log = 'Period %.0f | seconds in period: %.2f | angularVelocity:  %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.angularVelocity)
+		else:
+			cmd.rho = 0
 
 	if test == "sideways-always":
 		cmd.angle = math.pi / 2
