@@ -144,9 +144,9 @@ class REMParser():
 			packet_type = type(packet)
 			if packet_type not in packet_counts:
 				packet_counts[packet_type] = 0
-				packet_timestamps[packet_type] = {'start' : packet.timestamp_parser_ms / 1000}
+				packet_timestamps[packet_type] = {'start' : packet.timestamp / 1000}
 			packet_counts[packet_type] += 1
-			packet_timestamps[packet_type]['stop'] = packet.timestamp_parser_ms / 1000
+			packet_timestamps[packet_type]['stop'] = packet.timestamp/ 1000
 
 		for packet_type in packet_counts:
 			start_sec, stop_sec = packet_timestamps[packet_type].values()
