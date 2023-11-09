@@ -37,6 +37,7 @@ class REMParser():
 				print("\n")
 				print(e)
 			os.symlink(output_file, "latest.rembin")
+
 	def read(self):
 		bytes_in_waiting = self.device.inWaiting()
 		if bytes_in_waiting == 0: return
@@ -54,12 +55,6 @@ class REMParser():
 		while True:
 			# Stop when there are no more bytes to process
 			if len(self.byte_buffer) == 0: break
-
-			timestamp_parser_ms = None
-			if parse_file:
-				timestamp_ms_bytes = self.byte_buffer[:8]
-				timestamp_parser_ms = int.from_bytes(timestamp_ms_bytes, 'little')
-				self.byte_buffer = self.byte_buffer[8:]
 
 			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
 
@@ -109,10 +104,7 @@ class REMParser():
 				message = packet_bytes[BaseTypes.REM_PACKET_SIZE_REM_LOG:]
 				# Convert bytes into string, and store in REM_Log object
 				packet.message = message.decode()
-			
-			if timestamp_parser_ms is not None:
-				packet.timestamp_parser_ms = timestamp_parser_ms
-
+						
 			# Add packet to buffer
 			self.addPacket(packet)
 			if DEBUG: print(f"- Added packet type={type(packet)}")
@@ -126,8 +118,6 @@ class REMParser():
 		
 	def writeBytes(self, _bytes):
 		if self.output_file is not None:
-			time_ms_bytes = int(time.time()*1000).to_bytes(8, 'little')
-			self.output_file.write(time_ms_bytes)
 			self.output_file.write(_bytes)
 
 	def hasPackets(self):
