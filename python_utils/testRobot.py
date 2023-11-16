@@ -109,7 +109,7 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
 	setPID.messageId = tick_counter
 	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
-	setPID.timestamp = int(time.time()/1000)
+	setPID.timestamp = int(time.time()*100)
 
 	# Set the PID gains
 	setPID.PbodyX = PbodyX
@@ -154,7 +154,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 	cmd.messageId = tick_counter
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
-	cmd.timestamp = int(time.time()/1000)
+	cmd.timestamp = int(time.time()*100)
 
 	counter = 0
 	beta = 0.5
