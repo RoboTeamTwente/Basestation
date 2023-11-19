@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "kill-robot"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -256,7 +256,60 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			log = 'seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
 		else:
 			cmd.rho = 0
-		
+
+	if test == "changing-velocity-range":
+		velocityList = 2*[2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+		velocityList.sort(reverse=True)
+
+		periodsPassed = tick_counter/periodLength
+		currentPeriod = math.ceil(periodsPassed + (1/(2*periodLength)))
+		unevenPeriod = (bool) (currentPeriod % 2)
+
+		brakeTime = 0.5
+		turnTime = 1.5
+
+		secondsPerPeriod = periodLength/packetHz
+		secondsPassed = tick_counter/packetHz
+		secondsInCurrentPeriod = secondsPassed % secondsPerPeriod
+
+		# Check if still within experiment time
+		if periodsPassed < len(velocityList):
+			cmd.useAbsoluteAngle = 1
+			# Set rho of robot
+			if secondsInCurrentPeriod <= (secondsPerPeriod - (brakeTime + turnTime)):
+				if (secondsInCurrentPeriod<1.5):
+					cmd.rho = velocityList[math.floor(periodsPassed)]*secondsInCurrentPeriod
+				else:
+					cmd.rho = velocityList[math.floor(periodsPassed)]*(3-secondsInCurrentPeriod)
+				# Set direction of robot
+				if unevenPeriod:
+					cmd.angle = 0
+					cmd.theta = 0
+				else:
+					cmd.angle = math.pi
+					cmd.theta = math.pi
+			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
+				cmd.rho = 0
+				# Set direction of robot
+				if unevenPeriod:
+					cmd.angle = 0
+					cmd.theta = 0
+				else:
+					cmd.angle = math.pi
+					cmd.theta = math.pi
+			else:
+				cmd.rho = 0
+				# Set direction of robot in the last 0.5 seconds
+				if not unevenPeriod:
+					cmd.angle = 0
+					cmd.theta = 0
+				else:
+					cmd.angle = math.pi
+					cmd.theta = math.pi
+			log = 'seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+		else:
+			cmd.rho = 0
+
 	if test == "constant-angular-velocity-range":
 		angularVelocityList = [12.5,10,5,2.5,1] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 		angularVelocityList.sort(reverse=False)
@@ -280,8 +333,13 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 		velocityList.sort(reverse=True)
 		directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi]
-		angularVelocityList = [12.5,10,5,2.5,1] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
+		angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 		angularVelocityList.sort(reverse=False)
+		# velocityList = [0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+		# velocityList.sort(reverse=True)
+		# directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi]
+		# angularVelocityList = [12.5,10,5,2.5,1] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
+		# angularVelocityList.sort(reverse=False)
 
 		periodsPassed = tick_counter/periodLength
 		currentPeriod = math.ceil(periodsPassed + (1/(2*periodLength)))
