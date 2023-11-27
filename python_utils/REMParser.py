@@ -58,6 +58,12 @@ class REMParser():
 
 			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
 
+			# Check if REM version is correct
+			packet_rem_version = (self.byte_buffer[3] & 0b11110000) >> 4
+			if (packet_rem_version != BaseTypes.REM_LOCAL_VERSION):
+				self.byte_buffer = bytes()
+				raise Exception(f"[REMParser][process] Error! packet_rem_version {packet_rem_version} != REM_LOCAL_VERSION {BaseTypes.REM_LOCAL_VERSION}")
+
 			# Check if the packet type is valid according to REM
 			packet_type = self.byte_buffer[0]
 			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet_type)
