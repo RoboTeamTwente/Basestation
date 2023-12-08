@@ -58,20 +58,6 @@ class REMParser():
 
 			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
 
-			# Check if REM version is correct
-			packet_rem_version = (self.byte_buffer[3] & 0b11110000) >> 4
-			if (packet_rem_version != BaseTypes.REM_LOCAL_VERSION):
-				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! packet_rem_version {packet_rem_version} != REM_LOCAL_VERSION {BaseTypes.REM_LOCAL_VERSION}")
-
-			# Check if the packet type is valid according to REM
-			packet_type = self.byte_buffer[0]
-			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet_type)
-			# If the packet type is not valid / unknown
-			if not packet_valid:
-				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet_type}!")
-
 			# Make sure that at least the entire default REM_Packet header is in the buffer
 			# This is need to call functions such as get_remVersion()and get_payloadSize()
 			if len(self.byte_buffer) < BaseTypes.REM_PACKET_SIZE_REM_PACKET:
@@ -82,6 +68,18 @@ class REMParser():
 			packet = REM_Packet()
 			packet.decode(self.byte_buffer[:BaseTypes.REM_PACKET_SIZE_REM_PACKET])
 
+			# Check if REM version is correct
+			if (packet.remVersion != BaseTypes.REM_LOCAL_VERSION):
+				self.byte_buffer = bytes()
+				raise Exception(f"[REMParser][process] Error! packet_rem_version {packet.remVersion} != REM_LOCAL_VERSION {BaseTypes.REM_LOCAL_VERSION}")
+
+			# Check if the packet type is valid according to REM
+			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet.header)
+			# If the packet type is not valid / unknown
+			if not packet_valid:
+				self.byte_buffer = bytes()
+				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet.header}!")
+			
 			# Get the expected packet size as expected by REM
 			rem_packet_size = BaseTypes.REM_PACKET_TYPE_TO_SIZE(packet.header)
 
@@ -101,7 +99,7 @@ class REMParser():
 			# Retrieve the bytes of the entire packet from the byte buffer
 			packet_bytes = self.byte_buffer[:packet.payloadSize]
 			# Create packet instance
-			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet_type)()
+			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.header)()
 			# Decode the packet
 			packet.decode(packet_bytes)
 			packet.timestamp *= 10
