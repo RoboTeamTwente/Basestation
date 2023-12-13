@@ -109,6 +109,7 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
 	setPID.messageId = tick_counter
 	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
+	setPID.timestamp = int(time.time()*100)
 
 	# Set the PID gains
 	setPID.PbodyX = PbodyX
@@ -132,7 +133,7 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	setPID.Dwheels = Dwheels
 	
 	return setPID
-	
+
 def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	log = ""
 
@@ -153,6 +154,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 	cmd.messageId = tick_counter
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
+	cmd.timestamp = int(time.time()*100)
 
 	counter = 0
 	beta = 0.5
@@ -240,7 +242,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 while True:
 	try:
 
-
 		# ========== INIT ========== #
 		# Loop control
 		last_tick_time = time.time()
@@ -298,8 +299,6 @@ while True:
 			if not tick_required and 0.1 / packetHz < s_until_next_tick: 
 				time.sleep(0.1 / packetHz)
 
-
-
 			# ========== WRITING ========== #
 			if tick_required:
 
@@ -315,7 +314,8 @@ while True:
 				# Update test if needed
 				if doFullTest and period == 0:
 					testIndex = (testIndex + 1) % len(testsAvailable)
-					if testIndex == 0: testIndex = 2
+					if testIndex == 0: 
+						testIndex = 2
 					test = testsAvailable[testIndex]
 
 				# Create and send new robot command
@@ -354,7 +354,6 @@ while True:
 				# Print message on new line
 				nwhitespace = os.get_terminal_size().columns - len(message) - 2
 				print(f"\r{message}{' ' * nwhitespace}")
-
 
 			# Handle and store all new packets
 			while parser.hasPackets():

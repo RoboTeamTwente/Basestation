@@ -37,6 +37,7 @@ class REMParser():
 				print("\n")
 				print(e)
 			os.symlink(output_file, "latest.rembin")
+
 	def read(self):
 		bytes_in_waiting = self.device.inWaiting()
 		if bytes_in_waiting == 0: return
@@ -55,21 +56,7 @@ class REMParser():
 			# Stop when there are no more bytes to process
 			if len(self.byte_buffer) == 0: break
 
-			timestamp_parser_ms = None
-			if parse_file:
-				timestamp_ms_bytes = self.byte_buffer[:8]
-				timestamp_parser_ms = int.from_bytes(timestamp_ms_bytes, 'little')
-				self.byte_buffer = self.byte_buffer[8:]
-
 			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
-
-			# Check if the packet type is valid according to REM
-			packet_type = self.byte_buffer[0]
-			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet_type)
-			# If the packet type is not valid / unknown
-			if not packet_valid:
-				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet_type}!")
 
 			# Make sure that at least the entire default REM_Packet header is in the buffer
 			# This is need to call functions such as get_remVersion()and get_payloadSize()
@@ -81,6 +68,18 @@ class REMParser():
 			packet = REM_Packet()
 			packet.decode(self.byte_buffer[:BaseTypes.REM_PACKET_SIZE_REM_PACKET])
 
+			# Check if REM version is correct
+			if (packet.remVersion != BaseTypes.REM_LOCAL_VERSION):
+				self.byte_buffer = bytes()
+				raise Exception(f"[REMParser][process] Error! packet_rem_version {packet.remVersion} != REM_LOCAL_VERSION {BaseTypes.REM_LOCAL_VERSION}")
+
+			# Check if the packet type is valid according to REM
+			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet.header)
+			# If the packet type is not valid / unknown
+			if not packet_valid:
+				self.byte_buffer = bytes()
+				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet.header}!")
+			
 			# Get the expected packet size as expected by REM
 			rem_packet_size = BaseTypes.REM_PACKET_TYPE_TO_SIZE(packet.header)
 
@@ -100,19 +99,17 @@ class REMParser():
 			# Retrieve the bytes of the entire packet from the byte buffer
 			packet_bytes = self.byte_buffer[:packet.payloadSize]
 			# Create packet instance
-			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet_type)()
+			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.header)()
 			# Decode the packet
 			packet.decode(packet_bytes)
+			packet.timestamp *= 10
 
 			if packet.header == BaseTypes.REM_PACKET_TYPE_REM_LOG:
 				# Get the message from the buffer. The message is everything after the REM_Packet header
 				message = packet_bytes[BaseTypes.REM_PACKET_SIZE_REM_LOG:]
 				# Convert bytes into string, and store in REM_Log object
 				packet.message = message.decode()
-			
-			if timestamp_parser_ms is not None:
-				packet.timestamp_parser_ms = timestamp_parser_ms
-
+						
 			# Add packet to buffer
 			self.addPacket(packet)
 			if DEBUG: print(f"- Added packet type={type(packet)}")
@@ -126,8 +123,6 @@ class REMParser():
 		
 	def writeBytes(self, _bytes):
 		if self.output_file is not None:
-			time_ms_bytes = int(time.time()*1000).to_bytes(8, 'little')
-			self.output_file.write(time_ms_bytes)
 			self.output_file.write(_bytes)
 
 	def hasPackets(self):
@@ -154,9 +149,9 @@ class REMParser():
 			packet_type = type(packet)
 			if packet_type not in packet_counts:
 				packet_counts[packet_type] = 0
-				packet_timestamps[packet_type] = {'start' : packet.timestamp_parser_ms / 1000}
+				packet_timestamps[packet_type] = {'start' : packet.timestamp / 1000}
 			packet_counts[packet_type] += 1
-			packet_timestamps[packet_type]['stop'] = packet.timestamp_parser_ms / 1000
+			packet_timestamps[packet_type]['stop'] = packet.timestamp/ 1000
 
 		for packet_type in packet_counts:
 			start_sec, stop_sec = packet_timestamps[packet_type].values()
