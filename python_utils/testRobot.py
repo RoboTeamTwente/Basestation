@@ -332,7 +332,20 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	if test == "constant-velocity-xywfb":
 		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 		velocityList.sort(reverse=True)
-		directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi]
+		# directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi] old one list
+		directionList = [0.0, 0.0, 15.0, 15.0, 30.0, 30.0, 45.0, 45.0, 60.0, 60.0, 75.0, 75.0, 90.0, 90.0]
+		# directionList = [0.0, 0.0, 10.0, 10.0, 20.0, 20.0, 30.0, 30.0, 40.0, 40.0, 50.0, 50.0, 60.0, 60.0, 70.0, 70.0, 80.0, 80.0, 90.0, 90.0]
+		# directionList = [0.0, 0.0, 15.0, 15.0, 30.0, 30.0, 45.0, 45.0, 60.0, 60.0, 75.0, 75.0, 90.0, 90.0, 105.0, 105.0, 120.0, 120.0, 135.0, 135.0, 150.0, 150.0, 165.0, 165.0, 180.0, 180.0]
+		# directionList = [0.0, 0.0, 10.0, 10.0, 20.0, 20.0, 30.0, 30.0, 40.0, 40.0, 50.0, 50.0, 60.0, 60.0, 70.0, 70.0, 80.0, 80.0, 90.0, 90.0, 100.0, 100.0, 110.0, 110.0, 120.0, 120.0, 130.0, 130.0, 140.0, 140.0, 150.0, 150.0, 160.0, 160.0, 170.0, 170.0, 180.0, 180.0]
+
+		K = math.pi/180
+		directionList = [x * K for x in directionList]
+		print('\n')
+		for index in range(0, len(directionList)):
+			if (index % 2):
+				directionList[index] = math.pi + directionList[index]
+
+		# directionList = [0.0, math.pi, 0.15*math.pi, 0.15*math.pi+math.pi, 0.3*math.pi, 0.45*math.pi, 0.60*math.pi, 0.75*math.pi, 0.90*math.pi, 0.0, -math.pi, -0.15*math.pi, -0.3*math.pi, -0.45*math.pi, -0.60*math.pi, -0.75*math.pi, -0.90*math.pi] # new list to test different angles
 		angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 		angularVelocityList.sort(reverse=False)
 		# velocityList = [0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
