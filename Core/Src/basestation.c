@@ -167,17 +167,13 @@ void init(){
     // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
     SX_TX_init_err |= WIRELESS_OK != Wireless_setChannel(SX_TX, YELLOW_CHANNEL);
 
-    if(SX_TX_init_err){
-      while(true){
+    if(SX_TX_init_err){// maybe move this after each of the SX_TX_init_err assignment, better debugging!
+      while(true){// Good Idea to print this then, shut down robot
         LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_TX! Please reboot the basestation\n");
         LOG_sendAll();
         HAL_Delay(1000);
       }
     }
-
-    
-
-
 
     // Init SX_RX
     LOG("[init:"STRINGIZE(__LINE__)"] Initializing SX_RX\n");
@@ -199,8 +195,8 @@ void init(){
     // Start listening on the SX_RX for packets from the robots
     SX_RX_init_err |= WIRELESS_OK != WaitForPacketContinuous(SX_RX);
 
-    if(SX_RX_init_err){
-      while(true){
+    if(SX_RX_init_err){// maybe move this after each of the SX_TX_init_err assignment, better debugging!
+      while(true){ // Good Idea to print this then, shut down robot
         LOG_printf("[init:"STRINGIZE(__LINE__)"]["STRINGIZE(__LINE__)"] Error! Could not initialize SX_RX! Please reboot the basestation\n");
         LOG_sendAll();
         HAL_Delay(1000);
@@ -471,18 +467,18 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
     // Now that we know the index, update the counter
     packet_counter_in[packet_index]++;
 
-    // Check if the packet type is valid
-    if(!packet_valid){
-      LOG_printf("[handlePackets]["STRINGIZE(__LINE__)"] Error! Invalid packet type %d\n", packet_type);
-      return true;
-    }
-
     // Check if the packet REM_version corresponds to the local REM version. If the REM versions do not correspond, drop everything
     if(packet_rem_version != REM_LOCAL_VERSION){
       // If the REM_VERSION is wrong, we can't be sure that functions like REM_Packet_get_payloadSize
       // still work correctly. We can't even be sure about the entire buffer anymore. If we read this
       // packet wrong, everything behind this packet will be read wrong as well.
       LOG_printf("[handlePackets]["STRINGIZE(__LINE__)"] Error! Packet type %u : packet_rem_version %u != %u REM_LOCAL_VERSION\n", packet_type, packet_rem_version, REM_LOCAL_VERSION);
+      return true;
+    }
+
+    // Check if the packet type is valid
+    if(!packet_valid){
+      LOG_printf("[handlePackets]["STRINGIZE(__LINE__)"] Error! Invalid packet type %d\n", packet_type);
       return true;
     }
 
