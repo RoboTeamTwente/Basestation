@@ -184,10 +184,10 @@ class Joystick:
 
 
 		# Calculate angle
-		if 0.3 < abs(self.controller.axis_r.x): self.absolute_angle -= self.controller.axis_r.x * 0.1
+		if 0.2 < abs(self.controller.axis_r.x): self.absolute_angle -= self.controller.axis_r.x * 0.15
 
 		# Forward backward left right
-		deadzone = 0.3
+		deadzone = 0.1
 
 		velocity_x = 0
 		if deadzone < abs(self.controller.axis_l.x):
@@ -199,7 +199,7 @@ class Joystick:
 			velocity_y = ( abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone)
 			velocity_y *= np.sign(self.controller.axis_l.y)
 
-		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y) * 0.7
+		rho = math.sqrt(velocity_x * velocity_x + velocity_y * velocity_y) * 1.5
 		theta = math.atan2(velocity_x, -velocity_y);
 
 		self.command.toRobotId = self.robot_id

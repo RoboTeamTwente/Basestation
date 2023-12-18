@@ -332,7 +332,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	if test == "constant-velocity-xywfb":
 		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 		velocityList.sort(reverse=True)
-		directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi]
+		# directionList = [0.0, math.pi, 0.5*math.pi, -0.5*math.pi] old one list
+		
+		directionList = [0.0, math.pi, 0.15*math.pi, 0.3*math.pi, 0.45*math.pi, 0.60*math.pi, 0.75*math.pi, 0.90*math.pi, 0.0, -math.pi, -0.15*math.pi, -0.3*math.pi, -0.45*math.pi, -0.60*math.pi, -0.75*math.pi, -0.90*math.pi] # new list to test different angles
 		angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 		angularVelocityList.sort(reverse=False)
 		# velocityList = [0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
