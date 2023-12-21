@@ -109,6 +109,7 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
 	setPID.messageId = tick_counter
 	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
+	setPID.timestamp = int(time.time()*100)
 
 	# Set the PID gains
 	setPID.PbodyX = PbodyX
@@ -132,7 +133,7 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	setPID.Dwheels = Dwheels
 	
 	return setPID
-	
+
 def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	log = ""
 
@@ -153,6 +154,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 	cmd.messageId = tick_counter
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
+	cmd.timestamp = int(time.time()*100)
 
 	counter = 0
 	beta = 0.5
@@ -427,7 +429,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 while True:
 	try:
 
-
 		# ========== INIT ========== #
 		# Loop control
 		last_tick_time = time.time()
@@ -485,8 +486,6 @@ while True:
 			if not tick_required and 0.1 / packetHz < s_until_next_tick: 
 				time.sleep(0.1 / packetHz)
 
-
-
 			# ========== WRITING ========== #
 			if tick_required:
 
@@ -502,7 +501,8 @@ while True:
 				# Update test if needed
 				if doFullTest and period == 0:
 					testIndex = (testIndex + 1) % len(testsAvailable)
-					if testIndex == 0: testIndex = 2
+					if testIndex == 0: 
+						testIndex = 2
 					test = testsAvailable[testIndex]
 
 				# Create and send new robot command
@@ -542,7 +542,6 @@ while True:
 				nwhitespace = os.get_terminal_size().columns - len(message) - 2
 				print(f"\r{message}{' ' * nwhitespace}")
 
-
 			# Handle and store all new packets
 			while parser.hasPackets():
 				packet = parser.getNextPacket()
@@ -571,8 +570,9 @@ while True:
 				# Ballsensor
 				if robotFeedback.ballSensorWorking:
 					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 1, 0),2)
-					if robotFeedback.hasBall:
-						cv2.circle(image_vis, (250+int(73*robotFeedback.ballPos), 250-90), 10, (0, 0.4, 1), -1)
+					if robotFeedback.ballSensorSeesBall:
+						#Ball is centered in the drawing, this might not refelct the real world
+						cv2.circle(image_vis, (250, 250-90), 10, (0, 0.4, 1), -1) 
 				else:
 					cv2.line(image_vis, (int(250-s/2), 250-73-5), (int(250+s/2), 250-73-5), (0, 0, 1),2)
 

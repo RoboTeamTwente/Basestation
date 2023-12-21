@@ -82,8 +82,7 @@ static void MX_QUADSPI_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
-int main(void)
-{
+int main(void){
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -96,7 +95,7 @@ int main(void)
 
   /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  /* Reset of all peripherals, Initializes the     and the Systick. */
   HAL_Init();
 
   /* USER CODE BEGIN Init */
@@ -124,6 +123,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
+  
   /* USER CODE BEGIN WHILE */
   while (1)
   {
