@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
+testsAvailable = ["nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -164,7 +164,13 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	if test == "nothing":
 		cmd.rho = 0
 		cmd.theta = 0
-		cmd.angle = 0	
+		cmd.angle = 0
+
+	if test == "nothing-angleControl":
+		cmd.useAbsoluteAngle = 1
+		cmd.rho = 0
+		cmd.theta = 0
+		cmd.angle = 0
 
 	if test == "kicker-reflect":
 		cmd.doKick = True
