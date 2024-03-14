@@ -357,7 +357,7 @@ while True:
 			if REM_RobotFeedback in latest_packets and latest_packets[REM_RobotFeedback] is not None:
 				robotFeedback = latest_packets[REM_RobotFeedback]
 				latest_packets[REM_RobotFeedback] = None
-				
+				last_robotfeedback_time = time.time()
 
 				# Ballsensor
 				if robotFeedback.ballSensorWorking:

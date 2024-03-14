@@ -334,7 +334,11 @@ void loop(){
   /* Send any new RobotFeedback packets */
   for(int id = 0; id <= MAX_ROBOT_ID; id++){
     if(buffer_REM_RobotFeedback[id].isNewPacket){
-      LOG_sendBlocking(buffer_REM_RobotFeedback[id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_FEEDBACK);
+      // LOG_sendBlocking(buffer_REM_RobotFeedback[id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_FEEDBACK);
+      USBD_StatusTypeDef ret = USB_TransmitHighPriority(buffer_REM_RobotFeedback[id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_FEEDBACK);
+      if(ret==USBD_FAIL){
+        toggle_pin(LD_LED3);
+      }
       buffer_REM_RobotFeedback[id].isNewPacket = false;
       packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_FEEDBACK]++;
     }
@@ -631,7 +635,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
   // SX that receives packets wants to tell us something
   if (GPIO_Pin == SX_RX_IRQ.PIN) {
     Wireless_IRQ_Handler(SX_RX);
-    toggle_pin(LD_LED1);
+    toggle_pin(LD_LED2);
   } 
 }
 
