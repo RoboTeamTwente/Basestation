@@ -487,10 +487,16 @@ while True:
 
 			parser = REMParser(basestation, output_file=output_file)
 
-		# setPID = createSetPIDCommand(robot_id) #put PID gains as arguments to change them (unchanged keep default value)
-		# setPID_encoded = setPID.encode()
-		# basestation.write(setPID_encoded)
-		# parser.writeBytes(setPID_encoded)
+		PbodyX = 0.8264 # a
+		IbodyX = 0.3 # d
+		DbodyX = 0.8 # rotational_ff
+		PbodyY = 0.0888 # damping_value
+		IbodyY = 1.0 # rotational_scaling
+		DbodyYaw = 99.0 # threshold_REM_message
+		setPID = createSetPIDCommand(robot_id, PbodyX = PbodyX, IbodyX = IbodyX, DbodyX = DbodyX, PbodyY = PbodyY, IbodyY = IbodyY, DbodyYaw = DbodyYaw) #put PID gains as arguments to change them (unchanged keep default value)
+		setPID_encoded = setPID.encode()
+		basestation.write(setPID_encoded)
+		parser.writeBytes(setPID_encoded)
 
 		# ========== LOOP ========== #
 		# Continuously write -> read -> visualise
