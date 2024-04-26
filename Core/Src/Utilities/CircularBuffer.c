@@ -105,7 +105,7 @@ bool CircularBuffer_write(CircularBuffer* circBuf, uint8_t* data, uint32_t lengt
 
     if(!writeAhead1 && !writeAhead2 &&  wrappedAround) overflow = true; // Case 2
     if(!writeAhead1 &&  writeAhead2 && !wrappedAround) overflow = true; // Case 3
-    if(!writeAhead1 &&  writeAhead2 && !wrappedAround) overflow = true; // Case 4
+    if(!writeAhead1 &&  writeAhead2 &&  wrappedAround) overflow = true; // Case 4
     if( writeAhead1 &&  writeAhead2 &&  wrappedAround) overflow = true; // Case 8
 
     return overflow;
@@ -156,14 +156,14 @@ bool CircularBuffer_read(CircularBuffer* circBuf, uint8_t* buffer, uint32_t leng
      *8   true    |     true   |       true   | overrun         ......W...R. => ......W.R... => enough bytes requested to wrap around and pass Write.
     */
 
-    // Update indexWrite
+    // Update indexRead
     circBuf->indexRead = (circBuf->indexRead + length) % circBuf->bufferSize;
     // Used for overrun detection
     bool readAhead2 = circBuf->indexWrite < circBuf->indexRead;
 
     if(!readAhead1 && !readAhead2 &&  wrappedAround) overrun = true; // Case 2
     if(!readAhead1 &&  readAhead2 && !wrappedAround) overrun = true; // Case 3
-    if(!readAhead1 &&  readAhead2 && !wrappedAround) overrun = true; // Case 4
+    if(!readAhead1 &&  readAhead2 &&  wrappedAround) overrun = true; // Case 4
     if( readAhead1 &&  readAhead2 &&  wrappedAround) overrun = true; // Case 8
 
     return overrun;
