@@ -23,18 +23,6 @@
 volatile uint32_t packet_counter_in[REM_TOTAL_NUMBER_OF_PACKETS];
 volatile uint32_t packet_counter_out[REM_TOTAL_NUMBER_OF_PACKETS]; 
 
-
-/* Counters, tracking the number of packets handled */ 
-volatile int handled_RobotCommand = 0;
-volatile int handled_RobotFeedback = 0;
-volatile int handled_RobotBuzzer = 0;
-volatile int handled_RobotStateInfo = 0;
-volatile int handled_RobotGetPIDGains = 0;
-volatile int handled_RobotSetPIDGains = 0;
-volatile int handled_RobotPIDGains = 0;
-volatile int handled_RobotMusicCommand = 0;
-volatile int handled_RobotKillCommand = 0;
-
 /* Import hardware handles from main.c */
 extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi2;
@@ -115,7 +103,7 @@ uint8_t stringbuffer[1024];
 extern UART_HandleTypeDef huart3;
 
 void init(){
-  HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
+  HAL_Delay(100); // Wait for the USB to connect
   
   LOG_init();
   
@@ -507,7 +495,6 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       // Store the message in the RobotCommand buffer. Set flag indicating packet needs to be sent to the robot
       memcpy(buffer_REM_RobotCommand[robot_id].packet.payload, packet, packet_size);
       buffer_REM_RobotCommand[robot_id].isNewPacket = true;
-      handled_RobotCommand++;
     }else
 
     // High priority : Deal with RobotKillCommand packets that are destined for a robot
@@ -516,7 +503,6 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       // TODO: Perhaps dedicate a separate buffer for these types of commands.
       memcpy(buffer_REM_RobotKillCommand[robot_id].packet.payload, packet, packet_size);
       buffer_REM_RobotKillCommand[robot_id].isNewPacket = true;
-      handled_RobotKillCommand++;
     }else
 
     // High priority : Deal with RobotFeedback packets that are destined for the PC
@@ -524,7 +510,6 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       // Store the message in the RobotFeedback buffer. Set flag indicating packet needs to be sent to the PC
       memcpy(buffer_REM_RobotFeedback[robot_id].packet.payload, packet, packet_size);
       buffer_REM_RobotFeedback[robot_id].isNewPacket = true;
-      handled_RobotFeedback++;
     }else
 
     // Low priority : Deal with any other packet

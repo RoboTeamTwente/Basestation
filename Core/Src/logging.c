@@ -101,17 +101,12 @@ void LOG_send(){
     // Move up the circular buffer
     CircularBuffer_read(buffer_indexer, NULL, 1);
 }
-
 void LOG_sendBlocking(uint8_t* data, uint8_t length){
     USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
-    // while(!(hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED));
-	// if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED) {
-    // while(hcdc->TxState != 0);
-		// TODO unneccesary memcpy? How about CDC_Transmit_FS(data, length);? 
-		// 	 if CDC_Transmit_FS is blocking, no fear to have 'data' go out of scope.
-		// memcpy(TxBuffer, data, length);
-    CDC_Transmit_FS(data, length);
-	// }
+    if (hUsbDeviceFS.dev_state == USBD_STATE_CONFIGURED || hUsbDeviceFS.dev_state == USBD_STATE_SUSPENDED) {
+        while(hcdc->TxState != 0);  // Wait until the device is ready to transmit
+        CDC_Transmit_FS(data, length);
+    }
 }
 
 bool LOG_sendBuffer(uint8_t* data, uint32_t length, bool blocking){
