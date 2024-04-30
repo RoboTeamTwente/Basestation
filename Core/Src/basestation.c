@@ -17,6 +17,8 @@
 #include "REM_RobotKillCommand.h"
 
 #include "CircularBuffer.h"
+#include <usbd_def.h>
+extern USBD_HandleTypeDef hUsbDeviceFS;
 
 
 /* Counters, tracking the number of packets handled */
@@ -103,8 +105,10 @@ uint8_t stringbuffer[1024];
 extern UART_HandleTypeDef huart3;
 
 void init(){
-  HAL_Delay(100); // Wait for the USB to connect
-  
+  /* Wait for the USB to connect */
+  while (hUsbDeviceFS.dev_state != USBD_STATE_CONFIGURED) {
+    HAL_Delay(10);  // Delay to prevent busy waiting
+  }  
   LOG_init();
   
   LOG("[init:"STRINGIZE(__LINE__)"] Last programmed on " __DATE__ "\n");
