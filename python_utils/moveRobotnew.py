@@ -40,7 +40,7 @@ class RobotCommander:
 		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 		direction = math.atan2(target_y - current_y, target_x - current_x)
 		cmd.theta = -direction
-		cmd.rho = min(distance, 0.5) # Limit the speed to prevent sad things from happening
+		cmd.rho = min(distance*2, 2.5) # Limit the speed to prevent sad things from happening
 		cmd.rho = max(cmd.rho, 0.3) # This line can be removed if you have the code that the robot can drive low speeds :)). We tested on robot 7 which didn't have the code yet I guess
 		return cmd
 
@@ -101,7 +101,7 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 			print("Basestation opened")
 		parser = REMParser(commander.basestation)
 		while True:
-			simulating = True
+			simulating = False
 			current_time = time.time()
 			s_until_next_tick = last_tick_time + 1./commander.packetHz - current_time
 			tick_required = s_until_next_tick < 0

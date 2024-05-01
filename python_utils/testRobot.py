@@ -168,12 +168,12 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	direction = 1
 	
 	if test == "testHoming":
-		id_vision = robot_id # The id of the dots on top of the robot which visions sees
+		id_vision = 15 # The id of the dots on top of the robot which visions sees
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
-		homing.command_robot(id_vision, id_robot, is_yellow, target_x=2.0, target_y=0.1)
-		homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
+		homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-1.8)
+		# homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
 		print('_____________________________________________')
 
 	if test == "nothing":
@@ -431,9 +431,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 			cmd.rho = 0
 
 	if test == "constant-velocityrange-homing":
-		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+		velocityList = [0.8, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 		velocityList.sort(reverse=True)
-		directionList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0]
+		directionList = [0.0, 0.0]
 		directionList.sort(reverse=False)
 		angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 		angularVelocityList.sort(reverse=False)
@@ -460,24 +460,27 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 		
 		global notHomed
+		logNastyVariableName = 42000000
 
 		# Check if still within experiment time
-		if periodsPassed < 2*nCombinations:
+		if periodsPassed < 2*len(velocityList)+1:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = robot_id # The id of the dots on top of the robot which visions sees
+					id_vision = 15 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
-					homing.command_robot(id_vision, id_robot, is_yellow, target_x=2.0, target_y=0.1)
+					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=0.0)
 					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
 					time.sleep(1.0)
 					print('---------------------------------------------')
 					notHomed = False
 					didHoming = True
 			else:
-				velocityListIndex = math.floor(((periodsPassed-1)/2))
-				directionListIndex = math.floor(((periodsPassed-1)/2))
+				cmd.useAbsoluteAngle = 1
+				velocityListIndex = periodsPassed//2
+				directionListIndex = periodsPassed//2
+				logNastyVariableName = directionList[directionListIndex]
 				cmd.rho = velocityList[velocityListIndex]
 				cmd.angle = directionList[directionListIndex]
 				cmd.theta = 0
@@ -493,7 +496,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		else:
 			cmd.rho = 0
 		# print('notHomed:',notHomed)
-		log = 'time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f | didHoming: %.0f' % (time_test,periodsPassed,unevenPeriod,notHomed,didHoming)
+		log = 'angle: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f | didHoming: %.0f' % (logNastyVariableName,time_test,periodsPassed,unevenPeriod,notHomed,didHoming)
 
 	if test == "sideways-always":
 		cmd.angle = math.pi / 2
