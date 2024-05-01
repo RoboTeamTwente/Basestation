@@ -24,6 +24,10 @@ from roboteam_embedded_messages.python.REM_Log import REM_Log
 from roboteam_embedded_messages.python.REM_BasestationGetConfiguration import REM_BasestationGetConfiguration
 from roboteam_embedded_messages.python.REM_BasestationConfiguration import REM_BasestationConfiguration
 
+import moveRobotnew as homing
+
+homing.foo()
+
 robotStateInfo = REM_RobotStateInfo()
 robotFeedback = REM_RobotFeedback()
 
@@ -61,7 +65,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
+testsAvailable = ["constant-velocityrange-homing","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -90,6 +94,8 @@ simulated_basestation = None
 tick_counter = 0
 periodLength = 300
 packetHz = 60
+
+notHomed = True
 
 robotConnected = True
 
@@ -134,7 +140,7 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	
 	return setPID
 
-def createRobotCommand(robot_id, test, tick_counter, period_fraction):
+def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_start):
 	log = ""
 
 	# Seperate test
@@ -161,6 +167,15 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	T = 1
 	direction = 1
 	
+	if test == "testHoming":
+		id_vision = robot_id # The id of the dots on top of the robot which visions sees
+		id_robot = robot_id # The id of the robot set with the pins
+		is_yellow = True # Indicate if the robot we are talking to is yellow
+		print('---------------------------------------------')
+		homing.command_robot(id_vision, id_robot, is_yellow, target_x=2.0, target_y=0.1)
+		homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
+		print('_____________________________________________')
+
 	if test == "nothing":
 		cmd.rho = 0
 		cmd.theta = 0
@@ -415,6 +430,71 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		else:
 			cmd.rho = 0
 
+	if test == "constant-velocityrange-homing":
+		velocityList = [2.0, 1.5, 1.0, 0.8, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+		velocityList.sort(reverse=True)
+		directionList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0]
+		directionList.sort(reverse=False)
+		angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
+		angularVelocityList.sort(reverse=False)
+		nVel = len(velocityList)
+		nYaw = len(directionList)
+		nCombinations = nVel*nYaw
+		nOmega = len(angularVelocityList)
+
+		K = math.pi/180
+		directionList = [x * K for x in directionList]
+
+		period_length = 5 # [seconds]
+		current_time_in_s = time.time()
+		time_test = current_time_in_s-t_test_start
+		time_in_period = time_test % period_length
+
+		periodsPassed = math.floor(time_test/period_length)
+		unevenPeriod = (bool) (periodsPassed % 2)
+
+		brakeTime = 0.5
+		turnTime = 1.5
+
+		didHoming = False
+
+		
+		global notHomed
+
+		# Check if still within experiment time
+		if periodsPassed < 2*nCombinations:
+			if not unevenPeriod:
+				if notHomed:
+					id_vision = robot_id # The id of the dots on top of the robot which visions sees
+					id_robot = robot_id # The id of the robot set with the pins
+					is_yellow = True # Indicate if the robot we are talking to is yellow
+					print('---------------------------------------------')
+					homing.command_robot(id_vision, id_robot, is_yellow, target_x=2.0, target_y=0.1)
+					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
+					time.sleep(1.0)
+					print('---------------------------------------------')
+					notHomed = False
+					didHoming = True
+			else:
+				velocityListIndex = math.floor(((periodsPassed-1)/2))
+				directionListIndex = math.floor(((periodsPassed-1)/2))
+				cmd.rho = velocityList[velocityListIndex]
+				cmd.angle = directionList[directionListIndex]
+				cmd.theta = 0
+				notHomed = True
+				a = 1
+
+			# cmd.useAbsoluteAngle = 1
+			# log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+		elif periodsPassed < (nCombinations + nOmega):
+			a=2
+			# cmd.useAbsoluteAngle = 0
+			# log = 'Period %.0f | seconds in period: %.2f | angularVelocity:  %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.angularVelocity)
+		else:
+			cmd.rho = 0
+		# print('notHomed:',notHomed)
+		log = 'time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f | didHoming: %.0f' % (time_test,periodsPassed,unevenPeriod,notHomed,didHoming)
+
 	if test == "sideways-always":
 		cmd.angle = math.pi / 2
 	
@@ -450,6 +530,7 @@ while True:
 
 		# ========== INIT ========== #
 		# Loop control
+		t_test_start = time.time()
 		last_tick_time = time.time()
 
 		latest_packets = {}
@@ -531,7 +612,7 @@ while True:
 					test = testsAvailable[testIndex]
 
 				# Create and send new robot command
-				cmd, cmd_log = createRobotCommand(robot_id, test, tick_counter, period_fraction)
+				cmd, cmd_log = createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_start)
 				cmd_encoded = cmd.encode()
 				
 				# Send command only if an actual basestation is connected, not a simulated one

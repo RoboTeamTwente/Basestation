@@ -16,9 +16,6 @@ from roboteam_embedded_messages.python.REM_Log import REM_Log
 
 DEBUG = False
 
-def foo():
-    print('It works!')
-
 class REMParser():
 	
 	def __init__(self, device, output_file=None):

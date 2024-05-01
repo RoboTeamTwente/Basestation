@@ -2,11 +2,15 @@ import time
 import math
 import serial
 import zmq
-import State_pb2
+from homing import State_pb2
 from REMParser import REMParser
 import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 import utils
+from SerialSimulator import SerialSimulator
+
+def foo():
+	print('It works!')
 
 class RobotCommander:
 	def __init__(self, robot_id: int, is_yellow: bool):
@@ -83,18 +87,31 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 	subscriber = WorldSubscriber()
 	try:
 		last_tick_time = time.time()
+		# simulate_the_basestation = True
+		# if simulate_the_basestation:
+		# 	simulated_basestation = SerialSimulator()
+		# 	simulated_basestation.run()
+		# # Open basestation
+		# if commander.basestation is None or not commander.basestation.isOpen():
+		# 	port = None if not simulate_the_basestation else simulated_basestation.getSerialName()
+		# 	commander.basestation = utils.openContinuous(timeout=0.01, port=port)
+		# 	print("Basestation opened")
 		if commander.basestation is None or not commander.basestation.isOpen():
 			commander.basestation = utils.openContinuous(timeout=0.01)
 			print("Basestation opened")
 		parser = REMParser(commander.basestation)
 		while True:
+			simulating = True
 			current_time = time.time()
 			s_until_next_tick = last_tick_time + 1./commander.packetHz - current_time
 			tick_required = s_until_next_tick < 0
 			if not tick_required and 0.1 / commander.packetHz < s_until_next_tick: 
 				time.sleep(0.1 / commander.packetHz)
 			if tick_required:
-				current_robot_angle = subscriber.get_robot_angle(id_vision, is_yellow)
+				if not simulating:
+					current_robot_angle = subscriber.get_robot_angle(id_vision, is_yellow)
+				else:
+					current_robot_angle = 1.0
 				last_tick_time += 1./commander.packetHz
 				commander.tick_counter += 1
 				if calibrate:
@@ -111,7 +128,13 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 						print("\n")
 						break
 				else:
-					current_x, current_y = subscriber.get_robot_position(id_vision, is_yellow)
+					if not simulating:
+						current_x, current_y = subscriber.get_robot_position(id_vision, is_yellow)
+					else:
+						current_x = target_x
+						current_y = target_y
+					print('current_x:',current_x)
+					print('current_y:',current_y)
 					cmd = commander.drive_robot_to_position(current_x, current_y, target_x, target_y, current_robot_angle)
 					distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 					if commander.should_stop_drive_to_position(distance):

@@ -12,7 +12,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import UiOptions_pb2 as UiOptions__pb2
+from . import UiOptions_pb2 as UiOptions__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fHandshake.proto\x12\x05proto\x1a\x0fUiOptions.proto\"t\n\tHandshake\x12\x13\n\x0bmodule_name\x18\x01 \x01(\t\x12\x31\n\x0c\x64\x65\x63larations\x18\x02 \x01(\x0b\x32\x1b.proto.UiOptionDeclarations\x12\x1f\n\x06values\x18\x03 \x01(\x0b\x32\x0f.proto.UiValuesb\x06proto3')
