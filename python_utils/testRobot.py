@@ -98,9 +98,9 @@ packetHz = 60
 # _________________________________________________________________________________________
 # constant-velocityrange-homing init settings
 period_length = 5 # [seconds]
-velocityList = [2.0] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+velocityList = [2.0, 1.5, 1.0, 0.5] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 velocityList.sort(reverse=True)
-yawDegreesList = [0.0]
+yawDegreesList = [0.0, 45.0, 90.0]
 yawDegreesList.sort(reverse=False)
 yawList = [yawDegrees * math.pi/180 for yawDegrees in yawDegreesList]
 angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
@@ -489,8 +489,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
 					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=0.0)
-					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
-					time.sleep(1.0)
+					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=yawIterationList[test_period_counter+1])
+					if args.simulate:
+						time.sleep(1.0)
 					print('---------------------------------------------')
 					notHomed = False
 					test_period_counter = test_period_counter + 1
@@ -513,7 +514,8 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					print('---------------------------------------------')
 					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=0.0)
 					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
-					time.sleep(1.0)
+					if args.simulate:
+						time.sleep(1.0)
 					print('---------------------------------------------')
 					notHomed = False
 					test_period_counter = test_period_counter + 1
@@ -526,6 +528,19 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 			# cmd.useAbsoluteAngle = 0
 			# log = 'Period %.0f | seconds in period: %.2f | angularVelocity:  %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.angularVelocity)
 		else:
+			if not unevenPeriod:
+				if notHomed:
+					id_vision = 15 # The id of the dots on top of the robot which visions sees
+					id_robot = robot_id # The id of the robot set with the pins
+					is_yellow = True # Indicate if the robot we are talking to is yellow
+					print('---------------------------------------------')
+					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-1.8)
+					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=0)
+					if args.simulate:
+						time.sleep(1.0)
+					print('---------------------------------------------')
+					notHomed = False
+					test_period_counter = test_period_counter + 1
 			cmd.rho = 0
 		# print('notHomed:',notHomed)
 		
