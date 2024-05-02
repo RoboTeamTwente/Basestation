@@ -101,7 +101,8 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 			print("Basestation opened")
 		parser = REMParser(commander.basestation)
 		while True:
-			simulating = False
+			simulating = True
+			
 			current_time = time.time()
 			s_until_next_tick = last_tick_time + 1./commander.packetHz - current_time
 			tick_required = s_until_next_tick < 0
