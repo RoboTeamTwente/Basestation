@@ -65,7 +65,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["constant-velocityrange-homing","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
+testsAvailable = ["testHoming2Positions","constant-velocityrange-homing","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -97,13 +97,13 @@ packetHz = 60
 
 # _________________________________________________________________________________________
 # constant-velocityrange-homing init settings
-period_length = 5 # [seconds]
-velocityList = [2.0, 1.5, 1.0, 0.5] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+period_length = 4 # [seconds]
+velocityList = [3.0, 2.5, 2.0, 1.5, 1.0, 0.5] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 velocityList.sort(reverse=True)
-yawDegreesList = [0.0, 45.0, 90.0]
+yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 yawDegreesList.sort(reverse=False)
 yawList = [yawDegrees * math.pi/180 for yawDegrees in yawDegreesList]
-angularVelocityList = [12.5,10,5,2.5,1,0.5,0.25] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
+angularVelocityList = [12.5,10.0,7.5,5,2.5,0.5] # max 12.5 m/s otherwise problems due to REM_RobotCommand discretisation
 angularVelocityList.sort(reverse=False)
 angularVelocityIterationList = angularVelocityList
 nVel = len(velocityList)
@@ -121,6 +121,8 @@ for i in range(0,len(velocityList)):
 		yawIterationList.append(yawList[j])
 notHomed = True
 test_period_counter = -1
+
+drive_time = 3
 
 # _________________________________________________________________________________________
 
@@ -195,15 +197,31 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	beta = 0.5
 	T = 1
 	direction = 1
-	
-	if test == "testHoming":
-		id_vision = 15 # The id of the dots on top of the robot which visions sees
+
+	if test == "testHoming2Positions":
+		# if notHomed:
+		id_vision = 5 # The id of the dots on top of the robot which visions sees
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
-		homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-1.8)
+		homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-1.9)
+		time.sleep(1.0)
+		homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-0.0)
+		time.sleep(1.0)
 		# homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
 		print('_____________________________________________')
+			# notHomed = False
+
+	if test == "testHoming":
+		# if notHomed:
+		id_vision = 5 # The id of the dots on top of the robot which visions sees
+		id_robot = robot_id # The id of the robot set with the pins
+		is_yellow = True # Indicate if the robot we are talking to is yellow
+		print('---------------------------------------------')
+		homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-1.9)
+		# homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
+		print('_____________________________________________')
+			# notHomed = False
 
 	if test == "nothing":
 		cmd.rho = 0
@@ -471,6 +489,8 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		global test_period_counter
 		global notHomed
 
+		global drive_time
+
 		current_time_in_s = time.time()
 		time_test = current_time_in_s-t_test_start
 		time_in_period = time_test % period_length
@@ -478,29 +498,34 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		periodsPassed = math.floor(time_test/period_length)
 		unevenPeriod = (bool) (periodsPassed % 2)
 		
+		timeShift = 0.5
 		
 
 		# Check if still within experiment time
 		if test_period_counter < nPeriods:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 15 # The id of the dots on top of the robot which visions sees
+					id_vision = 5 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
 					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=0.0)
-					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=yawIterationList[test_period_counter+1])
+					if test_period_counter == (nPeriods - 1):
+						homing.command_robot(id_vision, id_robot, is_yellow, target_angle=0.0)
+					else:
+						homing.command_robot(id_vision, id_robot, is_yellow, target_angle=yawIterationList[test_period_counter+1])
 					if args.simulate:
 						time.sleep(1.0)
 					print('---------------------------------------------')
 					notHomed = False
 					test_period_counter = test_period_counter + 1
 			else:
-				cmd.useAbsoluteAngle = 1
-				cmd.rho = velocityIterationList[test_period_counter]
-				cmd.angle = yawIterationList[test_period_counter]
-				cmd.theta = 0
-				notHomed = True
+				if (time_in_period > (period_length-drive_time-timeShift)) and (time_in_period < (period_length-timeShift)):
+					cmd.useAbsoluteAngle = 1
+					cmd.rho = velocityIterationList[test_period_counter]
+					cmd.angle = yawIterationList[test_period_counter]
+					cmd.theta = 0
+					notHomed = True
 				log = 'rho: %.2f | yaw: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % (cmd.rho,cmd.angle,time_test,periodsPassed,unevenPeriod,notHomed)
 
 			# cmd.useAbsoluteAngle = 1
@@ -508,7 +533,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		elif test_period_counter < (nPeriods + nOmega):
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 15 # The id of the dots on top of the robot which visions sees
+					id_vision = 5 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -520,9 +545,10 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					notHomed = False
 					test_period_counter = test_period_counter + 1
 			else:
-				cmd.useAbsoluteAngle = 0
-				cmd.angularVelocity = angularVelocityIterationList[test_period_counter - nPeriods]
-				notHomed = True
+				if (time_in_period > (period_length-drive_time-timeShift)) and (time_in_period < (period_length-timeShift)):
+					cmd.useAbsoluteAngle = 0
+					cmd.angularVelocity = angularVelocityIterationList[test_period_counter - nPeriods]
+					notHomed = True
 				log = 'index: %.1f | angularVelocity: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % ((test_period_counter - nPeriods),cmd.angularVelocity,time_test,periodsPassed,unevenPeriod,notHomed)
 				
 			# cmd.useAbsoluteAngle = 0
@@ -530,7 +556,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		else:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 15 # The id of the dots on top of the robot which visions sees
+					id_vision = 5 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -618,16 +644,23 @@ while True:
 
 			parser = REMParser(basestation, output_file=output_file)
 
-		PbodyX = 0.8264 # a
-		IbodyX = 0.3 # d
-		DbodyX = 0.8 # rotational_ff
-		PbodyY = 0.0888 # damping_value
-		IbodyY = 1.0 # rotational_scaling
-		DbodyYaw = 99.0 # threshold_REM_message
-		setPID = createSetPIDCommand(robot_id, PbodyX = PbodyX, IbodyX = IbodyX, DbodyX = DbodyX, PbodyY = PbodyY, IbodyY = IbodyY, DbodyYaw = DbodyYaw) #put PID gains as arguments to change them (unchanged keep default value)
-		setPID_encoded = setPID.encode()
-		basestation.write(setPID_encoded)
-		parser.writeBytes(setPID_encoded)
+		# Pwheels = 2.0
+		# Iwheels = 0.0
+		# setPID = createSetPIDCommand(robot_id, Pwheels=Pwheels, Iwheels=Iwheels) #put PID gains as arguments to change them (unchanged keep default value)
+		# setPID_encoded = setPID.encode()
+		# basestation.write(setPID_encoded)
+		# parser.writeBytes(setPID_encoded)
+
+		# PbodyX = 0.8264 # a
+		# IbodyX = 0.3 # d
+		# DbodyX = 0.8 # rotational_ff
+		# PbodyY = 0.0888 # damping_value
+		# IbodyY = 1.0 # rotational_scaling
+		# DbodyYaw = 99.0 # threshold_REM_message
+		# setPID = createSetPIDCommand(robot_id, PbodyX = PbodyX, IbodyX = IbodyX, DbodyX = DbodyX, PbodyY = PbodyY, IbodyY = IbodyY, DbodyYaw = DbodyYaw) #put PID gains as arguments to change them (unchanged keep default value)
+		# setPID_encoded = setPID.encode()
+		# basestation.write(setPID_encoded)
+		# parser.writeBytes(setPID_encoded)
 
 		# ========== LOOP ========== #
 		# Continuously write -> read -> visualise
