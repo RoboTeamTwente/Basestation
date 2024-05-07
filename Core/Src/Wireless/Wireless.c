@@ -388,8 +388,8 @@ Wireless_Error Wireless_IRQ_Handler(Wireless* w){
 
     if(irq & IRQ_CRC_ERROR) {
         // Indicate that a CRC error has occurred
-        LOG_printf("CRC Error triggered\n");
-        LOG_sendAll();
+        // LOG_printf("CRC Error triggered\n");
+        // LOG_sendAll();
         if(w->irqcallbacks && w->irqcallbacks->crcerror){
             if(w->printf) w->printf("[Wireless_IRQ_Handler] IRQ_CRC_ERROR\n");
             w->irqcallbacks->crcerror();
