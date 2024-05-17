@@ -205,7 +205,7 @@ class Joystick:
 		self.command.toRobotId = self.robot_id
 
 		self.command.rho = rho
-		self.command.theta = theta - self.absolute_angle
+		self.command.theta = -(theta - self.absolute_angle)
 		self.command.angle = self.absolute_angle
 		self.command.useAbsoluteAngle = 1
 
