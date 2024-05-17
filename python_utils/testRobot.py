@@ -215,7 +215,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	if test == "circle":
 		cmd.useAbsoluteAngle = 1
 		cmd.rho = 1
-		cmd.theta = period_fraction * 2*math.pi - math.pi
+		cmd.theta = -(period_fraction * 2*math.pi - math.pi)
 
 	if test == "rotate-discrete":
 		cmd.useAbsoluteAngle = 1
