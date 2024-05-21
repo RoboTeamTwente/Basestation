@@ -155,6 +155,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	cmd.messageId = tick_counter
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
 	cmd.timestamp = int(time.time()*1000)
+	cmd.sendStateInfo = True
 
 	counter = 0
 	beta = 0.5
@@ -209,7 +210,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 			exit()
 	
 	if test == "sideways-always":
-		cmd.angle = math.pi / 2
+		cmd.yaw = math.pi / 2
 	
 	if test == "circle":
 		cmd.useYaw = 1
@@ -228,7 +229,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 		cmd.useYaw = 0
 		cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
 		if 0.5 < period_fraction : cmd.theta = -math.pi
-		#cmd.angle = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
+		#cmd.yaw = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
 		cmd.angularVelocity = math.pi/3 # set useAbsoluteAngle to 0 to use this
 		log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.yaw)
 		
@@ -392,10 +393,6 @@ while True:
 				px, py = rotate((250, 250), (250, 250+length), robotFeedback.theta)
 				cv2.line(image_vis, (250,250), (int(px), int(py)), (1, 0, 0), 8)
 
-				dBm = -robotFeedback.rssi/2
-				cv2.rectangle(image_vis, (10, 10), (210, 20), (100, 0, 0), 2)
-				cv2.rectangle(image_vis, (10, 10), (10 + int(200*(1 - dBm/-80)), 20), (0, 255, 0), -1)
-
 			### Draw information received from the RobotStateInfo packet
 			if REM_RobotStateInfo in latest_packets and latest_packets[REM_RobotStateInfo] is not None:
 				robotStateInfo = latest_packets[REM_RobotStateInfo]
@@ -408,7 +405,7 @@ while True:
 				cv2.circle(image_vis, (int(px), int(py)), 5, (1, 1, 1), -1)
 
 				# Commanded yaw
-				px, py = rotate((250, 250), (250, 150), -cmd.angle)
+				px, py = rotate((250, 250), (250, 150), -cmd.yaw)
 				cv2.line(image_vis, (250, 250), (int(px), int(py)), (0, 1, 0), 1)
 				cv2.circle(image_vis, (int(px), int(py)), 5, (0, 1, 0), -1)
 				

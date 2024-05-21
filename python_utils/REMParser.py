@@ -102,7 +102,6 @@ class REMParser():
 			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.packetType)()
 			# Decode the packet
 			packet.decode(packet_bytes)
-			packet.timestamp *= 10
 
 			if packet.packetType == BaseTypes.REM_PACKET_TYPE_REM_LOG:
 				# Get the message from the buffer. The message is everything after the REM_Packet header
