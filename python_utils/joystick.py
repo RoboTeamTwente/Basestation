@@ -126,7 +126,7 @@ class Joystick:
 		self.HAT_X = 0
 		self.HAT_Y = 0
 		self.command = REM_RobotCommand()
-		self.command.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
+		self.command.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
 		self.command.fromPC = True
 		self.command.remVersion = BaseTypes.REM_LOCAL_VERSION
 		self.command.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
@@ -206,8 +206,8 @@ class Joystick:
 
 		self.command.rho = rho
 		self.command.theta = -(theta - self.absolute_angle)
-		self.command.angle = self.absolute_angle
-		self.command.useAbsoluteAngle = 1
+		self.command.yaw = self.absolute_angle
+		self.command.useYaw = 1
 
 		# buzzer_value = self.controller.trigger_l._value
 		# if 0.3 < buzzer_value:

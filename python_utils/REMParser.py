@@ -74,16 +74,16 @@ class REMParser():
 				raise Exception(f"[REMParser][process] Error! packet_rem_version {packet.remVersion} != REM_LOCAL_VERSION {BaseTypes.REM_LOCAL_VERSION}")
 
 			# Check if the packet type is valid according to REM
-			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet.header)
+			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet.packetType)
 			# If the packet type is not valid / unknown
 			if not packet_valid:
 				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet.header}!")
+				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet.packetType}!")
 			
 			# Get the expected packet size as expected by REM
-			rem_packet_size = BaseTypes.REM_PACKET_TYPE_TO_SIZE(packet.header)
+			rem_packet_size = BaseTypes.REM_PACKET_TYPE_TO_SIZE(packet.packetType)
 
-			if DEBUG: print(f"- type={packet.header} ({BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.header).__name__}), size={packet.payloadSize}, REM_size={rem_packet_size}")
+			if DEBUG: print(f"- type={packet.packetType} ({BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.packetType).__name__}), size={packet.payloadSize}, REM_size={rem_packet_size}")
 
 			# Ensure that the entire payload is in the byte buffer
 			if len(self.byte_buffer) < packet.payloadSize: 
@@ -91,7 +91,7 @@ class REMParser():
 				break
 
 			# if not REM_log, packet->payloadSize should be equal to expected REM_PACKET_SIZE
-			if packet.header != BaseTypes.REM_PACKET_TYPE_REM_LOG:
+			if packet.packetType != BaseTypes.REM_PACKET_TYPE_REM_LOG:
 				if packet.payloadSize != rem_packet_size:
 					self.byte_buffer = bytes()
 					raise Exception(f"[REMParser][process] Error! REM_Packet->payloadSize={packet.payloadSize} does not equal expected REM_PACKET_SIZE_*={rem_packet_size}! ")
@@ -99,12 +99,12 @@ class REMParser():
 			# Retrieve the bytes of the entire packet from the byte buffer
 			packet_bytes = self.byte_buffer[:packet.payloadSize]
 			# Create packet instance
-			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.header)()
+			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.packetType)()
 			# Decode the packet
 			packet.decode(packet_bytes)
 			packet.timestamp *= 10
 
-			if packet.header == BaseTypes.REM_PACKET_TYPE_REM_LOG:
+			if packet.packetType == BaseTypes.REM_PACKET_TYPE_REM_LOG:
 				# Get the message from the buffer. The message is everything after the REM_Packet header
 				message = packet_bytes[BaseTypes.REM_PACKET_SIZE_REM_LOG:]
 				# Convert bytes into string, and store in REM_Log object
