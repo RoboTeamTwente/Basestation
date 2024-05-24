@@ -17,23 +17,13 @@
 #include "REM_RobotKillCommand.h"
 
 #include "CircularBuffer.h"
+#include <usbd_def.h>
+extern USBD_HandleTypeDef hUsbDeviceFS;
 
 
 /* Counters, tracking the number of packets handled */
 volatile uint32_t packet_counter_in[REM_TOTAL_NUMBER_OF_PACKETS];
 volatile uint32_t packet_counter_out[REM_TOTAL_NUMBER_OF_PACKETS]; 
-
-
-/* Counters, tracking the number of packets handled */ 
-volatile int handled_RobotCommand = 0;
-volatile int handled_RobotFeedback = 0;
-volatile int handled_RobotBuzzer = 0;
-volatile int handled_RobotStateInfo = 0;
-volatile int handled_RobotGetPIDGains = 0;
-volatile int handled_RobotSetPIDGains = 0;
-volatile int handled_RobotPIDGains = 0;
-volatile int handled_RobotMusicCommand = 0;
-volatile int handled_RobotKillCommand = 0;
 
 /* Import hardware handles from main.c */
 extern SPI_HandleTypeDef hspi1;
@@ -53,6 +43,9 @@ TouchState touchState; // TODO check default initialization. What is touchState-
 /* SX data */
 // TODO: Maybe move all configs to its own file? (basestation_config.c/h???)
 extern SX1280_Settings SX1280_DEFAULT_SETTINGS;
+extern SX1280_Settings SX1280_RX_SETTINGS;
+extern SX1280_Settings SX1280_TX_SETTINGS;
+
 static Wireless SX1280_TX = {0};
 static Wireless SX1280_RX = {0};
 static Wireless* SX_TX = &SX1280_TX;
@@ -115,8 +108,10 @@ uint8_t stringbuffer[1024];
 extern UART_HandleTypeDef huart3;
 
 void init(){
-  HAL_Delay(1000); // TODO Why do we have this again? To allow for USB to start up iirc?
-  
+  /* Wait for the USB to connect */
+  while (hUsbDeviceFS.dev_state != USBD_STATE_CONFIGURED) {
+    HAL_Delay(10);  // Delay to prevent busy waiting
+  }  
   LOG_init();
   
   LOG("[init:"STRINGIZE(__LINE__)"] Last programmed on " __DATE__ "\n");
@@ -161,7 +156,7 @@ void init(){
     // Set the print function. NULL to supress printing, LOG_printf to enable printing
     // SX_TX_init_err |= WIRELESS_OK != Wireless_setPrint_Callback(SX_TX, LOG_printf);
     // Wake up the TX SX1280 and send it all the default settings
-    SX_TX_init_err |= WIRELESS_OK != Wireless_Init(SX_TX, SX1280_DEFAULT_SETTINGS, &SX_TX_Interface);
+    SX_TX_init_err |= WIRELESS_OK != Wireless_Init(SX_TX, SX1280_TX_SETTINGS, &SX_TX_Interface);
     // Set the functions that have to be called on stuff like "a packet has been received" or "a packet has been sent" or "a timeout has occured". See Wireless_IRQcallbacks in Wireless.h
     SX_TX_init_err |= WIRELESS_OK != Wireless_setIRQ_Callbacks(SX_TX,&SXTX_IRQcallbacks);
     // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
@@ -184,7 +179,7 @@ void init(){
     // Set the print function. NULL to supress printing, LOG_printf to enable printing
     SX_RX_init_err |= WIRELESS_OK != Wireless_setPrint_Callback(SX_TX, NULL);
     // Wake up the RX SX1280 and send it all the default settings
-    SX_RX_init_err |= WIRELESS_OK != Wireless_Init(SX_RX, SX1280_DEFAULT_SETTINGS, &SX_RX_Interface);
+    SX_RX_init_err |= WIRELESS_OK != Wireless_Init(SX_RX, SX1280_RX_SETTINGS, &SX_RX_Interface);
     // Set the functions that have to be called on stuff like "a packet has been received" or "a packet has been sent" or "a timeout has occured". See Wireless_IRQcallbacks in Wireless.h
     SX_RX_init_err |= WIRELESS_OK != Wireless_setIRQ_Callbacks(SX_RX, &SXRX_IRQcallbacks);
     // Set the channel (radio frequency) to the YELLOW_CHANNEL. Can be changed by sending a REM_BasestationConfiguration message
@@ -272,11 +267,11 @@ void loop(){
       // LOG_printf("Reading from index %d\n", nonpriority_queue_pc_index->indexRead);
       uint8_t* data = nonpriority_queue_pc[ nonpriority_queue_pc_index->indexRead ].data;
       REM_PacketPayload* packet = (REM_PacketPayload*) nonpriority_queue_pc[ nonpriority_queue_pc_index->indexRead ].data;
-      uint8_t  packet_type = REM_Packet_get_header(packet);
+      uint8_t  packet_type = REM_Packet_get_packetType(packet);
       uint32_t packet_size = REM_Packet_get_payloadSize(packet);
       bool packet_sent = LOG_sendBuffer((uint8_t*)packet, packet_size, true);
       if(packet_sent) {
-        uint8_t packet_type = REM_Packet_get_header(packet);
+        uint8_t packet_type = REM_Packet_get_packetType(packet);
         packet_counter_out[REM_PACKET_TYPE_TO_INDEX(packet_type)]++;
         // LOG_printf("Packet sent! type=%d (%d) size=%d (%d) p=%p\n", packet_type, data[0], packet_size, data[4], nonpriority_queue_pc[ nonpriority_queue_pc_index->indexRead ].data);
         CircularBuffer_read(nonpriority_queue_pc_index, NULL, 1);
@@ -290,13 +285,13 @@ void loop(){
     uint8_t* data = nonpriority_queue_bs[ nonpriority_queue_bs_index->indexRead ].data;
     REM_PacketPayload* packet = (REM_PacketPayload*) nonpriority_queue_bs[ nonpriority_queue_bs_index->indexRead ].data;
 
-    LOG_printf("[loop]["STRINGIZE(__LINE__)"] Packet ready for Basestation with type %d\n", REM_Packet_get_header(packet));
+    LOG_printf("[loop]["STRINGIZE(__LINE__)"] Packet ready for Basestation with type %d\n", REM_Packet_get_packetType(packet));
     
-    if(REM_Packet_get_header(packet) == REM_PACKET_TYPE_REM_BASESTATION_GET_CONFIGURATION)
+    if(REM_Packet_get_packetType(packet) == REM_PACKET_TYPE_REM_BASESTATION_GET_CONFIGURATION)
       if( handleREM_BasestationGetConfiguration() )
         CircularBuffer_read(nonpriority_queue_bs_index, NULL, 1);
     
-    if(REM_Packet_get_header(packet) == REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION)
+    if(REM_Packet_get_packetType(packet) == REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION)
       if( handleREM_BasestationConfiguration( (REM_BasestationConfigurationPayload*) packet) )
         CircularBuffer_read(nonpriority_queue_bs_index, NULL, 1);    
   }
@@ -362,7 +357,7 @@ void loop(){
 bool handleREM_BasestationGetConfiguration(){
   /* Create REM_BasestationConfiguration packet */
   REM_BasestationConfiguration configuration = {0};
-  configuration.header = REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION;
+  configuration.packetType = REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION;
   configuration.toPC = true;
   configuration.fromBS = true;
   configuration.remVersion = REM_LOCAL_VERSION;
@@ -448,7 +443,7 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
 
     // Get the packet and its type
     REM_PacketPayload* packet = (REM_PacketPayload*) (packets_buffer + bytes_processed);
-    int8_t packet_type = REM_Packet_get_header(packet);
+    int8_t packet_type = REM_Packet_get_packetType(packet);
     
     // Skip filler packets. We need to skip these before we do anything else, since this packet does
     // not have all the normal functions such as REM_Packet_get_payloadSize.
@@ -507,7 +502,6 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       // Store the message in the RobotCommand buffer. Set flag indicating packet needs to be sent to the robot
       memcpy(buffer_REM_RobotCommand[robot_id].packet.payload, packet, packet_size);
       buffer_REM_RobotCommand[robot_id].isNewPacket = true;
-      handled_RobotCommand++;
     }else
 
     // High priority : Deal with RobotKillCommand packets that are destined for a robot
@@ -516,7 +510,6 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       // TODO: Perhaps dedicate a separate buffer for these types of commands.
       memcpy(buffer_REM_RobotKillCommand[robot_id].packet.payload, packet, packet_size);
       buffer_REM_RobotKillCommand[robot_id].isNewPacket = true;
-      handled_RobotKillCommand++;
     }else
 
     // High priority : Deal with RobotFeedback packets that are destined for the PC
@@ -524,7 +517,6 @@ bool handlePackets(uint8_t* packets_buffer, uint32_t packets_buffer_length){
       // Store the message in the RobotFeedback buffer. Set flag indicating packet needs to be sent to the PC
       memcpy(buffer_REM_RobotFeedback[robot_id].packet.payload, packet, packet_size);
       buffer_REM_RobotFeedback[robot_id].isNewPacket = true;
-      handled_RobotFeedback++;
     }else
 
     // Low priority : Deal with any other packet
@@ -585,10 +577,24 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 
 /* Responsible for sending RobotCommand packets to the corresponding robots */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+  // Uncomment to print the number of callbacks per second, this can be used to confirm the frequency is set correclty
+  // static uint64_t last_time = 0;
+  // static uint32_t callback_count = 0;
+  // uint64_t current_time = HAL_GetTick();
+
+  // if (current_time - last_time >= 1000) {
+  //   LOG_printf("[htim1]["STRINGIZE(__LINE__)"] Callbacks per second: %lu\n", callback_count);
+  //   LOG_sendAll();
+  //   last_time = current_time;
+  //   callback_count = 0;
+  // } else {
+  //   callback_count++;
+  // }
+
   // TDMA Timer callback, runs at approximately 960Hz
   /* Every millisecond, a transmission can be made to a single robot. As per the TDMA protocol, the robot has
-  * to respond with any of its own packets within this millisecond. The code loops through all possible robot 
-  * id's (currently 0 to 15), incrementing the id it sends packets to, every millisecond. A transmission to 
+  * to respond with any of its own packets within the 1.5ms. The code loops through all possible robot 
+  * id's (currently 0 to 15), incrementing the id it sends packets to, every 1.5ms. A transmission to 
   * the robot can consist of multiple packet, for example a RobotCommand and a RobotBuzzer. These packets 
   * are stitched together and sent to the robot in a single transmission. A single transmission can never 
   * exceed more than 127 bytes, per the SX1280 datasheet and our settings. */
@@ -596,84 +602,95 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
   if(htim->Instance == htim1.Instance){
     // Counter that tracks the current robot id that the basestation sends a packet to
     static uint8_t robot_id = 0;
+    static uint8_t tick_counter = 0;
 
     // Keeps track of the total length of the packet that goes to the robot. 
     // Cannot exceed REM_MAX_TOTAL_PACKET_SIZE_SX1280, or it will overflow the internal buffer of the SX1280
     uint8_t total_packet_length = 0;    
 
-    /* Add RobotCommand to the transmission */
-    if(buffer_REM_RobotCommand[robot_id].isNewPacket 
-    && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_COMMAND < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
-      buffer_REM_RobotCommand[robot_id].isNewPacket = false;
-      memcpy(txPacket.message + total_packet_length, buffer_REM_RobotCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_COMMAND);
-      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_COMMAND;
-      packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_COMMAND]++;
-    }
-
-    /* Add RobotKillCommand to the transmission */
-    if(buffer_REM_RobotKillCommand[robot_id].isNewPacket
-      && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
-      buffer_REM_RobotKillCommand[robot_id].isNewPacket = false;
-      memcpy(txPacket.message + total_packet_length, buffer_REM_RobotKillCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND);
-      total_packet_length += REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND;
-      packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_KILL_COMMAND]++;
-    }
-
-    /* Add any other packet from the queue to the transmission */
-    CircularBuffer*     index = nonpriority_queue_robots_index[robot_id];
-    Wrapper_REM_Packet* queue = nonpriority_queue_robots[robot_id];
-
-    while(true){
-      // Check if there is a packet in the queue. If not, break
-      if(!CircularBuffer_canRead(index, 1)) break;
-     
-      // Get packet
-      REM_PacketPayload* packet = (REM_PacketPayload*) &queue[index->indexRead].data;
-      // Get type and size of packet
-      uint8_t packet_type = REM_Packet_get_header(packet);
-      uint8_t packet_size = REM_Packet_get_payloadSize(packet);
-      // Check if the packet fits in the transmission. If not, break
-      if(REM_MAX_TOTAL_PACKET_SIZE_SX1280 < total_packet_length + packet_size) break;
-
-      // Check if the packet is destined for the robot. Should always be the case, but again, just to be sure
-      if(REM_Packet_get_toBS(packet) || REM_Packet_get_toPC(packet) || REM_Packet_get_toRobotId(packet) != robot_id){
-        LOG_printf("[htim1]["STRINGIZE(__LINE__)"] Warning! Packet with type %u is not destined for robot %u", packet_type, robot_id);  
+    while (robot_id < MAX_ROBOT_ID) {
+     /* Add RobotCommand to the transmission */
+      if(buffer_REM_RobotCommand[robot_id].isNewPacket 
+      && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_COMMAND < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
+        buffer_REM_RobotCommand[robot_id].isNewPacket = false;
+        memcpy(txPacket.message + total_packet_length, buffer_REM_RobotCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_COMMAND);
+        total_packet_length += REM_PACKET_SIZE_REM_ROBOT_COMMAND;
+        packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_COMMAND]++;
       }
 
-      // Copy packet to the transmission
-      CircularBuffer_read(index, NULL, 1);
-      memcpy(txPacket.message + total_packet_length, packet->payload, packet_size);
-      // Update total packet length
-      total_packet_length += packet_size;
-      // Increment packet counter
-      packet_counter_out[REM_PACKET_TYPE_TO_INDEX(packet_type)]++;
-    }
-    
+      /* Add RobotKillCommand to the transmission */
+      if(buffer_REM_RobotKillCommand[robot_id].isNewPacket
+        && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
+        buffer_REM_RobotKillCommand[robot_id].isNewPacket = false;
+        memcpy(txPacket.message + total_packet_length, buffer_REM_RobotKillCommand[robot_id].packet.payload, REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND);
+        total_packet_length += REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND;
+        packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_KILL_COMMAND]++;
+      }
 
-    /* Send new command if available for this robot ID */
-    if(0 < total_packet_length){
-      if(SX_TX->state == WIRELESS_READY){
-        
-        /* Add a filler packet to the buffer if there are currently less than 6 bytes in the buffer
-        * The minimum payload size for the SX1280 in FLRC mode is 6 bytes. 
-        * See documentation page 124 - Table 14-36: Sync Word Combination in FLRC Packet */
-        if(total_packet_length < 6){
-          memcpy(txPacket.message + total_packet_length, SX1280_filler_payload.payload, REM_PACKET_SIZE_REM_SX1280FILLER);
-          total_packet_length += REM_PACKET_SIZE_REM_SX1280FILLER;
+      if (total_packet_length == 0) {
+        // No packets to send to this robot, so we can skip the rest of the loop
+        robot_id++;
+        break;
+      }
+
+      /* Add any other packet from the queue to the transmission */
+      CircularBuffer*     index = nonpriority_queue_robots_index[robot_id];
+      Wrapper_REM_Packet* queue = nonpriority_queue_robots[robot_id];
+
+      while(true){
+        // Check if there is a packet in the queue. If not, break
+        if(!CircularBuffer_canRead(index, 1)) break;
+      
+        // Get packet
+        REM_PacketPayload* packet = (REM_PacketPayload*) &queue[index->indexRead].data;
+        // Get type and size of packet
+        uint8_t packet_type = REM_Packet_get_packetType(packet);
+        uint8_t packet_size = REM_Packet_get_payloadSize(packet);
+        // Check if the packet fits in the transmission. If not, break
+        if(REM_MAX_TOTAL_PACKET_SIZE_SX1280 < total_packet_length + packet_size) break;
+
+        // Check if the packet is destined for the robot. Should always be the case, but again, just to be sure
+        if(REM_Packet_get_toBS(packet) || REM_Packet_get_toPC(packet) || REM_Packet_get_toRobotId(packet) != robot_id){
+          LOG_printf("[htim1]["STRINGIZE(__LINE__)"] Warning! Packet with type %u is not destined for robot %u", packet_type, robot_id);  
         }
 
-        txPacket.payloadLength = total_packet_length;
-        Wireless_setTXSyncword(SX_TX,robot_syncWord[robot_id]);
-        WritePacket_DMA(SX_TX, &txPacket, &Wireless_Writepacket_Cplt);
-
+        // Copy packet to the transmission
+        CircularBuffer_read(index, NULL, 1);
+        memcpy(txPacket.message + total_packet_length, packet->payload, packet_size);
+        // Update total packet length
+        total_packet_length += packet_size;
+        // Increment packet counter
+        packet_counter_out[REM_PACKET_TYPE_TO_INDEX(packet_type)]++;
       }
-    }
+      
 
-    // Schedule next ID to be sent
-    robot_id++;
-    // Wrap around if the last ID has been dealt with
-    if(MAX_ROBOT_ID < robot_id){
+      // Send new command if available for this robot ID
+      if(0 < total_packet_length){
+        if(SX_TX->state == WIRELESS_READY){
+          
+          /* Add a filler packet to the buffer if there are currently less than 6 bytes in the buffer
+          * The minimum payload size for the SX1280 in FLRC mode is 6 bytes. 
+          * See documentation page 124 - Table 14-36: Sync Word Combination in FLRC Packet */
+          if(total_packet_length < 6){
+            memcpy(txPacket.message + total_packet_length, SX1280_filler_payload.payload, REM_PACKET_SIZE_REM_SX1280FILLER);
+            total_packet_length += REM_PACKET_SIZE_REM_SX1280FILLER;
+          }
+
+          txPacket.payloadLength = total_packet_length;
+          Wireless_setTXSyncword(SX_TX,robot_syncWord[robot_id]);
+          WritePacket_DMA(SX_TX, &txPacket, &Wireless_Writepacket_Cplt);
+          robot_id++;
+          break;
+        }
+      }
+      // Code should never reach this point.
+    }
+    tick_counter++;
+    // Wrap around ever 11 ticks. This means we support 11 robots at max. If you want to increase this number,
+    // you also have to increase the frequency of the timer, such that the robots still get their packets at 60Hz
+    if(10 < tick_counter){
       robot_id = 0;
+      tick_counter = 0;
     }
   }
 }

@@ -5,23 +5,21 @@
 #include <stdlib.h>
 
 CircularBuffer* CircularBuffer_init(bool onlyTrackIndex, uint32_t bufferSize){
-    /** https://stackoverflow.com/questions/2060974/how-to-include-a-dynamic-array-inside-a-struct-in-c
-     * Is this ugly? Yes. Do I care? No. This only works if buffer is of type uint_8 / char (anything
-     * of size 1 byte) and "uint8_t buffer[];" is the last thing declared in the struct
-     **/
-    CircularBuffer* circBuf;
-    if(onlyTrackIndex) circBuf = malloc(sizeof(CircularBuffer));
-    else               circBuf = malloc(sizeof(CircularBuffer) + bufferSize);
+    CircularBuffer* circBuf = malloc(sizeof(CircularBuffer) + (onlyTrackIndex ? 0 : bufferSize));
     
+    // Check if malloc was successful
+    if(circBuf == NULL) {
+        return NULL;
+    }
+
     circBuf->onlyTrackIndex = onlyTrackIndex;
     circBuf->indexWrite = 0;
     circBuf->indexRead = 0;
     circBuf->bufferSize = bufferSize;
     
     if(!onlyTrackIndex){
-        for(uint32_t i = 0; i < circBuf->bufferSize; i++)
-            // 46 is the ASCII code for dot(.) Done to make testing more clear
-            circBuf->buffer[i] = 46;
+        // Initialize buffer with ASCII code for dot(.)
+        memset(circBuf->buffer, 46, bufferSize);
     }
 
     return circBuf;
@@ -78,7 +76,6 @@ bool CircularBuffer_write(CircularBuffer* circBuf, uint8_t* data, uint32_t lengt
             memcpy(circBuf->buffer + circBuf->indexWrite, data, bytesAtEnd);
             // Copy second part of the data to the beginning of the buffer
             memcpy(circBuf->buffer, data + bytesAtEnd, bytesAtBegin);
-            wrappedAround = true;
         }else{
             memcpy(circBuf->buffer + circBuf->indexWrite, data, length);
         }
@@ -105,7 +102,7 @@ bool CircularBuffer_write(CircularBuffer* circBuf, uint8_t* data, uint32_t lengt
 
     if(!writeAhead1 && !writeAhead2 &&  wrappedAround) overflow = true; // Case 2
     if(!writeAhead1 &&  writeAhead2 && !wrappedAround) overflow = true; // Case 3
-    if(!writeAhead1 &&  writeAhead2 && !wrappedAround) overflow = true; // Case 4
+    if(!writeAhead1 &&  writeAhead2 &&  wrappedAround) overflow = true; // Case 4
     if( writeAhead1 &&  writeAhead2 &&  wrappedAround) overflow = true; // Case 8
 
     return overflow;
@@ -138,7 +135,6 @@ bool CircularBuffer_read(CircularBuffer* circBuf, uint8_t* buffer, uint32_t leng
             memcpy(buffer, circBuf->buffer + circBuf->indexRead, bytesAtEnd);
             // Copy second part of the data to the beginning of the buffer
             memcpy(buffer + bytesAtEnd, circBuf->buffer, bytesAtBegin);
-            wrappedAround = true;
         }else{
             memcpy(buffer, circBuf->buffer + circBuf->indexRead, length);
         }
@@ -156,14 +152,14 @@ bool CircularBuffer_read(CircularBuffer* circBuf, uint8_t* buffer, uint32_t leng
      *8   true    |     true   |       true   | overrun         ......W...R. => ......W.R... => enough bytes requested to wrap around and pass Write.
     */
 
-    // Update indexWrite
+    // Update indexRead
     circBuf->indexRead = (circBuf->indexRead + length) % circBuf->bufferSize;
     // Used for overrun detection
     bool readAhead2 = circBuf->indexWrite < circBuf->indexRead;
 
     if(!readAhead1 && !readAhead2 &&  wrappedAround) overrun = true; // Case 2
     if(!readAhead1 &&  readAhead2 && !wrappedAround) overrun = true; // Case 3
-    if(!readAhead1 &&  readAhead2 && !wrappedAround) overrun = true; // Case 4
+    if(!readAhead1 &&  readAhead2 &&  wrappedAround) overrun = true; // Case 4
     if( readAhead1 &&  readAhead2 &&  wrappedAround) overrun = true; // Case 8
 
     return overrun;

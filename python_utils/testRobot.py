@@ -140,13 +140,13 @@ def createSetPIDCommand(robot_id, PbodyX = 0.2, IbodyX = 0.0, DbodyX = 0.0, Pbod
 	# Create new empty setPID command
 	
 	setPID = REM_RobotSetPIDGains()
-	setPID.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
+	setPID.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
 	setPID.toRobotId = robot_id
 	setPID.fromPC = True
 	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
 	setPID.messageId = tick_counter
 	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
-	setPID.timestamp = int(time.time()*100)
+	setPID.timestamp = int(time.time()*1000)
 
 	# Set the PID gains
 	setPID.PbodyX = PbodyX
@@ -178,20 +178,21 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	if test == "getpid":
 		if period_fraction == 0:
 			robotGetPIDGains = REM_RobotGetPIDGains()
-			robotGetPIDGains.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_GET_PIDGAINS
+			robotGetPIDGains.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_GET_PIDGAINS
 			robotGetPIDGains.remVersion = BaseTypes.REM_LOCAL_VERSION
 			robotGetPIDGains.id = robot_id
 			return robotGetPIDGains, log
 
 	# Create new empty robot command. Fill required fields
 	cmd = REM_RobotCommand()
-	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
+	cmd.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
 	cmd.toRobotId = robot_id
 	cmd.fromPC = True	
 	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 	cmd.messageId = tick_counter
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
-	cmd.timestamp = int(time.time()*100)
+	cmd.timestamp = int(time.time()*1000)
+	cmd.sendStateInfo = True
 
 	counter = 0
 	beta = 0.5
@@ -226,13 +227,13 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	if test == "nothing":
 		cmd.rho = 0
 		cmd.theta = 0
-		cmd.angle = 0
+		cmd.yaw = 0	
 
 	if test == "nothing-angleControl":
-		cmd.useAbsoluteAngle = 1
+		cmd.useYaw = 1
 		cmd.rho = 0
 		cmd.theta = 0
-		cmd.angle = 0
+		cmd.yaw = 0	
 
 	if test == "kicker-reflect":
 		cmd.doKick = True
@@ -246,30 +247,29 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 			cmd.kickChipPower = 1.5
 
 	if test == "dribbler":
-		cmd.dribbler = period_fraction
-		log = "speed = %.2f" % cmd.dribbler
+		cmd.dribblerOn = True;
 
 	if test == "rotate":
-		cmd.useAbsoluteAngle = 1
-		cmd.angle = -math.pi + 2 * math.pi * ((period_fraction*5 + 0.5) % 1)
-		log = "angle = %+.3f" % cmd.angle
+		cmd.useYaw = 1
+		cmd.yaw = -math.pi + 2 * math.pi * ((period_fraction*5 + 0.5) % 1)
+		log = "yaw = %+.3f" % cmd.yaw
 
 	if test == "forward" or test == "sideways":
 		if period_fraction == 1:
 			counter += 1
-		cmd.useAbsoluteAngle = 1
+		cmd.useYaw = 1
 		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction )
 		if 0.5 < period_fraction : cmd.theta = -math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
 	if test == "sideways":
-		cmd.useAbsoluteAngle = 1
-		cmd.angle = math.pi / 2
+		cmd.useYaw = 1
+		cmd.yaw = math.pi / 2
 
 	if test == "forward-always" or test == "sideways-always":
 		if args.max_duration:
 			if tick_counter < float(args.max_duration) * packetHz:
-				cmd.useAbsoluteAngle = 1
+				cmd.useYaw = 1
 				cmd.rho = 2
 			else:
 				cmd.rho = 0
@@ -294,36 +294,36 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 		# Check if still within experiment time
 		if periodsPassed < len(velocityList):
-			cmd.useAbsoluteAngle = 1
+			cmd.useYaw = 1
 			# Set rho of robot
 			if secondsInCurrentPeriod <= (secondsPerPeriod - (brakeTime + turnTime)):
 				cmd.rho = velocityList[math.floor(periodsPassed)]
 				# Set direction of robot
 				if unevenPeriod:
-					cmd.angle = 0
+					cmd.yaw = 0
 					cmd.theta = 0
 				else:
-					cmd.angle = math.pi
+					cmd.yaw = math.pi
 					cmd.theta = math.pi
 			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
 				cmd.rho = 0
 				# Set direction of robot
 				if unevenPeriod:
-					cmd.angle = 0
+					cmd.yaw = 0
 					cmd.theta = 0
 				else:
-					cmd.angle = math.pi
+					cmd.yaw = math.pi
 					cmd.theta = math.pi
 			else:
 				cmd.rho = 0
 				# Set direction of robot in the last 0.5 seconds
 				if not unevenPeriod:
-					cmd.angle = 0
+					cmd.yaw = 0
 					cmd.theta = 0
 				else:
-					cmd.angle = math.pi
+					cmd.yaw = math.pi
 					cmd.theta = math.pi
-			log = 'seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+			log = 'seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (secondsInCurrentPeriod, cmd.rho, cmd.yaw, cmd.theta)
 		else:
 			cmd.rho = 0
 
@@ -344,7 +344,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 		# Check if still within experiment time
 		if periodsPassed < len(velocityList):
-			cmd.useAbsoluteAngle = 1
+			cmd.useYaw = 1
 			# Set rho of robot
 			if secondsInCurrentPeriod <= (secondsPerPeriod - (brakeTime + turnTime)):
 				if (secondsInCurrentPeriod<1.5):
@@ -353,30 +353,30 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					cmd.rho = velocityList[math.floor(periodsPassed)]*(3-secondsInCurrentPeriod)
 				# Set direction of robot
 				if unevenPeriod:
-					cmd.angle = 0
+					cmd.yaw = 0
 					cmd.theta = 0
 				else:
-					cmd.angle = math.pi
+					cmd.yaw = math.pi
 					cmd.theta = math.pi
 			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
 				cmd.rho = 0
 				# Set direction of robot
 				if unevenPeriod:
-					cmd.angle = 0
+					cmd.yaw = 0
 					cmd.theta = 0
 				else:
-					cmd.angle = math.pi
+					cmd.yaw = math.pi
 					cmd.theta = math.pi
 			else:
 				cmd.rho = 0
 				# Set direction of robot in the last 0.5 seconds
 				if not unevenPeriod:
-					cmd.angle = 0
+					cmd.yaw = 0
 					cmd.theta = 0
 				else:
-					cmd.angle = math.pi
+					cmd.yaw = math.pi
 					cmd.theta = math.pi
-			log = 'seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+			log = 'seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (secondsInCurrentPeriod, cmd.rho, cmd.yaw, cmd.theta)
 		else:
 			cmd.rho = 0
 
@@ -437,7 +437,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 		# Check if still within experiment time
 		if periodsPassed < len(velocityList)*len(directionList):
-			cmd.useAbsoluteAngle = 1
+			cmd.useYaw = 1
 			velocityIndex = math.floor(periodsPassed / len(directionList))
 			directionIndex = math.floor(periodsPassed % len(directionList))
 			# Set rho of robot
@@ -445,32 +445,32 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 				cmd.rho = velocityList[velocityIndex]
 				# Set direction of robot
 				if unevenPeriod:
-					cmd.angle = directionList[directionIndex]
+					cmd.yaw = directionList[directionIndex]
 					cmd.theta = 0
 				else:
-					cmd.angle = directionList[directionIndex] + math.pi
+					cmd.yaw = directionList[directionIndex] + math.pi
 					cmd.theta = math.pi
 			elif secondsInCurrentPeriod <= (secondsPerPeriod - turnTime):
 				cmd.rho = 0
 				# Set direction of robot
 				if unevenPeriod:
-					cmd.angle = directionList[directionIndex]
+					cmd.yaw = directionList[directionIndex]
 					cmd.theta = 0
 				else:
-					cmd.angle = directionList[directionIndex] + math.pi
+					cmd.yaw = directionList[directionIndex] + math.pi
 					cmd.theta = math.pi
 			else:
 				cmd.rho = 0
 				# Set direction of robot in the last 0.5 seconds
 				if not unevenPeriod:
-					cmd.angle = directionList[(directionIndex+1)%len(directionList)]
+					cmd.yaw = directionList[(directionIndex+1)%len(directionList)]
 					cmd.theta = 0
 				else:
-					cmd.angle = directionList[(directionIndex+1)%len(directionList)] + math.pi
+					cmd.yaw = directionList[(directionIndex+1)%len(directionList)] + math.pi
 					cmd.theta = math.pi
-			log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+			log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.yaw, cmd.theta)
 		elif periodsPassed < (len(velocityList)*len(directionList) + len(angularVelocityList)):
-			cmd.useAbsoluteAngle = 0
+			cmd.useYaw = 0
 			cmd.rho = 0
 			cmd.angularVelocity = angularVelocityList[math.floor(periodsPassed - len(velocityList)*len(directionList))]
 			log = 'Period %.0f | seconds in period: %.2f | angularVelocity:  %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.angularVelocity)
@@ -521,15 +521,15 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					test_period_counter = test_period_counter + 1
 			else:
 				if (time_in_period > (period_length-drive_time-timeShift)) and (time_in_period < (period_length-timeShift)):
-					cmd.useAbsoluteAngle = 1
+					cmd.useYaw = 1
 					cmd.rho = velocityIterationList[test_period_counter]
-					cmd.angle = yawIterationList[test_period_counter]
+					cmd.yaw = yawIterationList[test_period_counter]
 					cmd.theta = 0
 					notHomed = True
-				log = 'rho: %.2f | yaw: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % (cmd.rho,cmd.angle,time_test,periodsPassed,unevenPeriod,notHomed)
+				log = 'rho: %.2f | yaw: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % (cmd.rho,cmd.yaw,time_test,periodsPassed,unevenPeriod,notHomed)
 
-			# cmd.useAbsoluteAngle = 1
-			# log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.angle, cmd.theta)
+			# cmd.useYaw = 1
+			# log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.yaw, cmd.theta)
 		elif test_period_counter < (nPeriods + nOmega):
 			if not unevenPeriod:
 				if notHomed:
@@ -546,12 +546,12 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					test_period_counter = test_period_counter + 1
 			else:
 				if (time_in_period > (period_length-drive_time-timeShift)) and (time_in_period < (period_length-timeShift)):
-					cmd.useAbsoluteAngle = 0
+					cmd.useYaw = 0
 					cmd.angularVelocity = angularVelocityIterationList[test_period_counter - nPeriods]
 					notHomed = True
 				log = 'index: %.1f | angularVelocity: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % ((test_period_counter - nPeriods),cmd.angularVelocity,time_test,periodsPassed,unevenPeriod,notHomed)
 				
-			# cmd.useAbsoluteAngle = 0
+			# cmd.useYaw = 0
 			# log = 'Period %.0f | seconds in period: %.2f | angularVelocity:  %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.angularVelocity)
 		else:
 			if not unevenPeriod:
@@ -572,28 +572,28 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		
 
 	if test == "sideways-always":
-		cmd.angle = math.pi / 2
+		cmd.yaw = math.pi / 2
 	
 	if test == "circle":
-		cmd.useAbsoluteAngle = 1
+		cmd.useYaw = 1
 		cmd.rho = 1
-		cmd.theta = period_fraction * 2*math.pi - math.pi
+		cmd.theta = -(period_fraction * 2*math.pi - math.pi)
 
 	if test == "rotate-discrete":
-		cmd.useAbsoluteAngle = 1
-		if period_fraction <=  1.: cmd.angle = math.pi/2
-		if period_fraction <= .75: cmd.angle = -math.pi
-		if period_fraction <= .50: cmd.angle = -math.pi/2
-		if period_fraction <= .25: cmd.angle = 0
-		log = "angle = %+.3f" % cmd.angle
+		cmd.useYaw = 1
+		if period_fraction <=  1.: cmd.yaw = math.pi/2
+		if period_fraction <= .75: cmd.yaw = -math.pi
+		if period_fraction <= .50: cmd.yaw = -math.pi/2
+		if period_fraction <= .25: cmd.yaw = 0
+		log = "yaw = %+.3f" % cmd.yaw
 
 	if test == "forward-rotate":
-		cmd.useAbsoluteAngle = 0
+		cmd.useYaw = 0
 		cmd.rho = 0.5 - 0.5 * math.cos( 4 * math.pi * period_fraction )
 		if 0.5 < period_fraction : cmd.theta = -math.pi
-		#cmd.angle = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
+		#cmd.yaw = -math.pi + 2 * math.pi * ((period_fraction + 0.5) % 1)
 		cmd.angularVelocity = math.pi/3 # set useAbsoluteAngle to 0 to use this
-		log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.angle)
+		log = "rho = %+.3f theta = %+.3f angle = %+.3f" % (cmd.rho, cmd.theta, cmd.yaw)
 		
 	if test == "angular-velocity":
 		cmd.angularVelocity = math.pi
@@ -769,10 +769,6 @@ while True:
 				px, py = rotate((250, 250), (250, 250+length), robotFeedback.theta)
 				cv2.line(image_vis, (250,250), (int(px), int(py)), (1, 0, 0), 8)
 
-				dBm = -robotFeedback.rssi/2
-				cv2.rectangle(image_vis, (10, 10), (210, 20), (100, 0, 0), 2)
-				cv2.rectangle(image_vis, (10, 10), (10 + int(200*(1 - dBm/-80)), 20), (0, 255, 0), -1)
-
 			### Draw information received from the RobotStateInfo packet
 			if REM_RobotStateInfo in latest_packets and latest_packets[REM_RobotStateInfo] is not None:
 				robotStateInfo = latest_packets[REM_RobotStateInfo]
@@ -785,7 +781,7 @@ while True:
 				cv2.circle(image_vis, (int(px), int(py)), 5, (1, 1, 1), -1)
 
 				# Commanded yaw
-				px, py = rotate((250, 250), (250, 150), -cmd.angle)
+				px, py = rotate((250, 250), (250, 150), -cmd.yaw)
 				cv2.line(image_vis, (250, 250), (int(px), int(py)), (0, 1, 0), 1)
 				cv2.circle(image_vis, (int(px), int(py)), 5, (0, 1, 0), -1)
 				

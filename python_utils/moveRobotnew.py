@@ -22,17 +22,17 @@ class RobotCommander:
 
 	def create_empty_robot_command(self, robot_angle) -> REM_RobotCommand:
 		cmd = REM_RobotCommand()
-		cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
+		cmd.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
 		cmd.toRobotId = self.robot_id
 		cmd.toColor = 0 if self.is_yellow else 1
 		cmd.fromPC = True    
 		cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 		cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
 		cmd.timestamp = int(time.time()*100)
-		cmd.useAbsoluteAngle = 1
-		cmd.angle = 0 # This angle can be overwritten by the rotate_robot function. 0 is already the default, for readiablity it's still included.
-		cmd.useCameraAngle = 1
-		cmd.cameraAngle = robot_angle
+		cmd.useYaw = 1
+		cmd.yaw = 0 # This angle can be overwritten by the rotate_robot function. 0 is already the default, for readiablity it's still included.
+		cmd.useCameraYaw = 1
+		cmd.cameraYaw = robot_angle
 		return cmd
 
 	def drive_robot_to_position(self, current_x: float, current_y: float, target_x: float, target_y: float, current_robot_angle: float) -> REM_RobotCommand:
