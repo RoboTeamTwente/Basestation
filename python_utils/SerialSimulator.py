@@ -51,15 +51,15 @@ class SerialSimulator:
 
 			# Default stuff
 			cmd = REM_RobotFeedback()
-			cmd.header = REM_BaseTypes.REM_PACKET_TYPE_REM_ROBOT_FEEDBACK
+			cmd.packetType = REM_BaseTypes.REM_PACKET_TYPE_REM_ROBOT_FEEDBACK
 			cmd.remVersion = REM_BaseTypes.REM_LOCAL_VERSION
 			cmd.payloadSize = REM_BaseTypes.REM_PACKET_SIZE_REM_ROBOT_FEEDBACK
-			cmd.fromRobot = 1
+			cmd.fromRobotId = 1
 			cmd.toPC = True
 			# The actual feedback
 			cmd.rho = getValue(REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_RHO_MIN, REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_RHO_MAX, current_time%1)
 			cmd.theta = getValue(REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_THETA_MIN, REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_THETA_MAX, 0.2*current_time%1)
-			cmd.angle = getValue(REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_ANGLE_MIN, REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_ANGLE_MAX, current_time%1)
+			cmd.yaw = getValue(REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_YAW_MIN, REM_BaseTypes.REM_PACKET_RANGE_REM_ROBOT_FEEDBACK_YAW_MAX, current_time%1)
 
 			os.write(self.master, cmd.encode())
 			time.sleep(0.02) # 50Hz
@@ -68,7 +68,7 @@ class SerialSimulator:
 				from_bot = 0.25 < np.random.rand()
 				message = ["Basestation log!\n", "Robot log!\n"][from_bot].encode()
 				rem_log = REM_Log()
-				rem_log.header = REM_BaseTypes.REM_PACKET_TYPE_REM_LOG
+				rem_log.packetType = REM_BaseTypes.REM_PACKET_TYPE_REM_LOG
 				rem_log.toPC = True
 				rem_log.fromRobotId = from_bot * np.random.randint(0, 16)
 				rem_log.fromBS = not from_bot
