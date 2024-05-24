@@ -24,11 +24,11 @@ class RobotCommander:
 		cmd = REM_RobotCommand()
 		cmd.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
 		cmd.toRobotId = self.robot_id
-		cmd.toColor = 0 if self.is_yellow else 1
 		cmd.fromPC = True    
 		cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 		cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
-		cmd.timestamp = int(time.time()*100)
+		cmd.timestamp = int(time.time()*1000)
+		cmd.sendStateInfo = True
 		cmd.useYaw = 1
 		cmd.yaw = 0 # This angle can be overwritten by the rotate_robot function. 0 is already the default, for readiablity it's still included.
 		cmd.useCameraYaw = 1
@@ -39,14 +39,15 @@ class RobotCommander:
 		cmd = self.create_empty_robot_command(current_robot_angle)
 		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 		direction = math.atan2(target_y - current_y, target_x - current_x)
-		cmd.theta = -direction
+		cmd.theta = direction
 		cmd.rho = min(distance*6, 2.5) # Limit the speed to prevent sad things from happening
 		cmd.rho = max(cmd.rho, 0.3) # This line can be removed if you have the code that the robot can drive low speeds :)). We tested on robot 7 which didn't have the code yet I guess
+		cmd.yaw = 1
 		return cmd
 
 	def rotate_robot(self, current_robot_angle: float, target_robot_angle) -> REM_RobotCommand:
 		cmd = self.create_empty_robot_command(current_robot_angle)
-		cmd.angle = target_robot_angle
+		cmd.yaw = target_robot_angle
 		return cmd
 
 	def should_stop_drive_to_position(self, distance: float) -> bool:
@@ -69,7 +70,7 @@ class WorldSubscriber:
 				if robot.id == id_vision:
 					return robot.pos.x, robot.pos.y
 			print("Robot not found, waiting for new data")
-			time.sleep(1/60*0.1)
+			time.sleep(1/60*0.01)
 
 	def get_robot_angle(self, id_vision: int, is_yellow: bool) -> float:
 		data = self.socket.recv()
@@ -111,6 +112,7 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 			if tick_required:
 				if not simulating:
 					current_robot_angle = subscriber.get_robot_angle(id_vision, is_yellow)
+					print(current_robot_angle)
 				else:
 					current_robot_angle = 1.0
 				last_tick_time += 1./commander.packetHz
@@ -137,6 +139,8 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 					print('current_x:',current_x)
 					print('current_y:',current_y)
 					cmd = commander.drive_robot_to_position(current_x, current_y, target_x, target_y, current_robot_angle)
+					print(cmd.rho)
+					print(cmd.theta)
 					distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 					if commander.should_stop_drive_to_position(distance):
 						print("Done driving to position")
@@ -159,15 +163,17 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 		raise e
 
 if __name__ == "__main__":
-	id_vision = 13 # The id of the dots on top of the robot which visions sees
-	id_robot = 15 # The id of the robot set with the pins
+	id_vision = 4 # The id of the dots on top of the robot which visions sees
+	id_robot = 4 # The id of the robot set with the pins
 	is_yellow = True # Indicate if the robot we are talking to is yellow
 	subscriber = WorldSubscriber()
 	print("Starting, don't forget to start roboteam observer :)) (if you do forget, nothing will work)")
 	command_robot(id_vision, id_robot, is_yellow, calibrate=True) # Command to calibrate the angle, will also happen during everything else
+
 	# Funny loop driving in a triangle. If you grab the robot and move it elsewhere, it will just continue :)
 	while True:
 		command_robot(id_vision, id_robot, is_yellow, target_x=0, target_y=-2) 
+		print('\n\n\n\n\n\n\n\n')
 		command_robot(id_vision, id_robot, is_yellow, target_x=-1, target_y=-1)
 		command_robot(id_vision, id_robot, is_yellow, target_x=0, target_y=0)
 	# This command can be used to rotate the boy to some angle if you ever want to do that, positive angle is counter clockwise.

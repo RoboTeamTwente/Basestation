@@ -201,7 +201,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 	if test == "testHoming2Positions":
 		# if notHomed:
-		id_vision = 5 # The id of the dots on top of the robot which visions sees
+		id_vision = 4 # The id of the dots on top of the robot which visions sees
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
@@ -215,7 +215,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 	if test == "testHoming":
 		# if notHomed:
-		id_vision = 5 # The id of the dots on top of the robot which visions sees
+		id_vision = 4 # The id of the dots on top of the robot which visions sees
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
@@ -258,8 +258,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		if period_fraction == 1:
 			counter += 1
 		cmd.useYaw = 1
-		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction )
-		if 0.5 < period_fraction : cmd.theta = -math.pi
+		cmd.theta = -0.5*math.pi
+		cmd.rho = 3*(0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction ))
+		if 0.5 < period_fraction : cmd.theta = -0.5*math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
 	if test == "sideways":
@@ -505,7 +506,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		if test_period_counter < nPeriods:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 5 # The id of the dots on top of the robot which visions sees
+					id_vision = 4 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -533,7 +534,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		elif test_period_counter < (nPeriods + nOmega):
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 5 # The id of the dots on top of the robot which visions sees
+					id_vision = 4 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -556,7 +557,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		else:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 5 # The id of the dots on top of the robot which visions sees
+					id_vision = 4 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
