@@ -40,9 +40,9 @@ class RobotCommander:
 		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 		direction = math.atan2(target_y - current_y, target_x - current_x)
 		cmd.theta = direction
-		cmd.rho = min(distance*6, 2.5) # Limit the speed to prevent sad things from happening
+		cmd.rho = min(distance*1.2, 4) # Limit the speed to prevent sad things from happening
 		cmd.rho = max(cmd.rho, 0.3) # This line can be removed if you have the code that the robot can drive low speeds :)). We tested on robot 7 which didn't have the code yet I guess
-		cmd.yaw = 1
+		cmd.yaw = 0
 		return cmd
 
 	def rotate_robot(self, current_robot_angle: float, target_robot_angle) -> REM_RobotCommand:
@@ -50,8 +50,8 @@ class RobotCommander:
 		cmd.yaw = target_robot_angle
 		return cmd
 
-	def should_stop_drive_to_position(self, distance: float) -> bool:
-		return distance < 0.2 # Change to whatever you need :))
+	def should_stop_drive_to_position(self, distance: float, vElOcItY: float) -> bool:
+		return ((distance < 0.2) and (vElOcItY < 0.15)) # Change to whatever you need :))
 
 class WorldSubscriber:
 	def __init__(self, address="127.0.0.1", port="5558"):
@@ -68,7 +68,7 @@ class WorldSubscriber:
 		while True:
 			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
 				if robot.id == id_vision:
-					return robot.pos.x, robot.pos.y
+					return robot.pos.x, robot.pos.y, robot.vel.x, robot.vel.y
 			print("Robot not found, waiting for new data")
 			time.sleep(1/60*0.01)
 
@@ -132,7 +132,8 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 						break
 				else:
 					if not simulating:
-						current_x, current_y = subscriber.get_robot_position(id_vision, is_yellow)
+						current_x, current_y, current_vel_x, current_vel_y = subscriber.get_robot_position(id_vision, is_yellow)
+						current_rho = math.sqrt(current_vel_x**2 + current_vel_y**2)
 					else:
 						current_x = target_x
 						current_y = target_y
@@ -142,7 +143,7 @@ def command_robot(id_vision: int, id_robot: int, is_yellow: bool, target_x: floa
 					print(cmd.rho)
 					print(cmd.theta)
 					distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
-					if commander.should_stop_drive_to_position(distance):
+					if commander.should_stop_drive_to_position(distance,current_rho):
 						print("Done driving to position")
 						print("\n")
 						break

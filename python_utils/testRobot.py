@@ -98,7 +98,7 @@ packetHz = 60
 # _________________________________________________________________________________________
 # constant-velocityrange-homing init settings
 period_length = 4 # [seconds]
-velocityList = [3.0, 2.5, 2.0, 1.5, 1.0, 0.5] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+velocityList = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 velocityList.sort(reverse=True)
 yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 yawDegreesList.sort(reverse=False)
@@ -227,7 +227,8 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	if test == "nothing":
 		cmd.rho = 0
 		cmd.theta = 0
-		cmd.yaw = 0	
+		cmd.yaw = 0
+		cmd.useYaw = 1
 
 	if test == "nothing-angleControl":
 		cmd.useYaw = 1
