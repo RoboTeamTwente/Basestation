@@ -61,7 +61,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "kill-robot"]
+testsAvailable = ["nothing", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "kill-robot", "reboot-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -236,6 +236,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction):
 	if test == "angular-velocity":
 		cmd.angularVelocity = math.pi
 		log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
+
+	if test == "reboot-robot":
+		cmd.reboot = True
 
 	return cmd, log
 
