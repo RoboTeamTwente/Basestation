@@ -149,16 +149,17 @@ class Joystick:
 			self.robot_id = (self.robot_id + self.controller.hat.x) % 16
 			self.assign_open_robot(addition=self.controller.hat.x)
 
-		# Toggle dribbler with Y
-		if self.controller.button_y._value and not self.Y:
-			self.dribbler = not self.dribbler
-		self.Y = self.controller.button_y._value
-		# Toggle dribbler with left trigger
-		if self.controller.button_trigger_l._value and not self.Y:
-			self.dribbler = not self.dribbler
-		self.TRIGGER_L = self.controller.button_trigger_l._value
+		# # Toggle dribbler with Y
+		# if self.controller.button_y._value and not self.Y:
+		# 	self.dribbler = not self.dribbler
+		# self.Y = self.controller.button_y._value
+		# # Toggle dribbler with left trigger
+		# if self.controller.button_trigger_l._value and not self.Y:
+		# 	self.dribbler = not self.dribbler
+		# self.TRIGGER_L = self.controller.button_trigger_l._value
 
-		self.command.dribbler = self.dribbler
+		# self.command.dribbler = self.dribbler
+		self.command.dribblerOn = True
 
 		# Kick or chip
 		self.command.doKick = False
