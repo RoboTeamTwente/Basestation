@@ -65,7 +65,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["testHoming2Positions","constant-velocityrange-homing","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot"]
+testsAvailable = ["testHoming2Positions","constant-velocityrange-homing","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot", "reboot-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -259,8 +259,8 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		if period_fraction == 1:
 			counter += 1
 		cmd.useYaw = 1
-		cmd.theta = -0.5*math.pi
-		cmd.rho = 3*(0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction ))
+		cmd.theta = 0
+		cmd.rho = 1*(0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction ))
 		if 0.5 < period_fraction : cmd.theta = -0.5*math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
@@ -600,6 +600,9 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	if test == "angular-velocity":
 		cmd.angularVelocity = math.pi
 		log = "rateOfTurn = %+.3f" % robotStateInfo.rateOfTurn
+
+	if test == "reboot-robot":
+		cmd.reboot = True
 
 	return cmd, log
 
