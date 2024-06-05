@@ -261,7 +261,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		cmd.useYaw = 1
 		cmd.theta = 0
 		cmd.rho = 1*(0.3 - 0.3 * math.cos( 4 * math.pi * period_fraction ))
-		if 0.5 < period_fraction : cmd.theta = -0.5*math.pi
+		if 0.5 < period_fraction : cmd.theta = math.pi
 		log = "rho = %+.3f theta = %+.3f" % (cmd.rho, cmd.theta)
 
 	if test == "sideways":
