@@ -206,9 +206,9 @@ class Joystick:
 		self.command.toRobotId = self.robot_id
 
 		self.command.rho = rho
-		self.command.theta = -(theta - self.absolute_angle)
-		self.command.yaw = self.absolute_angle
-		self.command.useYaw = 1
+		self.command.theta = -(theta - self.absolute_angle) 
+		self.command.yaw = self.absolute_angle 
+		self.command.useYaw = 1 
 
 		# buzzer_value = self.controller.trigger_l._value
 		# if 0.3 < buzzer_value:
