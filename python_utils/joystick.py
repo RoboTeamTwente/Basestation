@@ -126,7 +126,7 @@ class Joystick:
 		self.HAT_X = 0
 		self.HAT_Y = 0
 		self.command = REM_RobotCommand()
-		self.command.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
+		self.command.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
 		self.command.fromPC = True
 		self.command.remVersion = BaseTypes.REM_LOCAL_VERSION
 		self.command.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
@@ -149,16 +149,17 @@ class Joystick:
 			self.robot_id = (self.robot_id + self.controller.hat.x) % 16
 			self.assign_open_robot(addition=self.controller.hat.x)
 
-		# Toggle dribbler with Y
-		if self.controller.button_y._value and not self.Y:
-			self.dribbler = not self.dribbler
-		self.Y = self.controller.button_y._value
-		# Toggle dribbler with left trigger
-		if self.controller.button_trigger_l._value and not self.Y:
-			self.dribbler = not self.dribbler
-		self.TRIGGER_L = self.controller.button_trigger_l._value
+		# # Toggle dribbler with Y
+		# if self.controller.button_y._value and not self.Y:
+		# 	self.dribbler = not self.dribbler
+		# self.Y = self.controller.button_y._value
+		# # Toggle dribbler with left trigger
+		# if self.controller.button_trigger_l._value and not self.Y:
+		# 	self.dribbler = not self.dribbler
+		# self.TRIGGER_L = self.controller.button_trigger_l._value
 
-		self.command.dribbler = self.dribbler
+		# self.command.dribbler = self.dribbler
+		self.command.dribblerOn = True
 
 		# Kick or chip
 		self.command.doKick = False
@@ -205,9 +206,9 @@ class Joystick:
 		self.command.toRobotId = self.robot_id
 
 		self.command.rho = rho
-		self.command.theta = -(theta - self.absolute_angle)
-		self.command.angle = self.absolute_angle
-		self.command.useAbsoluteAngle = 1
+		self.command.theta = -(theta - self.absolute_angle) 
+		self.command.yaw = self.absolute_angle 
+		self.command.useYaw = 1 
 
 		# buzzer_value = self.controller.trigger_l._value
 		# if 0.3 < buzzer_value:
