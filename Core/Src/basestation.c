@@ -608,7 +608,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
     // Cannot exceed REM_MAX_TOTAL_PACKET_SIZE_SX1280, or it will overflow the internal buffer of the SX1280
     uint8_t total_packet_length = 0;    
 
-    while (robot_id < MAX_ROBOT_ID) {
+    while (robot_id <= MAX_ROBOT_ID) {
      /* Add RobotCommand to the transmission */
       if(buffer_REM_RobotCommand[robot_id].isNewPacket 
       && total_packet_length + REM_PACKET_SIZE_REM_ROBOT_COMMAND < REM_MAX_TOTAL_PACKET_SIZE_SX1280){
@@ -630,7 +630,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
       if (total_packet_length == 0) {
         // No packets to send to this robot, so we can skip the rest of the loop
         robot_id++;
-        break;
+        continue;
       }
 
       /* Add any other packet from the queue to the transmission */
