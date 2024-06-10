@@ -7,18 +7,44 @@ import sys
 import time
 
 import numpy as np
+import zmq
 
 # Add parent directory to path to allow importing from Core.Inc
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "proto"))
 # Import roboteam embedded messages
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from Core.Inc.roboteam_embedded_messages.python.REM_Log import REM_Log
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
+from proto import State_pb2
 # Import local modules
 from REMParser import REMParser
 import utils
+
+X_LOCATION_HOMING = -2
+Y_LOCATION_HOMING = -0
+# Every additional robot will be placed at the following offset from the previous robot
+X_OFFSET_ADDITIONAL_ROBOT = 0
+Y_OFFSET_ADDITIONAL_ROBOT = 1 
+HOMING_TIME = 5
+TEST_TIME = 4
+BASESTATION_FREQUENCY = 60 # ticks per second
+
+# TRAPEZOID TEST
+MAX_ACCELERATION = [1, 2]
+START_ACCERLERATION = 0.5
+END_ACCELERATION = 1.5
+START_DECELERATION = 2.5
+END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
+
+if END_DECELERATION > TEST_TIME:
+	print("The test is not possible with the given parameters")
+	exit()
+if (START_DECELERATION - START_ACCERLERATION) * (END_ACCELERATION - START_ACCERLERATION) * max(MAX_ACCELERATION) > 5:
+	print("Robot will drive more than 5 meters, this is not allowed by walls")
+	exit()
 
 try:
 	import cv2
@@ -37,6 +63,36 @@ def rotate(origin, point, angle):
 	qy = oy + math.sin(angle) * (px - ox) + math.cos(angle) * (py - oy)
 	return qx, qy
 
+class WorldSubscriber:
+	def __init__(self, address="127.0.0.1", port="5558"):
+		self.context = zmq.Context()
+		self.socket = self.context.socket(zmq.SUB)
+		self.socket.connect(f'tcp://{address}:{port}')
+		self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
+		print(f"Connected to {address}:{port} as subscriber")
+
+	def get_robot_position(self, id_vision: int, is_yellow: bool) -> tuple:
+		data = self.socket.recv()
+		world_state = State_pb2.State()
+		world_state.ParseFromString(data)
+		while True:
+			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
+				if robot.id == id_vision:
+					return robot.pos.x, robot.pos.y
+			print("Robot not found, waiting for new data")
+			time.sleep(1/60*0.1)
+
+	def get_robot_angle(self, id_vision: int, is_yellow: bool) -> float:
+		data = self.socket.recv()
+		world_state = State_pb2.State()
+		world_state.ParseFromString(data)
+		while True:
+			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
+				if robot.id == id_vision:
+					return robot.angle
+			print("Robot not found, waiting for new data")
+			time.sleep(1/60*0.1)
+
 def close_basestation() -> None:
 	"""
 	Closes the basestation on exit.
@@ -48,62 +104,80 @@ def close_basestation() -> None:
 
 atexit.register(close_basestation)
 
-def create_robot_command(test: str, tick_number: int) -> REM_RobotCommand:
+def is_homing(tick_number: int) -> bool:
+	"""
+	Checks if the current tick number is within the homing time.
+
+	Args:
+		tick_number (int): The current tick number
+
+	Returns:
+		bool: True if the current tick number is within the homing time, False otherwise.
+	"""
+	cycle_time = (HOMING_TIME + TEST_TIME) * BASESTATION_FREQUENCY
+	tick_number %= cycle_time  # Make the tick number loop between 0 and cycle_time
+	# print ("Is homing: ", tick_number < HOMING_TIME * BASESTATION_FREQUENCY)
+	return tick_number < HOMING_TIME * BASESTATION_FREQUENCY
+
+def create_robot_command(tick_number: int, counter: int, robot_id: int, test: str) -> REM_RobotCommand:
 	"""
 	Creates a robot command for a given robot ID.
 
 	Args:
-		robot_id (int): The ID of the robot.
+  		tick_number (int): The current tick number
+		counter (int): The counter of which robot this is
+		robot_id (int): The ID of the robot
+		test (str): The test to run
 
 	Returns:
 		REM_RobotCommand: The created robot command.
 	"""
 	cmd = utils.generate_empty_robot_command()
-	if test == "nothing":
-		cmd.rho = 0
-		cmd.theta = 0
-		cmd.angularVelocity = 0
-	elif test == "kicker":
-		if tick_number % 120 < 10:
-			cmd.doKick = 1
-			cmd.doForce = 1 # Ignore ball sensor
-			cmd.kickChipPower = 6
-	elif test == "chipper":
-		if tick_number % 120 < 10:
-			cmd.doChip = 1
-			cmd.doForce = 1
-			cmd.kickChipPower = 6
-	elif test == "dribbler":
-		cmd.dribblerOn = 1
-	elif test == "rotate":
-		cmd.useYaw = 1
-		# Full rotation every 2 seconds
-		cmd.yaw = -math.pi + 2 * math.pi * ((tick_number / 120 + 0.5) % 1)
-	elif test == "forward":
-		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * tick_number / 120 )
-		cmd.theta = -math.pi if tick_number % 120 < 60 else 0
-		cmd.useYaw = 1
-	elif test == "sideways":
-		cmd.theta = math.pi/2
-		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * tick_number / 120 )
-		cmd.theta = -math.pi/2 if tick_number % 120 < 60 else math.pi/2
-		cmd.useYaw = 1
-	elif test == "rotate-discrete":
-		cmd.useYaw = 1
-		cmd.yaw = -math.pi + math.pi/2 * (int(tick_number / 30) % 4)
-	elif test == "angular-velocity":
-		cmd.angularVelocity = math.pi
-	elif test == "circle":
-		cmd.useYaw = 1
-		cmd.rho = 1
-		cmd.theta = 2 * math.pi * tick_number / 240
-	elif test == "circle-forward":
-		# move in a circle while facing forward
-		cmd.useYaw = 1
-		cmd.rho = 1
-		cmd.theta = 2 * math.pi * tick_number / 240
-		cmd.yaw = 2 * math.pi * tick_number / 240
+	cmd.toRobotId = robot_id
+	if is_homing(tick_number):
+		if tick_number > 30:
+			target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
+			target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
 
+			# placeholder for now
+			current_x, current_y = subscriber.get_robot_position(robot_id, True)
+			# do homing stuff
+			distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
+			direction = math.atan2(target_y - current_y, target_x - current_x)
+			cmd.theta = direction
+			cmd.rho = min(distance, 0.5) # Limit the speed to prevent sad things from happening
+			cmd.yaw = 0
+			cmd.useYaw = 1
+		else:
+			# calibrate angle
+			cmd.theta = 0
+			cmd.yaw = 0
+			cmd.useCameraYaw = 1
+			cmd.cameraYaw = subscriber.get_robot_angle(robot_id, True) 
+	else:
+		if test == "trapezoid":
+			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
+			if test_number >= len(MAX_ACCELERATION):
+				print("All tests are done")
+				exit()
+			max_acceleration = MAX_ACCELERATION[test_number]
+			time_since_start = tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME
+			if time_since_start < START_ACCERLERATION:
+				cmd.rho = 0
+				cmd.theta = 0
+			elif time_since_start < END_ACCELERATION:
+				cmd.rho = max_acceleration * (time_since_start - START_ACCERLERATION)
+				cmd.theta = 0
+			elif time_since_start < START_DECELERATION:
+				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCERLERATION)
+				cmd.theta = 0
+			else:
+				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCERLERATION) - max_acceleration * (time_since_start - START_DECELERATION)
+				cmd.rho = max(0, cmd.rho)
+				cmd.theta = 0
+		else:
+			cmd.rho = 0
+			cmd.theta = 0
 
 	return cmd
 
@@ -112,8 +186,8 @@ def parse_and_process_args() -> argparse.Namespace:
 	Parse command line arguments and process related logic.
 	"""
 	global basestation
-	testsAvailable = ["nothing", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "angular-velocity", "circle", "circle-forward"]
 	parser = argparse.ArgumentParser()
+	testsAvailable = ["nothing", "trapezoid"]
 	parser.add_argument("--test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
 	parser.add_argument("robot_id", type=int, nargs='+', help="An array of integers for the robot ids")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
@@ -125,10 +199,12 @@ def parse_and_process_args() -> argparse.Namespace:
 
 	return args
 
+subscriber = WorldSubscriber()
+
 def main() -> None:
 	"""
-    Main function
-    """
+	Main function
+	"""
 	global basestation
 	args = parse_and_process_args()
 	datetime_str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -147,14 +223,16 @@ def main() -> None:
 	while True:
 		if time.time() - latest_feedback_time > 1:
 			print("No feedback received in the last second")
-		cmd = create_robot_command(args.test, tick_number)
-		time_till_next_tick = last_tick_time + 1/60 - time.time()
+		time_till_next_tick = last_tick_time + 1/BASESTATION_FREQUENCY - time.time()
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
+		counter = 0
 		for robot_id in args.robot_id:
+			cmd = create_robot_command(tick_number, counter, robot_id, args.test)
 			cmd.toRobotId = robot_id
 			basestation.write(cmd.encode())
 			parser.write_bytes(cmd.encode())
+			counter += 1
 		parser.read()
 		parser.process()
 		while parser.has_packets():
@@ -175,6 +253,8 @@ def main() -> None:
 
 		# Break if cv2 is not imported
 		if not cv2_available : continue
+		if len(args.robot_id) > 1: continue
+		continue
 
 		# Draw robot on the image
 		s = 101.2
@@ -237,6 +317,6 @@ def main() -> None:
 			exit()
 		image_vis *= 0.7
 		tick_number += 1
-     
+	 
 if __name__ == "__main__":
 	main()

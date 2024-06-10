@@ -40,7 +40,7 @@ def create_robot_command(robot_id: int) -> REM_RobotCommand:
 	"""
 	cmd = utils.generate_empty_robot_command()
 	cmd.toRobotId = robot_id
-	cmd.feedback = 1
+	cmd.wheelsOff = True
 	return cmd
 
 def print_feedback(feedback_last_second: List[int], tick_number: int) -> List[int]:

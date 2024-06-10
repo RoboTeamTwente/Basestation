@@ -3,7 +3,6 @@ import atexit
 import os
 import sys
 import time
-from typing import List
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
@@ -25,13 +24,8 @@ atexit.register(close_basestation)
 
 def create_robot_command(robot_id: int) -> REM_RobotGetPIDGains:
 	"""Create a new getPID command with the given parameters."""
-	cmd = REM_RobotGetPIDGains()
-	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_GET_PIDGAINS
+	cmd = utils.generate_empty_get_pid_gains()
 	cmd.toRobotId = robot_id
-	cmd.fromPC = True
-	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
-	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_GET_PIDGAINS
-	cmd.timestamp = int(time.time()*1000)
 	return cmd
 
 def parse_and_process_args() -> argparse.Namespace:

@@ -15,7 +15,6 @@ from pynput import keyboard
 # Add parent directory to path to allow importing from Core.Inc
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
-from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from Core.Inc.roboteam_embedded_messages.python.REM_Log import REM_Log
 
 from REMParser import REMParser
@@ -63,15 +62,10 @@ class EventHandler:
 						string += f" Joystick {id} -> Robots {controller.robot_ids} | "
 					else:
 						string += f" Joystick {id} -> Robot {controller.robot_id} | "     
-     
-     
-     
 				print(string, end="")
-
 				for event in self.events:
 					print(event)
 				self.events = []
-
 				time.sleep(0.1)
 		except Exception as e:
 			self.record_event(-1, str(e))
@@ -122,7 +116,6 @@ class JoystickHandler:
 			print(f"\n{e}")
 			self.shutdown()
 
-
 class Joystick:
 	"""Represents a joystick and manages its state and commands."""
 
@@ -132,8 +125,8 @@ class Joystick:
 		self.robot_id = robot_id
 		self.robot_ids = robot_ids
 		self.kick_speed = KICK_SPEED
-		self.dribbler = False
-		self.absolute_angle = 0
+		self.dribblerOn = False
+		self.yaw = 0
 		self.ignore_joystick = 0
 
 		self.A = False
@@ -144,11 +137,8 @@ class Joystick:
 		self.TRIGGER_L = False
 		self.HAT_X = 0
 		self.HAT_Y = 0
-		self.command = REM_RobotCommand()
-		self.command.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
-		self.command.fromPC = True
-		self.command.remVersion = BaseTypes.REM_LOCAL_VERSION
-		self.command.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
+		self.command = utils.generate_empty_robot_command()
+		self.command.useYaw = 1
 
 		self.assign_open_robot(1)
 
@@ -174,22 +164,22 @@ class Joystick:
 
 			# Toggle dribbler with Y
 			if self.controller.button_y._value and not self.Y:
-				self.dribbler = not self.dribbler
+				self.dribblerOn = not self.dribblerOn
 			self.Y = self.controller.button_y._value
 			# Toggle dribbler with left trigger
 			if self.controller.button_trigger_l._value and not self.TRIGGER_L:
-				self.dribbler = not self.dribbler
+				self.dribblerOn = not self.dribblerOn
 			self.TRIGGER_L = self.controller.button_trigger_l._value
 
-			self.command.dribbler = self.dribbler
+			self.command.dribblerOn = self.dribblerOn
 
 			# Kick or chip
 			self.command.doKick = False
 			self.command.doChip = False
-			if self.controller.button_a._value and not self.A:
-				self.command.kickChipPower = self.kick_speed
-				self.command.doChip = True
-				self.command.doForce = True
+			# if self.controller.button_a._value and not self.A:
+			# 	self.command.kickChipPower = self.kick_speed
+			# 	self.command.doChip = True
+			# 	self.command.doForce = True
 			self.A = self.controller.button_a._value
 
 			# Kick with B
@@ -203,32 +193,27 @@ class Joystick:
 				self.command.kickChipPower = self.kick_speed
 				self.command.doKick = True
 				self.command.doForce = True
-			else:
-				self.command.doForce = False
-				self.command.kickChipPower = 0
-				self.command.doKick = False
 			self.TRIGGER_R = self.controller.button_trigger_r._value
 
 			if abs(self.controller.axis_r.x) > 0.3:
-				self.absolute_angle -= self.controller.axis_r.x * 0.1
+				self.yaw -= self.controller.axis_r.x * 0.1
 
 			deadzone = 0.3
 			velocity_x = max(0, abs(self.controller.axis_l.x) - deadzone) / (1 - deadzone) * np.sign(self.controller.axis_l.x)
-			velocity_y = -max(0, abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone) * np.sign(self.controller.axis_l.y)
+			velocity_y = max(0, abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone) * np.sign(self.controller.axis_l.y)
 
 			rho = math.sqrt(velocity_x ** 2 + velocity_y ** 2) * MAX_SPEED
-			theta = math.atan2(velocity_x, velocity_y)
+			theta = math.atan2(velocity_y, velocity_x)
 
 			self.command.toRobotId = self.robot_id
 			self.command.rho = rho
-			self.command.theta = theta - self.absolute_angle
-			self.command.angle = self.absolute_angle
-			self.command.useAbsoluteAngle = 1
+			self.command.theta = theta + self.yaw
+			self.command.yaw = self.yaw
 		else:
-			# If joystick input is ignored, set all commands to zero
+			# If joystick input is ignored, set all commands to stop
 			self.command.rho = 0
 			self.command.theta = 0
-			self.command.angle = self.absolute_angle
+			self.command.yaw = self.yaw
 
 		# Override joystick commands with keyboard input if any relevant key is pressed
 		if any(keyboard_input.values()):
@@ -236,14 +221,14 @@ class Joystick:
 			print('keyboard input')
 			if any(keyboard_input[str(i)] for i in range(10)):
 				self.robot_id = int([i for i in range(10) if keyboard_input[str(i)]][0])
-			self.absolute_angle += (keyboard_input['q'] - keyboard_input['e']) * ROTATION_SPEED / BASESTATION_FREQUENCY
+			self.yaw += (keyboard_input['q'] - keyboard_input['e']) * ROTATION_SPEED / BASESTATION_FREQUENCY
 			if keyboard_input['w'] or keyboard_input['s'] or keyboard_input['a'] or keyboard_input['d']:
-				velocity_y = (keyboard_input['w'] - keyboard_input['s']) * MAX_SPEED
-				velocity_x = (keyboard_input['d'] - keyboard_input['a']) * MAX_SPEED
+				velocity_x = (keyboard_input['w'] - keyboard_input['s']) * MAX_SPEED
+				velocity_y = (keyboard_input['a'] - keyboard_input['d']) * MAX_SPEED
 				rho = math.sqrt(velocity_x ** 2 + velocity_y ** 2)
-				theta = math.atan2(velocity_x, velocity_y)
+				theta = math.atan2(velocity_y, velocity_x)
 				self.command.rho = rho
-				self.command.theta = theta - self.absolute_angle
+				self.command.theta = theta + self.yaw
 			else:
 				self.command.rho = 0
 				self.command.theta = 0
@@ -251,9 +236,8 @@ class Joystick:
 			self.command.doForce = keyboard_input['k'] or keyboard_input['c']
 			self.command.kickChipPower = self.kick_speed
 			self.command.doChip = keyboard_input['c']
-			# self.command.doChip = False
-			self.command.dribbler = keyboard_input['b']
-			self.command.angle = self.absolute_angle
+			self.command.dribblerOn = keyboard_input['b']
+			self.command.yaw = self.yaw
 		else:
 			self.ignore_joystick = max(0, self.ignore_joystick - 1)
 
@@ -268,7 +252,7 @@ class BasestationHandler:
 		self.shutdown = shutdown
 		self.packet_Hz = BASESTATION_FREQUENCY
 		self.running = True
-		self.basestation = utils.open_continuous(timeout=0.001)
+		self.basestation = utils.open_continuous(timeout=0.01)
 		self.event_handler = event_handler
 		self.joystick_handler = joystick_handler
 		self.thread = threading.Thread(target=self.loop)

@@ -1,6 +1,9 @@
-xbox360controller
-pyserial
-bitarray
-numpy
-cffi
-pynput
+# These versions are not hard requirements, just the versions I used
+matplotlib==3.8.2
+numpy==1.26.4
+opencv_python==4.9.0.80
+protobuf==3.12.4
+pynput==1.7.7
+pyserial==3.5
+pyzmq==25.1.1
+xbox360controller==1.1.2

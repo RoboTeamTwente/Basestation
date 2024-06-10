@@ -12,7 +12,7 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_Robo
 def parse_args():
 	"""Parse command line arguments."""
 	argparser = argparse.ArgumentParser()
-	argparser.add_argument('input_file', help='File to parse, which contains REM packets')
+	argparser.add_argument('--input_file', help='File to parse, which contains REM packets', default='latest.rembin')
 	return argparser.parse_args()
 
 def parse_file(file_path):
@@ -24,20 +24,18 @@ def parse_file(file_path):
 
 def adjust_timestamps(commands, start_time):
 	"""Adjust timestamps of commands to start from current time."""
-	t_now = time.time() + 1
+	t_now = round((time.time() + 1) * 1000)
 	for command in commands:
-		command.timestamp = (command.timestamp - start_time)/1000 + t_now
+		command.timestamp = command.timestamp - start_time + t_now
 
 def send_commands(commands):
 	"""Send commands to the robot."""
 	serial = utils.open_continuous(timeout=0.001)
 	rc_index = 0
-	while True:
-		time.sleep(0.001)
-		t_now = time.time()
-		if commands[rc_index].timestamp < t_now:
-			rc_index += 1
-			serial.write(commands[rc_index].encode())
+	while True and rc_index < len(commands):
+		time.sleep(1/60)
+		serial.write(commands[rc_index].encode())
+		rc_index += 1
 
 def main():
 	"""Main function to parse the input file and send commands to the robot."""
@@ -47,9 +45,11 @@ def main():
 		print("No RobotCommands found in the input file.")
 		return
 	start_time, stop_time = robot_commands[0].timestamp, robot_commands[-1].timestamp
-	print(start_time, stop_time)
+	print("Start time: ", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(start_time/1000)))
+	print("Stop time: ", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(stop_time/1000)))
 	adjust_timestamps(robot_commands, start_time)
 	send_commands(robot_commands)
 
 if __name__ == "__main__":
 	main()
+	print("Playback completed.")

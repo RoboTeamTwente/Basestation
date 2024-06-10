@@ -3,7 +3,6 @@ import atexit
 import os
 import sys
 import time
-from typing import List
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
@@ -24,13 +23,8 @@ atexit.register(close_basestation)
 
 def create_set_PID_Command(robot_id: int, PbodyX: float = 0.2, IbodyX: float = 0.0, DbodyX: float = 0.0, PbodyY: float = 0.3, IbodyY: float = 0.0, DbodyY: float = 0.0, PbodyW: float = 0.25, IbodyW: float = 5.0, DbodyW: float = 0.0, PbodyYaw: float = 20.0, IbodyYaw: float = 5.0, DbodyYaw: float = 0.0, Pwheels: float = 2.0, Iwheels: float = 0.0, Dwheels: float = 0.0) -> REM_RobotSetPIDGains:
 	"""Create a new setPID command with the given parameters."""
-	setPID = REM_RobotSetPIDGains()
-	setPID.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
-	setPID.toRobotId = robot_id
+	setPID = utils.generate_empty_set_pid_gains()
 	setPID.fromPC = True
-	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
-	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
-	setPID.timestamp = int(time.time()*1000)
 
 	setPID.PbodyX = PbodyX
 	setPID.IbodyX = IbodyX

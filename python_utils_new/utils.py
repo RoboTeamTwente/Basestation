@@ -7,7 +7,6 @@ from typing import Any, Dict, Optional
 import serial
 from serial.serialutil import SerialException
 
-
 # Add parent directory to path to allow importing from Core.Inc
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
@@ -15,6 +14,8 @@ from Core.Inc.roboteam_embedded_messages.python.REM_BasestationConfiguration imp
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotKillCommand import REM_RobotKillCommand
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotBuzzer import REM_RobotBuzzer
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotGetPIDGains import REM_RobotGetPIDGains
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotSetPIDGains import REM_RobotSetPIDGains
 
 def open_port(port: str, timeout: Optional[int] = None) -> Optional[serial.Serial]:
 	"""
@@ -151,7 +152,7 @@ def generate_basestation_config_command(is_yellow_team: bool) -> REM_Basestation
 		REM_BasestationConfiguration: The generated command.
 	"""
 	config_command = REM_BasestationConfiguration()
-	config_command.header = BaseTypes.REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION
+	config_command.packetType = BaseTypes.REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION
 	config_command.toBS = True
 	config_command.fromPC = True
 	config_command.remVersion = BaseTypes.REM_LOCAL_VERSION
@@ -167,7 +168,7 @@ def generate_empty_robot_kill_command() -> REM_RobotKillCommand:
 		REM_RobotKillCommand: The generated command.
 	"""
 	kill_command = REM_RobotKillCommand()
-	kill_command.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_KILL_COMMAND
+	kill_command.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_KILL_COMMAND
 	kill_command.fromPC = True
 	kill_command.remVersion = BaseTypes.REM_LOCAL_VERSION
 	kill_command.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND
@@ -182,11 +183,11 @@ def generate_empty_robot_command() -> REM_RobotCommand:
 		REM_RobotCommand: The generated command.
 	"""
 	cmd = REM_RobotCommand()
-	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
+	cmd.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_COMMAND
 	cmd.fromPC = True
 	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
-	cmd.timestamp = int(time.time()*100)
+	cmd.timestamp = int(time.time()*1000)
 	return cmd
 
 def generate_empty_robot_buzzer() -> REM_RobotBuzzer:
@@ -197,11 +198,58 @@ def generate_empty_robot_buzzer() -> REM_RobotBuzzer:
 		REM_RobotBuzzer: The generated command.
 	"""
 	cmd = REM_RobotBuzzer()
-	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_BUZZER
+	cmd.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_BUZZER
 	cmd.fromPC = True
 	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_BUZZER
 	cmd.timestamp = int(time.time()*1000)
 	cmd.duration = 4.0
 	cmd.period = 2000
+	return cmd
+
+def generate_empty_set_pid_gains() -> REM_RobotSetPIDGains:
+	"""
+	Generate an empty set PID gains command.
+
+	Returns:
+		REM_RobotSetPIDGains: The generated command.
+	"""
+	setPID = REM_RobotSetPIDGains()
+	setPID.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_SET_PIDGAINS
+	setPID.fromPC = True
+	setPID.remVersion = BaseTypes.REM_LOCAL_VERSION
+	setPID.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_SET_PIDGAINS
+	setPID.timestamp = int(time.time()*1000)
+
+	setPID.PbodyX = 0
+	setPID.IbodyX = 0
+	setPID.DbodyX = 0
+	setPID.PbodyY = 0
+	setPID.IbodyY = 0
+	setPID.DbodyY = 0
+	setPID.PbodyW = 0
+	setPID.IbodyW = 0
+	setPID.DbodyW = 0
+	setPID.PbodyYaw = 0
+	setPID.IbodyYaw = 0
+	setPID.DbodyYaw = 0
+	setPID.Pwheels = 0
+	setPID.Iwheels = 0
+	setPID.Dwheels = 0
+
+	return setPID
+
+def generate_empty_get_pid_gains() -> REM_RobotGetPIDGains:
+	"""
+	Generate an empty get PID gains command.
+
+	Returns:
+		REM_RobotGetPIDGains: The generated command.
+	"""
+	cmd = REM_RobotGetPIDGains()
+	cmd.packetType = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_GET_PIDGAINS
+	cmd.fromPC = True
+	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
+	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_GET_PIDGAINS
+	cmd.timestamp = int(time.time()*1000)
 	return cmd
