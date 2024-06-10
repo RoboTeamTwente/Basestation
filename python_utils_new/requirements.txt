@@ -3,3 +3,4 @@ pyserial
 bitarray
 numpy
 cffi
+pynput
