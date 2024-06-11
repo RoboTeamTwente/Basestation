@@ -49,7 +49,6 @@ def parse_and_process_args() -> argparse.Namespace:
 	global basestation
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--simulate", action="store_true", help="Don't actually use the basestation. This can be useful for testing without a basestation present.")
-	parser.add_argument("--team", choices=["yellow", "blue"], default="yellow", help="Specify which team's robots to send commands to. Options are 'yellow' or 'blue'. Default is 'yellow'.")
 	parser.add_argument('robot_id', type=int, help='An integer for the robot id')
 	args = parser.parse_args()
 

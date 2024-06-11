@@ -49,7 +49,7 @@ def print_feedback(feedback_last_second: List[int], tick_number: int) -> List[in
 	"""
 	hours, remainder = divmod(tick_number//60, 3600)
 	minutes, seconds = divmod(remainder, 60)
-	print(f"\033[2J\033[0;0H{hours:02}:{minutes:02}:{seconds:02}")
+	print(f"{hours:02}:{minutes:02}:{seconds:02}")
 	for i in range(4):
 		print("".join([f"\033[38;2;{255*(1-feedback_last_second[j]/30):.0f};{255*feedback_last_second[j]/30:.0f};0m{j:02} ({feedback_last_second[j]:02})\033[0m".ljust(30) for j in range(i, 16, 4)]))
 	print()
@@ -62,18 +62,14 @@ def parse_and_process_args() -> argparse.Namespace:
 	global basestation
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--send", action="store_true", help="Actually send commands to the robots. If not set, this will only listen for feedback. Note that the robots won't send feedback if they don't receive any commands. If you want to use this without --send, make sure something else is sending commands (like AI during a game). Using --send while someone else is also sending commands, will result in interference.")
-	parser.add_argument("--simulate", action="store_true", help="Don't actually use the basestation. This can be useful for testing without a basestation present.")
-	parser.add_argument("--team", choices=["yellow", "blue"], default="yellow", help="Specify which team's robots to send commands to. Options are 'yellow' or 'blue'. Default is 'yellow'.")
 	args = parser.parse_args()
 
 	if not args.send:
 		print("Not sending commands. Listening for feedback only.")
 	else:
 		print("Sending commands and listening for feedback.")
-	if args.simulate:
-		print("Not using basestation. No commands will be sent.")
 
-	if (basestation is None or not basestation.isOpen()) and not args.simulate:
+	if (basestation is None or not basestation.isOpen()):
 		basestation = utils.open_continuous(timeout=0.1)
 		print("Basestation opened")
 
@@ -103,27 +99,25 @@ def main() -> None:
     """
 	global basestation
 	args = parse_and_process_args()
-	parser = REMParser(basestation) if not args.simulate else None
+	parser = REMParser(basestation)
 	feedback_last_second: List[int] = [0] * 16
 	last_tick_time = 0
 	tick_number = 0
-	# basestation_config_command = utils.generate_basestation_config_command(args.team == "yellow")
 	while True:
-		# basestation.write(basestation_config_command.encode())
 		time_till_next_tick = last_tick_time + 1/60 - time.time()
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
 		for i in range(0, 16):
 			if args.send and tick_number % 2 == i % 2:
 				cmd = create_robot_command(i)
-				if not args.simulate:
-					basestation.write(cmd.encode())
-					parser.write_bytes(cmd.encode())
-		if not args.simulate:
-			feedback_last_second = process_parser_packets(parser, feedback_last_second)
+				basestation.write(cmd.encode())
+				parser.write_bytes(cmd.encode())
+		feedback_last_second = process_parser_packets(parser, feedback_last_second)
 		tick_number += 1
 		if tick_number % 60 == 0:
 			feedback_last_second = print_feedback(feedback_last_second, tick_number)
+			if not args.send:
+				print("Not sending commands. Listening for feedback only.")
 
 if __name__ == "__main__":
 	main()

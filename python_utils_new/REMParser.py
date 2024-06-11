@@ -15,8 +15,6 @@ from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseType
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
 from Core.Inc.roboteam_embedded_messages.python.REM_Packet import REM_Packet
 
-DEBUG = False
-
 class REMParser:
 	def __init__(self, device: Serial, output_file: Optional[str] = None) -> None:
 		"""
@@ -52,15 +50,10 @@ class REMParser:
 		bytes_in_waiting: int = self.device.inWaiting()
 		if bytes_in_waiting > 0:
 			self.byte_buffer += self.device.read(bytes_in_waiting)
-			if DEBUG:
-				print(f"[read] Read {bytes_in_waiting} bytes")
 
-	def process(self, parse_file: bool = False) -> None:
+	def process(self) -> None:
 		"""
 		Processes the byte buffer, decoding packets and adding them to the packet buffer.
-
-		Args:
-			parse_file (bool, optional): Whether the byte buffer is being parsed from a file. Defaults to False.
 		"""
 		while self.byte_buffer:
 			packet_type = self.byte_buffer[0]
@@ -146,7 +139,7 @@ class REMParser:
 		print(f"[REMParser] Parsing file {filepath}")
 		with open(filepath, "rb") as file:
 			self.byte_buffer = file.read()
-			self.process(parse_file=True)
+			self.process()
 
 		if not print_statistics:
 			return
@@ -181,7 +174,7 @@ if __name__ == "__main__":
 	print("Running REMParser directly")
 
 	argparser = argparse.ArgumentParser()
-	argparser.add_argument('input_file', help='File to parse', default='latest.rembin')
+	argparser.add_argument('--input_file', help='File to parse', default='latest.rembin')
 	args = argparser.parse_args()
 
 	print("Parsing file", args.input_file)
@@ -191,7 +184,6 @@ if __name__ == "__main__":
 
 	packet_dicts = []
 	for packet in parser.packet_buffer:
-		print(packet)
 		if type(packet) in [REM_RobotFeedback]:
 			packet_dict = utils.packet_to_dict(packet)
 			packet_dicts.append(packet_dict)
@@ -205,6 +197,9 @@ if __name__ == "__main__":
 		packets_by_type[type_str].append(utils.packet_to_dict(packet))
 
 	output_file_no_ext = os.path.splitext(args.input_file)[0]
+
+	if args.input_file == "latest.rembin":
+		output_file_no_ext = os.path.join("logs", output_file_no_ext)
 
 	for type_str in packets_by_type:
 		packets = packets_by_type[type_str]

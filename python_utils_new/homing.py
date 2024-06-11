@@ -71,24 +71,24 @@ class WorldSubscriber:
 		self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
 		print(f"Connected to {address}:{port} as subscriber")
 
-	def get_robot_position(self, id_vision: int, is_yellow: bool) -> tuple:
+	def get_robot_position(self, robot_id: int, is_yellow: bool) -> tuple:
 		data = self.socket.recv()
 		world_state = State_pb2.State()
 		world_state.ParseFromString(data)
 		while True:
 			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
-				if robot.id == id_vision:
+				if robot.id == robot_id:
 					return robot.pos.x, robot.pos.y
 			print("Robot not found, waiting for new data")
 			time.sleep(1/60*0.1)
 
-	def get_robot_angle(self, id_vision: int, is_yellow: bool) -> float:
+	def get_robot_angle(self, robot_id: int, is_yellow: bool) -> float:
 		data = self.socket.recv()
 		world_state = State_pb2.State()
 		world_state.ParseFromString(data)
 		while True:
 			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
-				if robot.id == id_vision:
+				if robot.id == robot_id:
 					return robot.angle
 			print("Robot not found, waiting for new data")
 			time.sleep(1/60*0.1)
@@ -219,7 +219,6 @@ def main() -> None:
 	last_packet_state_info = None
 	latest_feedback_time = time.time()
 	image_vis = np.zeros((500, 500, 3), dtype=float)
-	# basestation_config_command = utils.generate_basestation_config_command(args.team == "yellow")
 	while True:
 		if time.time() - latest_feedback_time > 1:
 			print("No feedback received in the last second")

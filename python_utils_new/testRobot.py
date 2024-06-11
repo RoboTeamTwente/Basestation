@@ -114,8 +114,8 @@ def parse_and_process_args() -> argparse.Namespace:
 	global basestation
 	testsAvailable = ["nothing", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "angular-velocity", "circle", "circle-forward"]
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
 	parser.add_argument("robot_id", type=int, nargs='+', help="An array of integers for the robot ids")
+	parser.add_argument("test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
 	args = parser.parse_args()
  
@@ -143,7 +143,8 @@ def main() -> None:
 	last_packet_state_info = None
 	latest_feedback_time = time.time()
 	image_vis = np.zeros((500, 500, 3), dtype=float)
-	# basestation_config_command = utils.generate_basestation_config_command(args.team == "yellow")
+	rate_of_turn_avg = 0
+	wheel_speeds_avg = np.zeros(4)
 	while True:
 		if time.time() - latest_feedback_time > 1:
 			print("No feedback received in the last second")

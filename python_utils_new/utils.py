@@ -157,7 +157,7 @@ def generate_basestation_config_command(is_yellow_team: bool) -> REM_Basestation
 	config_command.fromPC = True
 	config_command.remVersion = BaseTypes.REM_LOCAL_VERSION
 	config_command.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION
-	config_command.channel = is_yellow_team
+	config_command.channel = 0 if is_yellow_team else 1
 	return config_command
 
 def generate_empty_robot_kill_command() -> REM_RobotKillCommand:

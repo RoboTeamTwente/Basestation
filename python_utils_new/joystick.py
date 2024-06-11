@@ -26,7 +26,7 @@ ROTATION_SPEED = 3 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
 
 parser = argparse.ArgumentParser(description='Joystick to robot controller')
-parser.add_argument('-r', '--robot-ids', type=int, nargs='+', help='List of robot IDs to be controlled by the joysticks')
+parser.add_argument('-r', '--robot_ids', type=int, nargs='+', help='List of robot IDs to be controlled by the joysticks')
 args = parser.parse_args()
 
 class EventHandler:

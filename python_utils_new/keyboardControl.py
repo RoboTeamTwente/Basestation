@@ -22,7 +22,7 @@ ROTATION_SPEED = 3 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
 
 parser = argparse.ArgumentParser(description='Keyboard to robot controller')
-parser.add_argument('-r', '--robot-id', type=int, help='Robot ID to be controlled by the keyboard', required=True)
+parser.add_argument('robot_id', type=int, help='Robot ID to be controlled by the keyboard')
 args = parser.parse_args()
 
 class EventHandler:
