@@ -32,15 +32,10 @@ def parse_and_process_args() -> argparse.Namespace:
 	"""Parse command line arguments and process related logic."""
 	global basestation
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--simulate", action="store_true", help="Don't actually use the basestation. This can be useful for testing without a basestation present.")
-	parser.add_argument("--team", choices=["yellow", "blue"], default="yellow", help="Specify which team's robots to send commands to. Options are 'yellow' or 'blue'. Default is 'yellow'.")
 	parser.add_argument('robot_id', type=int, help='An integer for the robot id')
 	args = parser.parse_args()
 
-	if args.simulate:
-		print("Not using basestation. No commands will be sent.")
-
-	if (basestation is None or not basestation.isOpen()) and not args.simulate:
+	if (basestation is None or not basestation.isOpen()):
 		basestation = utils.open_continuous(timeout=0.1)
 		print("Basestation opened")
 
@@ -65,16 +60,15 @@ def main() -> None:
 	"""Main function for the getPid script."""
 	global basestation
 	args = parse_and_process_args()
-	parser = REMParser(basestation) if not args.simulate else None
+	parser = REMParser(basestation)
 	last_tick_time = 0
 	while True:
 		time_till_next_tick = last_tick_time + 1/60 - time.time()
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
 		cmd = create_robot_command(args.robot_id)
-		if not args.simulate:
-			basestation.write(cmd.encode())
-			parser.write_bytes(cmd.encode())
+		basestation.write(cmd.encode())
+		parser.write_bytes(cmd.encode())
 		process_parser_packets(parser)
 
 if __name__ == "__main__":
