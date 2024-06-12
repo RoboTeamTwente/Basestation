@@ -194,6 +194,26 @@ def main() -> None:
 			length = int(last_packet_feedback.rho * 500)
 			px, py = rotate((250, 250), (250, 250+length), last_packet_feedback.theta)
 			cv2.line(image_vis, (250,250), (int(px), int(py)), (1, 0, 0), 8)
+			# Battery
+			cv2.rectangle(image_vis, (10, 10), (50, 30), color=(1, 1, 1))
+			cv2.rectangle(image_vis, (51, 15), (55, 25), color=(1, 1, 1), thickness=-1)
+			#COLOR IS IN (B,G,R)
+			if last_packet_feedback.batteryLevel >= 18.0:
+				v = str(round(last_packet_feedback.batteryLevel, 2)) + 'V'
+				if last_packet_feedback.batteryLevel < 20.0:
+					background_color = (0,0,255) # red
+				elif last_packet_feedback.batteryLevel < 22.0:
+					background_color = (0,140,255) # orange
+				elif last_packet_feedback.batteryLevel < 24.0:
+					background_color = (0,255,255) # yellow
+				else:
+					background_color = (0,255,0) # green
+				length_rectangle = (int) (5.27777777 * last_packet_feedback.batteryLevel - 84)
+				cv2.rectangle(image_vis, (11, 11), (length_rectangle, 29), color=background_color, thickness=-1)
+				cv2.putText(image_vis, v, org=(60, 26), color=(255,255,255), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1, thickness=1, lineType=cv2.LINE_AA)
+			else:
+				cv2.putText(image_vis, '?', org=(25, 26), color=(255,255,255), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1)
+			
 		if last_packet_state_info:
 			# XSens yaw
 			px, py = rotate((250, 250), (250, 150), -last_packet_state_info.xsensYaw)
