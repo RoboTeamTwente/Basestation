@@ -202,9 +202,24 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 	T = 1
 	direction = 1
 
+	global id_vision
+	global velocityIterationList
+	global yawIterationList
+	global omegaIterationList
+	
+	global angularVelocityIterationList
+	global nPeriods
+	global nOmega
+	global period_length
+	global period_length_acc_test
+	global test_period_counter
+	global notHomed
+	global id_vision
+
+	global drive_time
+
 	if test == "testHoming2Positions":
 		# if notHomed:
-		global id_vision
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
@@ -218,7 +233,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 	if test == "testHoming":
 		# if notHomed:
-		global id_vision
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
@@ -483,19 +497,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 			cmd.rho = 0
 
 	if test == "constant-velocityrange-homing":
-		global velocityIterationList
-		global yawIterationList
-		global omegaIterationList
-		
-		global angularVelocityIterationList
-		global nPeriods
-		global nOmega
-		global period_length
-		global test_period_counter
-		global notHomed
-		global id_vision
 
-		global drive_time
 
 		current_time_in_s = time.time()
 		time_test = current_time_in_s-t_test_start
@@ -574,20 +576,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		# print('notHomed:',notHomed)
 		
 	if test == "constant-velocityrange-homing-acc":
-		global velocityIterationList
-		global yawIterationList
-		global omegaIterationList
-		
-		global angularVelocityIterationList
-		global nPeriods
-		global nOmega
-		global period_length_acc_test
-		global test_period_counter
-		global notHomed
-		global id_vision
-
-		global drive_time
-
 		acceleration = 3.5 # m/s^2
 
 		current_time_in_s = time.time()
@@ -602,6 +590,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		# Check if still within experiment time
 		if test_period_counter < nPeriods:
 			if not unevenPeriod:
+				notHomed = False
 				if notHomed:
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
@@ -636,7 +625,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 					cmd.theta = 0
 					cmd.acceleration_magnitude = acceleration
 					cmd.acceleration_angle = -math.pi
-					
 				log = 'rho: %.2f | yaw: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % (cmd.rho,cmd.yaw,time_test,periodsPassed,unevenPeriod,notHomed)
 
 			# cmd.useYaw = 1
