@@ -590,7 +590,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		# Check if still within experiment time
 		if test_period_counter < nPeriods:
 			if not unevenPeriod:
-				notHomed = False
 				if notHomed:
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
@@ -609,18 +608,18 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 				notHomed = True
 				cmd.useYaw = 1
 				current_velocity_ref = velocityIterationList[test_period_counter]
-				if (time_in_period > (1-current_velocity_ref/acceleration)):
+				if (time_in_period > ((period_length_acc_test - timeShift - drive_time)-current_velocity_ref/acceleration)):
 					cmd.rho = acceleration*time_in_period + current_velocity_ref - acceleration
 					cmd.yaw = yawIterationList[test_period_counter]
 					cmd.theta = 0
 					cmd.acceleration_magnitude = acceleration
 					cmd.acceleration_angle = 0
-				elif (time_in_period > (1)):
+				elif (time_in_period > (period_length_acc_test - timeShift - drive_time)):
 					cmd.rho = velocityIterationList[test_period_counter]
 					cmd.yaw = yawIterationList[test_period_counter]
 					cmd.theta = 0
-				elif ((time_in_period > (4)) and (time_in_period < (4+current_velocity_ref/acceleration))):
-					cmd.rho = -acceleration*time_in_period + current_velocity_ref + 4*acceleration
+				elif ((time_in_period > (period_length_acc_test - timeShift)) and (time_in_period < ((period_length_acc_test - timeShift)+current_velocity_ref/acceleration))):
+					cmd.rho = -acceleration*time_in_period + current_velocity_ref + (period_length_acc_test - timeShift)*acceleration
 					cmd.yaw = yawIterationList[test_period_counter]
 					cmd.theta = 0
 					cmd.acceleration_magnitude = acceleration
