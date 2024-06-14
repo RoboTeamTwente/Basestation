@@ -65,7 +65,7 @@ def normalize_angle(angle):
 	if (angle > math.pi): angle -= pi2
 	return angle
 
-testsAvailable = ["testHoming2Positions","constant-velocityrange-homing","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot", "reboot-robot"]
+testsAvailable = ["testHoming2Positions","constant-velocityrange-homing","constant-velocityrange-homing-acc","testHoming","nothing", "nothing-angleControl", "full", "kicker-reflect", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "forward-rotate", "getpid", "angular-velocity", "circle", "raised-cosine", "forward-always", "sideways-always", "constant-velocity-range", "constant-angular-velocity-range", "constant-velocity-xywfb", "changing-velocity-range", "kill-robot", "reboot-robot"]
 
 parser = argparse.ArgumentParser()
 parser.add_argument('robot_id', help='Robot ID to send commands to', type=int)
@@ -97,7 +97,9 @@ packetHz = 60
 
 # _________________________________________________________________________________________
 # constant-velocityrange-homing init settings
+id_vision = 4 # The id of the dots on top of the robot which visions sees
 period_length = 4 # [seconds]
+period_length_acc_test = 5 # [seconds]
 velocityList = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
 velocityList.sort(reverse=True)
 yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
@@ -121,6 +123,7 @@ for i in range(0,len(velocityList)):
 		yawIterationList.append(yawList[j])
 notHomed = True
 test_period_counter = -1
+
 
 drive_time = 3
 
@@ -201,7 +204,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 	if test == "testHoming2Positions":
 		# if notHomed:
-		id_vision = 4 # The id of the dots on top of the robot which visions sees
+		global id_vision
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
@@ -215,7 +218,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 
 	if test == "testHoming":
 		# if notHomed:
-		id_vision = 4 # The id of the dots on top of the robot which visions sees
+		global id_vision
 		id_robot = robot_id # The id of the robot set with the pins
 		is_yellow = True # Indicate if the robot we are talking to is yellow
 		print('---------------------------------------------')
@@ -490,6 +493,7 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		global period_length
 		global test_period_counter
 		global notHomed
+		global id_vision
 
 		global drive_time
 
@@ -507,7 +511,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		if test_period_counter < nPeriods:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 4 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -535,7 +538,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		elif test_period_counter < (nPeriods + nOmega):
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 4 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -558,7 +560,6 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 		else:
 			if not unevenPeriod:
 				if notHomed:
-					id_vision = 4 # The id of the dots on top of the robot which visions sees
 					id_robot = robot_id # The id of the robot set with the pins
 					is_yellow = True # Indicate if the robot we are talking to is yellow
 					print('---------------------------------------------')
@@ -572,6 +573,111 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 			cmd.rho = 0
 		# print('notHomed:',notHomed)
 		
+	if test == "constant-velocityrange-homing-acc":
+		global velocityIterationList
+		global yawIterationList
+		global omegaIterationList
+		
+		global angularVelocityIterationList
+		global nPeriods
+		global nOmega
+		global period_length_acc_test
+		global test_period_counter
+		global notHomed
+		global id_vision
+
+		global drive_time
+
+		acceleration = 3.5 # m/s^2
+
+		current_time_in_s = time.time()
+		time_test = current_time_in_s-t_test_start
+		time_in_period = time_test % period_length_acc_test
+
+		periodsPassed = math.floor(time_test/period_length_acc_test)
+		unevenPeriod = (bool) (periodsPassed % 2)
+		
+		timeShift = 1
+		
+		# Check if still within experiment time
+		if test_period_counter < nPeriods:
+			if not unevenPeriod:
+				if notHomed:
+					id_robot = robot_id # The id of the robot set with the pins
+					is_yellow = True # Indicate if the robot we are talking to is yellow
+					print('---------------------------------------------')
+					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=0.0)
+					if test_period_counter == (nPeriods - 1):
+						homing.command_robot(id_vision, id_robot, is_yellow, target_angle=0.0)
+					else:
+						homing.command_robot(id_vision, id_robot, is_yellow, target_angle=yawIterationList[test_period_counter+1])
+					if args.simulate:
+						time.sleep(1.0)
+					print('---------------------------------------------')
+					notHomed = False
+					test_period_counter = test_period_counter + 1
+			else:
+				notHomed = True
+				cmd.useYaw = 1
+				current_velocity_ref = velocityIterationList[test_period_counter]
+				if (time_in_period > (1-current_velocity_ref/acceleration)):
+					cmd.rho = acceleration*time_in_period + current_velocity_ref - acceleration
+					cmd.yaw = yawIterationList[test_period_counter]
+					cmd.theta = 0
+					cmd.acceleration_magnitude = acceleration
+					cmd.acceleration_angle = 0
+				elif (time_in_period > (1)):
+					cmd.rho = velocityIterationList[test_period_counter]
+					cmd.yaw = yawIterationList[test_period_counter]
+					cmd.theta = 0
+				elif ((time_in_period > (4)) and (time_in_period < (4+current_velocity_ref/acceleration))):
+					cmd.rho = -acceleration*time_in_period + current_velocity_ref + 4*acceleration
+					cmd.yaw = yawIterationList[test_period_counter]
+					cmd.theta = 0
+					cmd.acceleration_magnitude = acceleration
+					cmd.acceleration_angle = -math.pi
+					
+				log = 'rho: %.2f | yaw: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % (cmd.rho,cmd.yaw,time_test,periodsPassed,unevenPeriod,notHomed)
+
+			# cmd.useYaw = 1
+			# log = 'Period %.0f | seconds in period: %.2f | rho:  %.2f | angle: %.2f  | theta: %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.rho, cmd.yaw, cmd.theta)
+		elif test_period_counter < (nPeriods + nOmega):
+			if not unevenPeriod:
+				if notHomed:
+					id_robot = robot_id # The id of the robot set with the pins
+					is_yellow = True # Indicate if the robot we are talking to is yellow
+					print('---------------------------------------------')
+					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=0.0)
+					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=math.pi/2)
+					if args.simulate:
+						time.sleep(1.0)
+					print('---------------------------------------------')
+					notHomed = False
+					test_period_counter = test_period_counter + 1
+			else:
+				if (time_in_period > (period_length_acc_test-drive_time-timeShift)) and (time_in_period < (period_length_acc_test-timeShift)):
+					cmd.useYaw = 0
+					cmd.angularVelocity = angularVelocityIterationList[test_period_counter - nPeriods]
+					notHomed = True
+				log = 'index: %.1f | angularVelocity: %.2f | time_test: %.2f | periodsPassed: %.0f | unevenPeriod: %.0f | notHomed: %.0f' % ((test_period_counter - nPeriods),cmd.angularVelocity,time_test,periodsPassed,unevenPeriod,notHomed)
+				
+			# cmd.useYaw = 0
+			# log = 'Period %.0f | seconds in period: %.2f | angularVelocity:  %.2f' % (currentPeriod, secondsInCurrentPeriod, cmd.angularVelocity)
+		else:
+			if not unevenPeriod:
+				if notHomed:
+					id_robot = robot_id # The id of the robot set with the pins
+					is_yellow = True # Indicate if the robot we are talking to is yellow
+					print('---------------------------------------------')
+					homing.command_robot(id_vision, id_robot, is_yellow, target_x=-2.0, target_y=-1.8)
+					homing.command_robot(id_vision, id_robot, is_yellow, target_angle=0)
+					if args.simulate:
+						time.sleep(1.0)
+					print('---------------------------------------------')
+					notHomed = False
+					test_period_counter = test_period_counter + 1
+			cmd.rho = 0
+		# print('notHomed:',notHomed)
 
 	if test == "sideways-always":
 		cmd.yaw = math.pi / 2
