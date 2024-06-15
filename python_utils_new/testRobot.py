@@ -5,7 +5,6 @@ import math
 import os
 import sys
 import time
-
 import numpy as np
 
 # Add parent directory to path to allow importing from Core.Inc
@@ -53,7 +52,8 @@ def create_robot_command(test: str, tick_number: int) -> REM_RobotCommand:
 	Creates a robot command for a given robot ID.
 
 	Args:
-		robot_id (int): The ID of the robot.
+		test (str): The test to run.
+		tick_number (int): The current tick number.
 
 	Returns:
 		REM_RobotCommand: The created robot command.
@@ -63,6 +63,7 @@ def create_robot_command(test: str, tick_number: int) -> REM_RobotCommand:
 		cmd.rho = 0
 		cmd.theta = 0
 		cmd.angularVelocity = 0
+		cmd.useYaw = False
 	elif test == "kicker":
 		if tick_number % 120 < 10:
 			cmd.doKick = 1
@@ -76,30 +77,25 @@ def create_robot_command(test: str, tick_number: int) -> REM_RobotCommand:
 	elif test == "dribbler":
 		cmd.dribblerOn = 1
 	elif test == "rotate":
-		cmd.useYaw = 1
 		# Full rotation every 2 seconds
 		cmd.yaw = -math.pi + 2 * math.pi * ((tick_number / 120 + 0.5) % 1)
 	elif test == "forward":
 		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * tick_number / 120 )
 		cmd.theta = -math.pi if tick_number % 120 < 60 else 0
-		cmd.useYaw = 1
 	elif test == "sideways":
 		cmd.theta = math.pi/2
 		cmd.rho = 0.3 - 0.3 * math.cos( 4 * math.pi * tick_number / 120 )
 		cmd.theta = -math.pi/2 if tick_number % 120 < 60 else math.pi/2
-		cmd.useYaw = 1
 	elif test == "rotate-discrete":
-		cmd.useYaw = 1
 		cmd.yaw = -math.pi + math.pi/2 * (int(tick_number / 30) % 4)
 	elif test == "angular-velocity":
 		cmd.angularVelocity = math.pi
+		cmd.useYaw = False
 	elif test == "circle":
-		cmd.useYaw = 1
 		cmd.rho = 1
 		cmd.theta = 2 * math.pi * tick_number / 240
 	elif test == "circle-forward":
 		# move in a circle while facing forward
-		cmd.useYaw = 1
 		cmd.rho = 1
 		cmd.theta = 2 * math.pi * tick_number / 240
 		cmd.yaw = 2 * math.pi * tick_number / 240
@@ -114,7 +110,7 @@ def parse_and_process_args() -> argparse.Namespace:
 	global basestation
 	testsAvailable = ["nothing", "kicker", "chipper", "dribbler", "rotate", "forward", "sideways", "rotate-discrete", "angular-velocity", "circle", "circle-forward"]
 	parser = argparse.ArgumentParser()
-	parser.add_argument("robot_id", type=int, nargs='+', help="An array of integers for the robot ids")
+	parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
 	parser.add_argument("test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
 	args = parser.parse_args()
@@ -152,7 +148,7 @@ def main() -> None:
 		time_till_next_tick = last_tick_time + 1/60 - time.time()
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
-		for robot_id in args.robot_id:
+		for robot_id in args.robot_ids:
 			cmd.toRobotId = robot_id
 			basestation.write(cmd.encode())
 			parser.write_bytes(cmd.encode())
@@ -176,6 +172,8 @@ def main() -> None:
 
 		# Break if cv2 is not imported
 		if not cv2_available : continue
+		# Break if we have more than 1 robot
+		if len(args.robot_ids) > 1: continue
 
 		# Draw robot on the image
 		s = 101.2

@@ -19,6 +19,7 @@ python_utils_new/*.csv
 python_utils/*.json
 python_utils_new/*.bin
 python_utils_new/*.rembin
+python_utils_new/*.visionbin
 
 # Prerequisites
 *.d

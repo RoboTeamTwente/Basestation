@@ -189,6 +189,7 @@ def generate_empty_robot_command() -> REM_RobotCommand:
 	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_COMMAND
 	cmd.timestamp = int(time.time()*1000)
 	cmd.sendStateInfo = True
+	cmd.useYaw = True
 	return cmd
 
 def generate_empty_robot_buzzer() -> REM_RobotBuzzer:

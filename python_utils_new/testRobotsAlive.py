@@ -51,7 +51,7 @@ def print_feedback(feedback_last_second: List[int], tick_number: int) -> List[in
 	minutes, seconds = divmod(remainder, 60)
 	print(f"{hours:02}:{minutes:02}:{seconds:02}")
 	for i in range(4):
-		print("".join([f"\033[38;2;{255*(1-feedback_last_second[j]/30):.0f};{255*feedback_last_second[j]/30:.0f};0m{j:02} ({feedback_last_second[j]:02})\033[0m".ljust(30) for j in range(i, 16, 4)]))
+		print("".join([f"\033[38;2;{255*(1-feedback_last_second[j]/15):.0f};{255*feedback_last_second[j]/15:.0f};0m{j:02} ({feedback_last_second[j]:02})\033[0m".ljust(30) for j in range(i, 16, 4)]))
 	print()
 	return [0] * 16
 
@@ -108,7 +108,7 @@ def main() -> None:
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
 		for i in range(0, 16):
-			if args.send and tick_number % 2 == i % 2:
+			if args.send and tick_number % 4 == i % 4:
 				cmd = create_robot_command(i)
 				basestation.write(cmd.encode())
 				parser.write_bytes(cmd.encode())

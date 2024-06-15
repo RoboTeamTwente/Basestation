@@ -11,7 +11,8 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotBuzzer import REM_Robot
 
 # Argument parser
 parser = argparse.ArgumentParser(description='Set robot id.')
-parser.add_argument('robot_id', type=int, help='An integer for the robot id')
+parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
+
 args = parser.parse_args()
 
 basestation = utils.open_continuous(timeout=0.01)
@@ -29,8 +30,10 @@ robot_buzzer.duration = time_per_note
 note_index = 0
 while True:
 	robot_buzzer.frequency = frequencies[note_index]
-	basestation.write(robot_buzzer.encode())
-	print(f"Sent buzzer command to robot {robot_id} with frequency {robot_buzzer.frequency}")
+	for robot_id in args.robot_ids:
+		robot_buzzer.toRobotId = robot_id
+		basestation.write(robot_buzzer.encode())
+		print(f"Sent buzzer command to robot {robot_id} with frequency {robot_buzzer.frequency}")
 	# Move to the next note in the song
 	note_index = (note_index + 1) % len(frequencies)
 	# Sleep for the duration of the note

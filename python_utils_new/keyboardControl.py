@@ -22,7 +22,7 @@ ROTATION_SPEED = 3 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
 
 parser = argparse.ArgumentParser(description='Keyboard to robot controller')
-parser.add_argument('robot_id', type=int, help='Robot ID to be controlled by the keyboard')
+parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
 args = parser.parse_args()
 
 class EventHandler:
@@ -100,9 +100,7 @@ class BasestationHandler:
         self.thread = threading.Thread(target=self.loop)
         self.thread.start()
         self.command = utils.generate_empty_robot_command()
-        self.robot_id = args.robot_id
         self.yaw = 0
-        self.command.useYaw = 1
 
     def loop(self) -> None:
         print("starting base loop")
@@ -121,9 +119,10 @@ class BasestationHandler:
                 last_written += 1. / self.packet_Hz
 
                 payload = self.get_payload(keyboard_handler.get_keyboard_input())
-                payload.toRobotId = self.robot_id
-                self.basestation.write(payload.encode())
-                logger.write_bytes(payload.encode())
+                for robot_id in args.robot_ids:
+                    payload.toRobotId = robot_id
+                    self.basestation.write(payload.encode())
+                    logger.write_bytes(payload.encode())
 
                 logger.read()
                 logger.process()
@@ -131,7 +130,8 @@ class BasestationHandler:
                 def handle_rem_log(rem_log: REM_Log) -> None:
                     log_from = "[?]  "
                     if rem_log.fromBS:
-                        log_from = "Robot id: " + str(self.robot_id) +" [BS] "
+                        log_from = f" Keyboard -> Robots {args.robot_ids} | "
+
                     if not rem_log.fromPC and not rem_log.fromBS:
                         log_from = f"[{str(rem_log.fromRobotId).rjust(2)}] "
 

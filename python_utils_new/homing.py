@@ -115,7 +115,7 @@ def is_homing(tick_number: int) -> bool:
 		bool: True if the current tick number is within the homing time, False otherwise.
 	"""
 	cycle_time = (HOMING_TIME + TEST_TIME) * BASESTATION_FREQUENCY
-	tick_number %= cycle_time  # Make the tick number loop between 0 and cycle_time
+	tick_number %= cycle_time
 	# print ("Is homing: ", tick_number < HOMING_TIME * BASESTATION_FREQUENCY)
 	return tick_number < HOMING_TIME * BASESTATION_FREQUENCY
 
@@ -135,33 +135,25 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, test: st
 	cmd = utils.generate_empty_robot_command()
 	cmd.toRobotId = robot_id
 	if is_homing(tick_number):
-		if tick_number > 30:
-			target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
-			target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		cmd.useCameraYaw = 1
+		cmd.cameraYaw = subscriber.get_robot_angle(robot_id, True) 
+		target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
+		target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
 
-			# placeholder for now
-			current_x, current_y = subscriber.get_robot_position(robot_id, True)
-			# do homing stuff
-			distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
-			direction = math.atan2(target_y - current_y, target_x - current_x)
-			cmd.theta = direction
-			cmd.rho = min(distance, 0.5) # Limit the speed to prevent sad things from happening
-			cmd.yaw = 0
-			cmd.useYaw = 1
-		else:
-			# calibrate angle
-			cmd.theta = 0
-			cmd.yaw = 0
-			cmd.useCameraYaw = 1
-			cmd.cameraYaw = subscriber.get_robot_angle(robot_id, True) 
+		current_x, current_y = subscriber.get_robot_position(robot_id, True)
+		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
+		direction = math.atan2(target_y - current_y, target_x - current_x)
+		cmd.theta = direction
+		cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
+		cmd.yaw = 0
 	else:
 		if test == "trapezoid":
 			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
-			if test_number >= len(MAX_ACCELERATION):
+			if test_number == len(MAX_ACCELERATION):
 				print("All tests are done")
 				exit()
 			max_acceleration = MAX_ACCELERATION[test_number]
-			time_since_start = tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME
+			time_since_start = (tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME) / BASESTATION_FREQUENCY
 			if time_since_start < START_ACCERLERATION:
 				cmd.rho = 0
 				cmd.theta = 0
@@ -189,7 +181,7 @@ def parse_and_process_args() -> argparse.Namespace:
 	parser = argparse.ArgumentParser()
 	testsAvailable = ["nothing", "trapezoid"]
 	parser.add_argument("--test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
-	parser.add_argument("robot_id", type=int, nargs='+', help="An array of integers for the robot ids")
+	parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
 	args = parser.parse_args()
  
@@ -219,6 +211,8 @@ def main() -> None:
 	last_packet_state_info = None
 	latest_feedback_time = time.time()
 	image_vis = np.zeros((500, 500, 3), dtype=float)
+	rate_of_turn_avg = 0
+	wheel_speeds_avg = np.zeros(4)
 	while True:
 		if time.time() - latest_feedback_time > 1:
 			print("No feedback received in the last second")
@@ -226,7 +220,7 @@ def main() -> None:
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
 		counter = 0
-		for robot_id in args.robot_id:
+		for robot_id in args.robot_ids:
 			cmd = create_robot_command(tick_number, counter, robot_id, args.test)
 			cmd.toRobotId = robot_id
 			basestation.write(cmd.encode())
@@ -237,11 +231,9 @@ def main() -> None:
 		while parser.has_packets():
 			packet = parser.get_next_packet()
 			if isinstance(packet, REM_RobotFeedback):
-				# print(f"Received feedback from robot {packet.fromRobotId}")
 				last_packet_feedback = packet
 				latest_feedback_time = time.time()
 			elif isinstance(packet, REM_RobotStateInfo):
-				# print(f"Received state info from robot {packet.fromRobotId}")
 				last_packet_state_info = packet
 			elif isinstance(packet, REM_Log):
 				print(packet.message)
@@ -252,8 +244,8 @@ def main() -> None:
 
 		# Break if cv2 is not imported
 		if not cv2_available : continue
-		if len(args.robot_id) > 1: continue
-		continue
+		# Break if we have more than 1 robot
+		if len(args.robot_ids) > 1: continue
 
 		# Draw robot on the image
 		s = 101.2
@@ -272,6 +264,26 @@ def main() -> None:
 			length = int(last_packet_feedback.rho * 500)
 			px, py = rotate((250, 250), (250, 250+length), last_packet_feedback.theta)
 			cv2.line(image_vis, (250,250), (int(px), int(py)), (1, 0, 0), 8)
+			# Battery
+			cv2.rectangle(image_vis, (10, 10), (50, 30), color=(1, 1, 1))
+			cv2.rectangle(image_vis, (51, 15), (55, 25), color=(1, 1, 1), thickness=-1)
+			#COLOR IS IN (B,G,R)
+			if last_packet_feedback.batteryLevel >= 18.0:
+				v = str(round(last_packet_feedback.batteryLevel, 2)) + 'V'
+				if last_packet_feedback.batteryLevel < 20.0:
+					background_color = (0,0,255) # red
+				elif last_packet_feedback.batteryLevel < 22.0:
+					background_color = (0,140,255) # orange
+				elif last_packet_feedback.batteryLevel < 24.0:
+					background_color = (0,255,255) # yellow
+				else:
+					background_color = (0,255,0) # green
+				length_rectangle = (int) (5.27777777 * last_packet_feedback.batteryLevel - 84)
+				cv2.rectangle(image_vis, (11, 11), (length_rectangle, 29), color=background_color, thickness=-1)
+				cv2.putText(image_vis, v, org=(60, 26), color=(255,255,255), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1, thickness=1, lineType=cv2.LINE_AA)
+			else:
+				cv2.putText(image_vis, '?', org=(25, 26), color=(255,255,255), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1)
+			
 		if last_packet_state_info:
 			# XSens yaw
 			px, py = rotate((250, 250), (250, 150), -last_packet_state_info.xsensYaw)

@@ -138,7 +138,6 @@ class Joystick:
 		self.HAT_X = 0
 		self.HAT_Y = 0
 		self.command = utils.generate_empty_robot_command()
-		self.command.useYaw = 1
 
 		self.assign_open_robot(1)
 
