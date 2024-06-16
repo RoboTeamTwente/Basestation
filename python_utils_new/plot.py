@@ -3,6 +3,8 @@ import sys
 import argparse
 import matplotlib.pyplot as plt
 from typing import List, Tuple, Any
+import numpy as np
+import pandas as pd
 
 # Append the necessary directory to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -32,12 +34,15 @@ def extract_values(packets: List[Any], attribute: str, first_timestamp: int) -> 
     values, timestamps = zip(*data) if data else ([], [])
     return list(timestamps), list(values)
 
-def plot_values(t_rc: List[float], values_rc: List[float], t_rf: List[float], values_rf: List[float], attribute: str) -> None:
+def plot_values(t_rc: List[float], values_rc: List[float], t_rf: List[float], values_rf: List[float], attribute: str, observer_data: pd.DataFrame = None) -> None:
     """Plot values for a specific attribute."""
     figure = plt.figure(figsize=(10, 6))
     figure.canvas.toolbar.zoom()
     plt.plot(t_rc, values_rc, label="Reference", linewidth=2, linestyle='--')
     plt.plot(t_rf, values_rf, label="Achieved", linewidth=2, linestyle='-')
+    if observer_data is not None and attribute in observer_data.columns:
+        plt.plot(observer_data['timestamp'], observer_data[attribute], label="Observer", linewidth=2, linestyle=':')
+    
     plt.xlabel("Timestamp (s)", fontsize=14)
     plt.ylabel(attribute, fontsize=14)
     plt.title(attribute, fontsize=16)
@@ -52,21 +57,28 @@ def main() -> None:
     # Parse the input file
     parser = REMParser(device=None)
     parser.parse_file(args.input_file)
-    
     robot_commands, robot_feedback, robot_state_info = parse_packets(parser)
     
     # Ensure the first timestamp is consistent across all plots
     first_timestamp = robot_commands[0].timestamp
-    
+    if args.input_file != 'latest.rembin':
+        observer_data = pd.read_csv(args.input_file.replace('.rembin', '.csv'))
+    else:
+        observer_data = pd.read_csv('latest_observer.csv')
+    observer_data = observer_data[observer_data['timestamp'] >= first_timestamp]
+    observer_data['timestamp'] = (observer_data['timestamp'] - first_timestamp) / 1000
+    observer_data['rho'] = (observer_data['velocity_x']**2 + observer_data['velocity_y']**2)**0.5
+    observer_data['theta'] = np.arctan2(observer_data['velocity_y'], observer_data['velocity_x'])
+
     # Extract and plot 'rho' values
     t_rc, rho_rc = extract_values(robot_commands, 'rho', first_timestamp)
     t_rf, rho_rf = extract_values(robot_feedback, 'rho', first_timestamp)
-    plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho')
+    plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho', observer_data)
     
     # Extract and plot 'theta' values
     t_rc, theta_rc = extract_values(robot_commands, 'theta', first_timestamp)
     t_rf, theta_rf = extract_values(robot_feedback, 'theta', first_timestamp)
-    plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta')
+    plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta', observer_data)
     
     # Extract and plot 'wheelSpeed' values from state info
     tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef1', first_timestamp)

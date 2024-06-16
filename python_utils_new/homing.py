@@ -24,6 +24,8 @@ from proto import State_pb2
 from REMParser import REMParser
 import utils
 
+observer_file = None
+
 X_LOCATION_HOMING = -2
 Y_LOCATION_HOMING = -0
 # Every additional robot will be placed at the following offset from the previous robot
@@ -46,13 +48,6 @@ if END_DECELERATION > TEST_TIME:
 if (START_DECELERATION - START_ACCERLERATION) * (END_ACCELERATION - START_ACCERLERATION) * max(MAX_ACCELERATION) > 5:
 	print("Robot will drive more than 5 meters, this is not allowed by walls")
 	exit()
-
-try:
-	import cv2
-	cv2_available = True
-except:
-	print("Warning! Could not import cv2. Can't visualize.")
-	cv2_available = False
 
 basestation = None
 
@@ -82,6 +77,16 @@ class WorldSubscriber:
 					return robot.pos.x, robot.pos.y
 			print("Robot not found, waiting for new data")
 			time.sleep(1/60*0.1)
+   
+	def write_output(self, robot_id: int, is_yellow: bool) -> None:
+		global observer_file
+		data = self.socket.recv()
+		world_state = State_pb2.State()
+		world_state.ParseFromString(data)
+		for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
+			if robot.id == robot_id:
+				observer_file.write(f"{world_state.last_seen_world.time/1000000},{robot.id},{robot.pos.x},{robot.pos.y},{robot.angle},{robot.vel.x},{robot.vel.y},{robot.w}\n".encode())
+				return
 
 	def get_robot_angle(self, robot_id: int, is_yellow: bool) -> float:
 		data = self.socket.recv()
@@ -135,6 +140,7 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, test: st
 	"""
 	cmd = utils.generate_empty_robot_command()
 	cmd.toRobotId = robot_id
+	subscriber.write_output(robot_id, True)
 	if is_homing(tick_number):
 		cmd.useCameraYaw = 1
 		cmd.cameraYaw = subscriber.get_robot_angle(robot_id, True) 
@@ -174,6 +180,29 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, test: st
 
 	return cmd
 
+def create_observer_file(args, datetime_str: str):
+	"""
+	Create a new observer file and a symlink to it.
+
+	Args:
+		args: Command line arguments
+		datetime_str (str): Current date and time as a string
+
+	Returns:
+		observer_file: The newly created observer file
+	"""
+	global observer_file
+	observer_file = f"logs/{args.output_dir}/observer_{datetime_str}.csv"
+	current_dir = os.path.dirname(os.path.abspath(__file__))
+	observer_file_path = os.path.join(current_dir, observer_file)
+	print(f"Creating output file {observer_file_path}")
+	observer_file = open(observer_file_path, "wb")
+	latest_file_path = os.path.join(current_dir, "latest_observer.csv")
+	if os.path.exists(latest_file_path):
+		os.remove(latest_file_path)
+	os.symlink(observer_file_path, latest_file_path)
+	observer_file.write("timestamp,id,position_x,position_y,yaw,velocity_x,velocity_y,angular_velocity\n".encode())
+
 def parse_and_process_args() -> argparse.Namespace:
 	"""
 	Parse command line arguments and process related logic.
@@ -205,6 +234,7 @@ def main() -> None:
 	if args.output_dir is not None:
 		os.makedirs(f"logs/{args.output_dir}", exist_ok=True)
 		output_file = f"logs/{args.output_dir}/log_{datetime_str}.bin"
+		create_observer_file(args, datetime_str)
 	parser = REMParser(basestation, output_file=output_file)
 	last_tick_time = 0
 	tick_number = 0

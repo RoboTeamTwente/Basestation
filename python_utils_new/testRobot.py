@@ -20,13 +20,6 @@ from visualization import visualize
 from REMParser import REMParser
 import utils
 
-try:
-	import cv2
-	cv2_available = True
-except:
-	print("Warning! Could not import cv2. Can't visualize.")
-	cv2_available = False
-
 basestation = None
 
 def rotate(origin, point, angle):
