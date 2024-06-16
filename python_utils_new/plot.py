@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 import matplotlib.pyplot as plt
+from typing import List, Tuple, Any
 
 # Append the necessary directory to sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,26 +12,27 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_Rob
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
 from REMParser import REMParser
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--input_file', default='latest.rembin', help='Input file to parse')
     return parser.parse_args()
 
-def parse_packets(parser):
+def parse_packets(parser: REMParser) -> Tuple[List[REM_RobotCommand], List[REM_RobotFeedback], List[REM_RobotStateInfo]]:
     """Parse the packets from the input file."""
     robot_commands = [packet for packet in parser.packet_buffer if isinstance(packet, REM_RobotCommand)]
     robot_feedback = [packet for packet in parser.packet_buffer if isinstance(packet, REM_RobotFeedback)]
     robot_state_info = [packet for packet in parser.packet_buffer if isinstance(packet, REM_RobotStateInfo)]
     return robot_commands, robot_feedback, robot_state_info
 
-def extract_values(packets, attribute, first_timestamp):
+def extract_values(packets: List[Any], attribute: str, first_timestamp: int) -> Tuple[List[float], List[float]]:
     """Extract specific attribute values and their timestamps from packets."""
-    values = [getattr(packet, attribute) for packet in packets]
-    timestamps = [(packet.timestamp - first_timestamp) / 1000 for packet in packets]
-    return timestamps, values
+    data = [(getattr(packet, attribute), (packet.timestamp - first_timestamp) / 1000) 
+        for packet in packets if (packet.timestamp - first_timestamp) / 1000 >= 0]
+    values, timestamps = zip(*data) if data else ([], [])
+    return list(timestamps), list(values)
 
-def plot_values(t_rc, values_rc, t_rf, values_rf, attribute):
+def plot_values(t_rc: List[float], values_rc: List[float], t_rf: List[float], values_rf: List[float], attribute: str) -> None:
     """Plot values for a specific attribute."""
     figure = plt.figure(figsize=(10, 6))
     figure.canvas.toolbar.zoom()
@@ -43,7 +45,8 @@ def plot_values(t_rc, values_rc, t_rf, values_rf, attribute):
     plt.grid(True)
     plt.tight_layout()
 
-def main():
+def main() -> None:
+    """Main function to parse and plot data."""
     args = parse_arguments()
     
     # Parse the input file
