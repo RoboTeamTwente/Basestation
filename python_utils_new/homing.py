@@ -3,6 +3,7 @@ import atexit
 import datetime
 import math
 import os
+import subprocess
 import sys
 import time
 
@@ -65,7 +66,13 @@ class WorldSubscriber:
 		self.socket = self.context.socket(zmq.SUB)
 		self.socket.connect(f'tcp://{address}:{port}')
 		self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
-		print(f"Connected to {address}:{port} as subscriber")
+		print(f"Connected to {address}:{port} as subscriber for homing")
+		subprocess.run(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+		self.procDocker = subprocess.Popen(
+			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer --vision-port 10020'],
+			stdout=subprocess.DEVNULL, 
+			stderr=subprocess.STDOUT
+		)
 
 	def get_robot_position(self, robot_id: int, is_yellow: bool) -> tuple:
 		data = self.socket.recv()
@@ -98,6 +105,10 @@ class WorldSubscriber:
 					return robot.angle
 			print("Robot not found, waiting for new data")
 			time.sleep(1/60*0.1)
+   
+	def close(self):
+		self.socket.close()
+		self.procDocker.send_signal(subprocess.signal.SIGINT)
 
 def close_basestation() -> None:
 	"""
@@ -226,7 +237,7 @@ def parse_and_process_args() -> argparse.Namespace:
 	return args
 
 subscriber = WorldSubscriber()
-
+atexit.register(subscriber.close)
 def main() -> None:
 	"""
 	Main function

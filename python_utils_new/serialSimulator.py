@@ -33,7 +33,7 @@ class WorldSubscriber:
 		self.socket = self.context.socket(zmq.SUB)
 		self.socket.connect(f'tcp://{address}:{port}')
 		self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
-		print(f"Connected to {address}:{port} as subscriber")
+		print(f"Connected to {address}:{port} as subscriber for simulation feedback")
 		self.world_state = State_pb2.State()
 		self.lock = threading.Lock()
 		self.thread = threading.Thread(target=self._receive_data)
@@ -87,8 +87,13 @@ class SerialSimulator:
 		s_name = os.ttyname(self.slave)
 		self.ser = serial.Serial(s_name)
 		self.port = -53
-		# run 'docker pull roboteamtwente/roboteam:latest' before running this script
-		self.proc = subprocess.Popen(['./simulator-cli'], cwd=os.path.dirname(os.path.abspath(__file__)), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+		subprocess.run(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+		self.procDocker = subprocess.Popen(
+			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer --vision-port 10020'],
+			stdout=subprocess.DEVNULL, 
+			stderr=subprocess.STDOUT
+		)
+		self.procSim = subprocess.Popen(['./simulator-cli'], cwd=os.path.dirname(os.path.abspath(__file__)), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
 	def write(self, text):
 		"""
@@ -160,7 +165,8 @@ class SerialSimulator:
 		self.ser.close()
 		os.close(self.master)
 		os.close(self.slave)
-		self.proc.send_signal(signal.SIGINT)
+		self.procSim.send_signal(signal.SIGINT)
+		self.procDocker.send_signal(signal.SIGINT)
 		print("Simulated basestation connection closed")
 
 print("Opening socket")
