@@ -39,7 +39,7 @@ class REMParser:
 			print(f"[REMParser] Creating output file {output_file_path}")
 			self.output_file = open(output_file_path, "wb")
 			latest_file_path = os.path.join(current_dir, "latest.rembin")
-			if os.path.exists(latest_file_path):
+			if os.path.lexists(latest_file_path):
 				os.remove(latest_file_path)
 			os.symlink(output_file_path, latest_file_path)
 
@@ -174,7 +174,7 @@ if __name__ == "__main__":
 	print("Running REMParser directly")
 
 	argparser = argparse.ArgumentParser()
-	argparser.add_argument('--input_file', help='File to parse', default='latest.rembin')
+	argparser.add_argument('input_file', nargs='?', default='latest.rembin', help='File to parse')
 	args = argparser.parse_args()
 
 	print("Parsing file", args.input_file)

@@ -105,6 +105,7 @@ class BasestationHandler:
         self.thread.start()
         self.command = utils.generate_empty_robot_command()
         self.yaw = 0
+        self.dribblerPressed = False
 
     def loop(self) -> None:
         print("starting base loop")
@@ -171,7 +172,11 @@ class BasestationHandler:
         self.command.doForce = keyboard_input['k'] or keyboard_input['c']
         self.command.kickChipPower = KICK_SPEED
         self.command.doChip = keyboard_input['c']
-        self.command.dribblerOn = keyboard_input['b']
+        if (keyboard_input['b'] and not self.dribblerPressed):
+            self.command.dribblerOn = not self.command.dribblerOn
+            self.dribblerPressed = True
+        elif not keyboard_input['b']:
+            self.dribblerPressed = False
         self.command.yaw = self.yaw
 
         # Return the command payload

@@ -5,6 +5,7 @@ import math
 import os
 import subprocess
 import sys
+import threading
 import time
 
 import numpy as np
@@ -73,40 +74,45 @@ class WorldSubscriber:
 			stdout=subprocess.DEVNULL, 
 			stderr=subprocess.STDOUT
 		)
+		self.world_state = State_pb2.State()
+		self.lock = threading.Lock()
+		self.thread = threading.Thread(target=self._receive_data)
+		self.thread.daemon = True
+		self.thread.start()
+
+	def _receive_data(self):
+		while True:
+			data = self.socket.recv()
+			with self.lock:
+				self.world_state.ParseFromString(data)
 
 	def get_robot_position(self, robot_id: int, is_yellow: bool) -> tuple:
-		data = self.socket.recv()
-		world_state = State_pb2.State()
-		world_state.ParseFromString(data)
 		while True:
-			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
-				if robot.id == robot_id:
-					return robot.pos.x, robot.pos.y
+			with self.lock:
+				for robot in (self.world_state.last_seen_world.yellow if is_yellow else self.world_state.last_seen_world.blue):
+					if robot.id == robot_id:
+						return robot.pos.x, robot.pos.y
 			print("Robot not found, waiting for new data")
-			time.sleep(1/60*0.1)
+			time.sleep(1 / 60 * 0.1)
    
 	def write_output(self, robot_id: int, is_yellow: bool) -> None:
 		global observer_file
 		if observer_file is None:
 			return
-		data = self.socket.recv()
-		world_state = State_pb2.State()
-		world_state.ParseFromString(data)
-		for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
-			if robot.id == robot_id:
-				observer_file.write(f"{world_state.last_seen_world.time/1000000},{robot.id},{robot.pos.x},{robot.pos.y},{robot.angle},{robot.vel.x},{robot.vel.y},{robot.w}\n".encode())
-				return
+		with self.lock:
+			for robot in (self.world_state.last_seen_world.yellow if is_yellow else self.world_state.last_seen_world.blue):
+				if robot.id == robot_id:
+					observer_file.write(f"{self.world_state.last_seen_world.time / 1000000},{robot.id},{robot.pos.x},{robot.pos.y},{robot.angle},{robot.vel.x},{robot.vel.y},{robot.w}\n".encode())
+					return
 
 	def get_robot_angle(self, robot_id: int, is_yellow: bool) -> float:
-		data = self.socket.recv()
-		world_state = State_pb2.State()
-		world_state.ParseFromString(data)
 		while True:
-			for robot in (world_state.last_seen_world.yellow if is_yellow else world_state.last_seen_world.blue):
-				if robot.id == robot_id:
-					return robot.angle
+			with self.lock:
+				for robot in (self.world_state.last_seen_world.yellow if is_yellow else self.world_state.last_seen_world.blue):
+					if robot.id == robot_id:
+						return robot.angle
 			print("Robot not found, waiting for new data")
-			time.sleep(1/60*0.1)
+			time.sleep(1 / 60 * 0.1)
    
 	def close(self):
 		self.socket.close()
@@ -138,7 +144,7 @@ def is_homing(tick_number: int) -> bool:
 	# print ("Is homing: ", tick_number < HOMING_TIME * BASESTATION_FREQUENCY)
 	return tick_number < HOMING_TIME * BASESTATION_FREQUENCY
 
-def create_robot_command(tick_number: int, counter: int, robot_id: int, test: str) -> REM_RobotCommand:
+def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_id: int, test: str)  -> REM_RobotCommand:
 	"""
 	Creates a robot command for a given robot ID.
 
@@ -146,6 +152,7 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, test: st
   		tick_number (int): The current tick number
 		counter (int): The counter of which robot this is
 		robot_id (int): The ID of the robot
+		vision_id (int): The ID of the vision system
 		test (str): The test to run
 
 	Returns:
@@ -153,14 +160,14 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, test: st
 	"""
 	cmd = utils.generate_empty_robot_command()
 	cmd.toRobotId = robot_id
-	subscriber.write_output(robot_id, True)
+	subscriber.write_output(vision_id, True)
 	if is_homing(tick_number):
 		cmd.useCameraYaw = 1
-		cmd.cameraYaw = subscriber.get_robot_angle(robot_id, True) 
+		cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
 		target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
 		target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
 
-		current_x, current_y = subscriber.get_robot_position(robot_id, True)
+		current_x, current_y = subscriber.get_robot_position(vision_id, True)
 		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 		direction = math.atan2(target_y - current_y, target_x - current_x)
 		cmd.theta = direction
@@ -211,7 +218,7 @@ def create_observer_file(args, datetime_str: str):
 	print(f"Creating output file {observer_file_path}")
 	observer_file = open(observer_file_path, "wb")
 	latest_file_path = os.path.join(current_dir, "latest_observer.csv")
-	if os.path.exists(latest_file_path):
+	if os.path.lexists(latest_file_path):
 		os.remove(latest_file_path)
 	os.symlink(observer_file_path, latest_file_path)
 	observer_file.write("timestamp,id,position_x,position_y,yaw,velocity_x,velocity_y,angular_velocity\n".encode())
@@ -224,10 +231,17 @@ def parse_and_process_args() -> argparse.Namespace:
 	parser = argparse.ArgumentParser()
 	testsAvailable = ["nothing", "trapezoid"]
 	parser.add_argument("--test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
-	parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
+	parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids. These are the IDs the basestation will use to communicate with the robots.")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
 	parser.add_argument('--simulate', action='store_true', help="Use a fake basestation for simulation")
+	parser.add_argument('--vision_ids', type=int, nargs='+', help="An array of integers for the vision ids")
+	
 	args = parser.parse_args()
+	if args.vision_ids is None:
+		args.vision_ids = args.robot_ids
+	elif len(args.vision_ids) != len(args.robot_ids):
+		print("Vision ids should be the same length as robot ids")
+		exit()
  
 	if args.simulate:
 		basestation = utils.open_simulated_basestation()
@@ -266,9 +280,8 @@ def main() -> None:
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
 		counter = 0
-		for robot_id in args.robot_ids:
-			cmd = create_robot_command(tick_number, counter, robot_id, args.test)
-			cmd.toRobotId = robot_id
+		for robot_id, vision_id in zip(args.robot_ids, args.vision_ids):
+			cmd = create_robot_command(tick_number, counter, robot_id, vision_id, args.test)
 			basestation.write(cmd)
 			parser.write_bytes(cmd.encode())
 			counter += 1
