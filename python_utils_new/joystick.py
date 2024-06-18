@@ -28,6 +28,7 @@ BASESTATION_FREQUENCY = 60 # ticks per second
 
 parser = argparse.ArgumentParser(description='Joystick to robot controller')
 parser.add_argument('-r', '--robot_ids', type=int, nargs='+', help='List of robot IDs to be controlled by the joysticks')
+parser.add_argument("--simulate", action="store_true", help="Simulate the basestation")
 args = parser.parse_args()
 
 class EventHandler:
@@ -255,11 +256,14 @@ class Joystick:
 class BasestationHandler:
 	"""Handles communication with the basestation."""
 
-	def __init__(self, event_handler: EventHandler, joystick_handler: JoystickHandler, shutdown: Callable[[], None]) -> None:
+	def __init__(self, event_handler: EventHandler, joystick_handler: JoystickHandler, shutdown: Callable[[], None], simulate: bool) -> None:
 		self.shutdown = shutdown
 		self.packet_Hz = BASESTATION_FREQUENCY
 		self.running = True
-		self.basestation = utils.open_continuous(timeout=0.01)
+		if args.simulate:
+			self.basestation = utils.open_simulated_basestation()
+		else:
+			self.basestation = utils.open_continuous(timeout=0.01)
 		self.event_handler = event_handler
 		self.joystick_handler = joystick_handler
 		self.thread = threading.Thread(target=self.loop)
@@ -285,7 +289,7 @@ class BasestationHandler:
 					payload = joystick.get_payload(keyboard_handler.get_keyboard_input())
 					for i in joystick.robot_ids if joystick.robot_ids else [payload.toRobotId]:
 						payload.toRobotId = i
-						self.basestation.write(payload.encode())
+						self.basestation.write(payload)
 						logger.write_bytes(payload.encode())
 
 				logger.read()
@@ -371,7 +375,7 @@ def thread_exception_handler(args: threading.ExceptHookArgs) -> None:
 threading.excepthook = thread_exception_handler
 
 joystick_handler = JoystickHandler(event_handler, shutdown, args.robot_ids)
-basestation_handler = BasestationHandler(event_handler, joystick_handler, shutdown)
+basestation_handler = BasestationHandler(event_handler, joystick_handler, shutdown, args.simulate)
 keyboard_handler = KeyboardHandler(joystick_handler)
 event_handler.start(joystick_handler)
 

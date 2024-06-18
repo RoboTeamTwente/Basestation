@@ -56,7 +56,7 @@ def visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd
             cv2.line(image_vis, (int(250 - s / 2), 250 - 73 - 5), (int(250 + s / 2), 250 - 73 - 5), (0, 0, 1), 2)
 
         length = int(last_packet_feedback.rho * 500)
-        px, py = rotate((250, 250), (250, 250 + length), last_packet_feedback.theta)
+        px, py = rotate((250, 250), (250, 250 - length), -last_packet_feedback.theta)
         cv2.line(image_vis, (250, 250), (int(px), int(py)), (1, 0, 0), 8)
         # Battery
         cv2.rectangle(image_vis, (10, 10), (50, 30), color=(1, 1, 1))
@@ -123,6 +123,8 @@ def visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd
         cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (1, 1, 1), 4)
     cv2.imshow("Press esc to quit", image_vis)
     if cv2.waitKey(1) == 27: 
+        exit()
+    if cv2.getWindowProperty("Press esc to quit", cv2.WND_PROP_VISIBLE) < 1:
         exit()
     image_vis *= 0.7
 

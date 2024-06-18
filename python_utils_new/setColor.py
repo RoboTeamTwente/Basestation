@@ -18,6 +18,6 @@ basestation = utils.open_continuous(timeout=0.01)
 basestation_command = utils.generate_basestation_config_command(is_yellow)
 
 for i in range(10):
-	basestation.write(basestation_command.encode())
+	basestation.write(basestation_command)
 	time.sleep(0.1)
 print("Color set, enjoy your day")
