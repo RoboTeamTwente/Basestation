@@ -16,6 +16,7 @@ from pynput import keyboard
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
 from Core.Inc.roboteam_embedded_messages.python.REM_Log import REM_Log
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
 
 from REMParser import REMParser
 import utils
@@ -36,6 +37,7 @@ class EventHandler:
 		self.shutdown = shutdown
 		self.running = True
 		self.events: List[str] = []
+		self.batteryVoltages: dict = {}
 
 	def start(self, joystick_handler: 'JoystickHandler') -> None:
 		"""Starts the event handling loop."""
@@ -59,9 +61,15 @@ class EventHandler:
 					controller = self.joystick_handler.controllers[id]
 					id = int(id) + 1
 					if controller.robot_ids:
-						string += f" Joystick {id} -> Robots {controller.robot_ids} | "
+						string += f" Joystick {id} -> Robots {controller.robot_ids} | Voltages "
+						for r_id in controller.robot_ids:
+							if r_id in self.batteryVoltages:
+								string += f"{round(self.batteryVoltages[r_id], 2)}V "
+						string += f"| "
 					else:
-						string += f" Joystick {id} -> Robot {controller.robot_id} | "     
+						string += f" Joystick {id} -> Robot {controller.robot_id} | "
+						if controller.robot_id in self.batteryVoltages:
+							string += f"Voltage {round(self.batteryVoltages[controller.robot_id],2)}V | "
 				print(string, end="")
 				for event in self.events:
 					print(event)
@@ -277,7 +285,6 @@ class BasestationHandler:
 					payload = joystick.get_payload(keyboard_handler.get_keyboard_input())
 					for i in joystick.robot_ids if joystick.robot_ids else [payload.toRobotId]:
 						payload.toRobotId = i
-						print(payload.doKick)
 						self.basestation.write(payload.encode())
 						logger.write_bytes(payload.encode())
 
@@ -297,10 +304,15 @@ class BasestationHandler:
 					nwhitespace = os.get_terminal_size().columns - len(message) - 2
 					print(f"\r{message}{' ' * nwhitespace}")
 
+				def handle_rem_robotfeedback(rem_robotfeedback: REM_RobotFeedback) -> None:
+					self.event_handler.batteryVoltages[rem_robotfeedback.fromRobotId] = rem_robotfeedback.batteryLevel
+
 				while logger.has_packets():
 					packet = logger.get_next_packet()
 					if isinstance(packet, REM_Log):
 						handle_rem_log(packet)
+					elif isinstance(packet, REM_RobotFeedback):
+						handle_rem_robotfeedback(packet)
 		except Exception as e:
 			self.event_handler.record_event(-1, str(e))
 			print(e)
