@@ -23,6 +23,7 @@ BASESTATION_FREQUENCY = 60 # ticks per second
 
 parser = argparse.ArgumentParser(description='Keyboard to robot controller')
 parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
+parser.add_argument("--simulate", action="store_true", help="Simulate the basestation")
 args = parser.parse_args()
 
 class EventHandler:
@@ -91,11 +92,14 @@ class KeyboardHandler:
 class BasestationHandler:
     """Handles communication with the basestation."""
 
-    def __init__(self, event_handler: EventHandler, shutdown: Callable[[], None]) -> None:
+    def __init__(self, event_handler: EventHandler, shutdown: Callable[[], None], simulate: bool) -> None:
         self.shutdown = shutdown
         self.packet_Hz = BASESTATION_FREQUENCY
         self.running = True
-        self.basestation = utils.open_continuous(timeout=0.01)
+        if simulate:
+            self.basestation = utils.open_simulated_basestation()
+        else:
+            self.basestation = utils.open_continuous(timeout=0.01)
         self.event_handler = event_handler
         self.thread = threading.Thread(target=self.loop)
         self.thread.start()
@@ -121,7 +125,7 @@ class BasestationHandler:
                 payload = self.get_payload(keyboard_handler.get_keyboard_input())
                 for robot_id in args.robot_ids:
                     payload.toRobotId = robot_id
-                    self.basestation.write(payload.encode())
+                    self.basestation.write(payload)
                     logger.write_bytes(payload.encode())
 
                 logger.read()
@@ -187,7 +191,7 @@ def thread_exception_handler(args: threading.ExceptHookArgs) -> None:
 
 threading.excepthook = thread_exception_handler
 
-basestation_handler = BasestationHandler(event_handler, shutdown)
+basestation_handler = BasestationHandler(event_handler, shutdown, args.simulate)
 keyboard_handler = KeyboardHandler()
 event_handler.start()
 

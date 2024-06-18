@@ -69,7 +69,7 @@ def main() -> None:
 		last_tick_time = time.time()
 		for robot_id in args.robot_ids:
 			cmd = create_set_PID_Command(robot_id)
-			basestation.write(cmd.encode())
+			basestation.write(cmd)
 			parser.write_bytes(cmd.encode())
 			process_parser_packets(parser)
 

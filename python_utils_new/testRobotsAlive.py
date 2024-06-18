@@ -110,7 +110,7 @@ def main() -> None:
 		for i in range(0, 16):
 			if args.send and tick_number % 4 == i % 4:
 				cmd = create_robot_command(i)
-				basestation.write(cmd.encode())
+				basestation.write(cmd)
 				parser.write_bytes(cmd.encode())
 		feedback_last_second = process_parser_packets(parser, feedback_last_second)
 		tick_number += 1

@@ -107,9 +107,13 @@ def parse_and_process_args() -> argparse.Namespace:
 	parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids")
 	parser.add_argument("test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
+	parser.add_argument('--simulate', action='store_true', help="Use a fake basestation for simulation")
 	args = parser.parse_args()
- 
-	if (basestation is None or not basestation.isOpen()):
+
+	if args.simulate:
+		basestation = utils.open_simulated_basestation()
+		print("Simulated basestation opened")
+	elif (basestation is None or not basestation.isOpen()):
 		basestation = utils.open_continuous(timeout=0.1)
 		print("Basestation opened")
 
@@ -142,7 +146,7 @@ def main() -> None:
 		last_tick_time = time.time()
 		for robot_id in args.robot_ids:
 			cmd.toRobotId = robot_id
-			basestation.write(cmd.encode())
+			basestation.write(cmd)
 			parser.write_bytes(cmd.encode())
 		parser.read()
 		parser.process()
@@ -161,7 +165,7 @@ def main() -> None:
 		tick_number += 1
 
 		# ========== VISUALISING ========== #
-		visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd)
+		image_vis = visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd)
      
 if __name__ == "__main__":
 	main()

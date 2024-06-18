@@ -16,8 +16,23 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_Robo
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotBuzzer import REM_RobotBuzzer
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotGetPIDGains import REM_RobotGetPIDGains
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotSetPIDGains import REM_RobotSetPIDGains
+from serialSimulator import SerialSimulator
 
-def open_port(port: str, timeout: Optional[int] = None) -> Optional[serial.Serial]:
+class BasestationCustomSerial(serial.Serial):
+	"""
+	Basestation custom serial class that overrides the write method.
+	This allows easy simulation of a fake basesation, since there we don't want to encode the data.
+	"""
+
+	def write(self, data):
+		"""
+		Encodes the data and writes it to the serial connection.
+		"""
+		encoded_data = data.encode()
+		super().write(encoded_data)
+
+
+def open_port(port: str, timeout: Optional[int] = None) -> Optional[BasestationCustomSerial]:
 	"""
 	Tries to open a serial port to the given path. 
 
@@ -26,10 +41,10 @@ def open_port(port: str, timeout: Optional[int] = None) -> Optional[serial.Seria
 		timeout (Optional[int], optional): Timeout for the serial connection. Defaults to None.
 
 	Returns:
-		Optional[serial.Serial]: The serial connection object or None if the port could not be opened.
+		Optional[BasestationCustomSerial]: The custom serial connection object, or None if the port could not be opened.
 	"""
 	try:
-		return serial.Serial(
+		return BasestationCustomSerial(
 			port=port,
 			baudrate=115200,
 			parity=serial.PARITY_NONE,
@@ -41,7 +56,13 @@ def open_port(port: str, timeout: Optional[int] = None) -> Optional[serial.Seria
 		print(f"[open][SerialException] Could not open port {port}. Error: {str(e)}")
 		return None
 
-def open_continuous(port: Optional[str] = None, timeout: Optional[int] = None) -> serial.Serial:
+def open_simulated_basestation() -> SerialSimulator:
+	"""
+	Opens a simulated basestation connection.
+	"""
+	return SerialSimulator()
+
+def open_continuous(port: Optional[str] = None, timeout: Optional[int] = None) -> BasestationCustomSerial:
 	"""
 	Tries to open the port continuously until it succeeds.
 
@@ -50,7 +71,7 @@ def open_continuous(port: Optional[str] = None, timeout: Optional[int] = None) -
 		timeout (Optional[int], optional): Timeout for the serial connection. Defaults to None.
 
 	Returns:
-		serial.Serial: The serial connection object.
+		CustomSerial: The custom serial connection object.
 	"""
 	connection = None
 	i = -1 

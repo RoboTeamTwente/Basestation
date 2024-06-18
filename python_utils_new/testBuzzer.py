@@ -32,7 +32,7 @@ while True:
 	robot_buzzer.frequency = frequencies[note_index]
 	for robot_id in args.robot_ids:
 		robot_buzzer.toRobotId = robot_id
-		basestation.write(robot_buzzer.encode())
+		basestation.write(robot_buzzer)
 		print(f"Sent buzzer command to robot {robot_id} with frequency {robot_buzzer.frequency}")
 	# Move to the next note in the song
 	note_index = (note_index + 1) % len(frequencies)
