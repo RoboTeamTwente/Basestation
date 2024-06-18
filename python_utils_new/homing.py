@@ -69,7 +69,7 @@ class WorldSubscriber:
 		print(f"Connected to {address}:{port} as subscriber for homing")
 		subprocess.run(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 		self.procDocker = subprocess.Popen(
-			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer --vision-port 10020'],
+			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer'],
 			stdout=subprocess.DEVNULL, 
 			stderr=subprocess.STDOUT
 		)
@@ -87,6 +87,8 @@ class WorldSubscriber:
    
 	def write_output(self, robot_id: int, is_yellow: bool) -> None:
 		global observer_file
+		if observer_file is None:
+			return
 		data = self.socket.recv()
 		world_state = State_pb2.State()
 		world_state.ParseFromString(data)
