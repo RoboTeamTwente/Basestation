@@ -608,13 +608,13 @@ def createRobotCommand(robot_id, test, tick_counter, period_fraction, t_test_sta
 				notHomed = True
 				cmd.useYaw = 1
 				current_velocity_ref = velocityIterationList[test_period_counter]
-				if (time_in_period > ((period_length_acc_test - timeShift - drive_time)-current_velocity_ref/acceleration)):
+				if ((time_in_period > ((period_length_acc_test - timeShift - drive_time)-current_velocity_ref/acceleration)) and (time_in_period <= (period_length_acc_test - timeShift - drive_time))):
 					cmd.rho = acceleration*time_in_period + current_velocity_ref - acceleration
 					cmd.yaw = yawIterationList[test_period_counter]
 					cmd.theta = 0
 					cmd.acceleration_magnitude = acceleration
 					cmd.acceleration_angle = 0
-				elif (time_in_period > (period_length_acc_test - timeShift - drive_time)):
+				elif ((time_in_period > (period_length_acc_test - timeShift - drive_time)) and (time_in_period <= (period_length_acc_test - timeShift))):
 					cmd.rho = velocityIterationList[test_period_counter]
 					cmd.yaw = yawIterationList[test_period_counter]
 					cmd.theta = 0
