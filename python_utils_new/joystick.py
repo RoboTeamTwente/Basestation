@@ -21,8 +21,8 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_Rob
 from REMParser import REMParser
 import utils
 
-MAX_SPEED = 0.7
-KICK_SPEED =1.0
+MAX_SPEED = 1.0
+KICK_SPEED = 1.5
 ROTATION_SPEED = 3 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
 
@@ -134,7 +134,7 @@ class Joystick:
 		self.robot_id = robot_id
 		self.robot_ids = robot_ids
 		self.kick_speed = KICK_SPEED
-		self.dribblerOn = False
+		self.dribblerOn = True
 		self.yaw = 0
 		self.ignore_joystick = 0
 
@@ -170,14 +170,14 @@ class Joystick:
 					self.robot_id = (self.robot_id + self.controller.hat.x) % 16
 					self.assign_open_robot(addition=self.controller.hat.x)
 
-			# Toggle dribbler with Y
-			if self.controller.button_y._value and not self.Y:
-				self.dribblerOn = not self.dribblerOn
-			self.Y = self.controller.button_y._value
-			# Toggle dribbler with left trigger
-			if self.controller.button_trigger_l._value and not self.TRIGGER_L:
-				self.dribblerOn = not self.dribblerOn
-			self.TRIGGER_L = self.controller.button_trigger_l._value
+			# # Toggle dribbler with Y
+			# if self.controller.button_y._value and not self.Y:
+			# 	self.dribblerOn = not self.dribblerOn
+			# self.Y = self.controller.button_y._value
+			# # Toggle dribbler with left trigger
+			# if self.controller.button_trigger_l._value and not self.TRIGGER_L:
+			# 	self.dribblerOn = not self.dribblerOn
+			# self.TRIGGER_L = self.controller.button_trigger_l._value
 
 			self.command.dribblerOn = self.dribblerOn
 
@@ -211,11 +211,11 @@ class Joystick:
 			velocity_y = max(0, abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone) * np.sign(self.controller.axis_l.y)
 
 			rho = math.sqrt(velocity_x ** 2 + velocity_y ** 2) * MAX_SPEED
-			theta = math.atan2(velocity_y, velocity_x)
+			theta = math.atan2(velocity_x, velocity_y)
 
 			self.command.toRobotId = self.robot_id
 			self.command.rho = rho
-			self.command.theta = theta + self.yaw
+			self.command.theta = theta + self.yaw + math.pi
 			self.command.yaw = self.yaw
 		else:
 			# If joystick input is ignored, set all commands to stop
