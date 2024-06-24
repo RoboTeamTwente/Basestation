@@ -403,9 +403,11 @@ def parse_and_process_args() -> argparse.Namespace:
 	elif len(args.vision_ids) != len(args.robot_ids):
 		print("Vision ids should be the same length as robot ids")
 		exit()
+
+	global simulate
+	simulate = False
  
 	if args.simulate:
-		global simulate
 		simulate = True
 		basestation = utils.open_simulated_basestation()
 		print("Simulated basestation opened")
