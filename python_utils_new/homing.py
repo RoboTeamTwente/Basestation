@@ -34,15 +34,49 @@ Y_LOCATION_HOMING = -0
 X_OFFSET_ADDITIONAL_ROBOT = 0
 Y_OFFSET_ADDITIONAL_ROBOT = 1 
 HOMING_TIME = 5
-TEST_TIME = 4
+TEST_TIME = 10
 BASESTATION_FREQUENCY = 60 # ticks per second
 
 # TRAPEZOID TEST
-MAX_ACCELERATION = [1, 2]
+MAX_ACCELERATION = [1.5, 0.3]
 START_ACCERLERATION = 0.5
 END_ACCELERATION = 1.5
 START_DECELERATION = 2.5
 END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
+
+# TRAPEZOID-CONTROL TEST
+# velocityList = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3] # max 8 m/s otherwise problems due to REM_RobotCommand discretisation
+# velocityList.sort(reverse=True)
+# yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
+# yawDegreesList.sort(reverse=False)
+vel_list = [1.5, 0.3]
+yaw_list = [0, math.pi]
+acceleration_of_test = 3.5
+
+VELOCITY_LIST = []
+YAW_LIST = []
+ACC_LIST = []
+for i in range(0,len(vel_list)):
+	for j in range(0,len(yaw_list)):
+		VELOCITY_LIST.append(vel_list[i])
+		YAW_LIST.append(yaw_list[j])
+		ACC_LIST.append(acceleration_of_test)
+START_TIME_CONSTANT_VELOCITY = 1.0
+DRIVE_TIME = 3.0
+END_TIME_CONSTANT_VELOCITY = START_TIME_CONSTANT_VELOCITY + DRIVE_TIME
+START_TIME_ACCELERATION = []
+END_TIME_DECELERATION = []
+for i in range(0,len(VELOCITY_LIST)):
+	acc_time = (VELOCITY_LIST[i] / ACC_LIST[i])
+	START_TIME_ACCELERATION.append( START_TIME_CONSTANT_VELOCITY - acc_time )
+	END_TIME_DECELERATION.append( END_TIME_CONSTANT_VELOCITY + acc_time )
+
+# MAX_ACCELERATION = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
+# MAX_ACCELERATION.sort(reverse=False)
+# START_ACCERLERATION = 0.5
+# END_ACCELERATION = 1.5
+# START_DECELERATION = 2.5
+# END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
 
 if END_DECELERATION > TEST_TIME:
 	print("The test is not possible with the given parameters")
@@ -70,7 +104,7 @@ class WorldSubscriber:
 		print(f"Connected to {address}:{port} as subscriber for homing")
 		subprocess.run(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 		self.procDocker = subprocess.Popen(
-			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer'],
+			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer', '--vision-port 10020'],
 			stdout=subprocess.DEVNULL, 
 			stderr=subprocess.STDOUT
 		)
@@ -162,17 +196,19 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 	cmd.toRobotId = robot_id
 	subscriber.write_output(vision_id, True)
 	if is_homing(tick_number):
-		cmd.useCameraYaw = 1
-		cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
-		target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
-		target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		global simulate
+		if not simulate:
+			cmd.useCameraYaw = 1
+			cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
+			target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
+			target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
 
-		current_x, current_y = subscriber.get_robot_position(vision_id, True)
-		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
-		direction = math.atan2(target_y - current_y, target_x - current_x)
-		cmd.theta = direction
-		cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
-		cmd.yaw = 0
+			current_x, current_y = subscriber.get_robot_position(vision_id, True)
+			distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
+			direction = math.atan2(target_y - current_y, target_x - current_x)
+			cmd.theta = direction
+			cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
+			cmd.yaw = 0
 	else:
 		if test == "trapezoid":
 			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
@@ -194,6 +230,131 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCERLERATION) - max_acceleration * (time_since_start - START_DECELERATION)
 				cmd.rho = max(0, cmd.rho)
 				cmd.theta = 0
+		elif test == "trapezoid-control":
+			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
+			print("test_number", test_number)
+
+			if test_number == len(VELOCITY_LIST):
+				print("All tests are done")
+				exit()
+
+			vel = VELOCITY_LIST[test_number]
+			yaw = YAW_LIST[test_number]
+			acc = ACC_LIST[test_number]
+			# START_TIME_CONSTANT_VELOCITY
+			# DRIVE_TIME
+			# END_TIME_CONSTANT_VELOCITY
+			start_time_acceleration = START_TIME_ACCELERATION[test_number]
+			end_time_deceleration = END_TIME_DECELERATION[test_number]
+
+			time_since_start = (tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME) / BASESTATION_FREQUENCY
+
+			if time_since_start < start_time_acceleration:
+				cmd.rho = 0
+				cmd.theta = 0
+				cmd.yaw = yaw
+			elif time_since_start < START_TIME_CONSTANT_VELOCITY:
+				cmd.rho = acc * time_since_start + vel - acc * START_TIME_CONSTANT_VELOCITY
+				cmd.theta = 0
+				cmd.yaw = yaw
+				cmd.acceleration_magnitude = acc
+				cmd.acceleration_angle = 0
+			elif time_since_start < END_TIME_CONSTANT_VELOCITY:
+				cmd.rho = vel
+				cmd.theta = 0
+				cmd.yaw = yaw
+			elif time_since_start < end_time_deceleration:
+				cmd.rho = -acc*time_since_start + vel + acc * END_TIME_CONSTANT_VELOCITY
+				cmd.theta = 0
+				cmd.yaw = YAW_LIST[test_number]
+				cmd.acceleration_magnitude = acc
+				cmd.acceleration_angle = 0 + math.pi
+			else:
+				cmd.rho = 0
+				cmd.theta = 0
+				cmd.yaw = YAW_LIST[test_number]
+		elif test == "trapezoid-control-backforth":
+			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
+			print("test_number", test_number)
+
+			if test_number == (len(VELOCITY_LIST)//2):
+				print("All tests are done")
+				exit()
+
+			half_test_time = TEST_TIME/2
+
+			
+
+			time_since_start = (tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME) / BASESTATION_FREQUENCY
+			time_since_start_2 = time_since_start - half_test_time
+			if (time_since_start_2 < 0.0):
+				vel = VELOCITY_LIST[2*test_number]
+				yaw = YAW_LIST[2*test_number]
+				acc = ACC_LIST[2*test_number]
+				# START_TIME_CONSTANT_VELOCITY
+				# DRIVE_TIME
+				# END_TIME_CONSTANT_VELOCITY
+				start_time_acceleration = START_TIME_ACCELERATION[2*test_number]
+				end_time_deceleration = END_TIME_DECELERATION[2*test_number]
+			else:
+				vel = VELOCITY_LIST[2*test_number+1]
+				yaw = YAW_LIST[2*test_number+1]
+				acc = ACC_LIST[2*test_number+1]
+				# START_TIME_CONSTANT_VELOCITY
+				# DRIVE_TIME
+				# END_TIME_CONSTANT_VELOCITY
+				start_time_acceleration = START_TIME_ACCELERATION[2*test_number+1]
+				end_time_deceleration = END_TIME_DECELERATION[2*test_number+1]
+
+			if time_since_start < start_time_acceleration:
+				cmd.rho = 0
+				cmd.theta = 0
+				cmd.yaw = yaw
+			elif time_since_start < START_TIME_CONSTANT_VELOCITY:
+				cmd.rho = acc * time_since_start + vel - acc * START_TIME_CONSTANT_VELOCITY
+				cmd.theta = 0
+				cmd.yaw = yaw
+				cmd.acceleration_magnitude = acc
+				cmd.acceleration_angle = 0
+			elif time_since_start < END_TIME_CONSTANT_VELOCITY:
+				cmd.rho = vel
+				cmd.theta = 0
+				cmd.yaw = yaw
+			elif time_since_start < end_time_deceleration:
+				cmd.rho = -acc*time_since_start + vel + acc * END_TIME_CONSTANT_VELOCITY
+				cmd.theta = 0
+				cmd.yaw = yaw
+				cmd.acceleration_magnitude = acc
+				cmd.acceleration_angle = 0 + math.pi
+			elif time_since_start < half_test_time:
+				cmd.rho = 0
+				cmd.theta = 0
+				cmd.yaw = yaw
+			# Second half
+			elif time_since_start_2 < start_time_acceleration:
+				cmd.rho = 0
+				cmd.theta = 0 + math.pi
+				cmd.yaw = yaw + math.pi
+			elif time_since_start_2 < START_TIME_CONSTANT_VELOCITY:
+				cmd.rho = acc * time_since_start_2 + vel - acc * START_TIME_CONSTANT_VELOCITY
+				cmd.theta = 0 + math.pi
+				cmd.yaw = yaw + math.pi
+				cmd.acceleration_magnitude = acc
+				cmd.acceleration_angle = 0 + math.pi
+			elif time_since_start_2 < END_TIME_CONSTANT_VELOCITY:
+				cmd.rho = vel
+				cmd.theta = 0 + math.pi
+				cmd.yaw = yaw + math.pi
+			elif time_since_start_2 < end_time_deceleration:
+				cmd.rho = -acc*time_since_start_2 + vel + acc * END_TIME_CONSTANT_VELOCITY
+				cmd.theta = 0 + math.pi
+				cmd.yaw = yaw + math.pi
+				cmd.acceleration_magnitude = acc
+				cmd.acceleration_angle = 0 + math.pi + math.pi
+			else:
+				cmd.rho = 0
+				cmd.theta = 0 + math.pi
+				cmd.yaw = yaw + math.pi
 		else:
 			cmd.rho = 0
 			cmd.theta = 0
@@ -229,7 +390,7 @@ def parse_and_process_args() -> argparse.Namespace:
 	"""
 	global basestation
 	parser = argparse.ArgumentParser()
-	testsAvailable = ["nothing", "trapezoid"]
+	testsAvailable = ["nothing", "trapezoid","trapezoid-control","trapezoid-control-backforth"]
 	parser.add_argument("--test", choices=testsAvailable, default="nothing", help="Specify which test to run. Default is 'nothing'.")
 	parser.add_argument("robot_ids", type=int, nargs='+', help="An array of integers for the robot ids. These are the IDs the basestation will use to communicate with the robots.")
 	parser.add_argument('--output-dir', '-d', help="REMParser output directory. Logs will be placed under 'logs/OUTPUT_DIR'")
@@ -244,6 +405,8 @@ def parse_and_process_args() -> argparse.Namespace:
 		exit()
  
 	if args.simulate:
+		global simulate
+		simulate = True
 		basestation = utils.open_simulated_basestation()
 		print("Simulated basestation opened")
 	elif (basestation is None or not basestation.isOpen()):
@@ -258,6 +421,7 @@ def main() -> None:
 	"""
 	Main function
 	"""
+	simulate = False
 	global basestation
 	args = parse_and_process_args()
 	datetime_str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
