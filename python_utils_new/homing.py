@@ -33,7 +33,7 @@ Y_LOCATION_HOMING = -0
 # Every additional robot will be placed at the following offset from the previous robot
 X_OFFSET_ADDITIONAL_ROBOT = 0
 Y_OFFSET_ADDITIONAL_ROBOT = 1 
-HOMING_TIME = 5
+HOMING_TIME = 3
 TEST_TIME = 10
 BASESTATION_FREQUENCY = 60 # ticks per second
 
@@ -49,10 +49,15 @@ END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
 # velocityList.sort(reverse=True)
 # yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 # yawDegreesList.sort(reverse=False)
-vel_list = [1.5, 0.3]
-yaw_list = [0, math.pi]
+# vel_list = [0.75]
+# yaw_list = [0, math.pi]
+vel_list = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
+yaw_list = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
+for i in range(0,len(yaw_list)):
+	yaw_list[i] = yaw_list[i] * math.pi/180
 acceleration_of_test = 3.5
 
+OMEGA_LIST = [12.0, 10.0, 7.5, 5.0, 2.5, 1.0]
 VELOCITY_LIST = []
 YAW_LIST = []
 ACC_LIST = []
@@ -277,7 +282,10 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
 			print("test_number", test_number)
 
-			if test_number == (len(VELOCITY_LIST)//2):
+			rotationalPartOfTest = False
+			if test_number >= (len(VELOCITY_LIST)//2):
+				rotationalPartOfTest = True
+			elif test_number == (len(OMEGA_LIST)//2 + len(VELOCITY_LIST)//2):
 				print("All tests are done")
 				exit()
 
@@ -287,74 +295,85 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 
 			time_since_start = (tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME) / BASESTATION_FREQUENCY
 			time_since_start_2 = time_since_start - half_test_time
-			if (time_since_start_2 < 0.0):
-				vel = VELOCITY_LIST[2*test_number]
-				yaw = YAW_LIST[2*test_number]
-				acc = ACC_LIST[2*test_number]
-				# START_TIME_CONSTANT_VELOCITY
-				# DRIVE_TIME
-				# END_TIME_CONSTANT_VELOCITY
-				start_time_acceleration = START_TIME_ACCELERATION[2*test_number]
-				end_time_deceleration = END_TIME_DECELERATION[2*test_number]
-			else:
-				vel = VELOCITY_LIST[2*test_number+1]
-				yaw = YAW_LIST[2*test_number+1]
-				acc = ACC_LIST[2*test_number+1]
-				# START_TIME_CONSTANT_VELOCITY
-				# DRIVE_TIME
-				# END_TIME_CONSTANT_VELOCITY
-				start_time_acceleration = START_TIME_ACCELERATION[2*test_number+1]
-				end_time_deceleration = END_TIME_DECELERATION[2*test_number+1]
+			
 
-			if time_since_start < start_time_acceleration:
-				cmd.rho = 0
-				cmd.theta = 0
-				cmd.yaw = yaw
-			elif time_since_start < START_TIME_CONSTANT_VELOCITY:
-				cmd.rho = acc * time_since_start + vel - acc * START_TIME_CONSTANT_VELOCITY
-				cmd.theta = 0
-				cmd.yaw = yaw
-				cmd.acceleration_magnitude = acc
-				cmd.acceleration_angle = 0
-			elif time_since_start < END_TIME_CONSTANT_VELOCITY:
-				cmd.rho = vel
-				cmd.theta = 0
-				cmd.yaw = yaw
-			elif time_since_start < end_time_deceleration:
-				cmd.rho = -acc*time_since_start + vel + acc * END_TIME_CONSTANT_VELOCITY
-				cmd.theta = 0
-				cmd.yaw = yaw
-				cmd.acceleration_magnitude = acc
-				cmd.acceleration_angle = 0 + math.pi
-			elif time_since_start < half_test_time:
-				cmd.rho = 0
-				cmd.theta = 0
-				cmd.yaw = yaw
-			# Second half
-			elif time_since_start_2 < start_time_acceleration:
-				cmd.rho = 0
-				cmd.theta = 0 + math.pi
-				cmd.yaw = yaw + math.pi
-			elif time_since_start_2 < START_TIME_CONSTANT_VELOCITY:
-				cmd.rho = acc * time_since_start_2 + vel - acc * START_TIME_CONSTANT_VELOCITY
-				cmd.theta = 0 + math.pi
-				cmd.yaw = yaw + math.pi
-				cmd.acceleration_magnitude = acc
-				cmd.acceleration_angle = 0 + math.pi
-			elif time_since_start_2 < END_TIME_CONSTANT_VELOCITY:
-				cmd.rho = vel
-				cmd.theta = 0 + math.pi
-				cmd.yaw = yaw + math.pi
-			elif time_since_start_2 < end_time_deceleration:
-				cmd.rho = -acc*time_since_start_2 + vel + acc * END_TIME_CONSTANT_VELOCITY
-				cmd.theta = 0 + math.pi
-				cmd.yaw = yaw + math.pi
-				cmd.acceleration_magnitude = acc
-				cmd.acceleration_angle = 0 + math.pi + math.pi
+			if not rotationalPartOfTest:
+				if (time_since_start_2 < 0.0):
+					vel = VELOCITY_LIST[2*test_number]
+					yaw = YAW_LIST[2*test_number]
+					acc = ACC_LIST[2*test_number]
+					# START_TIME_CONSTANT_VELOCITY
+					# DRIVE_TIME
+					# END_TIME_CONSTANT_VELOCITY
+					start_time_acceleration = START_TIME_ACCELERATION[2*test_number]
+					end_time_deceleration = END_TIME_DECELERATION[2*test_number]
+				else:
+					vel = VELOCITY_LIST[2*test_number+1]
+					yaw = YAW_LIST[2*test_number+1]
+					acc = ACC_LIST[2*test_number+1]
+					# START_TIME_CONSTANT_VELOCITY
+					# DRIVE_TIME
+					# END_TIME_CONSTANT_VELOCITY
+					start_time_acceleration = START_TIME_ACCELERATION[2*test_number+1]
+					end_time_deceleration = END_TIME_DECELERATION[2*test_number+1]
+					
+
+				if time_since_start < start_time_acceleration:
+					cmd.rho = 0
+					cmd.theta = 0
+					cmd.yaw = yaw
+				elif time_since_start < START_TIME_CONSTANT_VELOCITY:
+					cmd.rho = acc * time_since_start + vel - acc * START_TIME_CONSTANT_VELOCITY
+					cmd.theta = 0
+					cmd.yaw = yaw
+					cmd.acceleration_magnitude = acc
+					cmd.acceleration_angle = 0
+				elif time_since_start < END_TIME_CONSTANT_VELOCITY:
+					cmd.rho = vel
+					cmd.theta = 0
+					cmd.yaw = yaw
+				elif time_since_start < end_time_deceleration:
+					cmd.rho = -acc*time_since_start + vel + acc * END_TIME_CONSTANT_VELOCITY
+					cmd.theta = 0
+					cmd.yaw = yaw
+					cmd.acceleration_magnitude = acc
+					cmd.acceleration_angle = 0 + math.pi
+				elif time_since_start < half_test_time:
+					cmd.rho = 0
+					cmd.theta = 0
+					cmd.yaw = yaw
+				# Second half
+				elif time_since_start_2 < start_time_acceleration:
+					cmd.rho = 0
+					cmd.theta = 0 + math.pi
+					cmd.yaw = yaw + math.pi
+				elif time_since_start_2 < START_TIME_CONSTANT_VELOCITY:
+					cmd.rho = acc * time_since_start_2 + vel - acc * START_TIME_CONSTANT_VELOCITY
+					cmd.theta = 0 + math.pi
+					cmd.yaw = yaw + math.pi
+					cmd.acceleration_magnitude = acc
+					cmd.acceleration_angle = 0 + math.pi
+				elif time_since_start_2 < END_TIME_CONSTANT_VELOCITY:
+					cmd.rho = vel
+					cmd.theta = 0 + math.pi
+					cmd.yaw = yaw + math.pi
+				elif time_since_start_2 < end_time_deceleration:
+					cmd.rho = -acc*time_since_start_2 + vel + acc * END_TIME_CONSTANT_VELOCITY
+					cmd.theta = 0 + math.pi
+					cmd.yaw = yaw + math.pi
+					cmd.acceleration_magnitude = acc
+					cmd.acceleration_angle = 0 + math.pi + math.pi
+				else:
+					cmd.rho = 0
+					cmd.theta = 0 + math.pi
+					cmd.yaw = yaw + math.pi
 			else:
-				cmd.rho = 0
-				cmd.theta = 0 + math.pi
-				cmd.yaw = yaw + math.pi
+				if (time_since_start_2 < 0.0):
+					angular_velocity = OMEGA_LIST[2*(test_number-len(VELOCITY_LIST)//2)]
+				else:
+					angular_velocity = OMEGA_LIST[2*(test_number-len(VELOCITY_LIST)//2)+1]
+				cmd.useYaw = False
+				cmd.angularVelocity = angular_velocity
 		else:
 			cmd.rho = 0
 			cmd.theta = 0

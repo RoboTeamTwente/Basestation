@@ -63,19 +63,19 @@ def main() -> None:
     # Ensure the first timestamp is consistent across all plots
     first_timestamp = robot_commands[0].timestamp
     if args.input_file != 'latest.rembin':
-        observer_data = pd.read_csv(args.input_file.replace('.rembin', '.csv'))
-    # else:
-    #     observer_data = pd.read_csv('latest_observer.csv')
-    # observer_data = observer_data[observer_data['timestamp'] >= first_timestamp]
-    # observer_data['timestamp'] = (observer_data['timestamp'] - first_timestamp) / 1000
-    # observer_data['rho'] = (observer_data['velocity_x']**2 + observer_data['velocity_y']**2)**0.5
-    # observer_data['theta'] = np.arctan2(observer_data['velocity_y'], observer_data['velocity_x'])
+        observer_data = pd.read_csv(args.input_file.replace('.bin', '.csv'))
+    else:
+        observer_data = pd.read_csv('latest_observer.csv')
+    observer_data = observer_data[observer_data['timestamp'] >= first_timestamp]
+    observer_data['timestamp'] = (observer_data['timestamp'] - first_timestamp) / 1000
+    observer_data['rho'] = (observer_data['velocity_x']**2 + observer_data['velocity_y']**2)**0.5
+    observer_data['theta'] = np.arctan2(observer_data['velocity_y'], observer_data['velocity_x'])
 
     # Extract and plot 'rho' values
     t_rc, rho_rc = extract_values(robot_commands, 'rho', first_timestamp)
     t_rf, rho_rf = extract_values(robot_feedback, 'rho', first_timestamp)
-    # plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho', observer_data)
-    plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho')
+    plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho', observer_data)
+    # plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho')
 
     # Extract and plot 'acceleration_magnitude' values
     t_rc, acceleration_magnitude_rc = extract_values(robot_commands, 'acceleration_magnitude', first_timestamp)
@@ -87,14 +87,26 @@ def main() -> None:
     # Extract and plot 'yaw' values
     t_rc, yaw_rc = extract_values(robot_commands, 'yaw', first_timestamp)
     t_rf, yaw_rf = extract_values(robot_feedback, 'yaw', first_timestamp)
-    # plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta', observer_data)
-    plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'yaw')
+    plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'theta', observer_data)
+    # plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'yaw')
+
+    # Extract and plot 'batteryLevel' values
+    t_rf, batteryLevel_rf = extract_values(robot_feedback, 'batteryLevel', first_timestamp)
+    plot_values(t_rf, batteryLevel_rf, None, None, 'batteryLevel')
+
+    # Extract and plot 'wheelController_1' values
+    t_rsi, wheelVoltage1_rsi = extract_values(robot_state_info, 'wheelController_1', first_timestamp)
+    t_rsi, wheelVoltage2_rsi = extract_values(robot_state_info, 'wheelController_4', first_timestamp)
+    for i in range(0,len(wheelVoltage1_rsi)):
+        wheelVoltage1_rsi[i] = wheelVoltage1_rsi[i]*23.6
+        wheelVoltage2_rsi[i] = wheelVoltage2_rsi[i]*23.6
+    plot_values(t_rsi, wheelVoltage1_rsi, t_rsi, wheelVoltage2_rsi, 'wheelController_1and4')
 
     # Extract and plot 'theta' values
     t_rc, theta_rc = extract_values(robot_commands, 'theta', first_timestamp)
     t_rf, theta_rf = extract_values(robot_feedback, 'theta', first_timestamp)
-    # plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta', observer_data)
-    plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta')
+    plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta', observer_data)
+    # plot_values(t_rc, theta_rc, t_rf, theta_rf, 'theta')
     
     # Extract and plot 'wheelSpeed' values from state info
     tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef1', first_timestamp)
