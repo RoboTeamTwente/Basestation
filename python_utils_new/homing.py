@@ -452,24 +452,33 @@ def main() -> None:
 		output_file = f"logs/{args.output_dir}/log_{datetime_str}.bin"
 		create_observer_file(args, datetime_str)
 	parser = REMParser(basestation, output_file=output_file)
-	last_tick_time = 0
+	last_tick_time = time.time()
 	tick_number = 0
 	last_packet_feedback = None
 	last_packet_state_info = None
 	latest_feedback_time = time.time()
 	image_vis = np.zeros((500, 500, 3), dtype=float)
+	
 	while True:
-		if time.time() - latest_feedback_time > 1:
-			print("No feedback received in the last second")
-		time_till_next_tick = last_tick_time + 1/BASESTATION_FREQUENCY - time.time()
-		time.sleep(max(0,time_till_next_tick))
-		last_tick_time = time.time()
-		counter = 0
-		for robot_id, vision_id in zip(args.robot_ids, args.vision_ids):
-			cmd = create_robot_command(tick_number, counter, robot_id, vision_id, args.test)
-			basestation.write(cmd)
-			parser.write_bytes(cmd.encode())
-			counter += 1
+		current_time = time.time()
+		seconds_until_next_tick = last_tick_time + 1./BASESTATION_FREQUENCY - current_time
+		tick_required = seconds_until_next_tick < 0
+
+		# If tick is not required yet, sleep for 10% of the time between ticks, sleeping for the last 10% doesn't work for some reason
+		# In that case, the sleep time will be a bit too long and that results in a frequency below the desired frequency
+		# It 'should' also still give the script enough time between ticks to handle all reading and rendering
+		if not tick_required and 0.1 / BASESTATION_FREQUENCY < seconds_until_next_tick: 
+			time.sleep(0.1 / BASESTATION_FREQUENCY)
+		if tick_required:
+			if current_time - latest_feedback_time > 1:
+				print("No feedback received in the last second")
+			last_tick_time += 1/BASESTATION_FREQUENCY
+			counter = 0
+			for robot_id, vision_id in zip(args.robot_ids, args.vision_ids):
+				cmd = create_robot_command(tick_number, counter, robot_id, vision_id, args.test)
+				basestation.write(cmd)
+				parser.write_bytes(cmd.encode())
+				counter += 1
 		parser.read()
 		parser.process()
 		while parser.has_packets():
