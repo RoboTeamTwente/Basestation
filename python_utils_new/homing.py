@@ -49,14 +49,15 @@ END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
 # velocityList.sort(reverse=True)
 # yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 # yawDegreesList.sort(reverse=False)
-# vel_list = [0.75]
-# yaw_list = [0, math.pi]
-vel_list = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
-yaw_list = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
+vel_list = [1.5, 0.5]
+yaw_list = [0, 180]
+# vel_list = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
+# yaw_list = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 for i in range(0,len(yaw_list)):
 	yaw_list[i] = yaw_list[i] * math.pi/180
 acceleration_of_test = 3.5
 
+DRIVING_ANGLE = 0
 OMEGA_LIST = [12.0, 10.0, 7.5, 5.0, 2.5, 1.0]
 VELOCITY_LIST = []
 YAW_LIST = []
@@ -75,13 +76,6 @@ for i in range(0,len(VELOCITY_LIST)):
 	acc_time = (VELOCITY_LIST[i] / ACC_LIST[i])
 	START_TIME_ACCELERATION.append( START_TIME_CONSTANT_VELOCITY - acc_time )
 	END_TIME_DECELERATION.append( END_TIME_CONSTANT_VELOCITY + acc_time )
-
-# MAX_ACCELERATION = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
-# MAX_ACCELERATION.sort(reverse=False)
-# START_ACCERLERATION = 0.5
-# END_ACCELERATION = 1.5
-# START_DECELERATION = 2.5
-# END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
 
 if END_DECELERATION > TEST_TIME:
 	print("The test is not possible with the given parameters")
@@ -285,7 +279,7 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 			rotationalPartOfTest = False
 			if test_number >= (len(VELOCITY_LIST)//2):
 				rotationalPartOfTest = True
-			elif test_number == (len(OMEGA_LIST)//2 + len(VELOCITY_LIST)//2):
+			if test_number == (len(OMEGA_LIST)//2 + len(VELOCITY_LIST)//2):
 				print("All tests are done")
 				exit()
 
@@ -307,66 +301,51 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 					# END_TIME_CONSTANT_VELOCITY
 					start_time_acceleration = START_TIME_ACCELERATION[2*test_number]
 					end_time_deceleration = END_TIME_DECELERATION[2*test_number]
+
+					theta = DRIVING_ANGLE
+					acc_angle = DRIVING_ANGLE
+					time_since_start = time_since_start
 				else:
 					vel = VELOCITY_LIST[2*test_number+1]
-					yaw = YAW_LIST[2*test_number+1]
+					yaw = YAW_LIST[2*test_number+1] + math.pi
 					acc = ACC_LIST[2*test_number+1]
 					# START_TIME_CONSTANT_VELOCITY
 					# DRIVE_TIME
 					# END_TIME_CONSTANT_VELOCITY
 					start_time_acceleration = START_TIME_ACCELERATION[2*test_number+1]
 					end_time_deceleration = END_TIME_DECELERATION[2*test_number+1]
-					
+
+					theta = DRIVING_ANGLE + math.pi
+					acc_angle = DRIVING_ANGLE + math.pi
+					time_since_start = time_since_start_2
 
 				if time_since_start < start_time_acceleration:
 					cmd.rho = 0
-					cmd.theta = 0
+					cmd.theta = theta
 					cmd.yaw = yaw
 				elif time_since_start < START_TIME_CONSTANT_VELOCITY:
 					cmd.rho = acc * time_since_start + vel - acc * START_TIME_CONSTANT_VELOCITY
-					cmd.theta = 0
+					cmd.theta = theta
 					cmd.yaw = yaw
 					cmd.acceleration_magnitude = acc
-					cmd.acceleration_angle = 0
+					cmd.acceleration_angle = acc_angle
 				elif time_since_start < END_TIME_CONSTANT_VELOCITY:
 					cmd.rho = vel
-					cmd.theta = 0
+					cmd.theta = theta
 					cmd.yaw = yaw
 				elif time_since_start < end_time_deceleration:
 					cmd.rho = -acc*time_since_start + vel + acc * END_TIME_CONSTANT_VELOCITY
-					cmd.theta = 0
+					cmd.theta = theta
 					cmd.yaw = yaw
 					cmd.acceleration_magnitude = acc
-					cmd.acceleration_angle = 0 + math.pi
-				elif time_since_start < half_test_time:
-					cmd.rho = 0
-					cmd.theta = 0
-					cmd.yaw = yaw
-				# Second half
-				elif time_since_start_2 < start_time_acceleration:
-					cmd.rho = 0
-					cmd.theta = 0 + math.pi
-					cmd.yaw = yaw + math.pi
-				elif time_since_start_2 < START_TIME_CONSTANT_VELOCITY:
-					cmd.rho = acc * time_since_start_2 + vel - acc * START_TIME_CONSTANT_VELOCITY
-					cmd.theta = 0 + math.pi
-					cmd.yaw = yaw + math.pi
-					cmd.acceleration_magnitude = acc
-					cmd.acceleration_angle = 0 + math.pi
-				elif time_since_start_2 < END_TIME_CONSTANT_VELOCITY:
-					cmd.rho = vel
-					cmd.theta = 0 + math.pi
-					cmd.yaw = yaw + math.pi
-				elif time_since_start_2 < end_time_deceleration:
-					cmd.rho = -acc*time_since_start_2 + vel + acc * END_TIME_CONSTANT_VELOCITY
-					cmd.theta = 0 + math.pi
-					cmd.yaw = yaw + math.pi
-					cmd.acceleration_magnitude = acc
-					cmd.acceleration_angle = 0 + math.pi + math.pi
+					cmd.acceleration_angle = acc_angle + math.pi
 				else:
 					cmd.rho = 0
-					cmd.theta = 0 + math.pi
-					cmd.yaw = yaw + math.pi
+					cmd.theta = theta
+					cmd.yaw = yaw
+				# print('cmd.yaw = ',cmd.yaw)
+				# print('cmd.acceleration_angle = ',cmd.theta)
+				# print('cmd.acceleration_angle = ',cmd.theta)
 			else:
 				if (time_since_start_2 < 0.0):
 					angular_velocity = OMEGA_LIST[2*(test_number-len(VELOCITY_LIST)//2)]
@@ -377,7 +356,6 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		else:
 			cmd.rho = 0
 			cmd.theta = 0
-
 	return cmd
 
 def create_observer_file(args, datetime_str: str):
@@ -458,6 +436,8 @@ def main() -> None:
 	last_packet_state_info = None
 	latest_feedback_time = time.time()
 	image_vis = np.zeros((500, 500, 3), dtype=float)
+
+	cmd = utils.generate_empty_robot_command()
 	
 	while True:
 		current_time = time.time()
@@ -479,6 +459,7 @@ def main() -> None:
 				basestation.write(cmd)
 				parser.write_bytes(cmd.encode())
 				counter += 1
+			tick_number += 1
 		parser.read()
 		parser.process()
 		while parser.has_packets():
@@ -491,7 +472,7 @@ def main() -> None:
 			elif isinstance(packet, REM_Log):
 				print(packet.message)
 
-		tick_number += 1
+
 
 		# ========== VISUALISING ========== #
 		image_vis = visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd)
