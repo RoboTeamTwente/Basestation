@@ -21,6 +21,7 @@ from REMParser import REMParser
 import utils
 
 basestation = None
+BASESTATION_FREQUENCY = 60
 
 def rotate(origin, point, angle):
 	ox, oy = origin
@@ -131,23 +132,28 @@ def main() -> None:
 		os.makedirs(f"logs/{args.output_dir}", exist_ok=True)
 		output_file = f"logs/{args.output_dir}/log_{datetime_str}.bin"
 	parser = REMParser(basestation, output_file=output_file)
-	last_tick_time = 0
+	last_tick_time = time.time()
+	latest_feedback_time = time.time()
 	tick_number = 0
 	last_packet_feedback = None
 	last_packet_state_info = None
-	latest_feedback_time = time.time()
+	cmd = None
 	image_vis = np.zeros((500, 500, 3), dtype=float)
 	while True:
-		if time.time() - latest_feedback_time > 1:
-			print("No feedback received in the last second")
-		cmd = create_robot_command(args.test, tick_number)
-		time_till_next_tick = last_tick_time + 1/60 - time.time()
-		time.sleep(max(0,time_till_next_tick))
-		last_tick_time = time.time()
-		for robot_id in args.robot_ids:
-			cmd.toRobotId = robot_id
-			basestation.write(cmd)
-			parser.write_bytes(cmd.encode())
+		current_time = time.time()
+		time_till_next_tick = last_tick_time + 1/BASESTATION_FREQUENCY - current_time
+		if time_till_next_tick > 0.1 / BASESTATION_FREQUENCY:
+			time.sleep(0.1 / BASESTATION_FREQUENCY)
+		if time_till_next_tick < 0:
+			if (current_time - latest_feedback_time > 1) and (tick_number % BASESTATION_FREQUENCY == 0):
+				print("\033[93mNo feedback received in the last second\033[0m")
+			last_tick_time += 1/BASESTATION_FREQUENCY
+			tick_number += 1
+			cmd = create_robot_command(args.test, tick_number)
+			for robot_id in args.robot_ids:
+				cmd.toRobotId = robot_id
+				basestation.write(cmd)
+				parser.write_bytes(cmd.encode())
 		parser.read()
 		parser.process()
 		while parser.has_packets():
@@ -162,7 +168,6 @@ def main() -> None:
 			elif isinstance(packet, REM_Log):
 				print(packet.message)
 
-		tick_number += 1
 
 		# ========== VISUALISING ========== #
 		image_vis = visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd)

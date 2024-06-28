@@ -36,7 +36,7 @@ class REMParser:
 		if output_file:
 			current_dir = os.path.dirname(os.path.abspath(__file__))
 			output_file_path = os.path.join(current_dir, output_file)
-			print(f"[REMParser] Creating output file {output_file_path}")
+			print(f"\033[92m[REMParser] Creating output file {output_file_path}\033[0m")
 			self.output_file = open(output_file_path, "wb")
 			latest_file_path = os.path.join(current_dir, "latest.rembin")
 			if os.path.lexists(latest_file_path):

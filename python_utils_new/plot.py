@@ -61,14 +61,17 @@ def main() -> None:
     
     # Ensure the first timestamp is consistent across all plots
     first_timestamp = robot_commands[0].timestamp
-    if args.input_file != 'latest.rembin':
-        observer_data = pd.read_csv(args.input_file.replace('.rembin', '.csv'))
-    else:
-        observer_data = pd.read_csv('latest_observer.csv')
-    observer_data = observer_data[observer_data['timestamp'] >= first_timestamp]
-    observer_data['timestamp'] = (observer_data['timestamp'] - first_timestamp) / 1000
-    observer_data['rho'] = (observer_data['velocity_x']**2 + observer_data['velocity_y']**2)**0.5
-    observer_data['theta'] = np.arctan2(observer_data['velocity_y'], observer_data['velocity_x'])
+    try:
+        if args.input_file != 'latest.rembin':
+            observer_data = pd.read_csv(args.input_file.replace('.bin', '.csv').replace('.log', '.observer'))
+        else:
+            observer_data = pd.read_csv('latest_observer.csv')
+        observer_data = observer_data[observer_data['timestamp'] >= first_timestamp]
+        observer_data['timestamp'] = (observer_data['timestamp'] - first_timestamp) / 1000
+        observer_data['rho'] = (observer_data['velocity_x']**2 + observer_data['velocity_y']**2)**0.5
+        observer_data['theta'] = np.arctan2(observer_data['velocity_y'], observer_data['velocity_x'])
+    except:
+        observer_data = None
 
     # Extract and plot 'rho' values
     t_rc, rho_rc = extract_values(robot_commands, 'rho', first_timestamp)

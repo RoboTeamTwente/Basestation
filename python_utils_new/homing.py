@@ -25,8 +25,7 @@ from proto import State_pb2
 # Import local modules
 from REMParser import REMParser
 import utils
-
-observer_file = None
+import dockerUtils
 
 X_LOCATION_HOMING = -2
 Y_LOCATION_HOMING = -0
@@ -35,25 +34,29 @@ X_OFFSET_ADDITIONAL_ROBOT = 0
 Y_OFFSET_ADDITIONAL_ROBOT = 1 
 HOMING_TIME = 5
 TEST_TIME = 4
-BASESTATION_FREQUENCY = 60 # ticks per second
+BASESTATION_FREQUENCY = 60  # ticks per second
 
-# TRAPEZOID TEST
+# Trapezoid Test Parameters
 MAX_ACCELERATION = [1, 2]
-START_ACCERLERATION = 0.5
+START_ACCELERATION = 0.5
 END_ACCELERATION = 1.5
 START_DECELERATION = 2.5
-END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCERLERATION
+END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCELERATION
 
+# Check feasibility of the test parameters
 if END_DECELERATION > TEST_TIME:
-	print("The test is not possible with the given parameters")
-	exit()
-if (START_DECELERATION - START_ACCERLERATION) * (END_ACCELERATION - START_ACCERLERATION) * max(MAX_ACCELERATION) > 5:
-	print("Robot will drive more than 5 meters, this is not allowed by walls")
-	exit()
+	print("[Homing] The test is not possible with the given parameters")
+	sys.exit()
+if (START_DECELERATION - START_ACCELERATION) * (END_ACCELERATION - START_ACCELERATION) * max(MAX_ACCELERATION) > 5:
+	print("[Homing] Robot will drive more than 5 meters, this is not allowed by walls")
+	sys.exit()
 
 basestation = None
+subscriber = None
+observer_file = None
 
 def rotate(origin, point, angle):
+	"""Rotate a point around a given origin by a specified angle."""
 	ox, oy = origin
 	px, py = point
 
@@ -62,40 +65,84 @@ def rotate(origin, point, angle):
 	return qx, qy
 
 class WorldSubscriber:
-	def __init__(self, address="127.0.0.1", port="5558"):
+	def __init__(self, simulate, address="127.0.0.1", port="5558"):
+		"""
+		Initialize the WorldSubscriber with the given parameters.
+		
+		:param simulate: Flag to determine whether to run in simulation mode.
+		:param address: The address to connect to.
+		:param port: The port to connect to.
+		"""
 		self.context = zmq.Context()
 		self.socket = self.context.socket(zmq.SUB)
 		self.socket.connect(f'tcp://{address}:{port}')
 		self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
-		print(f"Connected to {address}:{port} as subscriber for homing")
-		subprocess.run(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-		self.procDocker = subprocess.Popen(
-			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer'],
-			stdout=subprocess.DEVNULL, 
-			stderr=subprocess.STDOUT
-		)
+		print(f"[Homing] Connected to {address}:{port} as subscriber")
+
+		self._pull_docker_image()
+		self._run_docker_container(simulate)
+		
 		self.world_state = State_pb2.State()
+		self.running = True
 		self.lock = threading.Lock()
 		self.thread = threading.Thread(target=self._receive_data)
 		self.thread.daemon = True
 		self.thread.start()
 
+	def _pull_docker_image(self):
+		"""Pull the latest Docker image."""
+		proc_pull_docker = subprocess.Popen(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=None, stderr=None)
+		proc_pull_docker.wait()  # Wait for the pull to complete before proceeding
+
+	def _run_docker_container(self, simulate):
+		"""Run the Docker container."""
+		command_base = ['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c']
+		command_suffix = './bin/roboteam_observer --vision-port 10020' if simulate else './bin/roboteam_observer'
+		
+		if not dockerUtils.is_container_running('roboteamtwente/roboteam:latest'):
+			self.proc_docker = subprocess.Popen(
+				command_base + [command_suffix],
+				stdout=subprocess.DEVNULL,
+				stderr=subprocess.DEVNULL,
+			)
+			print("[Homing] RoboTeam Observer started.")
+		else:
+			self.proc_docker = None
+			# Serial simulator already starts the observer, hence it's normal that it's already running
+			if not simulate:
+				print("\033[93m[Homing] RoboTeam Observer is already running.\033[0m")
+   
 	def _receive_data(self):
-		while True:
+		"""Receive data from the ZMQ socket."""
+		while self.running:
 			data = self.socket.recv()
 			with self.lock:
 				self.world_state.ParseFromString(data)
 
 	def get_robot_position(self, robot_id: int, is_yellow: bool) -> tuple:
-		while True:
+		"""
+		Get the position of a robot.
+		
+		:param robot_id: The ID of the robot.
+		:param is_yellow: Flag indicating if the robot is yellow.
+		:return: Tuple containing the (x, y) position of the robot.
+		"""
+		while self.running:
 			with self.lock:
 				for robot in (self.world_state.last_seen_world.yellow if is_yellow else self.world_state.last_seen_world.blue):
 					if robot.id == robot_id:
 						return robot.pos.x, robot.pos.y
-			print("Robot not found, waiting for new data")
+			print("[Homing] Robot not found, waiting for new data")
 			time.sleep(1 / 60 * 0.1)
-   
+		return None
+
 	def write_output(self, robot_id: int, is_yellow: bool) -> None:
+		"""
+		Write the robot's state to the observer file.
+		
+		:param robot_id: The ID of the robot.
+		:param is_yellow: Flag indicating if the robot is yellow.
+		"""
 		global observer_file
 		if observer_file is None:
 			return
@@ -106,17 +153,27 @@ class WorldSubscriber:
 					return
 
 	def get_robot_angle(self, robot_id: int, is_yellow: bool) -> float:
-		while True:
+		"""
+		Get the angle of a robot.
+		
+		:param robot_id: The ID of the robot.
+		:param is_yellow: Flag indicating if the robot is yellow.
+		:return: The angle of the robot.
+		"""
+		while self.running:
 			with self.lock:
 				for robot in (self.world_state.last_seen_world.yellow if is_yellow else self.world_state.last_seen_world.blue):
 					if robot.id == robot_id:
 						return robot.angle
-			print("Robot not found, waiting for new data")
+			print("[Homing] Robot not found, waiting for new data")
 			time.sleep(1 / 60 * 0.1)
+		return None
    
 	def close(self):
+		"""Close the subscriber and clean up resources."""
+		self.running = False
+		self.thread.join()
 		self.socket.close()
-		self.procDocker.send_signal(subprocess.signal.SIGINT)
 
 def close_basestation() -> None:
 	"""
@@ -125,9 +182,7 @@ def close_basestation() -> None:
 	global basestation
 	if basestation is not None:
 		basestation.close()
-		print("Basestation closed, enjoy your day")
-
-atexit.register(close_basestation)
+		print("[Homing] Basestation closed, enjoy your day")
 
 def is_homing(tick_number: int) -> bool:
 	"""
@@ -177,21 +232,21 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		if test == "trapezoid":
 			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
 			if test_number == len(MAX_ACCELERATION):
-				print("All tests are done")
+				print("[Homing] All tests are done")
 				exit()
 			max_acceleration = MAX_ACCELERATION[test_number]
 			time_since_start = (tick_number % (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME)) - BASESTATION_FREQUENCY * HOMING_TIME) / BASESTATION_FREQUENCY
-			if time_since_start < START_ACCERLERATION:
+			if time_since_start < START_ACCELERATION:
 				cmd.rho = 0
 				cmd.theta = 0
 			elif time_since_start < END_ACCELERATION:
-				cmd.rho = max_acceleration * (time_since_start - START_ACCERLERATION)
+				cmd.rho = max_acceleration * (time_since_start - START_ACCELERATION)
 				cmd.theta = 0
 			elif time_since_start < START_DECELERATION:
-				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCERLERATION)
+				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCELERATION)
 				cmd.theta = 0
 			else:
-				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCERLERATION) - max_acceleration * (time_since_start - START_DECELERATION)
+				cmd.rho = max_acceleration * (END_ACCELERATION - START_ACCELERATION) - max_acceleration * (time_since_start - START_DECELERATION)
 				cmd.rho = max(0, cmd.rho)
 				cmd.theta = 0
 		else:
@@ -215,7 +270,7 @@ def create_observer_file(args, datetime_str: str):
 	observer_file = f"logs/{args.output_dir}/observer_{datetime_str}.csv"
 	current_dir = os.path.dirname(os.path.abspath(__file__))
 	observer_file_path = os.path.join(current_dir, observer_file)
-	print(f"Creating output file {observer_file_path}")
+	print(f"\033[92m[Homing] Creating output file {observer_file_path}\033[0m")
 	observer_file = open(observer_file_path, "wb")
 	latest_file_path = os.path.join(current_dir, "latest_observer.csv")
 	if os.path.lexists(latest_file_path):
@@ -240,26 +295,27 @@ def parse_and_process_args() -> argparse.Namespace:
 	if args.vision_ids is None:
 		args.vision_ids = args.robot_ids
 	elif len(args.vision_ids) != len(args.robot_ids):
-		print("Vision ids should be the same length as robot ids")
+		print("[Homing] Vision ids should be the same length as robot ids")
 		exit()
  
 	if args.simulate:
 		basestation = utils.open_simulated_basestation()
-		print("Simulated basestation opened")
+		print("[Homing] Simulated basestation opened")
 	elif (basestation is None or not basestation.isOpen()):
 		basestation = utils.open_continuous(timeout=0.1)
-		print("Basestation opened")
-
+		print("[Homing] Basestation opened")
 	return args
 
-subscriber = WorldSubscriber()
-atexit.register(subscriber.close)
 def main() -> None:
 	"""
 	Main function
 	"""
-	global basestation
+	global basestation, subscriber
 	args = parse_and_process_args()
+	subscriber = WorldSubscriber(args.simulate)
+	atexit.register(dockerUtils.kill_docker_containers_by_image, 'roboteamtwente/roboteam:latest')
+	atexit.register(close_basestation)
+	atexit.register(subscriber.close)
 	datetime_str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 	output_file = None
 	if args.output_dir is not None:
@@ -267,24 +323,29 @@ def main() -> None:
 		output_file = f"logs/{args.output_dir}/log_{datetime_str}.bin"
 		create_observer_file(args, datetime_str)
 	parser = REMParser(basestation, output_file=output_file)
-	last_tick_time = 0
+	last_tick_time = time.time()
+	latest_feedback_time = time.time()
 	tick_number = 0
 	last_packet_feedback = None
 	last_packet_state_info = None
-	latest_feedback_time = time.time()
+	cmd = None
 	image_vis = np.zeros((500, 500, 3), dtype=float)
 	while True:
-		if time.time() - latest_feedback_time > 1:
-			print("No feedback received in the last second")
-		time_till_next_tick = last_tick_time + 1/BASESTATION_FREQUENCY - time.time()
-		time.sleep(max(0,time_till_next_tick))
-		last_tick_time = time.time()
-		counter = 0
-		for robot_id, vision_id in zip(args.robot_ids, args.vision_ids):
-			cmd = create_robot_command(tick_number, counter, robot_id, vision_id, args.test)
-			basestation.write(cmd)
-			parser.write_bytes(cmd.encode())
-			counter += 1
+		current_time = time.time()
+		time_till_next_tick = last_tick_time + 1/BASESTATION_FREQUENCY - current_time
+		if time_till_next_tick > 0.1 / BASESTATION_FREQUENCY:
+			time.sleep(0.1 / BASESTATION_FREQUENCY)
+		if time_till_next_tick < 0:
+			if (current_time - latest_feedback_time > 1) and (tick_number % BASESTATION_FREQUENCY == 0):
+				print("\033[93m[Homing] No feedback received in the last second\033[0m")
+			last_tick_time += 1/BASESTATION_FREQUENCY
+			tick_number += 1
+			counter = 0
+			for robot_id, vision_id in zip(args.robot_ids, args.vision_ids):
+				cmd = create_robot_command(tick_number, counter, robot_id, vision_id, args.test)
+				basestation.write(cmd)
+				parser.write_bytes(cmd.encode())
+				counter += 1
 		parser.read()
 		parser.process()
 		while parser.has_packets():
@@ -297,7 +358,6 @@ def main() -> None:
 			elif isinstance(packet, REM_Log):
 				print(packet.message)
 
-		tick_number += 1
 
 		# ========== VISUALISING ========== #
 		image_vis = visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd)
