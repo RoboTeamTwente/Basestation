@@ -26,6 +26,7 @@ from proto import State_pb2
 from REMParser import REMParser
 import utils
 import dockerUtils
+import BBTrajectory2D
 
 X_LOCATION_HOMING = -2
 Y_LOCATION_HOMING = -0
@@ -35,6 +36,8 @@ Y_OFFSET_ADDITIONAL_ROBOT = 1
 HOMING_TIME = 5
 TEST_TIME = 4
 BASESTATION_FREQUENCY = 60  # ticks per second
+MAX_VEL_BBT_HOMING = 3.5
+MAX_ACC_BBT_HOMING = 3.5
 
 # Trapezoid Test Parameters
 MAX_ACCELERATION = [1, 2]
@@ -119,9 +122,9 @@ class WorldSubscriber:
 			with self.lock:
 				self.world_state.ParseFromString(data)
 
-	def get_robot_position(self, robot_id: int, is_yellow: bool) -> tuple:
+	def get_robot_data(self, robot_id: int, is_yellow: bool) -> tuple:
 		"""
-		Get the position of a robot.
+		Get the position and velocity of a robot.
 		
 		:param robot_id: The ID of the robot.
 		:param is_yellow: Flag indicating if the robot is yellow.
@@ -131,7 +134,7 @@ class WorldSubscriber:
 			with self.lock:
 				for robot in (self.world_state.last_seen_world.yellow if is_yellow else self.world_state.last_seen_world.blue):
 					if robot.id == robot_id:
-						return robot.pos.x, robot.pos.y
+						return robot.pos.x, robot.pos.y, robot.vel.x, robot.vel.y
 			print("[Homing] Robot not found, waiting for new data")
 			time.sleep(1 / 60 * 0.1)
 		return None
@@ -219,14 +222,21 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 	if is_homing(tick_number):
 		cmd.useCameraYaw = 1
 		cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
-		target_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
-		target_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		target_pos_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
+		target_pos_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
 
-		current_x, current_y = subscriber.get_robot_position(vision_id, True)
-		distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
-		direction = math.atan2(target_y - current_y, target_x - current_x)
-		cmd.theta = direction
-		cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
+		current_pos_x, current_pos_y, current_vel_x, current_vel_y = subscriber.get_robot_data(vision_id, True)
+		# distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
+		# direction = math.atan2(target_y - current_y, target_x - current_x)
+		# cmd.theta = direction
+		# cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
+		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_VEL_BBT_HOMING)
+		t_vel_x, t_vel_y = BBT.getVelocity(0.145)
+		t_acc_x, t_acc_y = BBT.getAcceleration(0.145)
+		cmd.rho = math.sqrt(t_vel_x**2 + t_vel_y**2)
+		cmd.theta = math.atan2(t_vel_y, t_vel_x)
+		cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
+		cmd.acceleration_angle = math.atan2(t_acc_y, t_acc_x)
 		cmd.yaw = 0
 	else:
 		if test == "trapezoid":
