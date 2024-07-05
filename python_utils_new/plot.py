@@ -29,6 +29,7 @@ def parse_packets(parser: REMParser) -> Tuple[List[REM_RobotCommand], List[REM_R
 
 def extract_values(packets: List[Any], attribute: str, first_timestamp: int) -> Tuple[List[float], List[float]]:
     """Extract specific attribute values and their timestamps from packets."""
+    # print all the attributes of the packet
     data = [(getattr(packet, attribute), (packet.timestamp - first_timestamp) / 1000) 
         for packet in packets if (packet.timestamp - first_timestamp) / 1000 >= 0]
     values, timestamps = zip(*data) if data else ([], [])
@@ -130,6 +131,13 @@ def main() -> None:
     tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef4', first_timestamp)
     t_si, wheel_speed_1_si = extract_values(robot_state_info, 'wheelSpeed4', first_timestamp)
     plot_values(tRef_si, wheel_speed_ref_1_si, t_si, wheel_speed_1_si, 'wheelSpeed4')
+    
+    tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelController_1', first_timestamp)
+    t_si, wheel_speed_1_si = extract_values(robot_state_info, 'wheelController_2', first_timestamp)
+    # multiply all values in wheel_speed_1_si  and wheel_speed_ref_1_si by 24 to get the correct values
+    wheel_speed_1_si = [i * 24 for i in wheel_speed_1_si]
+    wheel_speed_ref_1_si = [i * 24 for i in wheel_speed_ref_1_si]   
+    plot_values(tRef_si, wheel_speed_ref_1_si, t_si, wheel_speed_1_si, 'wheelController_1 & 2')
     plt.show()
 
 if __name__ == "__main__":
