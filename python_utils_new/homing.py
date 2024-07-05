@@ -240,19 +240,20 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		dx = target_pos_x - current_pos_x
 		dy = target_pos_y - current_pos_y
 		within_circle = (QUICK_BRAKE_RADIUS > math.sqrt(dx**2 + dy**2) )
-		decelerating = ( (BBT.getVelocity(0.04) - BBT.getVelocity(0.06)) > 0 )
-		if ( within_circle and decelerating ):
+		vel_x1, vel_y1 = BBT.getVelocity(0.04)
+		vel_x2, vel_y2 = BBT.getVelocity(0.0402)
+		x_decelerating = ( (abs(vel_x1) - abs(vel_x2)) > 0 )
+		y_decelerating = ( (abs(vel_y1) - abs(vel_y2)) > 0 )
+		if ( within_circle and x_decelerating ):
 			dt_x = (2*dx)/(current_vel_x)
 			a_x = -current_vel_x/dt_x
 			t_acc_x = a_x
-			
+		if ( within_circle and y_decelerating ):
 			dt_y = (2*dy)/(current_vel_y)
 			a_y = -current_vel_y/dt_y
 			t_acc_y = a_y
 
-			cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
-		else:
-			cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
+		cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
 		cmd.acceleration_angle = math.atan2(t_acc_y, t_acc_x)
 		cmd.yaw = 0
 	else:
