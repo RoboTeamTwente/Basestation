@@ -231,11 +231,28 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		# cmd.theta = direction
 		# cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
 		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_VEL_BBT_HOMING)
-		t_vel_x, t_vel_y = BBT.getVelocity(0.145)
-		t_acc_x, t_acc_y = BBT.getAcceleration(0.145)
+		t_vel_x, t_vel_y = BBT.getVelocity(0.04)
+		t_acc_x, t_acc_y = BBT.getAcceleration(0.04)
 		cmd.rho = math.sqrt(t_vel_x**2 + t_vel_y**2)
 		cmd.theta = math.atan2(t_vel_y, t_vel_x)
-		cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
+
+		QUICK_BRAKE_RADIUS = 0.4 # [m]
+		dx = target_pos_x - current_pos_x
+		dy = target_pos_y - current_pos_y
+		within_circle = (QUICK_BRAKE_RADIUS > math.sqrt(dx**2 + dy**2) )
+		decelerating = ( (BBT.getVelocity(0.04) - BBT.getVelocity(0.06)) > 0 )
+		if ( within_circle and decelerating ):
+			dt_x = (2*dx)/(current_vel_x)
+			a_x = -current_vel_x/dt_x
+			t_acc_x = a_x
+			
+			dt_y = (2*dy)/(current_vel_y)
+			a_y = -current_vel_y/dt_y
+			t_acc_y = a_y
+
+			cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
+		else:
+			cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
 		cmd.acceleration_angle = math.atan2(t_acc_y, t_acc_x)
 		cmd.yaw = 0
 	else:
