@@ -230,10 +230,20 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		# direction = math.atan2(target_y - current_y, target_x - current_x)
 		# cmd.theta = direction
 		# cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
-		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_VEL_BBT_HOMING)
+
+		# Limiting max reported velocity to path planning to prevent it from slowing down aggresively when you can just accept going 10% to fast at the top of your trapezoid reference trajectory
+		rho = math.sqrt(current_vel_x**2 + current_vel_y**2)
+		if rho > MAX_VEL_BBT_HOMING:
+			rho = MAX_VEL_BBT_HOMING - 0.001
+			theta = math.atan2(current_vel_y, current_vel_x)
+			current_vel_x = rho * math.cos(theta)
+			current_vel_y = rho * math.sin(theta)
+		
+		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_ACC_BBT_HOMING)
 		t_vel_x, t_vel_y = BBT.getVelocity(0.04)
 		t_acc_x, t_acc_y = BBT.getAcceleration(0.04)
 
+		# Defining a circle and if the robot is within this circle of its setpoint position more aggresive breaking is calculated to ensure it stops in time
 		QUICK_BRAKE_RADIUS = 0.4 # [m]
 		dx = target_pos_x - current_pos_x
 		dy = target_pos_y - current_pos_y
