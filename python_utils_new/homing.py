@@ -31,7 +31,7 @@ import BBTrajectory2D
 
 Y_LOCATION_HOMING = 0
 # X_LOCATION_HOMING = random.choice([-2.2, 2.2])
-X_LOCATION_HOMING = -2.5
+X_LOCATION_HOMING = 0
 
 
 # X_LOCATION_HOMING = random.choice([-1, 0, 1])
@@ -42,9 +42,9 @@ Y_OFFSET_ADDITIONAL_ROBOT = 1
 HOMING_TIME = 500
 TEST_TIME = 4
 BASESTATION_FREQUENCY = 60  # ticks per second
-MAX_VEL_BBT_HOMING = 1.3
-MAX_ACC_BBT_HOMING = 2
-real_jerk = 25
+MAX_VEL_BBT_HOMING = 3.5
+MAX_ACC_BBT_HOMING = 3.5
+real_jerk = 12
 TIMESTAMP = 0.04
 # a*TIMESTAMP*60 = real_jerk
 MAX_JERK_BBT_HOMING = real_jerk/(TIMESTAMP*BASESTATION_FREQUENCY)
@@ -153,6 +153,20 @@ class WorldSubscriber:
 			time.sleep(1 / 60 * 0.1)
 		return None
 
+	def get_ball_poss(self) -> tuple:
+		"""
+		Get the position of the ball.
+		
+		:return: Tuple containing the (x, y) position of the ball.
+		"""
+		while self.running:
+			with self.lock:
+				if self.world_state.last_seen_world.HasField("ball"):
+					return self.world_state.last_seen_world.ball.pos.x, self.world_state.last_seen_world.ball.pos.y
+			print("[Homing] Ball not found, waiting for new data")
+			time.sleep(1 / 60 * 0.1)
+		return None
+
 	def write_output(self, robot_id: int, is_yellow: bool) -> None:
 		"""
 		Write the robot's state to the observer file.
@@ -244,10 +258,17 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 	if is_homing(tick_number):
 		cmd.useCameraYaw = 1
 		cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
-		target_pos_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
-		target_pos_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		bal_x, ball_y = subscriber.get_ball_poss()
+		# target_pos_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
+		# target_pos_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		target_pos_x = bal_x
+		target_pos_y = ball_y
+
+
 
 		current_pos_x, current_pos_y, current_vel_x, current_vel_y = subscriber.get_robot_data(vision_id, True)
+		# set angle towards target location
+		angle = math.atan2(target_pos_y - current_pos_y, target_pos_x - current_pos_x)
 		# distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 		# direction = math.atan2(target_y - current_y, target_x - current_x)
 		# cmd.theta = direction
@@ -259,12 +280,6 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		# print("Distance: ", math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2))
 		# if distance is less than 0.03m and vel is less than 0.1m/s, print time elapsed and exit
 		distance = math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2)
-		if distance < 0.02 and math.sqrt(current_vel_x**2 + current_vel_y**2) < 1:
-			print(f"[Homing] Robot {robot_id} reached target location in {tick_number / BASESTATION_FREQUENCY} seconds")
-			# exit()
-		# print("CURRENT_ACC_X: ", CURRENT_ACC_X)
-		# print("CURRENT_ACC_Y: ", CURRENT_ACC_Y)
-		# print("")
 		CURRENT_ACC_X = t_acc_x
 		CURRENT_ACC_Y = t_acc_y
 		cmd.rho = math.sqrt(t_vel_x**2 + t_vel_y**2)
@@ -273,6 +288,13 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
 		cmd.acceleration_angle = math.atan2(t_acc_y, t_acc_x)
 		cmd.yaw = 0
+		# if we are within 0.3m of the target location, kick the ball
+		if distance < 0.4:
+			cmd.doKick = True
+			cmd.kickChipPower = 4
+		else:
+			cmd.doKick = False
+			cmd.kickChipPower = 0
 	else:
 		CURRENT_ACC_X = 0
 		CURRENT_ACC_Y = 0
