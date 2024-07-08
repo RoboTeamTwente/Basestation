@@ -28,17 +28,23 @@ import utils
 import dockerUtils
 import BBTrajectory2D
 
-X_LOCATION_HOMING = -2
-Y_LOCATION_HOMING = -0
+X_LOCATION_HOMING = 1
+Y_LOCATION_HOMING = 0
 # Every additional robot will be placed at the following offset from the previous robot
 X_OFFSET_ADDITIONAL_ROBOT = 0
 Y_OFFSET_ADDITIONAL_ROBOT = 1 
-HOMING_TIME = 5
+HOMING_TIME = 500
 TEST_TIME = 4
 BASESTATION_FREQUENCY = 60  # ticks per second
 MAX_VEL_BBT_HOMING = 3.5
 MAX_ACC_BBT_HOMING = 3.5
 
+if abs(X_LOCATION_HOMING) > 2.8:
+	print("[Homing] X_LOCATION_HOMING is too high")
+	sys.exit()
+if abs(Y_LOCATION_HOMING) > 1.8:
+	print("[Homing] Y_LOCATION_HOMING is too high")
+	sys.exit()
 # Trapezoid Test Parameters
 MAX_ACCELERATION = [1, 2]
 START_ACCELERATION = 0.5
@@ -242,9 +248,9 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_ACC_BBT_HOMING)
 		t_vel_x, t_vel_y = BBT.getVelocity(0.04)
 		t_acc_x, t_acc_y = BBT.getAcceleration(0.04)
-
+		distance = math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2)
 		# Defining a circle and if the robot is within this circle of its setpoint position more aggresive breaking is calculated to ensure it stops in time
-		QUICK_BRAKE_RADIUS = 0.4 # [m]
+		QUICK_BRAKE_RADIUS = 5 # [m]
 		dx = target_pos_x - current_pos_x
 		dy = target_pos_y - current_pos_y
 		within_circle = (QUICK_BRAKE_RADIUS > math.sqrt(dx**2 + dy**2) )
@@ -254,16 +260,38 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		vel_x2, vel_y2 = BBT.getVelocity(DT + 0.0002)
 		x_decelerating = ( (abs(vel_x1) - abs(vel_x2)) > 0 )
 		y_decelerating = ( (abs(vel_y1) - abs(vel_y2)) > 0 )
-		if ( within_circle and x_decelerating ):
+		current_x_vel_in_dir_of_pos = current_vel_x * (target_pos_x - current_pos_x) > 0
+		current_y_vel_in_dir_of_pos = current_vel_y * (target_pos_y - current_pos_y) > 0
+		if ( within_circle and x_decelerating and current_x_vel_in_dir_of_pos ):
+			# print("Decelerating x")
 			dt_x = (2*dx)/(current_vel_x)
 			a_x = -current_vel_x/dt_x
 			t_acc_x = a_x
 			t_vel_x = current_vel_x + a_x * DT
-		if ( within_circle and y_decelerating ):
+		if ( within_circle and y_decelerating and current_y_vel_in_dir_of_pos ):
+			# print("Decelerating y")
 			dt_y = (2*dy)/(current_vel_y)
 			a_y = -current_vel_y/dt_y
 			t_acc_y = a_y
 			t_vel_y = current_vel_y + a_y * DT
+		# if we are within 5cm of the target, acceleration is not allowed
+		if distance < 0.3:
+			print("DISTANCE: ", distance)
+			if not x_decelerating:
+				print("X DECELERATING")
+				# t acc should be 0 when distance is 0 and the same when distance is 0.6
+				t_acc_x *= (distance**2 / 0.09)
+			if not y_decelerating:
+				print("Y DECELERATING")
+				if not x_decelerating:
+					t_acc_y *= (distance**2 / 0.09)
+		# within 1cm, everything zero
+		if distance < 0.01:
+			t_vel_x = 0
+			t_vel_y = 0
+			t_acc_x = 0
+			t_acc_y = 0
+
 
 		cmd.rho = math.sqrt(t_vel_x**2 + t_vel_y**2)
 		cmd.theta = math.atan2(t_vel_y, t_vel_x)
