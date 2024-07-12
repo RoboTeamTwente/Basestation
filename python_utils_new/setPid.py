@@ -26,10 +26,10 @@ def create_set_PID_Command() -> REM_RobotSetPIDGains:
 	"""Create a new setPID command with the given parameters."""
 	setPID = utils.generate_empty_set_pid_gains()
 
-	setPID.PbodyX = 1.5
+	setPID.PbodyX = 0.0
 	setPID.IbodyX = 0.0
 	setPID.DbodyX = 0.0
-	setPID.PbodyY = 1.5
+	setPID.PbodyY = 0.0
 	setPID.IbodyY = 0.0
 	setPID.DbodyY = 0.0
 	setPID.PbodyW = 0.0
@@ -41,7 +41,16 @@ def create_set_PID_Command() -> REM_RobotSetPIDGains:
 	setPID.Pwheels = 2
 	setPID.Iwheels = 0
 	setPID.Dwheels = 0
+	setPID.boolean1 = 1
+	setPID.boolean2 = 1
+	setPID.boolean3 = 1
  
+	setPID.unlabel1 = 2.581
+	setPID.unlabel2 = 0.0
+	setPID.unlabel3 = 53.0
+	setPID.unlabel4 = 5315.0
+	setPID.unlabel5 = 0.3
+	setPID.unlabel6 = 0.0375
 	return setPID
 
 def parse_and_process_args() -> argparse.Namespace:
@@ -68,7 +77,8 @@ def main() -> None:
 		time.sleep(max(0,time_till_next_tick))
 		last_tick_time = time.time()
 		for robot_id in args.robot_ids:
-			cmd = create_set_PID_Command(robot_id)
+			cmd = create_set_PID_Command()
+			cmd.toRobotId = robot_id
 			basestation.write(cmd)
 			parser.write_bytes(cmd.encode())
 			process_parser_packets(parser)

@@ -62,8 +62,9 @@ def main() -> None:
     
     # Ensure the first timestamp is consistent across all plots
     first_timestamp = robot_commands[0].timestamp
+    # try:
     if args.input_file != 'latest.rembin':
-        observer_data = pd.read_csv(args.input_file.replace('.bin', '.csv'))
+        observer_data = pd.read_csv(args.input_file.replace('.bin', '.csv').replace('.log', '.observer'))
     else:
         observer_data = pd.read_csv('latest_observer.csv')
     observer_data = observer_data[observer_data['timestamp'] >= first_timestamp]
@@ -75,33 +76,67 @@ def main() -> None:
     t_rc, rho_rc = extract_values(robot_commands, 'rho', first_timestamp)
     t_rf, rho_rf = extract_values(robot_feedback, 'rho', first_timestamp)
     plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho', observer_data)
-    # plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho')
 
-    # Extract and plot 'acceleration_magnitude' values
-    t_rc, acceleration_magnitude_rc = extract_values(robot_commands, 'acceleration_magnitude', first_timestamp)
-    plot_values(t_rc, acceleration_magnitude_rc, None, None, 'acceleration_magnitude')
-    # Extract and plot 'acceleration_angle' values
-    t_rc, acceleration_angle_rc = extract_values(robot_commands, 'acceleration_angle', first_timestamp)
-    plot_values(t_rc, acceleration_angle_rc, None, None, 'acceleration_angle')
+    # t_rc, rho_rc = extract_values(robot_commands, 'acceleration_angle', first_timestamp)
+    # t_rf, rho_rf = extract_values(robot_feedback, 'rho', first_timestamp)
+    # plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho', observer_data)
+
+    figure = plt.figure(figsize=(10, 6))
+    figure.canvas.toolbar.zoom()
+    plt.plot(t_rc, rho_rc, label="Reference rho", linewidth=2, linestyle='--')
+    plt.plot(t_rf, rho_rf, label="Achieved rho", linewidth=2, linestyle='-')
+    if observer_data is not None and 'rho' in observer_data.columns:
+        plt.plot(observer_data['timestamp'], observer_data['rho'], label="Observer rho", linewidth=2, linestyle=':')
+
+    t_rc, acc_ang_rc = extract_values(robot_commands, 'acceleration_angle', first_timestamp)
+    # plt.plot(t_rc, acc_ang_rc, label="Acc ang", linewidth=2, linestyle='--')
+    t_rc, acc_mag_rc = extract_values(robot_commands, 'acceleration_magnitude', first_timestamp)
+
+    acc_x = []
+    acc_y = []
+    for i in range(len(acc_ang_rc)):
+        acc_x.append(np.cos(acc_ang_rc[i]) * acc_mag_rc[i])
+        acc_y.append(np.sin(acc_ang_rc[i]) * acc_mag_rc[i])
+
+    # print(acc_y)
+    # print(acc_mag_rc)
+    plt.plot(t_rc, acc_x, label="Acc x", linewidth=2, linestyle='--')
+    plt.plot(t_rc, acc_y, label="Acc y", linewidth=2, linestyle='--')
+
     
-    # Extract and plot 'yaw' values
-    t_rc, yaw_rc = extract_values(robot_commands, 'yaw', first_timestamp)
-    t_rf, yaw_rf = extract_values(robot_feedback, 'yaw', first_timestamp)
-    plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'theta', observer_data)
-    # plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'yaw')
+    plt.xlabel("Timestamp (s)", fontsize=14)
+    plt.ylabel('haha yes', fontsize=14)
+    plt.legend(fontsize=12)
+    plt.grid(True)
+    plt.tight_layout()
 
-    # Extract and plot 'batteryLevel' values
-    t_rf, batteryLevel_rf = extract_values(robot_feedback, 'batteryLevel', first_timestamp)
-    plot_values(t_rf, batteryLevel_rf, None, None, 'batteryLevel')
+    #     # plot_values(t_rc, rho_rc, t_rf, rho_rf, 'rho')
 
-    # Extract and plot 'wheelController_1' values
-    t_rsi, wheelVoltage1_rsi = extract_values(robot_state_info, 'wheelController_1', first_timestamp)
-    t_rsi, wheelVoltage2_rsi = extract_values(robot_state_info, 'wheelController_4', first_timestamp)
-    for i in range(0,len(wheelVoltage1_rsi)):
-        wheelVoltage1_rsi[i] = wheelVoltage1_rsi[i]*23.6
-        wheelVoltage2_rsi[i] = wheelVoltage2_rsi[i]*23.6
-    plot_values(t_rsi, wheelVoltage1_rsi, t_rsi, wheelVoltage2_rsi, 'wheelController_1and4')
+    # # Extract and plot 'acceleration_magnitude' values
+    # t_rc, acceleration_magnitude_rc = extract_values(robot_commands, 'acceleration_magnitude', first_timestamp)
+    # plot_values(t_rc, acceleration_magnitude_rc, None, None, 'acceleration_magnitude')
+    # # Extract and plot 'acceleration_angle' values
+    # t_rc, acceleration_angle_rc = extract_values(robot_commands, 'acceleration_angle', first_timestamp)
+    # plot_values(t_rc, acceleration_angle_rc, None, None, 'acceleration_angle')
+    
+    # # Extract and plot 'yaw' values
+    # t_rc, yaw_rc = extract_values(robot_commands, 'yaw', first_timestamp)
+    # t_rf, yaw_rf = extract_values(robot_feedback, 'yaw', first_timestamp)
+    # plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'theta', observer_data)
+    # # plot_values(t_rc, yaw_rc, t_rf, yaw_rf, 'yaw')
 
+    # # Extract and plot 'batteryLevel' values
+    # t_rf, batteryLevel_rf = extract_values(robot_feedback, 'batteryLevel', first_timestamp)
+    # plot_values(t_rf, batteryLevel_rf, None, None, 'batteryLevel')
+
+    # # Extract and plot 'wheelController_1' values
+    # t_rsi, wheelVoltage1_rsi = extract_values(robot_state_info, 'wheelController_1', first_timestamp)
+    # t_rsi, wheelVoltage2_rsi = extract_values(robot_state_info, 'wheelController_4', first_timestamp)
+    # for i in range(0,len(wheelVoltage1_rsi)):
+    #     wheelVoltage1_rsi[i] = wheelVoltage1_rsi[i]*23.6
+    #     wheelVoltage2_rsi[i] = wheelVoltage2_rsi[i]*23.6
+    # plot_values(t_rsi, wheelVoltage1_rsi, t_rsi, wheelVoltage2_rsi, 'wheelController_1and4')
+    
     # Extract and plot 'theta' values
     t_rc, theta_rc = extract_values(robot_commands, 'theta', first_timestamp)
     t_rf, theta_rf = extract_values(robot_feedback, 'theta', first_timestamp)
@@ -112,6 +147,18 @@ def main() -> None:
     tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef1', first_timestamp)
     t_si, wheel_speed_1_si = extract_values(robot_state_info, 'wheelSpeed1', first_timestamp)
     plot_values(tRef_si, wheel_speed_ref_1_si, t_si, wheel_speed_1_si, 'wheelSpeed1')
+
+    tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef2', first_timestamp)
+    t_si, wheel_speed_1_si = extract_values(robot_state_info, 'wheelSpeed2', first_timestamp)
+    plot_values(tRef_si, wheel_speed_ref_1_si, t_si, wheel_speed_1_si, 'wheelSpeed2')
+
+    tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef3', first_timestamp)
+    t_si, wheel_speed_1_si = extract_values(robot_state_info, 'wheelSpeed3', first_timestamp)
+    plot_values(tRef_si, wheel_speed_ref_1_si, t_si, wheel_speed_1_si, 'wheelSpeed3')
+
+    tRef_si, wheel_speed_ref_1_si = extract_values(robot_state_info, 'wheelSpeedRef4', first_timestamp)
+    t_si, wheel_speed_1_si = extract_values(robot_state_info, 'wheelSpeed4', first_timestamp)
+    plot_values(tRef_si, wheel_speed_ref_1_si, t_si, wheel_speed_1_si, 'wheelSpeed4')
     plt.show()
 
 if __name__ == "__main__":

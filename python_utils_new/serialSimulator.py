@@ -1,7 +1,6 @@
 import math
 import os
 import subprocess
-import signal
 import pty
 import select
 import socket
@@ -22,6 +21,7 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_Rob
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from proto.ssl_simulation_robot_control_pb2 import RobotCommand, MoveLocalVelocity, RobotControl, RobotMoveCommand
 from proto import State_pb2
+import dockerUtils
 
 
 BLUE_CONTROL_PORT = 10301
@@ -33,18 +33,24 @@ class WorldSubscriber:
 		self.socket = self.context.socket(zmq.SUB)
 		self.socket.connect(f'tcp://{address}:{port}')
 		self.socket.setsockopt_string(zmq.SUBSCRIBE, '')
-		print(f"Connected to {address}:{port} as subscriber for simulation feedback")
+		print(f"[SerialSimulator] Connected to {address}:{port} as subscriber for simulation feedback")
 		self.world_state = State_pb2.State()
 		self.lock = threading.Lock()
+		self.running = True
 		self.thread = threading.Thread(target=self._receive_data)
 		self.thread.daemon = True
 		self.thread.start()
 
 	def _receive_data(self):
-		while True:
+		while self.running:
 			data = self.socket.recv()
 			with self.lock:
 				self.world_state.ParseFromString(data)
+
+	def stop(self):
+		self.running = False
+		self.thread.join()
+		self.socket.close()
 
 	def get_robot_position(self, robot_id: int, is_yellow: bool) -> tuple:
 		with self.lock:
@@ -53,7 +59,7 @@ class WorldSubscriber:
 					rho = math.sqrt(robot.vel.x**2 + robot.vel.y**2)
 					theta = math.atan2(robot.vel.y, robot.vel.x)
 					return rho, theta, robot.angle
-		print("Robot not found")
+		print("[SerialSimulator] Robot not found")
 		return 0, 0, 0
 
 observer = WorldSubscriber()
@@ -87,13 +93,29 @@ class SerialSimulator:
 		s_name = os.ttyname(self.slave)
 		self.ser = serial.Serial(s_name)
 		self.port = -53
-		subprocess.run(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-		self.procDocker = subprocess.Popen(
-			['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer --vision-port 10020'],
-			stdout=subprocess.DEVNULL, 
-			stderr=subprocess.STDOUT
-		)
-		self.procSim = subprocess.Popen(['./simulator-cli'], cwd=os.path.dirname(os.path.abspath(__file__)), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+
+
+		if not dockerUtils.is_container_running('roboteamtwente/roboteam:latest'):
+			procPullDocker = subprocess.Popen(['docker', 'pull', 'roboteamtwente/roboteam:latest'], stdout=None, stderr=None)
+			procPullDocker.wait()  # Wait for the pull to complete before proceeding
+			command_base = ['docker', 'run', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c', './bin/roboteam_observer --vision-port 10020']
+			subprocess.Popen(
+				command_base,
+				stdout=subprocess.DEVNULL,
+				stderr=subprocess.DEVNULL,
+			)
+		else:
+			print("\033[93m[SerialSimulator] Roboteam Observer is already running.\033[0m")		
+		if not dockerUtils.is_container_running('roboticserlangen/simulatorcli'):
+			procPullSimulator = subprocess.Popen(['docker', 'pull', 'roboticserlangen/simulatorcli'], stdout=None, stderr=None, text=True, bufsize=1)
+			procPullSimulator.wait()
+			subprocess.Popen(
+				['docker', 'run', '--rm', '--network', 'host', 'roboticserlangen/simulatorcli', '/bin/sh'],
+				stdout=subprocess.DEVNULL,
+				stderr=subprocess.DEVNULL,
+			)
+		else:
+			print("\033[93m[SerialSimulator] Simulator container is already running.\033[0m")
 
 	def write(self, text):
 		"""
@@ -105,7 +127,7 @@ class SerialSimulator:
 		# check if text is a robot command
 		if not isinstance(text, REM_RobotCommand):
 			# print warning and return
-			print("Warning: text is not a robot command")
+			print("[SerialSimulator] Warning: text is not a robot command")
 			return
 		rho_feedback, theta_feedback, yaw_feedback = observer.get_robot_position(text.toRobotId, True)
 		if not text.useYaw:
@@ -162,12 +184,25 @@ class SerialSimulator:
 			return b''  # return empty bytes if there's no data available
 
 	def close(self):
+		print("[SerialSimulator] Closing WorldSubscriber")
+		observer.stop()
 		self.ser.close()
-		os.close(self.master)
-		os.close(self.slave)
-		self.procSim.send_signal(signal.SIGINT)
-		self.procDocker.send_signal(signal.SIGINT)
-		print("Simulated basestation connection closed")
+		if self.master is not None:
+			try:
+				os.close(self.master)
+			except OSError as e:
+				print(f"[SerialSimulator] Error closing master: {e}")
+			finally:
+				self.master = None
+		if self.slave is not None:
+			try:
+				os.close(self.slave)
+			except OSError as e:
+				print(f"[SerialSimulator] Error closing slave: {e}")
+			finally:
+				self.slave = None
+		# Kill the docker container, if they exist
+		dockerUtils.kill_docker_containers_by_image('roboteamtwente/roboteam:latest')
+		dockerUtils.kill_docker_containers_by_image('roboticserlangen/simulatorcli')
 
-print("Opening socket")
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP

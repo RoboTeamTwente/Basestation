@@ -126,7 +126,7 @@ class BasestationHandler:
                 payload = self.get_payload(keyboard_handler.get_keyboard_input())
                 for robot_id in args.robot_ids:
                     payload.toRobotId = robot_id
-                    self.basestation.write(payload)
+                    self.basestation.write(self.command)
                     logger.write_bytes(payload.encode())
 
                 logger.read()
