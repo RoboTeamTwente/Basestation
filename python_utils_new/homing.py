@@ -28,11 +28,11 @@ import utils
 import dockerUtils
 import BBTrajectory2D
 
-X_LOCATION_HOMING = -2
-Y_LOCATION_HOMING = -0
+# X_LOCATION_HOMING = -2
+# Y_LOCATION_HOMING = -0
 # Every additional robot will be placed at the following offset from the previous robot
-X_OFFSET_ADDITIONAL_ROBOT = 0
-Y_OFFSET_ADDITIONAL_ROBOT = 1 
+# X_OFFSET_ADDITIONAL_ROBOT = 0
+# Y_OFFSET_ADDITIONAL_ROBOT = 1
 HOMING_TIME = 3
 TEST_TIME = 10
 BASESTATION_FREQUENCY = 60  # ticks per second
@@ -41,7 +41,7 @@ MAX_ACC_BBT_HOMING = 3.5
 
 # TRAPEZOID TEST
 MAX_ACCELERATION = [1.5, 0.3]
-START_ACCERLERATION = 0.5
+START_ACCELERATION = 0.5
 END_ACCELERATION = 1.5
 START_DECELERATION = 2.5
 END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCELERATION
@@ -59,7 +59,10 @@ for i in range(0,len(yaw_list)):
 	yaw_list[i] = yaw_list[i] * math.pi/180
 acceleration_of_test = 3.5
 
+X_LOCATION_HOMING_LIST = [-2, -2, -2, -2.3, -2.3, -2.3]
+Y_LOCATION_HOMING_LIST = [ 0, -1,  1,    0,   -1,    1]
 DRIVING_ANGLE = 0
+
 OMEGA_LIST = [12.0, 10.0, 7.5, 5.0, 2.5, 1.0]
 VELOCITY_LIST = []
 YAW_LIST = []
@@ -254,8 +257,10 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 	if is_homing(tick_number):
 		cmd.useCameraYaw = 1
 		cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
-		target_pos_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
-		target_pos_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		# target_pos_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
+		# target_pos_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
+		target_pos_x = X_LOCATION_HOMING_LIST[counter]
+		target_pos_y = Y_LOCATION_HOMING_LIST[counter]
 
 		current_pos_x, current_pos_y, current_vel_x, current_vel_y = subscriber.get_robot_data(vision_id, True)
 		# distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
