@@ -3,6 +3,7 @@ import atexit
 import datetime
 import math
 import os
+import random
 import subprocess
 import sys
 import threading
@@ -38,6 +39,14 @@ TEST_TIME = 10
 BASESTATION_FREQUENCY = 60  # ticks per second
 MAX_VEL_BBT_HOMING = 3.5
 MAX_ACC_BBT_HOMING = 3.5
+real_jerk = 12
+TIMESTAMP = 0.04
+# a*TIMESTAMP*60 = real_jerk
+MAX_JERK_BBT_HOMING = real_jerk/(TIMESTAMP*BASESTATION_FREQUENCY)
+# MAX_JERK_BBT_HOMING = real_jerk*BASESTATION_FREQUENCY*TIMESTAMP # scale by 60/(1/t_in_future in s (0.02)) = 1.2 to get real jerk
+# =12
+CURRENT_ACC_X = 0
+CURRENT_ACC_Y = 0
 
 # TRAPEZOID TEST
 MAX_ACCELERATION = [1.5, 0.3]
@@ -174,6 +183,20 @@ class WorldSubscriber:
 			time.sleep(1 / 60 * 0.1)
 		return None
 
+	def get_ball_poss(self) -> tuple:
+		"""
+		Get the position of the ball.
+		
+		:return: Tuple containing the (x, y) position of the ball.
+		"""
+		while self.running:
+			with self.lock:
+				if self.world_state.last_seen_world.HasField("ball"):
+					return self.world_state.last_seen_world.ball.pos.x, self.world_state.last_seen_world.ball.pos.y
+			print("[Homing] Ball not found, waiting for new data")
+			time.sleep(1 / 60 * 0.1)
+		return None
+
 	def write_output(self, robot_id: int, is_yellow: bool) -> None:
 		"""
 		Write the robot's state to the observer file.
@@ -238,6 +261,7 @@ def is_homing(tick_number: int) -> bool:
 	return tick_number < HOMING_TIME * BASESTATION_FREQUENCY
 
 def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_id: int, test: str)  -> REM_RobotCommand:
+	global CURRENT_ACC_X, CURRENT_ACC_Y, X_LOCATION_HOMING, Y_LOCATION_HOMING, TIMESTAMP
 	"""
 	Creates a robot command for a given robot ID.
 
@@ -254,28 +278,60 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 	cmd = utils.generate_empty_robot_command()
 	cmd.toRobotId = robot_id
 	subscriber.write_output(vision_id, True)
+	
+	# if tick number is a multiple of 300, set X_LOCATION_HOMING and Y_LOCATION_HOMING to random values between -1.3 and 1.3
+	# if tick_number % 180 == 0:
+	# 	X_LOCATION_HOMING = random.uniform(-1.3, 1.3)
+	# 	Y_LOCATION_HOMING = random.uniform(-1.3, 1.3)
+	# 	print(f"[Homing] New target location: ({X_LOCATION_HOMING}, {Y_LOCATION_HOMING})")
+ 
 	if is_homing(tick_number):
 		cmd.useCameraYaw = 1
 		cmd.cameraYaw = subscriber.get_robot_angle(vision_id, True) 
+		
 		# target_pos_x = X_LOCATION_HOMING + counter * X_OFFSET_ADDITIONAL_ROBOT
 		# target_pos_y = Y_LOCATION_HOMING + counter * Y_OFFSET_ADDITIONAL_ROBOT
 		target_pos_x = X_LOCATION_HOMING_LIST[counter]
 		target_pos_y = Y_LOCATION_HOMING_LIST[counter]
 
+		# bal_x, ball_y = subscriber.get_ball_poss()
+		# target_pos_x = bal_x
+		# target_pos_y = ball_y
+
+
+
 		current_pos_x, current_pos_y, current_vel_x, current_vel_y = subscriber.get_robot_data(vision_id, True)
+		# set angle towards target location
+		angle = math.atan2(target_pos_y - current_pos_y, target_pos_x - current_pos_x)
 		# distance = math.sqrt((target_x - current_x)**2 + (target_y - current_y)**2)
 		# direction = math.atan2(target_y - current_y, target_x - current_x)
 		# cmd.theta = direction
 		# cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
-		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_VEL_BBT_HOMING)
-		t_vel_x, t_vel_y = BBT.getVelocity(0.145)
-		t_acc_x, t_acc_y = BBT.getAcceleration(0.145)
+		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, CURRENT_ACC_X, CURRENT_ACC_Y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_ACC_BBT_HOMING, MAX_JERK_BBT_HOMING)
+		t_vel_x, t_vel_y = BBT.getVelocity(TIMESTAMP)
+		t_acc_x, t_acc_y = BBT.getAcceleration(TIMESTAMP)
+		# print ("Current pos: ", current_pos_x, current_pos_y)
+		# print("Distance: ", math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2))
+		# if distance is less than 0.03m and vel is less than 0.1m/s, print time elapsed and exit
+		distance = math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2)
+		CURRENT_ACC_X = t_acc_x
+		CURRENT_ACC_Y = t_acc_y
 		cmd.rho = math.sqrt(t_vel_x**2 + t_vel_y**2)
+		# if rho is less than 
 		cmd.theta = math.atan2(t_vel_y, t_vel_x)
 		cmd.acceleration_magnitude = math.sqrt(t_acc_x**2 + t_acc_y**2)
 		cmd.acceleration_angle = math.atan2(t_acc_y, t_acc_x)
 		cmd.yaw = 0
+		# if we are within 0.3m of the target location, kick the ball
+		if distance < 0.4:
+			cmd.doKick = True
+			cmd.kickChipPower = 4
+		else:
+			cmd.doKick = False
+			cmd.kickChipPower = 0
 	else:
+		CURRENT_ACC_X = 0
+		CURRENT_ACC_Y = 0
 		if test == "trapezoid":
 			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
 			if test_number == len(MAX_ACCELERATION):
@@ -497,21 +553,26 @@ def main() -> None:
 		output_file = f"logs/{args.output_dir}/log_{datetime_str}.bin"
 		create_observer_file(args, datetime_str)
 	parser = REMParser(basestation, output_file=output_file)
-	last_tick_time = time.time()
 	latest_feedback_time = time.time()
 	tick_number = 0
 	last_packet_feedback = None
 	last_packet_state_info = None
 	cmd = None
 	image_vis = np.zeros((500, 500, 3), dtype=float)
+	while parser.has_packets():
+		packet = parser.get_next_packet()
+	last_tick_time = time.time()
 
-	cmd = utils.generate_empty_robot_command()
+	# cmd = utils.generate_empty_robot_command()
 	
 	while True:
 		current_time = time.time()
 		time_till_next_tick = last_tick_time + 1/BASESTATION_FREQUENCY - current_time
 		if time_till_next_tick > 0.1 / BASESTATION_FREQUENCY:
 			time.sleep(0.1 / BASESTATION_FREQUENCY)
+		if time_till_next_tick < -0.01:
+			print("WARNIGN")
+			last_tick_time = current_time
 		if time_till_next_tick < 0:
 			if (current_time - latest_feedback_time > 1) and (tick_number % BASESTATION_FREQUENCY == 0):
 				print("\033[93m[Homing] No feedback received in the last second\033[0m")

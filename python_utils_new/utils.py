@@ -211,6 +211,7 @@ def generate_empty_robot_command() -> REM_RobotCommand:
 	cmd.timestamp = int(time.time()*1000)
 	cmd.sendStateInfo = True
 	cmd.useYaw = True
+	cmd.dribblerOn = True
 	return cmd
 
 def generate_empty_robot_buzzer() -> REM_RobotBuzzer:
