@@ -585,6 +585,10 @@ def main() -> None:
 				basestation.write(cmd)
 				parser.write_bytes(cmd.encode())
 				counter += 1
+			for robot_id in range(1,12):
+				if robot_id not in args.robot_ids:
+					cmd = create_robot_command(tick_number, counter, robot_id, vision_id, args.test)
+					basestation.write(cmd)
 		parser.read()
 		parser.process()
 		while parser.has_packets():
