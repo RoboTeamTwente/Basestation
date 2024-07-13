@@ -45,8 +45,8 @@ TIMESTAMP = 0.04
 MAX_JERK_BBT_HOMING = real_jerk/(TIMESTAMP*BASESTATION_FREQUENCY)
 # MAX_JERK_BBT_HOMING = real_jerk*BASESTATION_FREQUENCY*TIMESTAMP # scale by 60/(1/t_in_future in s (0.02)) = 1.2 to get real jerk
 # =12
-CURRENT_ACC_X = 0
-CURRENT_ACC_Y = 0
+CURRENT_ACC_X = [0] * 16
+CURRENT_ACC_Y = [0] * 16
 
 # TRAPEZOID TEST
 MAX_ACCELERATION = [1.5, 0.3]
@@ -73,6 +73,7 @@ Y_LOCATION_HOMING_LIST = [ 0, -1,  1,    0,   -1,    1]
 DRIVING_ANGLE = 0
 
 OMEGA_LIST = [12.0, 10.0, 7.5, 5.0, 2.5, 1.0]
+# OMEGA_LIST = [12.0, 1.0]
 VELOCITY_LIST = []
 YAW_LIST = []
 ACC_LIST = []
@@ -307,15 +308,15 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		# direction = math.atan2(target_y - current_y, target_x - current_x)
 		# cmd.theta = direction
 		# cmd.rho = min(distance, 1) # Limit the speed to prevent sad things from happening
-		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, CURRENT_ACC_X, CURRENT_ACC_Y, target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_ACC_BBT_HOMING, MAX_JERK_BBT_HOMING)
+		BBT = BBTrajectory2D.BBTrajectory2D(current_pos_x, current_pos_y, current_vel_x, current_vel_y, CURRENT_ACC_X[counter], CURRENT_ACC_Y[counter], target_pos_x, target_pos_y, MAX_VEL_BBT_HOMING, MAX_ACC_BBT_HOMING, MAX_JERK_BBT_HOMING)
 		t_vel_x, t_vel_y = BBT.getVelocity(TIMESTAMP)
 		t_acc_x, t_acc_y = BBT.getAcceleration(TIMESTAMP)
 		# print ("Current pos: ", current_pos_x, current_pos_y)
 		# print("Distance: ", math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2))
 		# if distance is less than 0.03m and vel is less than 0.1m/s, print time elapsed and exit
 		distance = math.sqrt((target_pos_x - current_pos_x)**2 + (target_pos_y - current_pos_y)**2)
-		CURRENT_ACC_X = t_acc_x
-		CURRENT_ACC_Y = t_acc_y
+		CURRENT_ACC_X[counter] = t_acc_x
+		CURRENT_ACC_Y[counter] = t_acc_y
 		cmd.rho = math.sqrt(t_vel_x**2 + t_vel_y**2)
 		# if rho is less than 
 		cmd.theta = math.atan2(t_vel_y, t_vel_x)
@@ -323,15 +324,15 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 		cmd.acceleration_angle = math.atan2(t_acc_y, t_acc_x)
 		cmd.yaw = 0
 		# if we are within 0.3m of the target location, kick the ball
-		if distance < 0.4:
-			cmd.doKick = True
-			cmd.kickChipPower = 4
-		else:
-			cmd.doKick = False
-			cmd.kickChipPower = 0
+		# if distance < 0.4:
+		# 	cmd.doKick = True
+		# 	cmd.kickChipPower = 4
+		# else:
+		# 	cmd.doKick = False
+		# 	cmd.kickChipPower = 0
 	else:
-		CURRENT_ACC_X = 0
-		CURRENT_ACC_Y = 0
+		CURRENT_ACC_X[counter] = 0
+		CURRENT_ACC_Y[counter] = 0
 		if test == "trapezoid":
 			test_number = tick_number // (BASESTATION_FREQUENCY * (HOMING_TIME + TEST_TIME))
 			if test_number == len(MAX_ACCELERATION):
