@@ -60,10 +60,10 @@ END_DECELERATION = START_DECELERATION + END_ACCELERATION - START_ACCELERATION
 # velocityList.sort(reverse=True)
 # yawDegreesList = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 # yawDegreesList.sort(reverse=False)
-vel_list = [1.5, 0.5]
-yaw_list = [0, 180]
-# vel_list = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
-# yaw_list = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
+# vel_list = [1.5, 0.5]
+# yaw_list = [0, 180]
+vel_list = [1.4, 1.25, 1.0, 0.75, 0.5, 0.3]
+yaw_list = [0.0, 15.0, 30.0, 45.0, 60.0, 75.0, 90.0, 105.0, 120.0, 135.0, 150.0, 165.0, 180.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
 
 # vel_list = [1.5, 1.25, 1.0, 0.75, 0.5, 0.3]
 # yaw_list = [0.0, 7.5, 15.0, 22.5, 30.0, 37.5, 45.0, 42.5, 60.0, 67.5, 75.0, 82.5, 90.0, 97.5, 105.0, 112.5, 120.0, 127.5, 135.0,  150.0, 165.0, 180.0, 180.0, 195.0, 210.0, 225.0, 240.0, 255.0, 270.0, 285.0, 300.0, 315.0, 330.0, 345.0, 360.0]
@@ -76,8 +76,8 @@ for i in range(0,len(yaw_list)):
 acceleration_of_test = 3.5
 
 X_LOCATION_HOMING_LIST = [-2, -2, -2, -2.3, -2.3, -2.3]
-Y_LOCATION_HOMING_LIST = [ 0, -1,  1,    0,   -1,    1]
-DRIVING_ANGLE = 0
+Y_LOCATION_HOMING_LIST = [-2.5, -1,  1,    0,   -1,    1]
+DRIVING_ANGLE = math.pi*0.5
 
 OMEGA_LIST = [12.0, 10.0, 7.5, 5.0, 2.5, 1.0]
 # OMEGA_LIST = [12.0, 1.0]
@@ -425,7 +425,7 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 			if not rotationalPartOfTest:
 				if (time_since_start_2 < 0.0):
 					vel = VELOCITY_LIST[2*test_number]
-					yaw = YAW_LIST[2*test_number]
+					yaw = YAW_LIST[2*test_number] + DRIVING_ANGLE
 					acc = ACC_LIST[2*test_number]
 					# START_TIME_CONSTANT_VELOCITY
 					# DRIVE_TIME
@@ -438,7 +438,7 @@ def create_robot_command(tick_number: int, counter: int, robot_id: int, vision_i
 					time_since_start = time_since_start
 				else:
 					vel = VELOCITY_LIST[2*test_number+1]
-					yaw = YAW_LIST[2*test_number+1] + math.pi
+					yaw = YAW_LIST[2*test_number+1] + math.pi + DRIVING_ANGLE
 					acc = ACC_LIST[2*test_number+1]
 					# START_TIME_CONSTANT_VELOCITY
 					# DRIVE_TIME
