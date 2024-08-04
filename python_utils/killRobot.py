@@ -1,36 +1,18 @@
-import utils
+import os
+import sys
 import time
 
-import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.REM_RobotKillCommand import REM_RobotKillCommand
-from roboteam_embedded_messages.python.REM_BasestationConfiguration import REM_BasestationConfiguration
+# Add parent directory to path to allow importing from Core.Inc
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import utils
 
-connection = utils.openContinuous(timeout=0.01)
+basestation = utils.open_continuous(timeout=0.01)
+robot_kill_command = utils.generate_empty_robot_kill_command()
 
-def generate_command(robot_id: int) -> REM_RobotKillCommand:
-	cmd = REM_RobotKillCommand()
-	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_ROBOT_KILL_COMMAND
-	cmd.toRobotId = robot_id
-	cmd.fromPC = True	
-	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
-	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_ROBOT_KILL_COMMAND
-	return cmd
-
-def generate_basestation_command(yellow: bool) -> REM_BasestationConfiguration:
-	cmd = REM_BasestationConfiguration()
-	cmd.header = BaseTypes.REM_PACKET_TYPE_REM_BASESTATION_CONFIGURATION
-	cmd.toBS = True
-	cmd.fromPC = True
-	cmd.remVersion = BaseTypes.REM_LOCAL_VERSION
-	cmd.payloadSize = BaseTypes.REM_PACKET_SIZE_REM_BASESTATION_CONFIGURATION
-	cmd.channel = yellow
-	return cmd
-
-while True:
-	for team in [True, False]:
-		bs_cmd = generate_basestation_command(team)
-		connection.write(bs_cmd.encode())
-		for robot_id in range(16):
-			cmd = generate_command(robot_id)
-			connection.write(cmd.encode())
+for i in range(50):
+	for robot_id in range(16):
+		if robot_id % 2 == i % 2:
+			robot_kill_command.toRobotId = robot_id
+			basestation.write(robot_kill_command)
 	time.sleep(0.1)
+print("All robots killed, enjoy your day")

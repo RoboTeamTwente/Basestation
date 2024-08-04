@@ -1,183 +1,191 @@
-import numpy as np
-from collections import deque
 import argparse
-import utils
 import json
-import copy
-import time 
-from datetime import datetime, timedelta
+import utils
 import os
+import sys
+from collections import deque
+from datetime import datetime, timedelta
+from typing import Any, BinaryIO, Deque, Dict, Optional, Type
+import numpy as np
+from serial import Serial
+# Add parent directory to path to allow importing from Core.Inc
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Import roboteam embedded messages
+from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
+from Core.Inc.roboteam_embedded_messages.python.REM_Packet import REM_Packet
 
-import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
-from roboteam_embedded_messages.python.REM_Packet import REM_Packet
-from roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
-from roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
-from roboteam_embedded_messages.python.REM_Log import REM_Log
+class REMParser:
+	def __init__(self, device: Serial, output_file: Optional[str] = None) -> None:
+		"""
+		Initializes a new REMParser.
 
-DEBUG = False
+		Args:
+			device (Serial): The device to parse REM from.
+			output_file (Optional[str], optional): The file to output parsed REM to. Defaults to None.
+		"""
+		print("[REMParser] New REMParser")
+		if device is not None:
+			print(f"[REMParser] Device {device.port}")
 
-class REMParser():
-	
-	def __init__(self, device, output_file=None):
-		print(f"[REMParser] New REMParser")
-		if device: print(f"[REMParser] Device {device.port}")
+		self.device: Serial = device
+		self.byte_buffer: bytes = bytes()
+		self.packet_buffer: Deque = deque()
+		self.output_file: Optional[BinaryIO] = None
 
-		self.device = device
-		self.byte_buffer = bytes()
-		self.packet_buffer = deque()
-		self.output_file = None
+		if output_file:
+			current_dir = os.path.dirname(os.path.abspath(__file__))
+			output_file_path = os.path.join(current_dir, output_file)
+			print(f"\033[92m[REMParser] Creating output file {output_file_path}\033[0m")
+			self.output_file = open(output_file_path, "wb")
+			latest_file_path = os.path.join(current_dir, "latest.rembin")
+			if os.path.lexists(latest_file_path):
+				os.remove(latest_file_path)
+			os.symlink(output_file_path, latest_file_path)
 
-		if type(output_file) == str:
-			print(f"[REMParser] Creating output file {output_file}")
-			self.output_file = open(output_file, "wb")
-			try:
-				# Create symlink
-				os.remove("latest.rembin")
-			except Exception as e:
-				print("\n")
-				print(e)
-			os.symlink(output_file, "latest.rembin")
+	def read(self) -> None:
+		"""
+		Reads bytes from the device if any are available and appends them to the byte buffer.
+		"""
+		bytes_in_waiting: int = self.device.inWaiting()
+		if bytes_in_waiting > 0:
+			self.byte_buffer += self.device.read(bytes_in_waiting)
 
-	def read(self):
-		bytes_in_waiting = self.device.inWaiting()
-		if bytes_in_waiting == 0: return
-		if DEBUG: print(f"[read] {bytes_in_waiting} bytes in waiting")
-		self.byte_buffer += self.device.read(bytes_in_waiting)
-		if DEBUG: print(f"[read] Read {bytes_in_waiting} bytes")
-
-	def process(self, parse_file=False):
-		# No bytes in the buffer, so nothing to process
-		if len(self.byte_buffer) == 0: return
-		
-		if DEBUG: print("--process()-----------")
-		
-		# Process as many bytes / packets as possible
-		while True:
-			# Stop when there are no more bytes to process
-			if len(self.byte_buffer) == 0: break
-
-			if DEBUG: print(f"- while True | {len(self.byte_buffer)} bytes in buffer")
-
-			# Make sure that at least the entire default REM_Packet header is in the buffer
-			# This is need to call functions such as get_remVersion()and get_payloadSize()
+	def process(self) -> None:
+		"""
+		Processes the byte buffer, decoding packets and adding them to the packet buffer.
+		"""
+		while self.byte_buffer:
+			packet_type = self.byte_buffer[0]
+			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet_type)
+			if not packet_valid:
+				self.byte_buffer = bytes()
+				continue
 			if len(self.byte_buffer) < BaseTypes.REM_PACKET_SIZE_REM_PACKET:
-				if DEBUG: print(f"- Complete REM_Packet not yet in buffer. {len(self.byte_buffer)}/{BaseTypes.REM_PACKET_SIZE_REM_PACKET} bytes")
-				break				
+				break
 
-			# At least the REM_Packet headers are in the buffer. Decode it
 			packet = REM_Packet()
 			packet.decode(self.byte_buffer[:BaseTypes.REM_PACKET_SIZE_REM_PACKET])
 
-			# Check if REM version is correct
-			if (packet.remVersion != BaseTypes.REM_LOCAL_VERSION):
-				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! packet_rem_version {packet.remVersion} != REM_LOCAL_VERSION {BaseTypes.REM_LOCAL_VERSION}")
-
-			# Check if the packet type is valid according to REM
-			packet_valid = BaseTypes.REM_PACKET_TYPE_TO_VALID(packet.packetType)
-			# If the packet type is not valid / unknown
-			if not packet_valid:
-				self.byte_buffer = bytes()
-				raise Exception(f"[REMParser][process] Error! Received invalid packet type {packet.packetType}!")
-			
-			# Get the expected packet size as expected by REM
 			rem_packet_size = BaseTypes.REM_PACKET_TYPE_TO_SIZE(packet.packetType)
 
-			if DEBUG: print(f"- type={packet.packetType} ({BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.packetType).__name__}), size={packet.payloadSize}, REM_size={rem_packet_size}")
-
-			# Ensure that the entire payload is in the byte buffer
 			if len(self.byte_buffer) < packet.payloadSize: 
-				if DEBUG: print(f"- Complete packet not yet in buffer. {len(self.byte_buffer)}/{rem_packet_size} bytes")
 				break
 
-			# if not REM_log, packet->payloadSize should be equal to expected REM_PACKET_SIZE
-			if packet.packetType != BaseTypes.REM_PACKET_TYPE_REM_LOG:
-				if packet.payloadSize != rem_packet_size:
-					self.byte_buffer = bytes()
-					raise Exception(f"[REMParser][process] Error! REM_Packet->payloadSize={packet.payloadSize} does not equal expected REM_PACKET_SIZE_*={rem_packet_size}! ")
+			if packet.packetType != BaseTypes.REM_PACKET_TYPE_REM_LOG and packet.payloadSize != rem_packet_size:
+				self.byte_buffer = bytes()
+				continue
 
-			# Retrieve the bytes of the entire packet from the byte buffer
 			packet_bytes = self.byte_buffer[:packet.payloadSize]
-			# Create packet instance
-			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet.packetType)()
-			# Decode the packet
+			packet = BaseTypes.REM_PACKET_TYPE_TO_OBJ(packet_type)()
 			packet.decode(packet_bytes)
 
 			if packet.packetType == BaseTypes.REM_PACKET_TYPE_REM_LOG:
-				# Get the message from the buffer. The message is everything after the REM_Packet header
 				message = packet_bytes[BaseTypes.REM_PACKET_SIZE_REM_LOG:]
-				# Convert bytes into string, and store in REM_Log object
 				packet.message = message.decode()
-						
-			# Add packet to buffer
-			self.addPacket(packet)
-			if DEBUG: print(f"- Added packet type={type(packet)}")
-			# Write bytes to output file
-			self.writeBytes(packet_bytes)
-			# Remove processed bytes from buffer
+
+			self.add_packet(packet)
+			self.write_bytes(packet_bytes)
 			self.byte_buffer = self.byte_buffer[packet.payloadSize:]
 
-	def addPacket(self, packet):
+	def add_packet(self, packet: Any) -> None:
+		"""
+		Adds a packet to the packet buffer.
+
+		Args:
+			packet (Any): The packet to add.
+		"""
 		self.packet_buffer.append(packet)
-		
-	def writeBytes(self, _bytes):
+
+	def write_bytes(self, _bytes: bytes) -> None:
+		"""
+		Writes bytes to the output file, if it exists.
+
+		Args:
+			_bytes (bytes): The bytes to write.
+		"""
 		if self.output_file is not None:
 			self.output_file.write(_bytes)
 
-	def hasPackets(self):
-		return 0 < len(self.packet_buffer)
-	
-	def getNextPacket(self):
-		if self.hasPackets(): return self.packet_buffer.popleft()
+	def has_packets(self) -> bool:
+		"""
+		Checks if there are any packets in the packet buffer.
 
-	def parseFile(self, filepath, print_statistics=True):
+		Returns:
+			bool: True if there are packets in the buffer, False otherwise.
+		"""
+		return bool(self.packet_buffer)
+
+	def get_next_packet(self) -> Optional[Any]:
+		"""
+		Gets the next packet from the packet buffer, if any.
+
+		Returns:
+			Optional[Any]: The next packet, or None if the buffer is empty.
+		"""
+		if self.has_packets():
+			return self.packet_buffer.popleft()
+		print("[REMParser] No packets in buffer")
+		return None
+
+	def parse_file(self, filepath: str, print_statistics: bool = True) -> None:
+		"""
+		Parses a file and optionally prints statistics about the parsed packets.
+
+		Args:
+			filepath (str): The path to the file to parse.
+			print_statistics (bool, optional): Whether to print statistics about the parsed packets. Defaults to True.
+		"""
 		print(f"[REMParser] Parsing file {filepath}")
 		with open(filepath, "rb") as file:
 			self.byte_buffer = file.read()
-			self.process(parse_file=True)
+			self.process()
 
-		if not print_statistics: return
+		if not print_statistics:
+			return
 
-		# Print file statistics
+		packet_counts: Dict[Type, int] = {}
+		packet_timestamps: Dict[Type, Dict[str, float]] = {}
 
-		packet_counts = {}
-		packet_timestamps = {}
-		
 		print("   ", "PACKET TYPE".ljust(20), "COUNT", " ", "START DATE".ljust(23), " ", "STOP DATE".ljust(23), " ", "DURATION H:M:S:MS")
 		for packet in self.packet_buffer:
 			packet_type = type(packet)
-			if packet_type not in packet_counts:
-				packet_counts[packet_type] = 0
-				packet_timestamps[packet_type] = {'start' : packet.timestamp / 1000}
+			packet_counts.setdefault(packet_type, 0)
+			packet_timestamps.setdefault(packet_type, {'start': packet.timestamp / 1000})
 			packet_counts[packet_type] += 1
-			packet_timestamps[packet_type]['stop'] = packet.timestamp/ 1000
+			packet_timestamps[packet_type]['stop'] = packet.timestamp / 1000
+			# print(packet.timestamp, packet_type.__name__)
 
-		for packet_type in packet_counts:
+		for packet_type, count in packet_counts.items():
 			start_sec, stop_sec = packet_timestamps[packet_type].values()
 			start_msec, stop_msec = start_sec % 1, stop_sec % 1
 			datetime_str_start = datetime.fromtimestamp(np.floor(start_sec)).strftime("%Y-%m-%d %H:%M:%S")  + (f".{start_msec:.3f}"[2:])
 			datetime_str_stop  = datetime.fromtimestamp(np.floor(stop_sec )).strftime("%Y-%m-%d %H:%M:%S")  + (f".{stop_msec :.3f}"[2:])
 			duration_sec = stop_sec - start_sec
 			duration_str = str(timedelta(seconds=duration_sec))[:-3]
+			# if i'ts log, dont print data/duration stuff
+			if packet_type == BaseTypes.REM_Log:
+				print("   ", packet_type.__name__.ljust(20), str(count).rjust(5))
+			else:
+				print("   ", packet_type.__name__.ljust(20), str(count).rjust(5), " ", datetime_str_start, " ", datetime_str_stop, " ", duration_str)
 
-			print("   ", packet_type.__name__.ljust(20), str(packet_counts[packet_type]).rjust(5), " ", datetime_str_start, " ", datetime_str_stop, " ", duration_str)
 
 if __name__ == "__main__":
 	print("Running REMParser directly")
 
 	argparser = argparse.ArgumentParser()
-	argparser.add_argument('input_file', help='File to parse')
+	argparser.add_argument('input_file', nargs='?', default='latest.rembin', help='File to parse')
 	args = argparser.parse_args()
 
 	print("Parsing file", args.input_file)
 
 	parser = REMParser(device=None)
-	parser.parseFile(args.input_file)
+	parser.parse_file(args.input_file)
 
 	packet_dicts = []
 	for packet in parser.packet_buffer:
 		if type(packet) in [REM_RobotFeedback]:
-			packet_dict = utils.packetToDict(packet)
+			packet_dict = utils.packet_to_dict(packet)
 			packet_dicts.append(packet_dict)
 
 	# Split up packets into types
@@ -186,9 +194,12 @@ if __name__ == "__main__":
 		type_str = type(packet).__name__
 		if type_str not in packets_by_type:
 			packets_by_type[type_str] = []
-		packets_by_type[type_str].append(utils.packetToDict(packet))
+		packets_by_type[type_str].append(utils.packet_to_dict(packet))
 
 	output_file_no_ext = os.path.splitext(args.input_file)[0]
+
+	if args.input_file == "latest.rembin":
+		output_file_no_ext = os.path.join("logs", output_file_no_ext)
 
 	for type_str in packets_by_type:
 		packets = packets_by_type[type_str]
@@ -209,12 +220,3 @@ if __name__ == "__main__":
 				file.write(string + "\n")
 
 	print("Done!")
-
-
-
-
-
-
-
-
-

@@ -13,10 +13,11 @@ Middlewares
 USB_DEVICE
 startup
 STM32F767ZITx_FLASH.ld
-python_utils/rem
-
 python_utils/*.csv
 python_utils/*.bin
+python_utils/*.json
+python_utils/*.rembin
+python_utils/*.visionbin
 
 # Prerequisites
 *.d

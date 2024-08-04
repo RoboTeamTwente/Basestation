@@ -627,12 +627,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
         packet_counter_out[REM_PACKET_INDEX_REM_ROBOT_KILL_COMMAND]++;
       }
 
-      if (total_packet_length == 0) {
-        // No packets to send to this robot, so we can skip the rest of the loop
-        robot_id++;
-        continue;
-      }
-
       /* Add any other packet from the queue to the transmission */
       CircularBuffer*     index = nonpriority_queue_robots_index[robot_id];
       Wrapper_REM_Packet* queue = nonpriority_queue_robots[robot_id];
@@ -662,7 +656,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
         // Increment packet counter
         packet_counter_out[REM_PACKET_TYPE_TO_INDEX(packet_type)]++;
       }
-      
+
+      if (total_packet_length == 0) {
+        // No packets to send to this robot, so we can skip the rest of the loop
+        robot_id++;
+        continue;
+      }
 
       // Send new command if available for this robot ID
       if(0 < total_packet_length){
