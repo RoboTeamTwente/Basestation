@@ -99,7 +99,7 @@ class WorldSubscriber:
 
 	def _run_docker_container(self, simulate):
 		"""Run the Docker container."""
-		command_base = ['docker', 'run', '-it', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c']
+		command_base = ['docker', 'run', '--rm', '--network', 'host', 'roboteamtwente/roboteam:latest', '/bin/sh', '-c']
 		command_suffix = './bin/roboteam_observer --vision-port 10020' if simulate else './bin/roboteam_observer'
 		
 		if not dockerUtils.is_container_running('roboteamtwente/roboteam:latest'):
