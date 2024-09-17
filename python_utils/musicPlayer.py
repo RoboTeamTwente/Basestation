@@ -3,7 +3,7 @@ import utils
 import roboteam_embedded_messages.python.REM_BaseTypes as BaseTypes
 from roboteam_embedded_messages.python.REM_RobotMusicCommand import REM_RobotMusicCommand
 
-connection = utils.openContinuous(timeout=0.01)
+connection = utils.Basestation()
 
 def cleanRMC():
 	cmd = REM_RobotMusicCommand()

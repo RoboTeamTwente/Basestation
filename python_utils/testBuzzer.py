@@ -83,8 +83,8 @@ inputThread.start()
 
 while True:
 	# Open basestation with the basestation
-	if basestation is None or not basestation.isOpen():
-		basestation = utils.openContinuous(timeout=0.001)
+	if basestation is None:
+		basestation = utils.Basestation()
 
 	try:
 		# Continuously read and print messages from the basestation
@@ -101,14 +101,15 @@ while True:
 					note.value = 0
 
 			# Read feedback packets coming from the robot
-			packet_type = basestation.read(1)
+			packet = basestation.read()
+			packet_type = packet[0]
+			msg = packet[1:].decode()
 			if len(packet_type) == 0:
 				continue
 
 			packetType = packet_type[0]
 
 			if packetType == BaseTypes.PACKET_TYPE_REM_BASESTATION_LOG:
-				msg = basestation.readline().decode()
 				print("[LOG]", msg, end="")
 
 	except serial.SerialException as se:

@@ -7,11 +7,15 @@
 __pycache__
 .idea/
 venv
+.venv
 Drivers
 Middlewares
+!Core/Inc/Middlewares/**
+!Core/Src/Middlewares/**
 USB_DEVICE
 startup
-STM32F767ZITx_FLASH.ld
+*.ld
+compile_commands.json
 python_utils/rem
 
 python_utils/*.csv
