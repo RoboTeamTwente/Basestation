@@ -55,9 +55,11 @@ def create_robot_command(test: str, tick_number: int) -> REM_RobotCommand:
 	"""
 	cmd = utils.generate_empty_robot_command()
 	if test == "nothing":
-		cmd.rho = 0
-		cmd.theta = 0
-		cmd.angularVelocity = 0
+		#cmd.rho = 0
+		#cmd.theta = 0
+		#cmd.angularVelocity = 0
+		cmd.x = 0
+		cmd.y = 0
 		cmd.useYaw = False
 	elif test == "kicker":
 		if tick_number % 120 < 10:
