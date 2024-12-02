@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
-from Core.Inc.roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
+from Core.Inc.roboteam_embedded_messages.python.REM_ControlDebug import REM_ControlDebug
 from REMParser import REMParser
 
 def parse_arguments() -> argparse.Namespace:
@@ -20,11 +20,11 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument('--input_file', default='latest.rembin', help='Input file to parse')
     return parser.parse_args()
 
-def parse_packets(parser: REMParser) -> Tuple[List[REM_RobotCommand], List[REM_RobotFeedback], List[REM_RobotStateInfo]]:
+def parse_packets(parser: REMParser) -> Tuple[List[REM_RobotCommand], List[REM_RobotFeedback], List[REM_ControlDebug]]:
     """Parse the packets from the input file."""
     robot_commands = [packet for packet in parser.packet_buffer if isinstance(packet, REM_RobotCommand)]
     robot_feedback = [packet for packet in parser.packet_buffer if isinstance(packet, REM_RobotFeedback)]
-    robot_state_info = [packet for packet in parser.packet_buffer if isinstance(packet, REM_RobotStateInfo)]
+    robot_state_info = [packet for packet in parser.packet_buffer if isinstance(packet, REM_ControlDebug)]
     return robot_commands, robot_feedback, robot_state_info
 
 def extract_values(packets: List[Any], attribute: str, first_timestamp: int) -> Tuple[List[float], List[float]]:

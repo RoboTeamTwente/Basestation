@@ -14,7 +14,7 @@ from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseType
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
 from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
 from Core.Inc.roboteam_embedded_messages.python.REM_Log import REM_Log
-from Core.Inc.roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
+from Core.Inc.roboteam_embedded_messages.python.REM_ControlDebug import REM_ControlDebug
 from visualization import visualize
 # Import local modules
 from REMParser import REMParser
@@ -162,7 +162,7 @@ def main() -> None:
 				# print(f"Received feedback from robot {packet.fromRobotId}")
 				last_packet_feedback = packet
 				latest_feedback_time = time.time()
-			elif isinstance(packet, REM_RobotStateInfo):
+			elif isinstance(packet, REM_ControlDebug):
 				# print(f"Received state info from robot {packet.fromRobotId}")
 				last_packet_state_info = packet
 			elif isinstance(packet, REM_Log):
