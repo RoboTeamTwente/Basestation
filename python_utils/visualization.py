@@ -121,6 +121,10 @@ def visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd
         cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (.15, .15, 1), 10)
         rx, ry = rotate((330, 330), (330, 330 - wheel_speeds_exp[3] * 80), 60 * np.pi / 180.)
         cv2.line(image_vis, (330, 330), (int(rx), int(ry)), (1, 1, 1), 4)
+        # Debug ports
+        for i in range(32):
+            eval("cv2.putText(image_vis, \"Debug " + str(i) + ": \"+str(round(last_packet_state_info.Debug" + str(i) + ", 2)), org=(10, " + str(46+i*20) + "), color=(255, 255, 255), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1,thickness=1, lineType=cv2.LINE_AA)")
+
     cv2.imshow("Press esc to quit", image_vis)
     if cv2.waitKey(1) == 27: 
         exit()

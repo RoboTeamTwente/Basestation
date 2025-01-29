@@ -7,12 +7,17 @@ import argparse
 from datetime import datetime
 from typing import Callable, Dict, List
 
+import numpy as np
 from pynput import keyboard
 
 # Add parent directory to path to allow importing from Core.Inc
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Core.Inc.roboteam_embedded_messages.python import REM_BaseTypes as BaseTypes
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_RobotFeedback
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotCommand import REM_RobotCommand
+from Core.Inc.roboteam_embedded_messages.python.REM_RobotStateInfo import REM_RobotStateInfo
 from Core.Inc.roboteam_embedded_messages.python.REM_Log import REM_Log
+from visualization import visualize
 from REMParser import REMParser
 import utils
 
@@ -118,6 +123,9 @@ class BasestationHandler:
             logger = REMParser(self.basestation, f"{log_dir}/{filename}")
 
             last_written = time.time()
+            last_packet_feedback = None
+            last_packet_state_info = None
+            image_vis = np.zeros((500, 500, 3), dtype=float)
             while self.running:
                 time_till_next_tick = last_written + 1. / self.packet_Hz - time.time()
                 time.sleep(max(0, time_till_next_tick))
@@ -150,6 +158,12 @@ class BasestationHandler:
                     packet = logger.get_next_packet()
                     if isinstance(packet, REM_Log):
                         handle_rem_log(packet)
+                    elif isinstance(packet, REM_RobotFeedback):
+                        last_packet_feedback = packet
+                    elif isinstance(packet, REM_RobotStateInfo):
+                        last_packet_state_info = packet
+
+                image_vis = visualize(args, image_vis, last_packet_feedback, last_packet_state_info, self.command)
         except Exception as e:
             self.event_handler.record_event(-1, str(e))
             print(e)
