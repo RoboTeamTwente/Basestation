@@ -54,10 +54,11 @@ def visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd
                 cv2.circle(image_vis, (250, 250 - 90), 10, (0, 0.4, 1), -1)
         else:
             cv2.line(image_vis, (int(250 - s / 2), 250 - 73 - 5), (int(250 + s / 2), 250 - 73 - 5), (0, 0, 1), 2)
-
-        length = int(last_packet_feedback.rho * 500)
+        # Velocity estimate
+        length = int(last_packet_feedback.rho * 100)
         px, py = rotate((250, 250), (250, 250 - length), -last_packet_feedback.theta)
         cv2.line(image_vis, (250, 250), (int(px), int(py)), (1, 0, 0), 8)
+
         # Battery
         cv2.rectangle(image_vis, (10, 10), (50, 30), color=(1, 1, 1))
         cv2.rectangle(image_vis, (51, 15), (55, 25), color=(1, 1, 1), thickness=-1)
@@ -78,7 +79,13 @@ def visualize(args, image_vis, last_packet_feedback, last_packet_state_info, cmd
                         thickness=1, lineType=cv2.LINE_AA)
         else:
             cv2.putText(image_vis, '?', org=(25, 26), color=(255, 255, 255), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1)
-
+    
+    if last_packet_state_info and last_packet_feedback:
+        # Velocity reference
+        length = int(cmd.rho * 100)
+        px, py = rotate((250, 250), (250, 250 - length), -cmd.theta+last_packet_state_info.xsensYaw)
+        cv2.line(image_vis, (250, 250), (int(px), int(py)), (0, 1, 0), 4)
+    
     if last_packet_state_info:
         # XSens yaw
         px, py = rotate((250, 250), (250, 150), -last_packet_state_info.xsensYaw)

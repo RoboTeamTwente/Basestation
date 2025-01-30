@@ -21,7 +21,7 @@ from visualization import visualize
 from REMParser import REMParser
 import utils
 
-MAX_SPEED = 0.7
+MAX_SPEED = 1.0
 KICK_SPEED =1.0
 ROTATION_SPEED = 3 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
@@ -125,8 +125,8 @@ class BasestationHandler:
             last_written = time.time()
             last_packet_feedback = None
             last_packet_state_info = None
-            image_vis = np.zeros((500, 500, 3), dtype=float)
             while self.running:
+                image_vis = np.zeros((500, 500, 3), dtype=float)
                 time_till_next_tick = last_written + 1. / self.packet_Hz - time.time()
                 time.sleep(max(0, time_till_next_tick))
                 last_written += 1. / self.packet_Hz
