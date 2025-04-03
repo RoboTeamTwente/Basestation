@@ -158,16 +158,25 @@ class BasestationHandler:
     def get_payload(self, keyboard_input: Dict[str, bool]) -> bytes:
         """Generates the command payload for the robot based on keyboard inputs."""
         self.yaw += (keyboard_input['q'] - keyboard_input['e']) * ROTATION_SPEED / BASESTATION_FREQUENCY
+        # ADDED
+        # Value on how much robot moves per key press
+        MOVE_STEP = 0.5
         if keyboard_input['w'] or keyboard_input['s'] or keyboard_input['a'] or keyboard_input['d']:
-            velocity_x = (keyboard_input['w'] - keyboard_input['s']) * MAX_SPEED
-            velocity_y = (keyboard_input['a'] - keyboard_input['d']) * MAX_SPEED
-            rho = math.sqrt(velocity_x ** 2 + velocity_y ** 2)
-            theta = math.atan2(velocity_y, velocity_x)
-            self.command.rho = rho
-            self.command.theta = theta + self.yaw
+            # robot moves if target and current position is not equal
+            if ((self.command.targetX != self.command.currentX ) and (self.command.targetY != self.command.currentY)): 
+                deltaX = (keyboard_input['w'] - keyboard_input['s']) * MOVE_STEP
+                deltaY = (keyboard_input['a'] - keyboard_input['d']) * MOVE_STEP
+                self.command.targetX = deltaX + self.command.currentX
+                self.command.targetY = deltaY + self.command.currentY
+            else:
+                self.command.targetX = self.command.currentX
+                self.command.targetY = self.command.currentY
         else:
-            self.command.rho = 0
-            self.command.theta = 0
+            # if no key is pressed, robot stays put
+            self.command.targetX = self.command.currentX
+            self.command.targetY = self.command.currentY
+            
+        # END ADDED
         self.command.doKick = keyboard_input['k']
         self.command.doForce = keyboard_input['k'] or keyboard_input['c']
         self.command.kickChipPower = KICK_SPEED
