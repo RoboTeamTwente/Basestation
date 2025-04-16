@@ -163,20 +163,44 @@ class BasestationHandler:
         MOVE_STEP = 0.5
         deltaX = 0
         deltaY = 0
+        self.yaw = 0.0
+        self.currentX = 0.0
+        self.currentY = 0.0
+        self.MOVE_STEP = 0.5
+        self.previous_keyboard_state = {}
+        
 
-        if keyboard_input['w']:
-            deltaY += MOVE_STEP
-        if keyboard_input['s']:
-            deltaY -= MOVE_STEP
-        if keyboard_input['a']:
-            deltaX -= MOVE_STEP
-        if keyboard_input['d']:
-            deltaX += MOVE_STEP
 
-        if deltaX != 0 or deltaY != 0:
-            self.command.targetX = self.command.currentX + deltaX
-            self.command.targetY = self.command.currentY + deltaY
+        # Detect rising edge (key just pressed)
+        for key in ['w', 'a', 's', 'd', 'q', 'e']:
+            prev = self.previous_keyboard_state.get(key, False)
+            curr = keyboard_input.get(key, False)
+            if curr and not prev:
+                new_command = True
 
+        self.previous_keyboard_state = keyboard_input.copy()
+
+        if not new_command:
+            return None  # Don't send anything if no new key press
+
+
+
+        if keyboard_input.get('w', False):
+            deltaY += self.MOVE_STEP
+        if keyboard_input.get('s', False):
+            deltaY -= self.MOVE_STEP
+        if keyboard_input.get('a', False):
+            deltaX -= self.MOVE_STEP
+        if keyboard_input.get('d', False):
+            deltaX += self.MOVE_STEP
+
+        self.currentX += deltaX
+        self.currentY += deltaY
+
+        # Send new destination
+        self.command.targetX = self.currentX
+        self.command.targetY = self.currentY
+        self.command.yaw = self.yaw
 
 
 
