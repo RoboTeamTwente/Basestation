@@ -207,8 +207,14 @@ class Joystick:
 				self.yaw -= self.controller.axis_r.x * 0.1
 
 			deadzone = 0.3
+			
+			#Reza
 			velocity_x = max(0, abs(self.controller.axis_l.x) - deadzone) / (1 - deadzone) * np.sign(self.controller.axis_l.x)
 			velocity_y = max(0, abs(self.controller.axis_l.y) - deadzone) / (1 - deadzone) * np.sign(self.controller.axis_l.y)
+			rotation = self.controller.axis_l.x  # X-axis for rotation
+			# Reza
+
+
 
 			rho = math.sqrt(velocity_x ** 2 + velocity_y ** 2) * MAX_SPEED
 			theta = math.atan2(velocity_x, velocity_y)

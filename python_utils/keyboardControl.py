@@ -161,20 +161,39 @@ class BasestationHandler:
         # ADDED
         # Value on how much robot moves per key press
         MOVE_STEP = 0.5
-        if keyboard_input['w'] or keyboard_input['s'] or keyboard_input['a'] or keyboard_input['d']:
-            # robot moves if target and current position is not equal
-            if ((self.command.targetX != self.command.currentX ) and (self.command.targetY != self.command.currentY)): 
-                deltaX = (keyboard_input['w'] - keyboard_input['s']) * MOVE_STEP
-                deltaY = (keyboard_input['a'] - keyboard_input['d']) * MOVE_STEP
-                self.command.targetX = deltaX + self.command.currentX
-                self.command.targetY = deltaY + self.command.currentY
-            else:
-                self.command.targetX = self.command.currentX
-                self.command.targetY = self.command.currentY
-        else:
-            # if no key is pressed, robot stays put
-            self.command.targetX = self.command.currentX
-            self.command.targetY = self.command.currentY
+        deltaX = 0
+        deltaY = 0
+
+        if keyboard_input['w']:
+            deltaY += MOVE_STEP
+        if keyboard_input['s']:
+            deltaY -= MOVE_STEP
+        if keyboard_input['a']:
+            deltaX -= MOVE_STEP
+        if keyboard_input['d']:
+            deltaX += MOVE_STEP
+
+        if deltaX != 0 or deltaY != 0:
+            self.command.targetX = self.command.currentX + deltaX
+            self.command.targetY = self.command.currentY + deltaY
+
+
+
+
+        # if keyboard_input['w'] or keyboard_input['s'] or keyboard_input['a'] or keyboard_input['d']:
+        #     # robot moves if target and current position is not equal
+        #     if ((self.command.targetX != self.command.currentX ) and (self.command.targetY != self.command.currentY)): # Double check this regarding the AI checkmarks
+        #         deltaX = (keyboard_input['w'] - keyboard_input['s']) * MOVE_STEP
+        #         deltaY = (keyboard_input['a'] - keyboard_input['d']) * MOVE_STEP
+        #         self.command.targetX = deltaX + self.command.currentX
+        #         self.command.targetY = deltaY + self.command.currentY
+        #     else:
+        #         self.command.targetX = self.command.currentX
+        #         self.command.targetY = self.command.currentY
+        # else:
+        #     # if no key is pressed, robot stays put
+        #     self.command.targetX = self.command.currentX
+        #     self.command.targetY = self.command.currentY
             
         # END ADDED
         self.command.doKick = keyboard_input['k']
