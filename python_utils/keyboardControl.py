@@ -171,12 +171,18 @@ class BasestationHandler:
         
 
 
+<<<<<<< Updated upstream
         # Detect rising edge (key just pressed)
         for key in ['w', 'a', 's', 'd', 'q', 'e']:
             prev = self.previous_keyboard_state.get(key, False)
             curr = keyboard_input.get(key, False)
             if curr and not prev:
                 new_command = True
+=======
+        if deltaX != 0 or deltaY != 0:
+            self.command.targetX = deltaX
+            self.command.targetY = deltaY
+>>>>>>> Stashed changes
 
         # self.previous_keyboard_state = keyboard_input.copy()
 
@@ -184,6 +190,12 @@ class BasestationHandler:
         #     return None  # Don't send anything if no new key press
 
 
+<<<<<<< Updated upstream
+=======
+        if deltaX != 0 or deltaY != 0:
+            self.command.targetX = deltaX
+            self.command.targetY = deltaY
+>>>>>>> Stashed changes
 
         if keyboard_input.get('w', False):
             deltaY += self.MOVE_STEP
