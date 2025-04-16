@@ -178,10 +178,10 @@ class BasestationHandler:
             if curr and not prev:
                 new_command = True
 
-        self.previous_keyboard_state = keyboard_input.copy()
+        # self.previous_keyboard_state = keyboard_input.copy()
 
-        if not new_command:
-            return None  # Don't send anything if no new key press
+        # if not new_command:
+        #     return None  # Don't send anything if no new key press
 
 
 
@@ -194,12 +194,12 @@ class BasestationHandler:
         if keyboard_input.get('d', False):
             deltaX += self.MOVE_STEP
 
-        self.currentX += deltaX
-        self.currentY += deltaY
+        # self.currentX += deltaX
+        # self.currentY += deltaY
 
         # Send new destination
-        self.command.targetX = self.currentX
-        self.command.targetY = self.currentY
+        self.command.targetX = deltaX
+        self.command.targetY = deltaY
         self.command.yaw = self.yaw
 
 
