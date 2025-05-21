@@ -16,9 +16,9 @@ from Core.Inc.roboteam_embedded_messages.python.REM_Log import REM_Log
 from REMParser import REMParser
 import utils
 
-MAX_SPEED = 0.7
-KICK_SPEED =1.0
-ROTATION_SPEED = 3 # radians per second
+MAX_SPEED = 1.5
+KICK_SPEED =3.0
+ROTATION_SPEED = 2.5 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
 
 parser = argparse.ArgumentParser(description='Keyboard to robot controller')
