@@ -155,12 +155,14 @@ class Joystick:
         self.dribblerOn = True
         self.yaw = 0
         self.ignore_joystick = 0
+        self.paused = False
 
         self.command = utils.generate_empty_robot_command()
 
         # Debounce variables for shoot buttons
         self.button_b_prev = False
         self.trigger_r_prev = False
+        self.left_trigger_prev = False
 
         self.assign_open_robot(1)
 
@@ -178,6 +180,24 @@ class Joystick:
 
     def get_payload(self, keyboard_input: Dict[str, bool]) -> bytes:
         pygame.event.pump()  # Refresh controller state
+
+        # Left trigger is usually button 4 on most controllers
+        left_trigger = self.joystick.get_button(4)
+        if left_trigger and not self.left_trigger_prev:
+            self.paused = not self.paused
+            print(f"[Joystick {self.id}] PAUSED: {self.paused}")
+        self.left_trigger_prev = left_trigger
+
+        if self.paused:
+            self.command.rho = 0
+            self.command.theta = 0
+            self.command.yaw = self.yaw
+            self.command.doKick = False
+            self.command.doForce = False
+            self.command.kickChipPower = 0
+            self.command.doChip = False
+            self.command.dribblerOn = False
+            return self.command
 
         if self.ignore_joystick == 0:
             if not self.robot_ids:
