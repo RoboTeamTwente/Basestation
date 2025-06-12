@@ -141,7 +141,7 @@ class JoystickHandler:
 			print(f"\n{e}")
 			self.shutdown()
 
-# ...existing imports...
+
 
 class Joystick:
     def __init__(self, joystick_index: int, robot_id: int, robot_ids: Optional[List[int]] = None) -> None:
@@ -163,6 +163,7 @@ class Joystick:
         self.button_b_prev = False
         self.trigger_r_prev = False
         self.left_trigger_prev = False
+        self.button_r_l_prev = False
 
         self.assign_open_robot(1)
 
@@ -181,12 +182,15 @@ class Joystick:
     def get_payload(self, keyboard_input: Dict[str, bool]) -> bytes:
         pygame.event.pump()  # Refresh controller state
 
-        # Left trigger is usually button 4 on most controllers
-        left_trigger = self.joystick.get_button(4)
-        if left_trigger and not self.left_trigger_prev:
+        # Handle pause/unpause with buttons 5 (right trigger) and 4 (left trigger)
+        button_r_trigger = self.joystick.get_button(5)  # Right trigger
+        button_l_trigger = self.joystick.get_button(4)  # Left trigger
+
+        if button_r_trigger and button_l_trigger and not self.button_r_l_prev:
+            # Toggle pause state when both buttons are pressed simultaneously
             self.paused = not self.paused
             print(f"[Joystick {self.id}] PAUSED: {self.paused}")
-        self.left_trigger_prev = left_trigger
+        self.button_r_l_prev = button_r_trigger and button_l_trigger
 
         if self.paused:
             self.command.rho = 0
