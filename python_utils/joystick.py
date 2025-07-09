@@ -21,8 +21,8 @@ from Core.Inc.roboteam_embedded_messages.python.REM_RobotFeedback import REM_Rob
 from REMParser import REMParser
 import utils
 
-MAX_SPEED = 1.5
-KICK_SPEED = 2.5
+MAX_SPEED = 0.5
+KICK_SPEED = 1.5
 ROTATION_SPEED = 2.5 # radians per second
 BASESTATION_FREQUENCY = 60 # ticks per second
 
